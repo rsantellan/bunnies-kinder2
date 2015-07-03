@@ -106,6 +106,12 @@ class Facturafinal
      */
     private $facturafinalDetalles;
 
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Facturausuario", mappedBy="facturasFinales")
+     **/
+    private $facturasUsuarios;
+    
     /**
      * Get id
      *
@@ -407,5 +413,38 @@ class Facturafinal
     public function getFacturafinalDetalles()
     {
         return $this->facturafinalDetalles;
+    }
+
+    /**
+     * Add facturasUsuarios
+     *
+     * @param \AppBundle\Entity\Facturausuario $facturasUsuarios
+     * @return Facturafinal
+     */
+    public function addFacturasUsuario(\AppBundle\Entity\Facturausuario $facturasUsuarios)
+    {
+        $this->facturasUsuarios[] = $facturasUsuarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturasUsuarios
+     *
+     * @param \AppBundle\Entity\Facturausuario $facturasUsuarios
+     */
+    public function removeFacturasUsuario(\AppBundle\Entity\Facturausuario $facturasUsuarios)
+    {
+        $this->facturasUsuarios->removeElement($facturasUsuarios);
+    }
+
+    /**
+     * Get facturasUsuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFacturasUsuarios()
+    {
+        return $this->facturasUsuarios;
     }
 }

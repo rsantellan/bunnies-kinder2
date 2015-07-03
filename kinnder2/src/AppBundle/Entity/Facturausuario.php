@@ -22,11 +22,12 @@ class Facturausuario
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="usuario_id", type="integer", nullable=false)
-     */
-    private $usuarioId;
+     * 
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="facturas")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * 
+     **/      
+    private $usuario;
 
     /**
      * @var float
@@ -92,7 +93,19 @@ class Facturausuario
     private $updatedAt;
 
 
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Facturausuariodetalle", mappedBy="factura")
+     *
+     */    
+    private $facturaDetalles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Facturafinal", inversedBy="facturasUsuarios")
+     * @ORM\JoinTable(name="facturausuariofinal")
+     **/    
+    private $facturasFinales;
+    
     /**
      * Get id
      *
@@ -101,29 +114,6 @@ class Facturausuario
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set usuarioId
-     *
-     * @param integer $usuarioId
-     * @return Facturausuario
-     */
-    public function setUsuarioId($usuarioId)
-    {
-        $this->usuarioId = $usuarioId;
-
-        return $this;
-    }
-
-    /**
-     * Get usuarioId
-     *
-     * @return integer 
-     */
-    public function getUsuarioId()
-    {
-        return $this->usuarioId;
     }
 
     /**
@@ -331,5 +321,101 @@ class Facturausuario
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \AppBundle\Entity\Usuario $usuario
+     * @return Facturausuario
+     */
+    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \AppBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->facturaDetalles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add facturaDetalles
+     *
+     * @param \AppBundle\Entity\Facturausuariodetalle $facturaDetalles
+     * @return Facturausuario
+     */
+    public function addFacturaDetalle(\AppBundle\Entity\Facturausuariodetalle $facturaDetalles)
+    {
+        $this->facturaDetalles[] = $facturaDetalles;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturaDetalles
+     *
+     * @param \AppBundle\Entity\Facturausuariodetalle $facturaDetalles
+     */
+    public function removeFacturaDetalle(\AppBundle\Entity\Facturausuariodetalle $facturaDetalles)
+    {
+        $this->facturaDetalles->removeElement($facturaDetalles);
+    }
+
+    /**
+     * Get facturaDetalles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFacturaDetalles()
+    {
+        return $this->facturaDetalles;
+    }
+
+    /**
+     * Add facturasFinales
+     *
+     * @param \AppBundle\Entity\Facturafinal $facturasFinales
+     * @return Facturausuario
+     */
+    public function addFacturasFinale(\AppBundle\Entity\Facturafinal $facturasFinales)
+    {
+        $this->facturasFinales[] = $facturasFinales;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturasFinales
+     *
+     * @param \AppBundle\Entity\Facturafinal $facturasFinales
+     */
+    public function removeFacturasFinale(\AppBundle\Entity\Facturafinal $facturasFinales)
+    {
+        $this->facturasFinales->removeElement($facturasFinales);
+    }
+
+    /**
+     * Get facturasFinales
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFacturasFinales()
+    {
+        return $this->facturasFinales;
     }
 }

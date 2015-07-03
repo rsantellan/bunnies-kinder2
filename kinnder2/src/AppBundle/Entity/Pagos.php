@@ -22,11 +22,12 @@ class Pagos
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="usuario_id", type="integer", nullable=false)
-     */
-    private $usuarioId;
+     * 
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="pagos")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * 
+     **/       
+    private $usuario;
 
     /**
      * @var integer
@@ -66,29 +67,6 @@ class Pagos
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set usuarioId
-     *
-     * @param integer $usuarioId
-     * @return Pagos
-     */
-    public function setUsuarioId($usuarioId)
-    {
-        $this->usuarioId = $usuarioId;
-
-        return $this;
-    }
-
-    /**
-     * Get usuarioId
-     *
-     * @return integer 
-     */
-    public function getUsuarioId()
-    {
-        return $this->usuarioId;
     }
 
     /**
@@ -181,5 +159,28 @@ class Pagos
     public function getOutOfDate()
     {
         return $this->outOfDate;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \AppBundle\Entity\Usuario $usuario
+     * @return Pagos
+     */
+    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \AppBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

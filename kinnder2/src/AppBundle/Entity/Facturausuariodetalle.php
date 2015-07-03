@@ -22,11 +22,12 @@ class Facturausuariodetalle
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="factura_id", type="bigint", nullable=false)
-     */
-    private $facturaId;
+     * 
+     * @ORM\ManyToOne(targetEntity="Facturausuario", inversedBy="facturaDetalles")
+     * @ORM\JoinColumn(name="factura_id", referencedColumnName="id")
+     * 
+     **/    
+    private $factura;
 
     /**
      * @var string
@@ -66,29 +67,6 @@ class Facturausuariodetalle
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set facturaId
-     *
-     * @param integer $facturaId
-     * @return Facturausuariodetalle
-     */
-    public function setFacturaId($facturaId)
-    {
-        $this->facturaId = $facturaId;
-
-        return $this;
-    }
-
-    /**
-     * Get facturaId
-     *
-     * @return integer 
-     */
-    public function getFacturaId()
-    {
-        return $this->facturaId;
     }
 
     /**
@@ -181,5 +159,28 @@ class Facturausuariodetalle
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set factura
+     *
+     * @param \AppBundle\Entity\Facturausuario $factura
+     * @return Facturausuariodetalle
+     */
+    public function setFactura(\AppBundle\Entity\Facturausuario $factura = null)
+    {
+        $this->factura = $factura;
+
+        return $this;
+    }
+
+    /**
+     * Get factura
+     *
+     * @return \AppBundle\Entity\Facturausuario 
+     */
+    public function getFactura()
+    {
+        return $this->factura;
     }
 }

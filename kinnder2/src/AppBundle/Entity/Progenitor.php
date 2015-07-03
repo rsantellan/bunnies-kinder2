@@ -77,6 +77,12 @@ class Progenitor
      * @ORM\JoinTable(name="cuentapadre")
      **/    
     private $cuentas;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="progenitores")
+     * @ORM\JoinTable(name="usuario_progenitor")
+     **/    
+    private $alumnos;    
 
     /**
      * Get id
@@ -287,5 +293,38 @@ class Progenitor
     public function getCuentas()
     {
         return $this->cuentas;
+    }
+
+    /**
+     * Add alumnos
+     *
+     * @param \AppBundle\Entity\Usuario $alumnos
+     * @return Progenitor
+     */
+    public function addAlumno(\AppBundle\Entity\Usuario $alumnos)
+    {
+        $this->alumnos[] = $alumnos;
+
+        return $this;
+    }
+
+    /**
+     * Remove alumnos
+     *
+     * @param \AppBundle\Entity\Usuario $alumnos
+     */
+    public function removeAlumno(\AppBundle\Entity\Usuario $alumnos)
+    {
+        $this->alumnos->removeElement($alumnos);
+    }
+
+    /**
+     * Get alumnos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAlumnos()
+    {
+        return $this->alumnos;
     }
 }

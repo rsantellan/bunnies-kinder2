@@ -142,6 +142,42 @@ class Usuario
     private $exoneraciones;
     
     /**
+     * 
+     * @ORM\OneToMany(targetEntity="Pagos", mappedBy="usuario")
+     *
+     */
+    private $pagos;
+    
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Facturausuario", mappedBy="usuario")
+     *
+     */
+    private $facturas;
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="myBrothers")
+     **/
+    private $brothersWithMe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="brothersWithMe")
+     * @ORM\JoinTable(name="hermanos",
+     *      joinColumns={@ORM\JoinColumn(name="usuario_from", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_to", referencedColumnName="id")}
+     *      )
+     **/
+    private $myBrothers;
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Progenitor", mappedBy="alumnos")
+     * 
+     * */    
+    private $progenitores;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -613,5 +649,170 @@ class Usuario
     public function getExoneraciones()
     {
         return $this->exoneraciones;
+    }
+
+    /**
+     * Add facturas
+     *
+     * @param \AppBundle\Entity\Facturausuario $facturas
+     * @return Usuario
+     */
+    public function addFactura(\AppBundle\Entity\Facturausuario $facturas)
+    {
+        $this->facturas[] = $facturas;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturas
+     *
+     * @param \AppBundle\Entity\Facturausuario $facturas
+     */
+    public function removeFactura(\AppBundle\Entity\Facturausuario $facturas)
+    {
+        $this->facturas->removeElement($facturas);
+    }
+
+    /**
+     * Get facturas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFacturas()
+    {
+        return $this->facturas;
+    }
+
+    /**
+     * Add pagos
+     *
+     * @param \AppBundle\Entity\Pagos $pagos
+     * @return Usuario
+     */
+    public function addPago(\AppBundle\Entity\Pagos $pagos)
+    {
+        $this->pagos[] = $pagos;
+
+        return $this;
+    }
+
+    /**
+     * Remove pagos
+     *
+     * @param \AppBundle\Entity\Pagos $pagos
+     */
+    public function removePago(\AppBundle\Entity\Pagos $pagos)
+    {
+        $this->pagos->removeElement($pagos);
+    }
+
+    /**
+     * Get pagos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPagos()
+    {
+        return $this->pagos;
+    }
+
+    /**
+     * Add brothersWithMe
+     *
+     * @param \AppBundle\Entity\Usuario $brothersWithMe
+     * @return Usuario
+     */
+    public function addBrothersWithMe(\AppBundle\Entity\Usuario $brothersWithMe)
+    {
+        $this->brothersWithMe[] = $brothersWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove brothersWithMe
+     *
+     * @param \AppBundle\Entity\Usuario $brothersWithMe
+     */
+    public function removeBrothersWithMe(\AppBundle\Entity\Usuario $brothersWithMe)
+    {
+        $this->brothersWithMe->removeElement($brothersWithMe);
+    }
+
+    /**
+     * Get brothersWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBrothersWithMe()
+    {
+        return $this->brothersWithMe;
+    }
+
+    /**
+     * Add myBrothers
+     *
+     * @param \AppBundle\Entity\Usuario $myBrothers
+     * @return Usuario
+     */
+    public function addMyBrother(\AppBundle\Entity\Usuario $myBrothers)
+    {
+        $this->myBrothers[] = $myBrothers;
+
+        return $this;
+    }
+
+    /**
+     * Remove myBrothers
+     *
+     * @param \AppBundle\Entity\Usuario $myBrothers
+     */
+    public function removeMyBrother(\AppBundle\Entity\Usuario $myBrothers)
+    {
+        $this->myBrothers->removeElement($myBrothers);
+    }
+
+    /**
+     * Get myBrothers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyBrothers()
+    {
+        return $this->myBrothers;
+    }
+
+    /**
+     * Add progenitores
+     *
+     * @param \AppBundle\Entity\Progenitor $progenitores
+     * @return Usuario
+     */
+    public function addProgenitore(\AppBundle\Entity\Progenitor $progenitores)
+    {
+        $this->progenitores[] = $progenitores;
+
+        return $this;
+    }
+
+    /**
+     * Remove progenitores
+     *
+     * @param \AppBundle\Entity\Progenitor $progenitores
+     */
+    public function removeProgenitore(\AppBundle\Entity\Progenitor $progenitores)
+    {
+        $this->progenitores->removeElement($progenitores);
+    }
+
+    /**
+     * Get progenitores
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProgenitores()
+    {
+        return $this->progenitores;
     }
 }
