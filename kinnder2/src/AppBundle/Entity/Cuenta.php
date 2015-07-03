@@ -72,6 +72,17 @@ class Cuenta
     private $cobros;
     
     /**
+     * @ORM\ManyToMany(targetEntity="Progenitor", mappedBy="cuentas")
+     **/
+    private $progenitores;
+
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="cuentas")
+     **/
+    private $usuarios;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -218,13 +229,8 @@ class Cuenta
     {
         return $this->updatedAt;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cobros = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
+    
 
     /**
      * Add cobros
@@ -258,4 +264,81 @@ class Cuenta
     {
         return $this->cobros;
     }
+
+    /**
+     * Add progenitores
+     *
+     * @param \AppBundle\Entity\Progenitor $progenitores
+     * @return Cuenta
+     */
+    public function addProgenitore(\AppBundle\Entity\Progenitor $progenitores)
+    {
+        $this->progenitores[] = $progenitores;
+
+        return $this;
+    }
+
+    /**
+     * Remove progenitores
+     *
+     * @param \AppBundle\Entity\Progenitor $progenitores
+     */
+    public function removeProgenitore(\AppBundle\Entity\Progenitor $progenitores)
+    {
+        $this->progenitores->removeElement($progenitores);
+    }
+
+    /**
+     * Get progenitores
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProgenitores()
+    {
+        return $this->progenitores;
+    }
+
+    /**
+     * Add usuarios
+     *
+     * @param \AppBundle\Entity\Usuario $usuarios
+     * @return Cuenta
+     */
+    public function addUsuario(\AppBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios[] = $usuarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuarios
+     *
+     * @param \AppBundle\Entity\Usuario $usuarios
+     */
+    public function removeUsuario(\AppBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios->removeElement($usuarios);
+    }
+
+    /**
+     * Get usuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsuarios()
+    {
+        return $this->usuarios;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cobros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->progenitores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

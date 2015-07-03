@@ -52,6 +52,10 @@ class Actividades
      **/
     private $mdNewsLetterGroup;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="actividades")
+     **/    
+    private $usuarios;    
 
     /**
      * Get id
@@ -155,5 +159,46 @@ class Actividades
     public function getMdNewsLetterGroup()
     {
         return $this->mdNewsLetterGroup;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add usuarios
+     *
+     * @param \AppBundle\Entity\Usuario $usuarios
+     * @return Actividades
+     */
+    public function addUsuario(\AppBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios[] = $usuarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuarios
+     *
+     * @param \AppBundle\Entity\Usuario $usuarios
+     */
+    public function removeUsuario(\AppBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios->removeElement($usuarios);
+    }
+
+    /**
+     * Get usuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsuarios()
+    {
+        return $this->usuarios;
     }
 }

@@ -113,11 +113,8 @@ class Usuario
     private $billeteraId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Actividades")
-     * @ORM\JoinTable(name="usuario_actividades",
-     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="actividad_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Actividades", inversedBy="usuarios")
+     * @ORM\JoinTable(name="usuario_actividades")
      **/    
     private $actividades;
 
@@ -130,6 +127,11 @@ class Usuario
      **/
     private $billetera;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="usuarios")
+     * @ORM\JoinTable(name="cuentausuario")
+     **/    
+    private $cuentas;    
     
     /**
      * Get id
@@ -439,13 +441,7 @@ class Usuario
     {
         return $this->billeteraId;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
 
     /**
      * Add actividades
@@ -502,4 +498,46 @@ class Usuario
     {
         return $this->billetera;
     }
+
+    /**
+     * Add cuentas
+     *
+     * @param \AppBundle\Entity\Cuenta $cuentas
+     * @return Usuario
+     */
+    public function addCuenta(\AppBundle\Entity\Cuenta $cuentas)
+    {
+        $this->cuentas[] = $cuentas;
+
+        return $this;
+    }
+
+    /**
+     * Remove cuentas
+     *
+     * @param \AppBundle\Entity\Cuenta $cuentas
+     */
+    public function removeCuenta(\AppBundle\Entity\Cuenta $cuentas)
+    {
+        $this->cuentas->removeElement($cuentas);
+    }
+
+    /**
+     * Get cuentas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCuentas()
+    {
+        return $this->cuentas;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }
