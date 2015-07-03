@@ -99,7 +99,12 @@ class Facturafinal
      */
     private $updatedAt;
 
-
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Facturafinaldetalle", mappedBy="factura")
+     *
+     */
+    private $facturafinalDetalles;
 
     /**
      * Get id
@@ -362,5 +367,45 @@ class Facturafinal
     public function getCuenta()
     {
         return $this->cuenta;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->facturafinalDetalles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add facturafinalDetalles
+     *
+     * @param \AppBundle\Entity\Facturafinaldetalle $facturafinalDetalles
+     * @return Facturafinal
+     */
+    public function addFacturafinalDetalle(\AppBundle\Entity\Facturafinaldetalle $facturafinalDetalles)
+    {
+        $this->facturafinalDetalles[] = $facturafinalDetalles;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturafinalDetalles
+     *
+     * @param \AppBundle\Entity\Facturafinaldetalle $facturafinalDetalles
+     */
+    public function removeFacturafinalDetalle(\AppBundle\Entity\Facturafinaldetalle $facturafinalDetalles)
+    {
+        $this->facturafinalDetalles->removeElement($facturafinalDetalles);
+    }
+
+    /**
+     * Get facturafinalDetalles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFacturafinalDetalles()
+    {
+        return $this->facturafinalDetalles;
     }
 }
