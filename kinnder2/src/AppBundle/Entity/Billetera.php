@@ -42,8 +42,13 @@ class Billetera
      */
     private $impuesto;
 
-
-
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Usuario", mappedBy="billetera")
+     *
+     */
+    private $usuarios;
+    
     /**
      * Get id
      *
@@ -121,5 +126,47 @@ class Billetera
     public function getImpuesto()
     {
         return $this->impuesto;
+    }
+
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add usuarios
+     *
+     * @param \AppBundle\Entity\Usuario $usuarios
+     * @return Billetera
+     */
+    public function addUsuario(\AppBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios[] = $usuarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuarios
+     *
+     * @param \AppBundle\Entity\Usuario $usuarios
+     */
+    public function removeUsuario(\AppBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios->removeElement($usuarios);
+    }
+
+    /**
+     * Get usuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsuarios()
+    {
+        return $this->usuarios;
     }
 }

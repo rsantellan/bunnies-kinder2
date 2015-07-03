@@ -64,7 +64,13 @@ class Cuenta
     private $updatedAt;
 
 
-
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Cobro", mappedBy="cuenta")
+     *
+     */
+    private $cobros;
+    
     /**
      * Get id
      *
@@ -211,5 +217,45 @@ class Cuenta
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cobros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add cobros
+     *
+     * @param \AppBundle\Entity\Cobro $cobros
+     * @return Cuenta
+     */
+    public function addCobro(\AppBundle\Entity\Cobro $cobros)
+    {
+        $this->cobros[] = $cobros;
+
+        return $this;
+    }
+
+    /**
+     * Remove cobros
+     *
+     * @param \AppBundle\Entity\Cobro $cobros
+     */
+    public function removeCobro(\AppBundle\Entity\Cobro $cobros)
+    {
+        $this->cobros->removeElement($cobros);
+    }
+
+    /**
+     * Get cobros
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCobros()
+    {
+        return $this->cobros;
     }
 }

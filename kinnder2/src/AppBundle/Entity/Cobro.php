@@ -22,11 +22,12 @@ class Cobro
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="cuenta_id", type="integer", nullable=false)
-     */
-    private $cuentaId;
+     * 
+     * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="cobros")
+     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id")
+     * 
+     **/    
+    private $cuenta;
 
     /**
      * @var \DateTime
@@ -66,29 +67,6 @@ class Cobro
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set cuentaId
-     *
-     * @param integer $cuentaId
-     * @return Cobro
-     */
-    public function setCuentaId($cuentaId)
-    {
-        $this->cuentaId = $cuentaId;
-
-        return $this;
-    }
-
-    /**
-     * Get cuentaId
-     *
-     * @return integer 
-     */
-    public function getCuentaId()
-    {
-        return $this->cuentaId;
     }
 
     /**
@@ -181,5 +159,28 @@ class Cobro
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set cuenta
+     *
+     * @param \AppBundle\Entity\Cuenta $cuenta
+     * @return Cobro
+     */
+    public function setCuenta(\AppBundle\Entity\Cuenta $cuenta = null)
+    {
+        $this->cuenta = $cuenta;
+
+        return $this;
+    }
+
+    /**
+     * Get cuenta
+     *
+     * @return \AppBundle\Entity\Cuenta 
+     */
+    public function getCuenta()
+    {
+        return $this->cuenta;
     }
 }

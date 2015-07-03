@@ -121,6 +121,16 @@ class Usuario
      **/    
     private $actividades;
 
+    
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="Billetera", inversedBy="usuarios")
+     * @ORM\JoinColumn(name="billetera_id", referencedColumnName="id")
+     * 
+     **/
+    private $billetera;
+    
+    
     /**
      * Get id
      *
@@ -468,5 +478,28 @@ class Usuario
     public function getActividades()
     {
         return $this->actividades;
+    }
+
+    /**
+     * Set billetera
+     *
+     * @param \AppBundle\Entity\Billetera $billetera
+     * @return Usuario
+     */
+    public function setBilletera(\AppBundle\Entity\Billetera $billetera = null)
+    {
+        $this->billetera = $billetera;
+
+        return $this;
+    }
+
+    /**
+     * Get billetera
+     *
+     * @return \AppBundle\Entity\Billetera 
+     */
+    public function getBilletera()
+    {
+        return $this->billetera;
     }
 }
