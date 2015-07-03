@@ -83,6 +83,13 @@ class Cuenta
     private $usuarios;
     
     /**
+     * 
+     * @ORM\OneToMany(targetEntity="Facturafinal", mappedBy="cuenta")
+     *
+     */
+    private $facturas;    
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -341,4 +348,37 @@ class Cuenta
         $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Add facturas
+     *
+     * @param \AppBundle\Entity\Facturafinal $facturas
+     * @return Cuenta
+     */
+    public function addFactura(\AppBundle\Entity\Facturafinal $facturas)
+    {
+        $this->facturas[] = $facturas;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturas
+     *
+     * @param \AppBundle\Entity\Facturafinal $facturas
+     */
+    public function removeFactura(\AppBundle\Entity\Facturafinal $facturas)
+    {
+        $this->facturas->removeElement($facturas);
+    }
+
+    /**
+     * Get facturas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFacturas()
+    {
+        return $this->facturas;
+    }
 }

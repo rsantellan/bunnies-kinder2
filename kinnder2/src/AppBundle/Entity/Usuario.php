@@ -133,6 +133,14 @@ class Usuario
      **/    
     private $cuentas;    
     
+    
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Exoneracion", mappedBy="usuario")
+     *
+     */
+    private $exoneraciones;
+    
     /**
      * Get id
      *
@@ -540,4 +548,70 @@ class Usuario
         $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Add exoneracion
+     *
+     * @param \AppBundle\Entity\Exoneracion $exoneracion
+     * @return Usuario
+     */
+    public function addExoneracion(\AppBundle\Entity\Exoneracion $exoneracion)
+    {
+        $this->exoneracion[] = $exoneracion;
+
+        return $this;
+    }
+
+    /**
+     * Remove exoneracion
+     *
+     * @param \AppBundle\Entity\Exoneracion $exoneracion
+     */
+    public function removeExoneracion(\AppBundle\Entity\Exoneracion $exoneracion)
+    {
+        $this->exoneracion->removeElement($exoneracion);
+    }
+
+    /**
+     * Get exoneracion
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExoneracion()
+    {
+        return $this->exoneracion;
+    }
+
+    /**
+     * Add exoneraciones
+     *
+     * @param \AppBundle\Entity\Exoneracion $exoneraciones
+     * @return Usuario
+     */
+    public function addExoneracione(\AppBundle\Entity\Exoneracion $exoneraciones)
+    {
+        $this->exoneraciones[] = $exoneraciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove exoneraciones
+     *
+     * @param \AppBundle\Entity\Exoneracion $exoneraciones
+     */
+    public function removeExoneracione(\AppBundle\Entity\Exoneracion $exoneraciones)
+    {
+        $this->exoneraciones->removeElement($exoneraciones);
+    }
+
+    /**
+     * Get exoneraciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExoneraciones()
+    {
+        return $this->exoneraciones;
+    }
 }

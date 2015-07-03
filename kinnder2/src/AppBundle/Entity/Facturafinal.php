@@ -64,11 +64,12 @@ class Facturafinal
     private $enviado;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="cuenta_id", type="integer", nullable=false)
-     */
-    private $cuentaId;
+     * 
+     * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="facturas")
+     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id")
+     * 
+     **/ 
+    private $cuenta;
 
     /**
      * @var \DateTime
@@ -249,29 +250,6 @@ class Facturafinal
     }
 
     /**
-     * Set cuentaId
-     *
-     * @param integer $cuentaId
-     * @return Facturafinal
-     */
-    public function setCuentaId($cuentaId)
-    {
-        $this->cuentaId = $cuentaId;
-
-        return $this;
-    }
-
-    /**
-     * Get cuentaId
-     *
-     * @return integer 
-     */
-    public function getCuentaId()
-    {
-        return $this->cuentaId;
-    }
-
-    /**
      * Set fechavencimiento
      *
      * @param \DateTime $fechavencimiento
@@ -361,5 +339,28 @@ class Facturafinal
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set cuenta
+     *
+     * @param \AppBundle\Entity\Cuenta $cuenta
+     * @return Facturafinal
+     */
+    public function setCuenta(\AppBundle\Entity\Cuenta $cuenta = null)
+    {
+        $this->cuenta = $cuenta;
+
+        return $this;
+    }
+
+    /**
+     * Get cuenta
+     *
+     * @return \AppBundle\Entity\Cuenta 
+     */
+    public function getCuenta()
+    {
+        return $this->cuenta;
     }
 }

@@ -22,11 +22,12 @@ class Exoneracion
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="usuario_id", type="integer", nullable=false)
-     */
-    private $usuarioId;
+     * 
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="exoneraciones")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * 
+     **/       
+    private $usuario;
 
     /**
      * @var string
@@ -52,29 +53,6 @@ class Exoneracion
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set usuarioId
-     *
-     * @param integer $usuarioId
-     * @return Exoneracion
-     */
-    public function setUsuarioId($usuarioId)
-    {
-        $this->usuarioId = $usuarioId;
-
-        return $this;
-    }
-
-    /**
-     * Get usuarioId
-     *
-     * @return integer 
-     */
-    public function getUsuarioId()
-    {
-        return $this->usuarioId;
     }
 
     /**
@@ -121,5 +99,28 @@ class Exoneracion
     public function getFecha()
     {
         return $this->fecha;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \AppBundle\Entity\Usuario $usuario
+     * @return Exoneracion
+     */
+    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \AppBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }
