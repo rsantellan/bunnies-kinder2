@@ -113,7 +113,7 @@ class Estudiante
     private $billeteraId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Actividades", inversedBy="estudiantes")
+     * @ORM\ManyToMany(targetEntity="Actividad", inversedBy="estudiantes")
      * @ORM\JoinTable(name="usuario_actividades")
      **/    
     private $actividades;

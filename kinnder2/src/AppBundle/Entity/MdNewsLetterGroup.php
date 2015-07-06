@@ -31,7 +31,7 @@ class MdNewsLetterGroup
 
     /**
      * 
-     * @ORM\OneToOne(targetEntity="Actividades", mappedBy="mdNewsLetterGroup")
+     * @ORM\OneToOne(targetEntity="Actividad", mappedBy="mdNewsLetterGroup")
      *
      */
     private $actividad;
