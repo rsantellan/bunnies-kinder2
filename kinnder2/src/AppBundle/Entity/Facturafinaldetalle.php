@@ -17,7 +17,7 @@ class Facturafinaldetalle
      *
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 

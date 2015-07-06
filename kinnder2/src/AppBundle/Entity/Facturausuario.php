@@ -17,7 +17,7 @@ class Facturausuario
      *
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -324,14 +324,6 @@ class Facturausuario
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->facturaDetalles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add facturaDetalles
      *
      * @param \AppBundle\Entity\Facturausuariodetalle $facturaDetalles
@@ -395,5 +387,36 @@ class Facturausuario
     public function getFacturasFinales()
     {
         return $this->facturasFinales;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->facturaDetalles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->facturasFinales = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set estudiante
+     *
+     * @param \AppBundle\Entity\Estudiante $estudiante
+     * @return Facturausuario
+     */
+    public function setEstudiante(\AppBundle\Entity\Estudiante $estudiante = null)
+    {
+        $this->estudiante = $estudiante;
+
+        return $this;
+    }
+
+    /**
+     * Get estudiante
+     *
+     * @return \AppBundle\Entity\Estudiante 
+     */
+    public function getEstudiante()
+    {
+        return $this->estudiante;
     }
 }

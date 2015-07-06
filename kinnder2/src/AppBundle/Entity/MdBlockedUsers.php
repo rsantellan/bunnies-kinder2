@@ -17,7 +17,7 @@ class MdBlockedUsers
      *
      * @ORM\Column(name="md_user_id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $mdUserId;
 

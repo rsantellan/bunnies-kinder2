@@ -17,7 +17,7 @@ class Progenitor
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -80,7 +80,10 @@ class Progenitor
     
     /**
      * @ORM\ManyToMany(targetEntity="Estudiante", inversedBy="progenitores")
-     * @ORM\JoinTable(name="usuario_progenitor")
+     * @ORM\JoinTable(name="usuario_progenitor",
+     *      joinColumns={@ORM\JoinColumn(name="progenitor_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
+     *      )
      **/    
     private $estudiantes;    
 
@@ -254,13 +257,6 @@ class Progenitor
     {
         return $this->mdUserId;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add cuentas
@@ -295,4 +291,45 @@ class Progenitor
         return $this->cuentas;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->estudiantes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add estudiantes
+     *
+     * @param \AppBundle\Entity\Estudiante $estudiantes
+     * @return Progenitor
+     */
+    public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
+    {
+        $this->estudiantes[] = $estudiantes;
+
+        return $this;
+    }
+
+    /**
+     * Remove estudiantes
+     *
+     * @param \AppBundle\Entity\Estudiante $estudiantes
+     */
+    public function removeEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
+    {
+        $this->estudiantes->removeElement($estudiantes);
+    }
+
+    /**
+     * Get estudiantes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEstudiantes()
+    {
+        return $this->estudiantes;
+    }
 }

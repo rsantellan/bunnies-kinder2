@@ -17,7 +17,7 @@ class Facturafinal
      *
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -374,13 +374,6 @@ class Facturafinal
     {
         return $this->cuenta;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->facturafinalDetalles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add facturafinalDetalles
@@ -447,4 +440,13 @@ class Facturafinal
     {
         return $this->facturasUsuarios;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->facturafinalDetalles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->facturasUsuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

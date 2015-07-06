@@ -17,7 +17,7 @@ class Cuenta
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -337,5 +337,48 @@ class Cuenta
     public function getFacturas()
     {
         return $this->facturas;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cobros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->progenitores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->estudiantes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->facturas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add estudiantes
+     *
+     * @param \AppBundle\Entity\Estudiante $estudiantes
+     * @return Cuenta
+     */
+    public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
+    {
+        $this->estudiantes[] = $estudiantes;
+
+        return $this;
+    }
+
+    /**
+     * Remove estudiantes
+     *
+     * @param \AppBundle\Entity\Estudiante $estudiantes
+     */
+    public function removeEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
+    {
+        $this->estudiantes->removeElement($estudiantes);
+    }
+
+    /**
+     * Get estudiantes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEstudiantes()
+    {
+        return $this->estudiantes;
     }
 }

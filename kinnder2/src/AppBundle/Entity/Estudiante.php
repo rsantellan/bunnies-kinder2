@@ -17,7 +17,7 @@ class Estudiante
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -114,13 +114,19 @@ class Estudiante
 
     /**
      * @ORM\ManyToMany(targetEntity="Actividad", inversedBy="estudiantes")
-     * @ORM\JoinTable(name="usuario_actividades")
+     * @ORM\JoinTable(name="usuario_actividades",
+     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="actividad_id", referencedColumnName="id")}
+     *      )
      **/    
     private $actividades;
 
     /**
      * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="estudiantes")
-     * @ORM\JoinTable(name="cuentausuario")
+     * @ORM\JoinTable(name="cuentausuario",
+     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="cuenta_id", referencedColumnName="id")}
+     *      )
      **/    
     private $cuentas;    
     
@@ -513,15 +519,6 @@ class Estudiante
     {
         return $this->cuentas;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
 
     /**
      * Add exoneracion
@@ -719,5 +716,41 @@ class Estudiante
     public function getProgenitores()
     {
         return $this->progenitores;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->facturas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->brothersWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myBrothers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->progenitores = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set billeteraId
+     *
+     * @param integer $billeteraId
+     * @return Estudiante
+     */
+    public function setBilleteraId($billeteraId)
+    {
+        $this->billeteraId = $billeteraId;
+
+        return $this;
+    }
+
+    /**
+     * Get billeteraId
+     *
+     * @return integer 
+     */
+    public function getBilleteraId()
+    {
+        return $this->billeteraId;
     }
 }

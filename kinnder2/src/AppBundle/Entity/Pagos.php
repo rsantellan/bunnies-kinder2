@@ -17,7 +17,7 @@ class Pagos
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -161,4 +161,27 @@ class Pagos
         return $this->outOfDate;
     }
 
+
+    /**
+     * Set estudiante
+     *
+     * @param \AppBundle\Entity\Estudiante $estudiante
+     * @return Pagos
+     */
+    public function setEstudiante(\AppBundle\Entity\Estudiante $estudiante = null)
+    {
+        $this->estudiante = $estudiante;
+
+        return $this;
+    }
+
+    /**
+     * Get estudiante
+     *
+     * @return \AppBundle\Entity\Estudiante 
+     */
+    public function getEstudiante()
+    {
+        return $this->estudiante;
+    }
 }
