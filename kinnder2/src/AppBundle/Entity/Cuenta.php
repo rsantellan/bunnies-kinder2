@@ -78,9 +78,9 @@ class Cuenta
 
     
     /**
-     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="cuentas")
+     * @ORM\ManyToMany(targetEntity="Estudiante", mappedBy="cuentas")
      **/
-    private $usuarios;
+    private $estudiantes;
     
     /**
      * 
@@ -303,49 +303,6 @@ class Cuenta
     public function getProgenitores()
     {
         return $this->progenitores;
-    }
-
-    /**
-     * Add usuarios
-     *
-     * @param \AppBundle\Entity\Usuario $usuarios
-     * @return Cuenta
-     */
-    public function addUsuario(\AppBundle\Entity\Usuario $usuarios)
-    {
-        $this->usuarios[] = $usuarios;
-
-        return $this;
-    }
-
-    /**
-     * Remove usuarios
-     *
-     * @param \AppBundle\Entity\Usuario $usuarios
-     */
-    public function removeUsuario(\AppBundle\Entity\Usuario $usuarios)
-    {
-        $this->usuarios->removeElement($usuarios);
-    }
-
-    /**
-     * Get usuarios
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUsuarios()
-    {
-        return $this->usuarios;
-    }
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cobros = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->progenitores = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

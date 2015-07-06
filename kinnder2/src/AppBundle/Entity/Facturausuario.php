@@ -23,11 +23,11 @@ class Facturausuario
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="facturas")
+     * @ORM\ManyToOne(targetEntity="Estudiante", inversedBy="facturas")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * 
      **/      
-    private $usuario;
+    private $estudiante;
 
     /**
      * @var float
@@ -323,28 +323,6 @@ class Facturausuario
         return $this->updatedAt;
     }
 
-    /**
-     * Set usuario
-     *
-     * @param \AppBundle\Entity\Usuario $usuario
-     * @return Facturausuario
-     */
-    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return \AppBundle\Entity\Usuario 
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
     /**
      * Constructor
      */

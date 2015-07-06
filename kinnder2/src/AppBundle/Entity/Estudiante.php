@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Usuario
+ * Estudiante
  *
  * @ORM\Table(name="usuario", indexes={@ORM\Index(name="billetera_id_idx", columns={"billetera_id"})})
  * @ORM\Entity
  */
-class Usuario
+class Estudiante
 {
     /**
      * @var integer
@@ -104,7 +104,7 @@ class Usuario
      * @ORM\Column(name="egresado", type="boolean", nullable=true)
      */
     private $egresado;
-
+    
     /**
      * @var integer
      *
@@ -113,22 +113,13 @@ class Usuario
     private $billeteraId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Actividades", inversedBy="usuarios")
+     * @ORM\ManyToMany(targetEntity="Actividades", inversedBy="estudiantes")
      * @ORM\JoinTable(name="usuario_actividades")
      **/    
     private $actividades;
 
-    
     /**
-     * 
-     * @ORM\ManyToOne(targetEntity="Billetera", inversedBy="usuarios")
-     * @ORM\JoinColumn(name="billetera_id", referencedColumnName="id")
-     * 
-     **/
-    private $billetera;
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="usuarios")
+     * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="estudiantes")
      * @ORM\JoinTable(name="cuentausuario")
      **/    
     private $cuentas;    
@@ -136,33 +127,26 @@ class Usuario
     
     /**
      * 
-     * @ORM\OneToMany(targetEntity="Exoneracion", mappedBy="usuario")
-     *
-     */
-    private $exoneraciones;
-    
-    /**
-     * 
-     * @ORM\OneToMany(targetEntity="Pagos", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="Pagos", mappedBy="estudiante")
      *
      */
     private $pagos;
     
     /**
      * 
-     * @ORM\OneToMany(targetEntity="Facturausuario", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="Facturausuario", mappedBy="estudiante")
      *
      */
     private $facturas;
     
     
     /**
-     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="myBrothers")
+     * @ORM\ManyToMany(targetEntity="Estudiante", mappedBy="myBrothers")
      **/
     private $brothersWithMe;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="brothersWithMe")
+     * @ORM\ManyToMany(targetEntity="Estudiante", inversedBy="brothersWithMe")
      * @ORM\JoinTable(name="hermanos",
      *      joinColumns={@ORM\JoinColumn(name="usuario_from", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_to", referencedColumnName="id")}
@@ -172,7 +156,7 @@ class Usuario
     
     
     /**
-     * @ORM\ManyToMany(targetEntity="Progenitor", mappedBy="alumnos")
+     * @ORM\ManyToMany(targetEntity="Progenitor", mappedBy="estudiantes")
      * 
      * */    
     private $progenitores;
@@ -191,7 +175,7 @@ class Usuario
      * Set nombre
      *
      * @param string $nombre
-     * @return Usuario
+     * @return Estudiante
      */
     public function setNombre($nombre)
     {
@@ -214,7 +198,7 @@ class Usuario
      * Set apellido
      *
      * @param string $apellido
-     * @return Usuario
+     * @return Estudiante
      */
     public function setApellido($apellido)
     {
@@ -237,7 +221,7 @@ class Usuario
      * Set fechaNacimiento
      *
      * @param \DateTime $fechaNacimiento
-     * @return Usuario
+     * @return Estudiante
      */
     public function setFechaNacimiento($fechaNacimiento)
     {
@@ -260,7 +244,7 @@ class Usuario
      * Set anioIngreso
      *
      * @param integer $anioIngreso
-     * @return Usuario
+     * @return Estudiante
      */
     public function setAnioIngreso($anioIngreso)
     {
@@ -283,7 +267,7 @@ class Usuario
      * Set sociedad
      *
      * @param string $sociedad
-     * @return Usuario
+     * @return Estudiante
      */
     public function setSociedad($sociedad)
     {
@@ -306,7 +290,7 @@ class Usuario
      * Set referenciaBancaria
      *
      * @param string $referenciaBancaria
-     * @return Usuario
+     * @return Estudiante
      */
     public function setReferenciaBancaria($referenciaBancaria)
     {
@@ -329,7 +313,7 @@ class Usuario
      * Set emergenciaMedica
      *
      * @param string $emergenciaMedica
-     * @return Usuario
+     * @return Estudiante
      */
     public function setEmergenciaMedica($emergenciaMedica)
     {
@@ -352,7 +336,7 @@ class Usuario
      * Set horario
      *
      * @param string $horario
-     * @return Usuario
+     * @return Estudiante
      */
     public function setHorario($horario)
     {
@@ -375,7 +359,7 @@ class Usuario
      * Set futuroColegio
      *
      * @param string $futuroColegio
-     * @return Usuario
+     * @return Estudiante
      */
     public function setFuturoColegio($futuroColegio)
     {
@@ -398,7 +382,7 @@ class Usuario
      * Set descuento
      *
      * @param integer $descuento
-     * @return Usuario
+     * @return Estudiante
      */
     public function setDescuento($descuento)
     {
@@ -421,7 +405,7 @@ class Usuario
      * Set clase
      *
      * @param string $clase
-     * @return Usuario
+     * @return Estudiante
      */
     public function setClase($clase)
     {
@@ -444,7 +428,7 @@ class Usuario
      * Set egresado
      *
      * @param boolean $egresado
-     * @return Usuario
+     * @return Estudiante
      */
     public function setEgresado($egresado)
     {
@@ -463,35 +447,12 @@ class Usuario
         return $this->egresado;
     }
 
-    /**
-     * Set billeteraId
-     *
-     * @param integer $billeteraId
-     * @return Usuario
-     */
-    public function setBilleteraId($billeteraId)
-    {
-        $this->billeteraId = $billeteraId;
-
-        return $this;
-    }
-
-    /**
-     * Get billeteraId
-     *
-     * @return integer 
-     */
-    public function getBilleteraId()
-    {
-        return $this->billeteraId;
-    }
     
-
     /**
      * Add actividades
      *
      * @param \AppBundle\Entity\Actividades $actividades
-     * @return Usuario
+     * @return Estudiante
      */
     public function addActividade(\AppBundle\Entity\Actividades $actividades)
     {
@@ -521,33 +482,10 @@ class Usuario
     }
 
     /**
-     * Set billetera
-     *
-     * @param \AppBundle\Entity\Billetera $billetera
-     * @return Usuario
-     */
-    public function setBilletera(\AppBundle\Entity\Billetera $billetera = null)
-    {
-        $this->billetera = $billetera;
-
-        return $this;
-    }
-
-    /**
-     * Get billetera
-     *
-     * @return \AppBundle\Entity\Billetera 
-     */
-    public function getBilletera()
-    {
-        return $this->billetera;
-    }
-
-    /**
      * Add cuentas
      *
      * @param \AppBundle\Entity\Cuenta $cuentas
-     * @return Usuario
+     * @return Estudiante
      */
     public function addCuenta(\AppBundle\Entity\Cuenta $cuentas)
     {
@@ -589,7 +527,7 @@ class Usuario
      * Add exoneracion
      *
      * @param \AppBundle\Entity\Exoneracion $exoneracion
-     * @return Usuario
+     * @return Estudiante
      */
     public function addExoneracion(\AppBundle\Entity\Exoneracion $exoneracion)
     {
@@ -619,43 +557,10 @@ class Usuario
     }
 
     /**
-     * Add exoneraciones
-     *
-     * @param \AppBundle\Entity\Exoneracion $exoneraciones
-     * @return Usuario
-     */
-    public function addExoneracione(\AppBundle\Entity\Exoneracion $exoneraciones)
-    {
-        $this->exoneraciones[] = $exoneraciones;
-
-        return $this;
-    }
-
-    /**
-     * Remove exoneraciones
-     *
-     * @param \AppBundle\Entity\Exoneracion $exoneraciones
-     */
-    public function removeExoneracione(\AppBundle\Entity\Exoneracion $exoneraciones)
-    {
-        $this->exoneraciones->removeElement($exoneraciones);
-    }
-
-    /**
-     * Get exoneraciones
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExoneraciones()
-    {
-        return $this->exoneraciones;
-    }
-
-    /**
      * Add facturas
      *
      * @param \AppBundle\Entity\Facturausuario $facturas
-     * @return Usuario
+     * @return Estudiante
      */
     public function addFactura(\AppBundle\Entity\Facturausuario $facturas)
     {
@@ -688,7 +593,7 @@ class Usuario
      * Add pagos
      *
      * @param \AppBundle\Entity\Pagos $pagos
-     * @return Usuario
+     * @return Estudiante
      */
     public function addPago(\AppBundle\Entity\Pagos $pagos)
     {
@@ -720,10 +625,10 @@ class Usuario
     /**
      * Add brothersWithMe
      *
-     * @param \AppBundle\Entity\Usuario $brothersWithMe
-     * @return Usuario
+     * @param \AppBundle\Entity\Estudiante $brothersWithMe
+     * @return Estudiante
      */
-    public function addBrothersWithMe(\AppBundle\Entity\Usuario $brothersWithMe)
+    public function addBrothersWithMe(\AppBundle\Entity\Estudiante $brothersWithMe)
     {
         $this->brothersWithMe[] = $brothersWithMe;
 
@@ -733,9 +638,9 @@ class Usuario
     /**
      * Remove brothersWithMe
      *
-     * @param \AppBundle\Entity\Usuario $brothersWithMe
+     * @param \AppBundle\Entity\Estudiante $brothersWithMe
      */
-    public function removeBrothersWithMe(\AppBundle\Entity\Usuario $brothersWithMe)
+    public function removeBrothersWithMe(\AppBundle\Entity\Estudiante $brothersWithMe)
     {
         $this->brothersWithMe->removeElement($brothersWithMe);
     }
@@ -753,10 +658,10 @@ class Usuario
     /**
      * Add myBrothers
      *
-     * @param \AppBundle\Entity\Usuario $myBrothers
-     * @return Usuario
+     * @param \AppBundle\Entity\Estudiante $myBrothers
+     * @return Estudiante
      */
-    public function addMyBrother(\AppBundle\Entity\Usuario $myBrothers)
+    public function addMyBrother(\AppBundle\Entity\Estudiante $myBrothers)
     {
         $this->myBrothers[] = $myBrothers;
 
@@ -766,9 +671,9 @@ class Usuario
     /**
      * Remove myBrothers
      *
-     * @param \AppBundle\Entity\Usuario $myBrothers
+     * @param \AppBundle\Entity\Estudiante $myBrothers
      */
-    public function removeMyBrother(\AppBundle\Entity\Usuario $myBrothers)
+    public function removeMyBrother(\AppBundle\Entity\Estudiante $myBrothers)
     {
         $this->myBrothers->removeElement($myBrothers);
     }
@@ -787,7 +692,7 @@ class Usuario
      * Add progenitores
      *
      * @param \AppBundle\Entity\Progenitor $progenitores
-     * @return Usuario
+     * @return Estudiante
      */
     public function addProgenitore(\AppBundle\Entity\Progenitor $progenitores)
     {

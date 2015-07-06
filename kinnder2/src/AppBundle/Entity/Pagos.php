@@ -23,11 +23,11 @@ class Pagos
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="pagos")
+     * @ORM\ManyToOne(targetEntity="Estudiante", inversedBy="pagos")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * 
      **/       
-    private $usuario;
+    private $estudiante;
 
     /**
      * @var integer
@@ -161,26 +161,4 @@ class Pagos
         return $this->outOfDate;
     }
 
-    /**
-     * Set usuario
-     *
-     * @param \AppBundle\Entity\Usuario $usuario
-     * @return Pagos
-     */
-    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return \AppBundle\Entity\Usuario 
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
 }
