@@ -102,7 +102,10 @@ class Facturausuario
 
     /**
      * @ORM\ManyToMany(targetEntity="Facturafinal", inversedBy="facturasUsuarios")
-     * @ORM\JoinTable(name="facturausuariofinal")
+     * @ORM\JoinTable(name="facturausuariofinal",
+     *      joinColumns={@ORM\JoinColumn(name="facturausuario_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="facturafinal_id", referencedColumnName="id")}
+     *      )
      **/    
     private $facturasFinales;
     
