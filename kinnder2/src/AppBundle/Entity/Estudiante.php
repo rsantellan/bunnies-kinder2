@@ -101,7 +101,7 @@ class Estudiante
     /**
      * @var boolean
      *
-     * @ORM\Column(name="egresado", type="boolean", nullable=true)
+     * @ORM\Column(name="egresado", type="boolean", nullable=true, options={"default": 0})
      */
     private $egresado;
     

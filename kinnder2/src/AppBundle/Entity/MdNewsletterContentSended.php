@@ -52,14 +52,14 @@ class MdNewsletterContentSended
     /**
      * @var boolean
      *
-     * @ORM\Column(name="sended", type="boolean", nullable=true)
+     * @ORM\Column(name="sended", type="boolean", nullable=true, options={"default": 0})
      */
     private $sended;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="for_status", type="smallint", nullable=true)
+     * @ORM\Column(name="for_status", type="smallint", nullable=true, options={"default": 0})
      */
     private $forStatus;
 

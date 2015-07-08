@@ -53,7 +53,7 @@ class Pagos
     /**
      * @var boolean
      *
-     * @ORM\Column(name="out_of_date", type="boolean", nullable=false)
+     * @ORM\Column(name="out_of_date", type="boolean", nullable=false, options={"default": 0})
      */
     private $outOfDate;
 

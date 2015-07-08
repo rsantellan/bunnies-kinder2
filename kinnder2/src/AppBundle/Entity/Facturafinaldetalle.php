@@ -24,7 +24,7 @@ class Facturafinaldetalle
     /**
      * 
      * @ORM\ManyToOne(targetEntity="Facturafinal", inversedBy="facturafinalDetalles")
-     * @ORM\JoinColumn(name="factura_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="factura_id", referencedColumnName="id", nullable=false)
      * 
      **/         
     private $factura;
@@ -39,7 +39,7 @@ class Facturafinaldetalle
     /**
      * @var float
      *
-     * @ORM\Column(name="amount", type="float", precision=12, scale=2, nullable=false)
+     * @ORM\Column(name="amount", type="float", precision=12, scale=2, nullable=true, options={"default": 0})
      */
     private $amount;
 

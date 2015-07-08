@@ -31,21 +31,21 @@ class Cuenta
     /**
      * @var float
      *
-     * @ORM\Column(name="debe", type="float", precision=14, scale=2, nullable=true)
+     * @ORM\Column(name="debe", type="float", precision=14, scale=2, nullable=true, options={"default": 0})
      */
     private $debe;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="pago", type="float", precision=14, scale=2, nullable=true)
+     * @ORM\Column(name="pago", type="float", precision=14, scale=2, nullable=true, options={"default": 0})
      */
     private $pago;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="diferencia", type="float", precision=14, scale=2, nullable=true)
+     * @ORM\Column(name="diferencia", type="float", precision=14, scale=2, nullable=true, options={"default": 0})
      */
     private $diferencia;
 

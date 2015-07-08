@@ -45,7 +45,7 @@ class MdUserProfile
     /**
      * @var string
      *
-     * @ORM\Column(name="country_code", type="string", length=2, nullable=true)
+     * @ORM\Column(name="country_code", type="string", length=2, nullable=true, options={"default": "UY" })
      */
     private $countryCode;
 

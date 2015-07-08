@@ -31,7 +31,7 @@ class MdUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="super_admin", type="boolean", nullable=false)
+     * @ORM\Column(name="super_admin", type="boolean", nullable=false, options={"default": 0})
      */
     private $superAdmin;
 
