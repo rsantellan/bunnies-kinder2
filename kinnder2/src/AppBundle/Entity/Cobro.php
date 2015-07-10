@@ -24,7 +24,7 @@ class Cobro
     /**
      * 
      * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="cobros")
-     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=false)
      * 
      **/    
     private $cuenta;
@@ -39,7 +39,7 @@ class Cobro
     /**
      * @var float
      *
-     * @ORM\Column(name="monto", type="float", precision=12, scale=2, nullable=false)
+     * @ORM\Column(name="monto", type="float", precision=12, scale=2, nullable=false, options={"default": 0})
      */
     private $monto;
 

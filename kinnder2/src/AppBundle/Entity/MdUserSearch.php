@@ -73,28 +73,28 @@ class MdUserSearch
     /**
      * @var boolean
      *
-     * @ORM\Column(name="active", type="boolean", nullable=true)
+     * @ORM\Column(name="active", type="boolean", nullable=true, options={"default": 0})
      */
     private $active;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="blocked", type="boolean", nullable=true)
+     * @ORM\Column(name="blocked", type="boolean", nullable=true, options={"default": 0})
      */
     private $blocked;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="admin", type="boolean", nullable=true)
+     * @ORM\Column(name="admin", type="boolean", nullable=true, options={"default": 0})
      */
     private $admin;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="show_email", type="boolean", nullable=true)
+     * @ORM\Column(name="show_email", type="boolean", nullable=true, options={"default": 0})
      */
     private $showEmail;
 

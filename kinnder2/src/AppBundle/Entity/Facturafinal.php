@@ -24,7 +24,7 @@ class Facturafinal
     /**
      * @var float
      *
-     * @ORM\Column(name="total", type="float", precision=12, scale=2, nullable=false)
+     * @ORM\Column(name="total", type="float", precision=12, scale=2, nullable=false, options={"default": 0})
      */
     private $total;
 
@@ -45,28 +45,28 @@ class Facturafinal
     /**
      * @var boolean
      *
-     * @ORM\Column(name="pago", type="boolean", nullable=false)
+     * @ORM\Column(name="pago", type="boolean", nullable=false, options={"default": 0})
      */
     private $pago;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="cancelado", type="boolean", nullable=false)
+     * @ORM\Column(name="cancelado", type="boolean", nullable=false, options={"default": 0})
      */
     private $cancelado;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="enviado", type="boolean", nullable=false)
+     * @ORM\Column(name="enviado", type="boolean", nullable=false, options={"default": 0})
      */
     private $enviado;
 
     /**
      * 
      * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="facturas")
-     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=false)
      * 
      **/ 
     private $cuenta;
@@ -81,7 +81,7 @@ class Facturafinal
     /**
      * @var float
      *
-     * @ORM\Column(name="pagadodeltotal", type="float", precision=12, scale=2, nullable=false)
+     * @ORM\Column(name="pagadodeltotal", type="float", precision=12, scale=2, nullable=false, options={"default": 0})
      */
     private $pagadodeltotal;
 
