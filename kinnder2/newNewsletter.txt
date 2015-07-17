@@ -1,0 +1,185 @@
+| md_news_letter_user          |
+
+
+====================================================================================
+
+mysql> desc new.maith_newsletter_content_send;
++-----------------------------+--------------+------+-----+---------+----------------+
+| Field                       | Type         | Null | Key | Default | Extra          |
++-----------------------------+--------------+------+-----+---------+----------------+
+| id                          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| maith_newsletter_content_id | int(11)      | YES  | MUL | NULL    |                |
+| title                       | varchar(255) | NO   |     | NULL    |                |
+| body                        | longblob     | NO   |     | NULL    |                |
+| createdat                   | datetime     | NO   |     | NULL    |                |
+| active                      | tinyint(1)   | NO   |     | NULL    |                |
+| quantitySended              | int(11)      | NO   |     | NULL    |                |
+| sendat                      | datetime     | NO   |     | NULL    |                |
+| sended                      | tinyint(1)   | NO   |     | NULL    |                |
++-----------------------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> desc md_newsletter_content_sended;
++--------------------------+-------------+------+-----+---------+----------------+
+| Field                    | Type        | Null | Key | Default | Extra          |
++--------------------------+-------------+------+-----+---------+----------------+
+| id                       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| subject                  | text        | NO   |     | NULL    |                |
+| body                     | longblob    | NO   |     | NULL    |                |
+| send_counter             | int(11)     | NO   |     | NULL    |                |
+| sending_date             | datetime    | YES  |     | NULL    |                |
+| sended                   | tinyint(1)  | YES  |     | 0       |                |
+| for_status               | smallint(6) | YES  |     | 0       |                |
+| md_newsletter_content_id | int(11)     | NO   | MUL | NULL    |                |
+| created_at               | datetime    | NO   |     | NULL    |                |
+| updated_at               | datetime    | NO   |     | NULL    |                |
++--------------------------+-------------+------+-----+---------+----------------+
+10 rows in set (0.00 sec)
+
+- for_status hay que ver si es lo de los grupos
+
+============================================================================================
+
+mysql> desc tekoaviajes.maith_newsletter_content;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title     | varchar(255) | NO   |     | NULL    |                |
+| body      | longtext     | YES  |     | NULL    |                |
+| createdat | datetime     | NO   |     | NULL    |                |
+| updatedat | datetime     | NO   |     | NULL    |                |
+| active    | tinyint(1)   | NO   |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> desc md_newsletter_content;
++--------------+----------+------+-----+---------+----------------+
+| Field        | Type     | Null | Key | Default | Extra          |
++--------------+----------+------+-----+---------+----------------+
+| id           | int(11)  | NO   | PRI | NULL    | auto_increment |
+| subject      | text     | NO   |     | NULL    |                |
+| body         | longblob | NO   |     | NULL    |                |
+| send_counter | int(11)  | NO   |     | NULL    |                |
+| created_at   | datetime | NO   |     | NULL    |                |
+| updated_at   | datetime | NO   |     | NULL    |                |
++--------------+----------+------+-----+---------+----------------+
+
+
+===============================================================================================
+
+
+mysql> desc tekoaviajes.maith_newsletter_content_send_user;
++----------------------------------+------------+------+-----+---------+-------+
+| Field                            | Type       | Null | Key | Default | Extra |
++----------------------------------+------------+------+-----+---------+-------+
+| maith_newsletter_content_send_id | int(11)    | NO   | PRI | NULL    |       |
+| maith_newsletter_user_id         | int(11)    | NO   | PRI | NULL    |       |
+| active                           | tinyint(1) | NO   |     | NULL    |       |
++----------------------------------+------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> desc md_newsletter_send;
++---------------------------------+----------+------+-----+---------+----------------+
+| Field                           | Type     | Null | Key | Default | Extra          |
++---------------------------------+----------+------+-----+---------+----------------+
+| id                              | int(11)  | NO   | PRI | NULL    | auto_increment |
+| md_news_letter_user_id          | int(11)  | NO   | MUL | NULL    |                |
+| md_newsletter_content_sended_id | int(11)  | NO   | MUL | NULL    |                |
+| sending_date                    | datetime | YES  |     | NULL    |                |
+| created_at                      | datetime | NO   |     | NULL    |                |
+| updated_at                      | datetime | NO   |     | NULL    |                |
++---------------------------------+----------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+
+================================================================================================
+
+
+mysql> desc tekoaviajes.maith_newsletter_group;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(255) | NO   | UNI | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+
+mysql> desc md_news_letter_group;
++-------+---------+------+-----+---------+----------------+
+| Field | Type    | Null | Key | Default | Extra          |
++-------+---------+------+-----+---------+----------------+
+| id    | int(11) | NO   | PRI | NULL    | auto_increment |
+| name  | text    | NO   |     | NULL    |                |
++-------+---------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+
+================================================================================================
+
+No tiene ninguna que la matchie!
+
+mysql> desc md_news_letter_group_sended;
++---------------------------------+----------+------+-----+---------+-------+
+| Field                           | Type     | Null | Key | Default | Extra |
++---------------------------------+----------+------+-----+---------+-------+
+| md_newsletter_group_id          | int(11)  | NO   | PRI | 0       |       |
+| md_newsletter_contend_sended_id | int(11)  | NO   | PRI | 0       |       |
+| created_at                      | datetime | NO   |     | NULL    |       |
+| updated_at                      | datetime | NO   |     | NULL    |       |
++---------------------------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+================================================================================================
+
+
+mysql> desc tekoaviajes.maith_newsletter_users_groups;
++--------------+---------+------+-----+---------+-------+
+| Field        | Type    | Null | Key | Default | Extra |
++--------------+---------+------+-----+---------+-------+
+| user_id      | int(11) | NO   | PRI | NULL    |       |
+| usergroup_id | int(11) | NO   | PRI | NULL    |       |
++--------------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+mysql> desc md_news_letter_group_user;
++------------------------+----------+------+-----+---------+-------+
+| Field                  | Type     | Null | Key | Default | Extra |
++------------------------+----------+------+-----+---------+-------+
+| md_newsletter_group_id | int(11)  | NO   | PRI | 0       |       |
+| md_newsletter_user_id  | int(11)  | NO   | PRI | 0       |       |
+| created_at             | datetime | NO   |     | NULL    |       |
+| updated_at             | datetime | NO   |     | NULL    |       |
++------------------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+================================================================================================
+
+mysql> desc tekoaviajes.maith_newsletter_user;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email  | varchar(255) | NO   | UNI | NULL    |                |
+| active | tinyint(1)   | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+
+mysql> desc md_news_letter_user;
++------------+----------+------+-----+---------+----------------+
+| Field      | Type     | Null | Key | Default | Extra          |
++------------+----------+------+-----+---------+----------------+
+| id         | int(11)  | NO   | PRI | NULL    | auto_increment |
+| md_user_id | int(11)  | NO   | MUL | NULL    |                |
+| created_at | datetime | NO   |     | NULL    |                |
+| updated_at | datetime | NO   |     | NULL    |                |
++------------+----------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+

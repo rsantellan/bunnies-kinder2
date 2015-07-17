@@ -8,6 +8,12 @@
             "SymfonyStandard\\": "app/SymfonyStandard/"
         }
     },
+    "repositories": [
+    {
+		"type" : "vcs",
+        "url" : "https://github.com/rsantellan/symfony2-maith-newsletter.git"
+    }
+    ],
     "require": {
         "php": ">=5.3.9",
         "symfony/symfony": "2.7.*",
@@ -19,7 +25,8 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "Maith/NewsletterBundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
