@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Actividades
  *
- * @ORM\Table(name="actividades", indexes={@ORM\Index(name="md_news_letter_group_id_idx", columns={"md_news_letter_group_id"})})
+ * @ORM\Table(name="actividad", indexes={@ORM\Index(name="md_news_letter_group_id_idx", columns={"md_news_letter_group_id"})})
  * @ORM\Entity
  */
 class Actividad
@@ -45,7 +45,7 @@ class Actividad
 
     /**
      * 
-     * @ORM\OneToOne(targetEntity="Maith\NewsletterBundle\Entity\UserGroup", inversedBy="actividad")
+     * @ORM\ManyToOne(targetEntity="Maith\NewsletterBundle\Entity\UserGroup", inversedBy="actividad")
      * @ORM\JoinColumn(name="md_news_letter_group_id", referencedColumnName="id")
      * 
      * 
@@ -57,6 +57,18 @@ class Actividad
      **/    
     private $estudiantes;    
 
+    
+    /**
+     * Set id
+     *
+     * @return integer 
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    
     /**
      * Get id
      *
@@ -178,5 +190,28 @@ class Actividad
     public function getEstudiantes()
     {
         return $this->estudiantes;
+    }
+
+    /**
+     * Set newsLetterGroup
+     *
+     * @param \Maith\NewsletterBundle\Entity\UserGroup $newsLetterGroup
+     * @return Actividad
+     */
+    public function setNewsLetterGroup(\Maith\NewsletterBundle\Entity\UserGroup $newsLetterGroup = null)
+    {
+        $this->newsLetterGroup = $newsLetterGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get newsLetterGroup
+     *
+     * @return \Maith\NewsletterBundle\Entity\UserGroup 
+     */
+    public function getNewsLetterGroup()
+    {
+        return $this->newsLetterGroup;
     }
 }

@@ -79,7 +79,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: AppBundle\Entity\Entity\Progenitor   
+    user_class: AppBundle\Entity\Progenitor   
     registration:
         confirmation:
             enabled:    true

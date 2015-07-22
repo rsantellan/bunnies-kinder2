@@ -122,4 +122,17 @@ class MdBlockedUsers
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Set mdUserId
+     *
+     * @param integer $mdUserId
+     * @return MdBlockedUsers
+     */
+    public function setMdUserId($mdUserId)
+    {
+        $this->mdUserId = $mdUserId;
+
+        return $this;
+    }
 }

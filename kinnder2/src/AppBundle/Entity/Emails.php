@@ -122,4 +122,17 @@ class Emails
     {
         return $this->fromMail;
     }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Emails
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

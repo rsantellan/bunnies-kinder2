@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Estudiante
  *
- * @ORM\Table(name="usuario", indexes={@ORM\Index(name="billetera_id_idx", columns={"billetera_id"})})
+ * @ORM\Table(name="estudiante")
  * @ORM\Entity
  */
 class Estudiante
@@ -104,13 +104,7 @@ class Estudiante
      * @ORM\Column(name="egresado", type="boolean", nullable=true, options={"default": 0})
      */
     private $egresado;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="billetera_id", type="integer", nullable=true)
-     */
-    private $billeteraId;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="Actividad", inversedBy="estudiantes")
@@ -166,6 +160,17 @@ class Estudiante
      * 
      * */    
     private $progenitores;
+
+    /**
+     * Set id
+     *
+     * @return integer 
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
     
     /**
      * Get id
@@ -731,26 +736,4 @@ class Estudiante
         $this->progenitores = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Set billeteraId
-     *
-     * @param integer $billeteraId
-     * @return Estudiante
-     */
-    public function setBilleteraId($billeteraId)
-    {
-        $this->billeteraId = $billeteraId;
-
-        return $this;
-    }
-
-    /**
-     * Get billeteraId
-     *
-     * @return integer 
-     */
-    public function getBilleteraId()
-    {
-        return $this->billeteraId;
-    }
 }

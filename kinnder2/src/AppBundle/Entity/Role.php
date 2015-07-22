@@ -82,4 +82,17 @@ class Role implements RoleInterface {
     public function getRole(){
         return $this->getName();
     }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     * @return Role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
 }

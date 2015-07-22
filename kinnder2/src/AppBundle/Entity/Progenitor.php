@@ -51,15 +51,6 @@ class Progenitor extends BaseUser
     private $celular;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="md_user_id", type="integer", nullable=true)
-     */
-    private $mdUserId;
-
-
-
-    /**
      * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="progenitores")
      * @ORM\JoinTable(name="cuentapadre")
      **/    
@@ -182,30 +173,6 @@ class Progenitor extends BaseUser
         return $this->celular;
     }
 
-
-    /**
-     * Set mdUserId
-     *
-     * @param integer $mdUserId
-     * @return Progenitor
-     */
-    public function setMdUserId($mdUserId)
-    {
-        $this->mdUserId = $mdUserId;
-
-        return $this;
-    }
-
-    /**
-     * Get mdUserId
-     *
-     * @return integer 
-     */
-    public function getMdUserId()
-    {
-        return $this->mdUserId;
-    }
-
     /**
      * Add cuentas
      *
@@ -247,7 +214,7 @@ class Progenitor extends BaseUser
         parent::__construct();
         $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->estudiantes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->user_roles = new ArrayCollection();
+        $this->user_roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -283,14 +250,18 @@ class Progenitor extends BaseUser
         return $this->estudiantes;
     }
 
- /**
+  /**
      * Returns an ARRAY of Role objects with the default Role object appended.
      * @return array
      */
     public function getRoles() {
-        return array_merge($this->user_roles->toArray(), array(new Role(array(parent::ROLE_DEFAULT))));
+        $user_roles = array();
+        if($this->user_roles)
+          $user_roles = $this->user_roles->toArray();
+        return $user_roles;
+        return array_merge($user_roles, array(new Role(array(parent::ROLE_DEFAULT))));
     }
- 
+
     /**
      * Returns the true ArrayCollection of Roles.
      * @return Doctrine\Common\Collections\ArrayCollection
@@ -298,7 +269,7 @@ class Progenitor extends BaseUser
     public function getRolesCollection() {
         return $this->user_roles;
     }
- 
+
     /**
      * Pass a string, get the desired Role object or null.
      * @param string $role
@@ -312,7 +283,7 @@ class Progenitor extends BaseUser
         }
         return null;
     }
- 
+
     /**
      * Pass a string, checks if we have that Role. Same functionality as getRole() except returns a real boolean.
      * @param string $role
@@ -324,21 +295,31 @@ class Progenitor extends BaseUser
         }
         return false;
     }
- 
+
     /**
      * Adds a Role OBJECT to the ArrayCollection. Can't type hint due to interface so throws Exception.
      * @throws Exception
      * @param Role $role
      */
     public function addRole($role) {
-        if (!$role instanceof Role) {
-            throw new \Exception("addRole takes a Role object as the parameter");
+        if(is_string($role))
+        {
+          parent::addRole($role);
         }
-        if (!$this->hasRole($role->getRole())) {
-            $this->user_roles->add($role);
+        else
+        {
+          if($role instanceof Role)
+          {
+            if (!$this->hasRole($role->getRole())) {
+              $this->user_roles->add($role);
+            }
+          }else{
+            throw new \Exception(sprintf("addRole takes a Role object as the parameter. %s given", get_class($role)));
+          }
         }
+        
     }
- 
+
     /**
      * Pass a string, remove the Role object from collection.
      * @param string $role
@@ -349,7 +330,7 @@ class Progenitor extends BaseUser
             $this->user_roles->removeElement($roleElement);
         }
     }
- 
+
     /**
      * Pass an ARRAY of Role objects and will clear the collection and re-set it with new Roles.
      * Type hinted array due to interface.
@@ -357,11 +338,15 @@ class Progenitor extends BaseUser
      */
     public function setRoles(array $roles) {
         $this->user_roles->clear();
+        $parentRoles = array();
         foreach ($roles as $role) {
             $this->addRole($role);
+            $parentRoles[] = $role->getName();
         }
+        parent::setRoles($parentRoles);
+        
     }
- 
+
     /**
      * Directly set the ArrayCollection of Roles. Type hinted as Collection which is the parent of (Array|Persistent)Collection.
      * @param Doctrine\Common\Collections\Collection $role
@@ -369,4 +354,37 @@ class Progenitor extends BaseUser
     public function setRolesCollection(Collection $collection) {
         $this->user_roles = $collection;
     }    
+
+    /**
+     * Add user_roles
+     *
+     * @param \AppBundle\Entity\Role $userRoles
+     * @return Progenitor
+     */
+    public function addUserRole(\AppBundle\Entity\Role $userRoles)
+    {
+        $this->user_roles[] = $userRoles;
+
+        return $this;
+    }
+
+    /**
+     * Remove user_roles
+     *
+     * @param \AppBundle\Entity\Role $userRoles
+     */
+    public function removeUserRole(\AppBundle\Entity\Role $userRoles)
+    {
+        $this->user_roles->removeElement($userRoles);
+    }
+
+    /**
+     * Get user_roles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserRoles()
+    {
+        return $this->user_roles;
+    }
 }
