@@ -3,14 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * Progenitor
  *
- * @ORM\Table(name="progenitor", uniqueConstraints={@ORM\UniqueConstraint(name="mail_index_idx", columns={"mail"})}, indexes={@ORM\Index(name="md_user_id_idx", columns={"md_user_id"})})
+ * @ORM\Table(name="progenitor")
  * @ORM\Entity
  */
-class Progenitor
+class Progenitor extends BaseUser
 {
     /**
      * @var integer
@@ -19,7 +20,7 @@ class Progenitor
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -50,20 +51,6 @@ class Progenitor
     private $celular;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=64, nullable=true)
-     */
-    private $mail;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="clave", type="string", length=64, nullable=true)
-     */
-    private $clave;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="md_user_id", type="integer", nullable=true)
@@ -86,6 +73,12 @@ class Progenitor
      *      )
      **/    
     private $estudiantes;    
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Role", indexBy="name")
+     * @ORM\JoinTable(name="maith_bunny_users_roles")
+     */
+    protected $user_roles;
 
     /**
      * Get id
@@ -189,51 +182,6 @@ class Progenitor
         return $this->celular;
     }
 
-    /**
-     * Set mail
-     *
-     * @param string $mail
-     * @return Progenitor
-     */
-    public function setMail($mail)
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    /**
-     * Get mail
-     *
-     * @return string 
-     */
-    public function getMail()
-    {
-        return $this->mail;
-    }
-
-    /**
-     * Set clave
-     *
-     * @param string $clave
-     * @return Progenitor
-     */
-    public function setClave($clave)
-    {
-        $this->clave = $clave;
-
-        return $this;
-    }
-
-    /**
-     * Get clave
-     *
-     * @return string 
-     */
-    public function getClave()
-    {
-        return $this->clave;
-    }
 
     /**
      * Set mdUserId
@@ -296,8 +244,10 @@ class Progenitor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->estudiantes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->user_roles = new ArrayCollection();
     }
 
     /**
@@ -332,4 +282,91 @@ class Progenitor
     {
         return $this->estudiantes;
     }
+
+ /**
+     * Returns an ARRAY of Role objects with the default Role object appended.
+     * @return array
+     */
+    public function getRoles() {
+        return array_merge($this->user_roles->toArray(), array(new Role(array(parent::ROLE_DEFAULT))));
+    }
+ 
+    /**
+     * Returns the true ArrayCollection of Roles.
+     * @return Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getRolesCollection() {
+        return $this->user_roles;
+    }
+ 
+    /**
+     * Pass a string, get the desired Role object or null.
+     * @param string $role
+     * @return Role|null
+     */
+    public function getRole($role) {
+        foreach ($this->getRoles() as $roleItem) {
+            if ($role == $roleItem->getRole()) {
+                return $roleItem;
+            }
+        }
+        return null;
+    }
+ 
+    /**
+     * Pass a string, checks if we have that Role. Same functionality as getRole() except returns a real boolean.
+     * @param string $role
+     * @return boolean
+     */
+    public function hasRole($role) {
+        if ($this->getRole($role)) {
+            return true;
+        }
+        return false;
+    }
+ 
+    /**
+     * Adds a Role OBJECT to the ArrayCollection. Can't type hint due to interface so throws Exception.
+     * @throws Exception
+     * @param Role $role
+     */
+    public function addRole($role) {
+        if (!$role instanceof Role) {
+            throw new \Exception("addRole takes a Role object as the parameter");
+        }
+        if (!$this->hasRole($role->getRole())) {
+            $this->user_roles->add($role);
+        }
+    }
+ 
+    /**
+     * Pass a string, remove the Role object from collection.
+     * @param string $role
+     */
+    public function removeRole($role) {
+        $roleElement = $this->getRole($role);
+        if ($roleElement) {
+            $this->user_roles->removeElement($roleElement);
+        }
+    }
+ 
+    /**
+     * Pass an ARRAY of Role objects and will clear the collection and re-set it with new Roles.
+     * Type hinted array due to interface.
+     * @param array $roles Of Role objects.
+     */
+    public function setRoles(array $roles) {
+        $this->user_roles->clear();
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+    }
+ 
+    /**
+     * Directly set the ArrayCollection of Roles. Type hinted as Collection which is the parent of (Array|Persistent)Collection.
+     * @param Doctrine\Common\Collections\Collection $role
+     */
+    public function setRolesCollection(Collection $collection) {
+        $this->user_roles = $collection;
+    }    
 }

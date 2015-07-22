@@ -45,12 +45,12 @@ class Actividad
 
     /**
      * 
-     * @ORM\OneToOne(targetEntity="MdNewsLetterGroup", inversedBy="actividad")
+     * @ORM\OneToOne(targetEntity="Maith\NewsletterBundle\Entity\UserGroup", inversedBy="actividad")
      * @ORM\JoinColumn(name="md_news_letter_group_id", referencedColumnName="id")
      * 
      * 
      **/
-    private $mdNewsLetterGroup;
+    private $newsLetterGroup;
     
     /**
      * @ORM\ManyToMany(targetEntity="Estudiante", mappedBy="actividades")
@@ -138,28 +138,6 @@ class Actividad
 
     
 
-    /**
-     * Set mdNewsLetterGroup
-     *
-     * @param \AppBundle\Entity\MdNewsLetterGroup $mdNewsLetterGroup
-     * @return Actividades
-     */
-    public function setMdNewsLetterGroup(\AppBundle\Entity\MdNewsLetterGroup $mdNewsLetterGroup = null)
-    {
-        $this->mdNewsLetterGroup = $mdNewsLetterGroup;
-
-        return $this;
-    }
-
-    /**
-     * Get mdNewsLetterGroup
-     *
-     * @return \AppBundle\Entity\MdNewsLetterGroup 
-     */
-    public function getMdNewsLetterGroup()
-    {
-        return $this->mdNewsLetterGroup;
-    }
     
     /**
      * Constructor
