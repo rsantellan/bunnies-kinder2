@@ -10,11 +10,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\DataFixtures\DataFixturesConstants;
 
 /**
- * Description of LoadEstudiantesActividadesFixture
+ * Description of LoadEstudiantesHermanosFixture
  *
  * @author Rodrigo Santellan
  */
-class LoadEstudiantesActividadesFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadEstudiantesHermanosFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
   /**
    * @var ContainerInterface
@@ -22,12 +22,12 @@ class LoadEstudiantesActividadesFixture extends AbstractFixture implements Order
   private $container;
 
   public function getOrder() {
-	return 4;
+	return 6;
   }
 
   public function load(ObjectManager $manager) {
     
-	$sql = 'select usuario_id, actividad_id from usuario_actividades order by usuario_id desc';
+	$sql = 'select usuario_from, usuario_to from hermanos';
     $username = DataFixturesConstants::DBUSER;
     $password = DataFixturesConstants::DBPASS;
     $database = DataFixturesConstants::DBSCHEMA;
@@ -36,28 +36,14 @@ class LoadEstudiantesActividadesFixture extends AbstractFixture implements Order
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
-    $actividades = $manager->getRepository('AppBundle:Actividad')->findAll();
-    $actividadesList = array();
-    foreach($actividades as $actividad){
-      $actividadesList[$actividad->getId()] = $actividad;
-    }
-    $estudianteId = null;
-    $estudiante = null;
+    
     while($row = $stmt->fetch())
     {
-        $usuarioId = $row['usuario_id'];
-        $actividadId = $row['actividad_id'];
-        if($estudianteId != $usuarioId){
-          if($estudiante != null){
-            $manager->persist($estudiante);
-          }
-          $estudianteId = $usuarioId;
-          $estudiante = $manager->getRepository('AppBundle:Estudiante')->find($estudianteId);
-        }
-        $estudiante->addActividade($actividadesList[$actividadId]);
-    }
-    if($estudiante != null){
-      $manager->persist($estudiante);
+        
+        $estudiante = $manager->getRepository('AppBundle:Estudiante')->find( $row['usuario_from']);
+        $hermano = $manager->getRepository('AppBundle:Estudiante')->find( $row['usuario_to']);
+        $estudiante->addBrothersWithMe($hermano);
+        $manager->persist($estudiante);
     }
     $manager->flush();
     

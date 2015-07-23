@@ -58,9 +58,9 @@ class Progenitor extends BaseUser
     
     /**
      * @ORM\ManyToMany(targetEntity="Estudiante", inversedBy="progenitores")
-     * @ORM\JoinTable(name="usuario_progenitor",
+     * @ORM\JoinTable(name="estudiante_progenitor",
      *      joinColumns={@ORM\JoinColumn(name="progenitor_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="estudiante_id", referencedColumnName="id")}
      *      )
      **/    
     private $estudiantes;    

@@ -108,8 +108,8 @@ class Estudiante
 
     /**
      * @ORM\ManyToMany(targetEntity="Actividad", inversedBy="estudiantes")
-     * @ORM\JoinTable(name="usuario_actividades",
-     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="estudiante_actividad",
+     *      joinColumns={@ORM\JoinColumn(name="estudiante_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="actividad_id", referencedColumnName="id")}
      *      )
      **/    
@@ -117,8 +117,8 @@ class Estudiante
 
     /**
      * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="estudiantes")
-     * @ORM\JoinTable(name="cuentausuario",
-     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="estudiante_cuenta",
+     *      joinColumns={@ORM\JoinColumn(name="estudiante_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="cuenta_id", referencedColumnName="id")}
      *      )
      **/    
@@ -147,9 +147,9 @@ class Estudiante
 
     /**
      * @ORM\ManyToMany(targetEntity="Estudiante", inversedBy="brothersWithMe")
-     * @ORM\JoinTable(name="hermanos",
-     *      joinColumns={@ORM\JoinColumn(name="usuario_from", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_to", referencedColumnName="id")}
+     * @ORM\JoinTable(name="estudiante_hermano",
+     *      joinColumns={@ORM\JoinColumn(name="estudiante_from", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="estudiante_to", referencedColumnName="id")}
      *      )
      **/
     private $myBrothers;
@@ -459,39 +459,7 @@ class Estudiante
     }
 
     
-    /**
-     * Add actividades
-     *
-     * @param \AppBundle\Entity\Actividades $actividades
-     * @return Estudiante
-     */
-    public function addActividade(\AppBundle\Entity\Actividades $actividades)
-    {
-        $this->actividades[] = $actividades;
-
-        return $this;
-    }
-
-    /**
-     * Remove actividades
-     *
-     * @param \AppBundle\Entity\Actividades $actividades
-     */
-    public function removeActividade(\AppBundle\Entity\Actividades $actividades)
-    {
-        $this->actividades->removeElement($actividades);
-    }
-
-    /**
-     * Get actividades
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getActividades()
-    {
-        return $this->actividades;
-    }
-
+    
     /**
      * Add cuentas
      *
@@ -736,4 +704,37 @@ class Estudiante
         $this->progenitores = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Add actividades
+     *
+     * @param \AppBundle\Entity\Actividad $actividades
+     * @return Estudiante
+     */
+    public function addActividade(\AppBundle\Entity\Actividad $actividades)
+    {
+        $this->actividades[] = $actividades;
+
+        return $this;
+    }
+
+    /**
+     * Remove actividades
+     *
+     * @param \AppBundle\Entity\Actividad $actividades
+     */
+    public function removeActividade(\AppBundle\Entity\Actividad $actividades)
+    {
+        $this->actividades->removeElement($actividades);
+    }
+
+    /**
+     * Get actividades
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getActividades()
+    {
+        return $this->actividades;
+    }
 }
