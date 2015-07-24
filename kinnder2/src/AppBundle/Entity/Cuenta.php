@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="cuenta")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Cuenta
 {
@@ -53,14 +54,14 @@ class Cuenta
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
@@ -90,6 +91,18 @@ class Cuenta
      *
      */
     private $facturas;    
+    
+    
+    /**
+     * Set id
+     *
+     * @return integer 
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return  $this;
+    }
     
     /**
      * Get id
@@ -382,5 +395,15 @@ class Cuenta
     public function getEstudiantes()
     {
         return $this->estudiantes;
+    }
+    
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function calculateDifference()
+    {
+      $this->setDiferencia($this->getDebe() - $this->getPago());
     }
 }

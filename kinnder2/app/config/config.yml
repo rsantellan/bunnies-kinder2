@@ -83,3 +83,14 @@ fos_user:
     registration:
         confirmation:
             enabled:    true
+
+#Stof doctrine extension
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            tree: false # not needed: listeners are not enabled by default
+            timestampable: true
+            sortable: false
+            sluggable: false
+            translatable: false      

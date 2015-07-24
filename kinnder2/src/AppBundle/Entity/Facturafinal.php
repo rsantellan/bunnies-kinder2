@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Facturafinal
@@ -88,6 +89,7 @@ class Facturafinal
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
@@ -95,6 +97,7 @@ class Facturafinal
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
@@ -111,6 +114,18 @@ class Facturafinal
      * @ORM\ManyToMany(targetEntity="Facturausuario", mappedBy="facturasFinales")
      **/
     private $facturasUsuarios;
+    
+
+    /**
+     * Set id
+     *
+     * @return integer 
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return  $this;
+    }
     
     /**
      * Get id

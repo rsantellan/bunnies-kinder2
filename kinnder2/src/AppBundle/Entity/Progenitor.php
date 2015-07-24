@@ -52,7 +52,7 @@ class Progenitor extends BaseUser
 
     /**
      * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="progenitores")
-     * @ORM\JoinTable(name="cuentapadre")
+     * @ORM\JoinTable(name="progenitor_cuenta")
      **/    
     private $cuentas;
     
