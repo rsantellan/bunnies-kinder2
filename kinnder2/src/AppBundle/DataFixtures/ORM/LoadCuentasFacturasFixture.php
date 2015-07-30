@@ -111,13 +111,14 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
             $manager->persist($facturaFinal);
             $facturasList[$rowFactura['id']] = $facturaFinal;
             
-            $stmtFacturaDetalle->execute($rowFactura['id']);
+            $stmtFacturaDetalle->execute(array($rowFactura['id']));
             while($rowDetalle = $stmtFacturaDetalle->fetch()){
               $facturaFinalDetalle = new Facturafinaldetalle();
-              $facturaFinalDetalle->setAmount($rowDetalle['']);
-              $facturaFinalDetalle->setDescription($rowDetalle);
+              $facturaFinalDetalle->setAmount($rowDetalle['amount']);
+              $facturaFinalDetalle->setDescription($rowDetalle['description']);
               $facturaFinalDetalle->setFactura($facturaFinal);
-              $facturaFinalDetalle->setId($rowDetalle);
+              $facturaFinalDetalle->setId($rowDetalle['id']);
+              $manager->persist($facturaFinalDetalle);
             }
           }
           else
