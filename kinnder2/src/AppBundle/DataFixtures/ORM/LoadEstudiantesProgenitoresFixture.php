@@ -22,7 +22,7 @@ class LoadEstudiantesProgenitoresFixture extends AbstractFixture implements Orde
   private $container;
 
   public function getOrder() {
-	return 5;
+	return 7;
   }
 
   public function load(ObjectManager $manager) {
@@ -36,7 +36,6 @@ class LoadEstudiantesProgenitoresFixture extends AbstractFixture implements Orde
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
-    
     while($row = $stmt->fetch())
     {
         $progenitor = $manager->getRepository('AppBundle:Progenitor')->findOneBy(array('email' => $row['mail']));
@@ -50,7 +49,6 @@ class LoadEstudiantesProgenitoresFixture extends AbstractFixture implements Orde
         
     }
     $manager->flush();
-    
   }
 
   public function setContainer(ContainerInterface $container = null) {

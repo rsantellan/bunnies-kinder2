@@ -87,7 +87,7 @@ class Cuenta
     
     /**
      * 
-     * @ORM\OneToMany(targetEntity="Facturafinal", mappedBy="cuenta")
+     * @ORM\OneToMany(targetEntity="FacturaFinal", mappedBy="cuenta")
      *
      */
     private $facturas;    
@@ -324,10 +324,10 @@ class Cuenta
     /**
      * Add facturas
      *
-     * @param \AppBundle\Entity\Facturafinal $facturas
+     * @param \AppBundle\Entity\FacturaFinal $facturas
      * @return Cuenta
      */
-    public function addFactura(\AppBundle\Entity\Facturafinal $facturas)
+    public function addFactura(\AppBundle\Entity\FacturaFinal $facturas)
     {
         $this->facturas[] = $facturas;
 
@@ -337,9 +337,9 @@ class Cuenta
     /**
      * Remove facturas
      *
-     * @param \AppBundle\Entity\Facturafinal $facturas
+     * @param \AppBundle\Entity\FacturaFinal $facturas
      */
-    public function removeFactura(\AppBundle\Entity\Facturafinal $facturas)
+    public function removeFactura(\AppBundle\Entity\FacturaFinal $facturas)
     {
         $this->facturas->removeElement($facturas);
     }

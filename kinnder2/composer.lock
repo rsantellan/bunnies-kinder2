@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rsantellan/symfony2-maith-newsletter.git",
-                "reference": "92cf2ec6d654fe153d5436f111b4951272540ee4"
+                "reference": "19ab0a5acc84e1302ef7dc77ddc8c1c2827ed63f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rsantellan/symfony2-maith-newsletter/zipball/92cf2ec6d654fe153d5436f111b4951272540ee4",
-                "reference": "92cf2ec6d654fe153d5436f111b4951272540ee4",
+                "url": "https://api.github.com/repos/rsantellan/symfony2-maith-newsletter/zipball/19ab0a5acc84e1302ef7dc77ddc8c1c2827ed63f",
+                "reference": "19ab0a5acc84e1302ef7dc77ddc8c1c2827ed63f",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 "source": "https://github.com/rsantellan/symfony2-maith-newsletter/tree/master",
                 "issues": "https://github.com/rsantellan/symfony2-maith-newsletter/issues"
             },
-            "time": "2015-07-17 08:31:11"
+            "time": "2015-07-31 06:12:17"
         },
         {
             "name": "behat/transliterator",
@@ -913,12 +913,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "3efbc08a97f218d0a4524dee926fc4381e3d0947"
+                "reference": "c3a3843db8a5202a672a5945d8071653a1661e55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/3efbc08a97f218d0a4524dee926fc4381e3d0947",
-                "reference": "3efbc08a97f218d0a4524dee926fc4381e3d0947",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/c3a3843db8a5202a672a5945d8071653a1661e55",
+                "reference": "c3a3843db8a5202a672a5945d8071653a1661e55",
                 "shasum": ""
             },
             "require": {
@@ -972,7 +972,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-06-10 08:27:05"
+            "time": "2015-07-27 22:23:24"
         },
         {
             "name": "gedmo/doctrine-extensions",

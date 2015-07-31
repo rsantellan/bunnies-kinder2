@@ -66,7 +66,7 @@ class Progenitor extends BaseUser
     private $estudiantes;    
 
     /**
-     * @ORM\ManyToMany(targetEntity="Role", indexBy="name")
+     * @ORM\ManyToMany(targetEntity="Role", indexBy="name", inversedBy="users")
      * @ORM\JoinTable(name="maith_bunny_users_roles")
      */
     protected $user_roles;

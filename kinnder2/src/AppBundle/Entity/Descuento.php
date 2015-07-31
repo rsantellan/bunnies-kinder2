@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Descuentos
  *
- * @ORM\Table(name="descuentos", uniqueConstraints={@ORM\UniqueConstraint(name="cantidad_de_hermanos", columns={"cantidad_de_hermanos"})})
+ * @ORM\Table(name="descuento", uniqueConstraints={@ORM\UniqueConstraint(name="cantidad_de_hermanos", columns={"cantidad_de_hermanos"})})
  * @ORM\Entity
  */
-class Descuentos
+class Descuento
 {
     /**
      * @var integer
@@ -36,6 +36,17 @@ class Descuentos
     private $porcentaje;
 
 
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Descuentos
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * Get id

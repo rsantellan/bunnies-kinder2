@@ -22,7 +22,7 @@ class LoadCuentasCobrosFixture extends AbstractFixture implements OrderedFixture
   private $container;
 
   public function getOrder() {
-	return 8;
+	return 9;
   }
 
   public function load(ObjectManager $manager) {

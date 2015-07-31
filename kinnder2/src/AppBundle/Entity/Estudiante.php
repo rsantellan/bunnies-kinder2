@@ -124,17 +124,9 @@ class Estudiante
      **/    
     private $cuentas;    
     
-    
     /**
      * 
-     * @ORM\OneToMany(targetEntity="Pagos", mappedBy="estudiante")
-     *
-     */
-    private $pagos;
-    
-    /**
-     * 
-     * @ORM\OneToMany(targetEntity="Facturausuario", mappedBy="estudiante")
+     * @ORM\OneToMany(targetEntity="FacturaEstudiante", mappedBy="estudiante")
      *
      */
     private $facturas;
@@ -529,10 +521,10 @@ class Estudiante
     /**
      * Add facturas
      *
-     * @param \AppBundle\Entity\Facturausuario $facturas
+     * @param \AppBundle\Entity\FacturaEstudiante $facturas
      * @return Estudiante
      */
-    public function addFactura(\AppBundle\Entity\Facturausuario $facturas)
+    public function addFactura(\AppBundle\Entity\FacturaEstudiante $facturas)
     {
         $this->facturas[] = $facturas;
 
@@ -542,9 +534,9 @@ class Estudiante
     /**
      * Remove facturas
      *
-     * @param \AppBundle\Entity\Facturausuario $facturas
+     * @param \AppBundle\Entity\FacturaEstudiante $facturas
      */
-    public function removeFactura(\AppBundle\Entity\Facturausuario $facturas)
+    public function removeFactura(\AppBundle\Entity\FacturaEstudiante $facturas)
     {
         $this->facturas->removeElement($facturas);
     }
@@ -557,39 +549,6 @@ class Estudiante
     public function getFacturas()
     {
         return $this->facturas;
-    }
-
-    /**
-     * Add pagos
-     *
-     * @param \AppBundle\Entity\Pagos $pagos
-     * @return Estudiante
-     */
-    public function addPago(\AppBundle\Entity\Pagos $pagos)
-    {
-        $this->pagos[] = $pagos;
-
-        return $this;
-    }
-
-    /**
-     * Remove pagos
-     *
-     * @param \AppBundle\Entity\Pagos $pagos
-     */
-    public function removePago(\AppBundle\Entity\Pagos $pagos)
-    {
-        $this->pagos->removeElement($pagos);
-    }
-
-    /**
-     * Get pagos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPagos()
-    {
-        return $this->pagos;
     }
 
     /**
@@ -697,7 +656,6 @@ class Estudiante
     {
         $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
         $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->facturas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->brothersWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myBrothers = new \Doctrine\Common\Collections\ArrayCollection();

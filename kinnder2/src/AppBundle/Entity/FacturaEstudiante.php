@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Facturausuario
+ * FacturaEstudiante
  *
- * @ORM\Table(name="facturaUsuario", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "usuario_id"})}, indexes={@ORM\Index(name="usuario_id_idx", columns={"usuario_id"})})
+ * @ORM\Table(name="factura_estudiante", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "usuario_id"})}, indexes={@ORM\Index(name="usuario_id_idx", columns={"usuario_id"})})
  * @ORM\Entity
  */
-class Facturausuario
+class FacturaEstudiante
 {
     /**
      * @var integer
@@ -98,14 +98,14 @@ class Facturausuario
 
     /**
      * 
-     * @ORM\OneToMany(targetEntity="Facturausuariodetalle", mappedBy="factura")
+     * @ORM\OneToMany(targetEntity="FacturaEstudianteDetalle", mappedBy="factura")
      *
      */    
     private $facturaDetalles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Facturafinal", inversedBy="facturasUsuarios")
-     * @ORM\JoinTable(name="facturausuariofinal",
+     * @ORM\ManyToMany(targetEntity="FacturaFinal", inversedBy="facturaEstudiante")
+     * @ORM\JoinTable(name="factura_estudiante_final",
      *      joinColumns={@ORM\JoinColumn(name="factura_usuario_id", referencedColumnName="id", nullable=false)},
      *      inverseJoinColumns={@ORM\JoinColumn(name="factura_final_id", referencedColumnName="id", nullable=false)}
      *      )
@@ -137,7 +137,7 @@ class Facturausuario
      * Set total
      *
      * @param float $total
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setTotal($total)
     {
@@ -160,7 +160,7 @@ class Facturausuario
      * Set month
      *
      * @param integer $month
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setMonth($month)
     {
@@ -183,7 +183,7 @@ class Facturausuario
      * Set year
      *
      * @param integer $year
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setYear($year)
     {
@@ -206,7 +206,7 @@ class Facturausuario
      * Set enviado
      *
      * @param boolean $enviado
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setEnviado($enviado)
     {
@@ -229,7 +229,7 @@ class Facturausuario
      * Set pago
      *
      * @param boolean $pago
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setPago($pago)
     {
@@ -252,7 +252,7 @@ class Facturausuario
      * Set cancelado
      *
      * @param boolean $cancelado
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setCancelado($cancelado)
     {
@@ -275,7 +275,7 @@ class Facturausuario
      * Set fechavencimiento
      *
      * @param \DateTime $fechavencimiento
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setFechavencimiento($fechavencimiento)
     {
@@ -298,7 +298,7 @@ class Facturausuario
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setCreatedAt($createdAt)
     {
@@ -321,7 +321,7 @@ class Facturausuario
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -343,10 +343,10 @@ class Facturausuario
     /**
      * Add facturaDetalles
      *
-     * @param \AppBundle\Entity\Facturausuariodetalle $facturaDetalles
-     * @return Facturausuario
+     * @param \AppBundle\Entity\FacturaEstudianteDetalle $facturaDetalles
+     * @return FacturaEstudiante
      */
-    public function addFacturaDetalle(\AppBundle\Entity\Facturausuariodetalle $facturaDetalles)
+    public function addFacturaDetalle(\AppBundle\Entity\FacturaEstudianteDetalle $facturaDetalles)
     {
         $this->facturaDetalles[] = $facturaDetalles;
 
@@ -356,9 +356,9 @@ class Facturausuario
     /**
      * Remove facturaDetalles
      *
-     * @param \AppBundle\Entity\Facturausuariodetalle $facturaDetalles
+     * @param \AppBundle\Entity\FacturaEstudianteDetalle $facturaDetalles
      */
-    public function removeFacturaDetalle(\AppBundle\Entity\Facturausuariodetalle $facturaDetalles)
+    public function removeFacturaDetalle(\AppBundle\Entity\FacturaEstudianteDetalle $facturaDetalles)
     {
         $this->facturaDetalles->removeElement($facturaDetalles);
     }
@@ -376,10 +376,10 @@ class Facturausuario
     /**
      * Add facturasFinales
      *
-     * @param \AppBundle\Entity\Facturafinal $facturasFinales
-     * @return Facturausuario
+     * @param \AppBundle\Entity\FacturaFinal $facturasFinales
+     * @return FacturaEstudiante
      */
-    public function addFacturasFinale(\AppBundle\Entity\Facturafinal $facturasFinales)
+    public function addFacturasFinale(\AppBundle\Entity\FacturaFinal $facturasFinales)
     {
         $this->facturasFinales[] = $facturasFinales;
 
@@ -389,9 +389,9 @@ class Facturausuario
     /**
      * Remove facturasFinales
      *
-     * @param \AppBundle\Entity\Facturafinal $facturasFinales
+     * @param \AppBundle\Entity\FacturaFinal $facturasFinales
      */
-    public function removeFacturasFinale(\AppBundle\Entity\Facturafinal $facturasFinales)
+    public function removeFacturasFinale(\AppBundle\Entity\FacturaFinal $facturasFinales)
     {
         $this->facturasFinales->removeElement($facturasFinales);
     }
@@ -418,7 +418,7 @@ class Facturausuario
      * Set estudiante
      *
      * @param \AppBundle\Entity\Estudiante $estudiante
-     * @return Facturausuario
+     * @return FacturaEstudiante
      */
     public function setEstudiante(\AppBundle\Entity\Estudiante $estudiante = null)
     {

@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Facturafinaldetalle
+ * FacturaEstudianteDetalle
  *
- * @ORM\Table(name="facturaFinalDetalle", indexes={@ORM\Index(name="factura_id_idx", columns={"factura_id"})})
+ * @ORM\Table(name="factura_estudiante_detalle", indexes={@ORM\Index(name="factura_id_idx", columns={"factura_id"})})
  * @ORM\Entity
  */
-class Facturafinaldetalle
+class FacturaEstudianteDetalle
 {
     /**
      * @var integer
@@ -24,10 +24,10 @@ class Facturafinaldetalle
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Facturafinal", inversedBy="facturafinalDetalles")
+     * @ORM\ManyToOne(targetEntity="FacturaEstudiante", inversedBy="facturaDetalles")
      * @ORM\JoinColumn(name="factura_id", referencedColumnName="id", nullable=false)
      * 
-     **/         
+     **/    
     private $factura;
 
     /**
@@ -40,7 +40,7 @@ class Facturafinaldetalle
     /**
      * @var float
      *
-     * @ORM\Column(name="amount", type="float", precision=12, scale=2, nullable=true, options={"default": 0})
+     * @ORM\Column(name="amount", type="float", precision=12, scale=2, nullable=false, options={"default": 0})
      */
     private $amount;
 
@@ -70,8 +70,9 @@ class Facturafinaldetalle
     {
         $this->id = $id;
         return  $this;
-    }    
-
+    }
+    
+    
     /**
      * Get id
      *
@@ -86,7 +87,7 @@ class Facturafinaldetalle
      * Set description
      *
      * @param string $description
-     * @return Facturafinaldetalle
+     * @return FacturaEstudianteDetalle
      */
     public function setDescription($description)
     {
@@ -109,7 +110,7 @@ class Facturafinaldetalle
      * Set amount
      *
      * @param float $amount
-     * @return Facturafinaldetalle
+     * @return FacturaEstudianteDetalle
      */
     public function setAmount($amount)
     {
@@ -132,7 +133,7 @@ class Facturafinaldetalle
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return Facturafinaldetalle
+     * @return FacturaEstudianteDetalle
      */
     public function setCreatedAt($createdAt)
     {
@@ -155,7 +156,7 @@ class Facturafinaldetalle
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return Facturafinaldetalle
+     * @return FacturaEstudianteDetalle
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -177,10 +178,10 @@ class Facturafinaldetalle
     /**
      * Set factura
      *
-     * @param \AppBundle\Entity\Facturafinal $factura
-     * @return Facturafinaldetalle
+     * @param \AppBundle\Entity\FacturaEstudiante $factura
+     * @return FacturaEstudianteDetalle
      */
-    public function setFactura(\AppBundle\Entity\Facturafinal $factura = null)
+    public function setFactura(\AppBundle\Entity\FacturaEstudiante $factura = null)
     {
         $this->factura = $factura;
 
@@ -190,7 +191,7 @@ class Facturafinaldetalle
     /**
      * Get factura
      *
-     * @return \AppBundle\Entity\Facturafinal 
+     * @return \AppBundle\Entity\FacturaEstudiante 
      */
     public function getFactura()
     {

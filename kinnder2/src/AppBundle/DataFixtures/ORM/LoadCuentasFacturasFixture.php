@@ -8,10 +8,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\DataFixtures\DataFixturesConstants;
-use AppBundle\Entity\Facturausuario;
-use AppBundle\Entity\Facturausuariodetalle;
-use AppBundle\Entity\Facturafinal;
-use AppBundle\Entity\Facturafinaldetalle;
+use AppBundle\Entity\FacturaEstudiante;
+use AppBundle\Entity\FacturaEstudianteDetalle;
+use AppBundle\Entity\FacturaFinal;
+use AppBundle\Entity\FacturaFinalDetalle;
 /**
  * Description of LoadCuentasFacturasFixture
  *
@@ -25,7 +25,7 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
   private $container;
 
   public function getOrder() {
-	return 9;
+	return 10;
   }
 
   public function load(ObjectManager $manager) {
@@ -48,23 +48,23 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
     $stmtFactura = $conn->prepare($sqlFacturaFinal);
     $stmtFacturaDetalle = $conn->prepare($sqlFacturaFinalDetalle);
     
-    $metadata = $manager->getClassMetaData(get_class(new Facturausuario()));
+    $metadata = $manager->getClassMetaData(get_class(new FacturaEstudiante()));
     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
     
-    $metadataDetalle = $manager->getClassMetaData(get_class(new Facturausuariodetalle()));
+    $metadataDetalle = $manager->getClassMetaData(get_class(new FacturaEstudianteDetalle()));
     $metadataDetalle->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
     
-    $metadataFactura = $manager->getClassMetaData(get_class(new Facturafinal()));
+    $metadataFactura = $manager->getClassMetaData(get_class(new FacturaFinal()));
     $metadataFactura->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
     
-    $metadataFacturaDetalle = $manager->getClassMetaData(get_class(new Facturafinaldetalle()));
+    $metadataFacturaDetalle = $manager->getClassMetaData(get_class(new FacturaFinalDetalle()));
     $metadataFacturaDetalle->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
     $facturasList = array();
     
     while($row = $stmt->fetch())
     {
         // Adding cobro
-        $facturaUsuario = new Facturausuario();
+        $facturaUsuario = new FacturaEstudiante();
         $facturaUsuario->setId($row['id']);
         $fechavencimiento = $row['fechavencimiento'];
         if($fechavencimiento){
@@ -82,7 +82,7 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
         
         $stmtUsuarioDetalle->execute(array($row['id']));
         while($rowUsuarioDetalle = $stmtUsuarioDetalle->fetch()){
-          $usuarioDetalle = new Facturausuariodetalle();
+          $usuarioDetalle = new FacturaEstudianteDetalle();
           $usuarioDetalle->setId($rowUsuarioDetalle['id']);
           $usuarioDetalle->setAmount($rowUsuarioDetalle['amount']);
           $usuarioDetalle->setDescription($rowUsuarioDetalle['description']);
@@ -94,7 +94,7 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
         while($rowFactura = $stmtFactura->fetch()){
           if(!isset($facturasList[$rowFactura['id']]))
           {
-            $facturaFinal = new Facturafinal();
+            $facturaFinal = new FacturaFinal();
             $facturaFinal->setCancelado($rowFactura['cancelado']);
             $facturaFinal->setCuenta($manager->getRepository('AppBundle:Cuenta')->find($rowFactura['cuenta_id']));
             $facturaFinal->setEnviado($rowFactura['enviado']);
@@ -113,7 +113,7 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
             
             $stmtFacturaDetalle->execute(array($rowFactura['id']));
             while($rowDetalle = $stmtFacturaDetalle->fetch()){
-              $facturaFinalDetalle = new Facturafinaldetalle();
+              $facturaFinalDetalle = new FacturaFinalDetalle();
               $facturaFinalDetalle->setAmount($rowDetalle['amount']);
               $facturaFinalDetalle->setDescription($rowDetalle['description']);
               $facturaFinalDetalle->setFactura($facturaFinal);

@@ -23,7 +23,7 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
   private $container;
 
   public function getOrder() {
-	return 3;
+	 return 4;
   }
 
   public function load(ObjectManager $manager) {
