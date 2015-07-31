@@ -1,6 +1,6 @@
 <?php
 
-namespace Maith\ContableBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -59,28 +59,10 @@ class LoadCodiguerasFixture extends AbstractFixture implements OrderedFixtureInt
     }
 
     $manager->flush();
-    sleep(10);
     $metadata = $manager->getClassMetaData(get_class(new Actividad()));
     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
-    $newsletters = array();
     while($row = $stmt->fetch())
     {
-        /*
-        $nombre = sprintf('%s-%s',$row['nombre'],$row['costo']);
-        //$nombre = $row['nombre'];
-        $newsLetterGroup = $manager->getRepository('MaithNewsletterBundle:UserGroup')->findOneBy(array('name' => $row['nombre']));
-        if(!$newsLetterGroup){
-          
-          if(isset($newsletters[$nombre])){
-            $newsLetterGroup = $newsletters[$nombre];
-          }else{
-            $newsLetterGroup = new UserGroup();
-            $newsLetterGroup->setName($nombre);
-            $manager->persist($newsLetterGroup);
-            $newsletters[$nombre] = $newsLetterGroup;
-          }
-        }
-        */
         $actividad = new Actividad();
         $actividad->setId($row['id']);
         $actividad->setNombre($row['nombre']);
@@ -90,7 +72,6 @@ class LoadCodiguerasFixture extends AbstractFixture implements OrderedFixtureInt
         $manager->persist($actividad);
     }
     $manager->flush();
-    sleep(10);
     $sqlDescuentos = 'select id, cantidad_de_hermanos, porcentaje from descuentos';
     $stmtDescuentos = $conn->prepare($sqlDescuentos);
     $stmtDescuentos->execute();

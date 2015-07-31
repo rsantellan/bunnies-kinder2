@@ -43,7 +43,7 @@ class LoadProgenitoresFixture extends AbstractFixture implements OrderedFixtureI
         $direccion = $row['direccion'];
         $telefono = $row['telefono'];
         $celular = $row['celular'];
-        $mail = $row['mail'];
+        $mail = trim($row['mail']);
         if($mail){
           $user = $userManager->createUser();
           $user->setUsername($mail);
@@ -56,6 +56,7 @@ class LoadProgenitoresFixture extends AbstractFixture implements OrderedFixtureI
           $user->setTelefono($telefono);
           $user->setCelular($celular);
           $manager->persist($user);
+          //var_dump($user->getId(). ' -|'.$mail.'|');
         }
         else
         {
@@ -63,7 +64,6 @@ class LoadProgenitoresFixture extends AbstractFixture implements OrderedFixtureI
           var_dump($row);
         }
       }
-      
       $manager->flush();
     }
 

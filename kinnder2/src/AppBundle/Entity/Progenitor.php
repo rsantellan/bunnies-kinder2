@@ -72,6 +72,12 @@ class Progenitor extends BaseUser
     protected $user_roles;
 
     /**
+     * @ORM\OneToOne(targetEntity="Maith\NewsletterBundle\Entity\User")
+     * @ORM\JoinColumn(name="news_letter_user_id", referencedColumnName="id")
+     */
+    private $newsletterUser;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -386,5 +392,28 @@ class Progenitor extends BaseUser
     public function getUserRoles()
     {
         return $this->user_roles;
+    }
+
+    /**
+     * Set newsletterUser
+     *
+     * @param \Maith\NewsletterBundle\Entity\User $newsletterUser
+     * @return Progenitor
+     */
+    public function setNewsletterUser(\Maith\NewsletterBundle\Entity\User $newsletterUser = null)
+    {
+        $this->newsletterUser = $newsletterUser;
+
+        return $this;
+    }
+
+    /**
+     * Get newsletterUser
+     *
+     * @return \Maith\NewsletterBundle\Entity\User 
+     */
+    public function getNewsletterUser()
+    {
+        return $this->newsletterUser;
     }
 }
