@@ -30,7 +30,7 @@ class LoadOldNewsLetterFixture extends AbstractFixture implements OrderedFixture
   }
 
   public function load(ObjectManager $manager) {
-    return;
+    
     $username = DataFixturesConstants::DBUSER;
     $password = DataFixturesConstants::DBPASS;
     $database = DataFixturesConstants::DBSCHEMA;
@@ -62,7 +62,7 @@ class LoadOldNewsLetterFixture extends AbstractFixture implements OrderedFixture
         $manager->persist($user);
         $users[$rowUser['id']] = $user;
         
-        $progenitor = $manager->getRepository('AppBundle:Progenitor')->findBy(array('email' => trim($rowUser['email'])));
+        $progenitor = $manager->getRepository('AppBundle:Progenitor')->findOneBy(array('email' => trim($rowUser['email'])));
         $progenitor->setNewsletterUser($user);
         $manager->persist($progenitor);
     }
@@ -116,7 +116,7 @@ class LoadOldNewsLetterFixture extends AbstractFixture implements OrderedFixture
             $sendAt = $rowContentSended['sending_date'];
             if($sendAt)
             {
-              $contentSend->setSendat(new \DateTime($sendAt));
+              $sendedUser->setSendat(new \DateTime($sendAt));
             }
             $manager->persist($sendedUser);
             $contentUserSendCheck[$check] = $check;
