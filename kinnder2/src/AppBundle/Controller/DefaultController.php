@@ -12,7 +12,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllPendingDebts();
-        var_dump($pendingDebts);
+        //var_dump($pendingDebts);
         return $this->render('default/index.html.twig');
     }
 }

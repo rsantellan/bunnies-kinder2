@@ -3,13 +3,31 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
         
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-
-        main:
-            anonymous: ~
+        secured_area:
+            pattern:    ^/
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                provider: fos_userbundle
+                csrf_provider: security.csrf.token_manager
+            logout:
+                path: /logout
+                target: /
+            anonymous: true
+            remember_me:
+                key:      kinnder2
+                lifetime: 3600
+                path:     /
+                domain:   ~                  
+            
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }

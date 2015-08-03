@@ -45,7 +45,7 @@ class Actividad
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Maith\NewsletterBundle\Entity\UserGroup")
+     * @ORM\ManyToOne(targetEntity="\Maith\NewsletterBundle\Entity\UserGroup")
      * @ORM\JoinColumn(name="md_news_letter_group_id", referencedColumnName="id")
      * 
      * 
