@@ -104,7 +104,7 @@ class FacturaFinal
 
     /**
      * 
-     * @ORM\OneToMany(targetEntity="facturaFinalDetalle", mappedBy="factura")
+     * @ORM\OneToMany(targetEntity="FacturaFinalDetalle", mappedBy="factura")
      *
      */
     private $facturaFinalDetalles;

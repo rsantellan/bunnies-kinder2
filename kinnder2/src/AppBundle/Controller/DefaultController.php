@@ -7,11 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/app/example", name="homepage")
-     */
+
     public function indexAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllPendingDebts();
+        var_dump($pendingDebts);
         return $this->render('default/index.html.twig');
     }
 }
