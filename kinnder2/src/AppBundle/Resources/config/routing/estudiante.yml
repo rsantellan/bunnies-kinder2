@@ -1,0 +1,30 @@
+estudiante:
+    path:     /{page}/{orderBy}/{order}/{limit}
+    defaults: { _controller: "AppBundle:Estudiante:index", page: 0, orderBy: 'apellido', order : 'asc', limit: 10 }
+
+estudiante_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Estudiante:show" }
+
+estudiante_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Estudiante:new" }
+
+estudiante_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Estudiante:create" }
+    methods:  POST
+
+estudiante_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Estudiante:edit" }
+
+estudiante_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Estudiante:update" }
+    methods:  [POST, PUT]
+
+estudiante_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Estudiante:delete" }
+    methods:  [POST, DELETE]

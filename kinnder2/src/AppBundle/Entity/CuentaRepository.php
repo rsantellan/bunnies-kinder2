@@ -15,16 +15,33 @@ class CuentaRepository extends EntityRepository
   
   public function retrieveAllPendingDebts()
   {
-    $sql = 'select c.id as cuentaId, c.diferencia, c.referenciabancaria, e.id as estudianteId, e.nombre, e.apellido, e.horario, e.clase from cuenta c inner join estudiante_cuenta ec on c.id = ec.cuenta_id inner join estudiante e on e.id = ec.estudiante_id where c.diferencia > 0';
+    $sql = 'select c.id as cuentaId, c.diferencia, c.referenciabancaria, e.id as estudianteId, e.nombre, e.apellido, e.horario, e.clase, e.egresado from cuenta c inner join estudiante_cuenta ec on c.id = ec.cuenta_id inner join estudiante e on e.id = ec.estudiante_id where c.diferencia > 0 order by e.apellido';
     $data = $this->getEntityManager()->getConnection()->executeQuery($sql);//->fetchAll();
     $returnList = array();
     while($row = $data->fetch())
     {
+      $cuenta = new \stdClass();
       if(isset($returnList[$row['cuentaId']]))
       {
-          $returnList[$row['cuentaId']] = array();
+          $cuenta = $returnList[$row['cuentaId']];
+      }  
+      else
+      {
+        $cuenta->cuentaId = $row['cuentaId'];
+        $cuenta->diferencia = $row['diferencia'];
+        $cuenta->referenciaBancaria = $row['referenciabancaria'];
+        $cuenta->apellido = $row['apellido'];
+        $cuenta->estudiantes = array();
       }
-      $returnList[$row['cuentaId']][] = $row;
+      $cuenta->estudiantes[] = array(
+          'nombre' => $row['nombre'], 
+          'apellido' => $row['apellido'],
+          'horario' => $row['horario'],
+          'clase' => $row['clase'],
+          'egresado' => $row['egresado'],
+          );
+      //var_dump($row);
+      $returnList[$row['cuentaId']] = $cuenta;
     }
     return $returnList;
   }

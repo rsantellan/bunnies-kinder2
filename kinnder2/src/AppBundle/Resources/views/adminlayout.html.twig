@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <!-- /meta -->
 
-    <title>Tekoa Viajes Administrador</title>
-
+    <title>Bunnies Kinder Administrador</title>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <!-- page level plugin styles -->
     {% block pagestylesheets %}{% endblock %}
     <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/offline/theme.css') }}">
@@ -23,7 +23,7 @@
     <!-- /core styles -->
 
     <!-- template styles -->
-    <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/skins/palette.4.css') }}" id="skin">
+    <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/skins/palette.6.css') }}" id="skin">
     <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/fonts/style.1.css') }}" id="font">
     <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/main.css') }}">
     
@@ -37,65 +37,29 @@
   <!-- body -->
 
   <body>
-    <div class="app {% if (smallnavigation is defined) and smallnavigation %} small-sidebar{% endif %}" {% if (smallnavigation is defined) and smallnavigation %}data-sidebar="locked"{% endif %}>
+    <div class="app boxed horizontal {% if (smallnavigation is defined) and smallnavigation %} small-sidebar{% endif %}" {% if (smallnavigation is defined) and smallnavigation %}data-sidebar="locked"{% endif %}>
 	  <!-- top header -->
 	  <header class="header header-fixed navbar">
 
 		<div class="brand">
 		  <a href="javascript:;" class="fa fa-bars off-left visible-xs" data-toggle="off-canvas" data-move="ltr"></a>
-
 		  <a href="{{ path('admin_index')}}" class="navbar-brand text-white">
 			<i class="fa fa-stop mg-r-sm"></i>
 			<span class="heading-font">
-			  <b>Tekoa</b> Viajes
+			  <b>Bunnies</b> Kinder
 			</span>
 		  </a>
 		</div>
-
+        
+        {{ include('AppBundle:Admin:menu.html.twig') }}
+        
 		{{ include('AppBundle:Admin:userheader.html.twig') }}
 	  </header>
 	  <!-- /top header -->
 
 	  <section class="layout">
-		<!-- sidebar menu -->
-		<aside class="sidebar collapsible canvas-left">
-		  <div class="scroll-menu">
-			<!-- main navigation -->
-			{{ include('AppBundle:Admin:menu.html.twig') }}
-			<!-- /main navigation -->
-		  </div>
 
-		  <!-- footer -->
-		  <footer>
-			<div class="about-app pd-md animated pulse">
-			  {#
-			  <a href="javascript:;">
-				<img src="{{ asset('bundles/app/admin/img/about.png')}}" alt="">
-			  </a>
-			  #}
-			  <span>
-				<b>Contable3</b>
-				<a href="javascript:;">
-				  <b>Mas informacion</b>
-				</a>
-			  </span>
-			</div>
-
-			<div class="footer-toolbar pull-left">
-			  <a href="javascript:;" class="pull-left help">
-				<i class="fa fa-question-circle"></i>
-			  </a>
-
-			  <a href="javascript:;" class="toggle-sidebar pull-right hidden-xs">
-				<i class="fa fa-angle-left"></i>
-			  </a>
-			</div>
-		  </footer>
-		  <!-- /footer -->
-		</aside>
-		<!-- /sidebar menu -->
-
-		{% block profileinfo %}
+        {% block profileinfo %}
 
 		{% endblock %}
 		

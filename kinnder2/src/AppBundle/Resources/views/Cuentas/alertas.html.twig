@@ -1,0 +1,73 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block title %}AppBundle:Alarms:index{% endblock %}
+
+{% block body %}
+<div class="row">
+
+
+  <div class="col-sm-4">
+  </div>
+  <div class="col-sm-4">
+      <section class="panel">
+          <div class="panel-body">
+              <span class="circle-icon bg-warning">
+                  <i class="fa fa-cogs"></i>
+              </span>
+              <div class="stats-info">
+                  <h2 class="no-margin">{{ pendingDebts | length}}</h2>
+                  Cantidad
+              </div>
+          </div>
+      </section>
+  </div>  <div class="col-sm-4">
+  </div>
+</div>                    
+<div class="row">
+  <div class="col-xs-12">
+      <h3 class="no-margin">Alertas</h3>
+      <small>Alumnos con deudas</small>
+  </div>
+</div>
+<div class="row">
+  <section class="panel bg-none">
+      <div id="accordion" class="panel-group">
+          {% for debt in pendingDebts %}
+          <div class="panel">
+              <div class="panel-heading text-center">
+                  <a href="#collapsedBy{{ loop.index }}" data-parent="#accordion" data-toggle="collapse" class="collapsed" style="font-size: 20px">
+                    {{ debt.apellido }} (Ref: <strong>{{ debt.referenciaBancaria }}</strong>) ($ <strong>{{ debt.diferencia}}</strong>)
+                  </a>
+                  
+              </div>
+              <div class="panel-collapse collapse" id="collapsedBy{{ loop.index }}" style="height: 0px;">
+                  <div class="panel-body text-center">
+                    <h4>Alumnos relacionados</h4>
+                    <ul>
+                      {% for estudiante in debt.estudiantes %}
+                      <li> 
+                        {% if estudiante.egresado %}
+                          <span class="strike-span">{{ estudiante.nombre }} (Egresado)</span>
+                        {% else %}
+                          <span>{{ estudiante.nombre }} [{{ estudiante.clase }}/{{ estudiante.horario }}]</span>
+                        {% endif %}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                    <a href="" class="btn btn-success">
+                      <i class="fa fa-envelope"></i>Enviar email.
+                    </a>
+                    <a href="" class="btn btn-primary">
+                      <i class="fa fa-search"></i>Ver Detalle
+                    </a>
+                    <a href="" class="btn btn-warning">
+                      <i class="fa fa-dollar"></i>Pagar
+                    </a>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </section>
+</div>  
+{% endblock %}

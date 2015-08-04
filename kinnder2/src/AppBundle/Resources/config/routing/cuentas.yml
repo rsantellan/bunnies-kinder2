@@ -1,3 +1,3 @@
-index:
+admin_alertas:
     path:     /
     defaults: { _controller: AppBundle:Cuentas:index }

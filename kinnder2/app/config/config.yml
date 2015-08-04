@@ -94,3 +94,7 @@ stof_doctrine_extensions:
             sortable: false
             sluggable: false
             translatable: false      
+            
+jms_security_extra:
+    # Enables expression language
+    expressions: true            

@@ -1,0 +1,65 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+<div class="row">
+  <h1>Alumnos</h1>
+</div>  
+
+<div class="row">
+    <a href="{{ path('estudiante_new') }}">
+        Create a new entry
+    </a>
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>
+                  {% if orderBy == 'nombre' %}
+                  
+                  {% endif %}
+                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'nombre', 'order' : 'asc'}) }}">
+                    Nombre
+                  </a>  
+                </th>
+                <th>
+                  
+                  Apellido
+                </th>
+                <th>Fechanacimiento</th>
+                <th>Referenciabancaria</th>
+                <th>Clase</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.nombre }}</td>
+                <td>{{ entity.apellido }}</td>
+                <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('d/m/Y') }}{% endif %}</td>
+                <td>{{ entity.referenciaBancaria }}</td>
+                <td>{{ entity.clase }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('estudiante_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('estudiante_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>  
+    <a href="{{ path('estudiante', {'page' : page - 1}) }}">
+        Anterior
+    </a>    
+    <a href="{{ path('estudiante', {'page' : page + 1}) }}">
+        Siguiente
+    </a>    
+</div>
+
+
+
+{% endblock %}

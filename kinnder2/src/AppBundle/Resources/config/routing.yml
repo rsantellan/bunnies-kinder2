@@ -1,3 +1,7 @@
+app_estudiante:
+    resource: "@AppBundle/Resources/config/routing/estudiante.yml"
+    prefix:   /estudiante
+
 app:
     resource: "@AppBundle/Resources/config/routing/cuentas.yml"
     prefix:   /admin

@@ -1,103 +1,149 @@
-{% if (smallnavigation is defined) and smallnavigation %}
-<nav class="main-navigation">
-{% else %}
-<nav class="main-navigation slimscroll" data-height="auto" data-size="4px" data-color="#ddd" data-distance="0">
-{% endif %}
-  <ul>
-	<li>
-      <a href="{{ path('admin_index')}}">
-        <i class="fa fa-coffee"></i>
-		<span>{% trans %}tekoa_admin_menu_home{% endtrans %}</span>
-      </a>
-	</li>
-	{% if is_expr_granted("hasRole('ROLE_VIEW_CATEGORY')") %}
-    <li class="{% if (activemenu is defined) and activemenu == 'category' %}active{%endif%}">
-		<a href="{{ path('admin_category')}}">
-			<i class="fa fa-newspaper-o"></i>
-			<span>{% trans %}tekoa_admin_menu_tab_categories{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
-	{% if is_expr_granted("hasRole('ROLE_VIEW_USERS') or hasRole('ROLE_VIEW_PERMISSION_GROUPS')") %}
-    <li class="dropdown{% if (activemenu is defined) and activemenu == 'users' %} collapse-open open{% endif %}">
+<div class="collapse navbar-collapse pull-left no-padding" id="hor-menu">
+  <ul class="nav navbar-nav">
+    <li>
+      <a href="{{ path('admin_alertas')}}">Alertas</a>
+    </li>
+    <li>
+      <a href="{{ path('admin_alertas')}}">Textos</a>
+    </li>
+    <li class="dropdown show-on-hover">
       <a href="javascript:;" data-toggle="dropdown">
-        <i class="fa fa-user"></i>
-		<span>{% trans %}tekoa_admin_menu_tab_usuarios{% endtrans %}</span>
-		<i class="toggle-accordion"></i>
+        <span>Alumnos</span>
+        <b class="caret"></b>
       </a>
       <ul class="dropdown-menu">
-		{% if is_expr_granted("hasRole('ROLE_VIEW_USERS')") %}
-        <li class="{% if (activesubmenu is defined) and activesubmenu == 'users' %}active{%endif%}">
-		  <a href="{{ path('user')}}">
-			<span>{% trans %}tekoa_admin_menu_usuarios{% endtrans %}</span>
-		  </a>
-		</li>
-		{% endif %}
-		{% if is_expr_granted("hasRole('ROLE_VIEW_PERMISSION_GROUPS')") %}
-        <li class="{% if (activesubmenu is defined) and activesubmenu == 'usersgrouproles' %}active{%endif%}">
-		  <a href="{{ path('grouprole')}}">
-			<span>{% trans %}tekoa_admin_menu_grupos_roles{% endtrans %}</span>
-		  </a>
-		</li>
-		{% endif %}
-      </ul>  
+        <li>
+          <a href="{{ path('estudiante') }}">
+            <span>Corrientes</span>
+          </a>
+        </li>
+        <li>
+          <a href="forms.html">
+            <span>Exportar Corrientes</span>
+          </a>
+        </li>
+        <li>
+          <a href="tables.html">
+            <span>Futuros</span>
+          </a>
+        </li>
+        <li>
+          <a href="calendar.html">
+            <span>Egresados</span>
+          </a>
+        </li>
+      </ul>
     </li>
-	{% endif %}
-	{% if is_expr_granted("hasRole('ROLE_VIEW_TRANSPORT')") %}
-    <li class="{% if (activemenu is defined) and activemenu == 'transport' %}active{%endif%}">
-		<a href="{{ path('admin_transport')}}">
-			<i class="fa fa-bus"></i>
-			<span>{% trans %}tekoa_admin_menu_tab_transports{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
-    {% if is_expr_granted("hasRole('ROLE_VIEW_ARTICLE')") %}
-    <li class="{% if (activemenu is defined) and activemenu == 'article' %}active{%endif%}">
-		<a href="{{ path('admin_article')}}">
-			<i class="fa fa-newspaper-o"></i>
-			<span>{% trans %}tekoa_admin_menu_article{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
-    {% if is_expr_granted("hasRole('ROLE_VIEW_GALLERY')") %}
-    <li class="{% if (activemenu is defined) and activemenu == 'gallery' %}active{%endif%}">
-		<a href="{{ path('admin_gallerie')}}">
-			<i class="fa fa-file-image-o"></i>
-			<span>{% trans %}tekoa_admin_menu_gallery{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
-    {% if is_expr_granted("hasRole('ROLE_VIEW_TRANSLATOR')") %}
-    <li>
-		<a href="{{ path('maith_common_translator_homepage')}}">
-			<i class="fa fa-file-text-o"></i>
-			<span>{% trans %}tekoa_admin_menu_textos{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
-    {% if is_expr_granted("hasRole('ROLE_VIEW_TICKET')") %}
-    <li class="{% if (activemenu is defined) and activemenu == 'tickets' %}active{%endif%}">
-		<a href="{{ path('admin_ticket_')}}">
-			<i class="fa fa-bookmark-o"></i>
-			<span>{% trans %}tekoa_admin_menu_tickets_areos{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
-    {% if is_expr_granted("hasRole('ROLE_VIEW_DESTINY')") %}
-    <li class="{% if (activemenu is defined) and activemenu == 'destiny' %}active{%endif%}">
-		<a href="{{ path('admin_destiny')}}">
-			<i class="fa fa-paper-plane-o"></i>
-			<span>{% trans %}tekoa_admin_menu_destinos{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
-    {% if is_expr_granted("hasRole('ROLE_MANAGE_NEWSLETTER')") %}
-    <li class="{% if (activemenu is defined) and activemenu == 'newsletter' %}active{%endif%}">
-		<a href="{{ path('admin_newsletter_index')}}">
-			<i class="fa fa-envelope-o"></i>
-			<span>{% trans %}tekoa_admin_menu_newsletter{% endtrans %}</span>
-		</a>
-	</li>
-    {% endif %}
+    <li class="dropdown active show-on-hover">
+      <a href="javascript:;" data-toggle="dropdown">
+        <span>Layouts</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="boxed.html">
+            <span>Boxed</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="horizontal.html">
+            <span>Horizontal menu</span>
+          </a>
+        </li>
+        <li>
+          <a href="horizontal_boxed.html">
+            <span>Horizontal Boxed</span>
+          </a>
+        </li>
+        <li>
+          <a href="small-sidebar.html">
+            <span>Small sidebar</span>
+          </a>
+        </li>
+        <li>
+          <a href="right-sidebar.html">
+            <span>Right Sidebar</span>
+          </a>
+        </li>
+        <li>
+          <a href="right-sidebar-collapsible.html">
+            <span>Right Sidebar collapsible</span>
+          </a>
+        </li>
+        <li>
+          <a href="both.html">
+            <span>Mixed menus</span>
+          </a>
+        </li>
+        <li>
+          <a href="collapsible.html">
+            <span>Collapsible Menu</span>
+          </a>
+        </li>
+        <li>
+          <a href="footer.html">
+            <span>With Footer</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown show-on-hover">
+      <a href="javascript:;" data-toggle="dropdown">
+        <span>Pages</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="tasks.html">
+            <span>Tasks</span>
+          </a>
+        </li>
+        <li>
+          <a href="profile.html">
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="invoice.html">
+            <span>Invoice</span>
+          </a>
+        </li>
+        <li>
+          <a href="gallery.html">
+            <span>Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="signin.html">
+            <span>Signin</span>
+          </a>
+        </li>
+        <li>
+          <a href="signup.html">
+            <span>Signup</span>
+          </a>
+        </li>
+        <li>
+          <a href="lock.html">
+            <span>Lock Screen</span>
+          </a>
+        </li>
+        <li>
+          <a href="404.html">
+            <span>404 Page</span>
+          </a>
+        </li>
+        <li>
+          <a href="500.html">
+            <span>500 Page</span>
+          </a>
+        </li>
+        <li>
+          <a href="blank.html">
+            <span>Blank</span>
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
-</nav>
+</div>

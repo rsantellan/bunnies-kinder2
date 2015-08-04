@@ -12,6 +12,18 @@
     {
 		"type" : "vcs",
         "url" : "https://github.com/rsantellan/symfony2-maith-newsletter.git"
+    },
+    {
+		"type" : "vcs",
+        "url" : "https://github.com/rsantellan/symfony2-maith-admin.git"
+    },
+    {
+		"type" : "vcs",
+        "url" : "https://github.com/rsantellan/symfony2-maith-translator.git"
+    },
+    {
+		"type" : "vcs",
+        "url" : "https://github.com/rsantellan/symfony2-maith-images.git"
     }
     ],
     "require": {
@@ -29,7 +41,12 @@
         "friendsofsymfony/user-bundle": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
-        "Maith/NewsletterBundle": "dev-master"
+        "jms/security-extra-bundle": "1.5.1",
+        "lexik/form-filter-bundle": "~2.0",
+        "Maith/NewsletterBundle": "dev-master",
+        "Maith/Common/AdminBundle": "dev-master",
+        "Maith/Common/ImageBundle": "dev-master",
+        "Maith/Common/TranslatorBundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

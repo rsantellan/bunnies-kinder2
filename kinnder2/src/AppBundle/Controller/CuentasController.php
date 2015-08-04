@@ -10,7 +10,7 @@ class CuentasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllPendingDebts();
-        return $this->render('AppBundle:Cuentas:index.html.twig', array(
+        return $this->render('AppBundle:Cuentas:alertas.html.twig', array(
                     'pendingDebts' => $pendingDebts,
             ));    
       

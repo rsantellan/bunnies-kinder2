@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use AppBundle\Entity\Role;
 /**
  * Description of LoadUserFixture
  *
@@ -25,6 +26,10 @@ class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface
     }
 
     public function load(ObjectManager $manager) {
+        
+        $role = new Role();
+        $role->setName("ROLE_ADMIN");
+        $manager->persist($role);
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->createUser();
         $user->setUsername('rsantellan@gmail.com');
@@ -33,6 +38,7 @@ class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface
         $user->setEnabled(true);
         $user->setSuperAdmin(true);
         $user->setNombre("Rodrigo Santellan");
+        $user->addRole($role);
         $manager->persist($user);
         
         $admin = $userManager->createUser();
@@ -41,6 +47,7 @@ class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface
         $admin->setPlainPassword('bunnyskinder1974');
         $admin->setEnabled(true);
         $admin->setSuperAdmin(true);
+        $admin->addRole($role);
         $manager->persist($admin);
         
         $manager->flush();

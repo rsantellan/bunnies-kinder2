@@ -21,6 +21,13 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Maith\NewsletterBundle\MaithNewsletterBundle(),
+            new Maith\Common\AdminBundle\MaithCommonAdminBundle(),
+            new Maith\Common\ImageBundle\MaithCommonImageBundle(),
+            new Maith\Common\TranslatorBundle\MaithCommonTranslatorBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

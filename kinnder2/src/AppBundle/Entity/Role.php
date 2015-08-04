@@ -26,7 +26,7 @@ class Role implements RoleInterface {
      *
      * @ORM\Column(name="role", type="string", unique=true, length=70)
      */
-    private $role;
+    private $name;
  
     /**
      * @ORM\ManyToMany(targetEntity="Progenitor", mappedBy="user_roles")
@@ -35,7 +35,7 @@ class Role implements RoleInterface {
  
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
  
     public function getId()
@@ -45,14 +45,14 @@ class Role implements RoleInterface {
  
     public function setName($name)
     {
-        $this->role = $name;
+        $this->name = $name;
  
         return $this;
     }
  
     public function getName()
     {
-        return $this->role;
+        return $this->name;
     }
  
     public function addUser(User $user)
