@@ -1,6 +1,6 @@
 app_estudiante:
     resource: "@AppBundle/Resources/config/routing/estudiante.yml"
-    prefix:   /estudiante
+    prefix:   /admin/estudiante
 
 app:
     resource: "@AppBundle/Resources/config/routing/cuentas.yml"

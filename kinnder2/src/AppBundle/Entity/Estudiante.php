@@ -696,4 +696,8 @@ class Estudiante
     {
         return $this->actividades;
     }
+    
+    public function __toString(){
+      return $this->getNombre();
+    }
 }

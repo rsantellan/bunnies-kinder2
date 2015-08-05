@@ -1,6 +1,6 @@
 estudiante:
-    path:     /{page}/{orderBy}/{order}/{limit}
-    defaults: { _controller: "AppBundle:Estudiante:index", page: 0, orderBy: 'apellido', order : 'asc', limit: 10 }
+    path:     /list/{page}/{orderBy}/{order}/{limit}
+    defaults: { _controller: "AppBundle:Estudiante:index", page: 0, orderBy: 'apellido', order : 'asc', limit: 20 }
 
 estudiante_show:
     path:     /{id}/show

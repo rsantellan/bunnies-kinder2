@@ -407,4 +407,8 @@ class Cuenta
     {
       $this->setDiferencia($this->getDebe() - $this->getPago());
     }
+    
+    public function __toString(){
+      return $this->getReferenciabancaria();
+    }
 }

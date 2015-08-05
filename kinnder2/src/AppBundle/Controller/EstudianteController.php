@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\Estudiante;
 use AppBundle\Form\EstudianteType;
-
+use AppBundle\Filter\EstudianteFilterType;
 /**
  * Estudiante controller.
  *
@@ -22,9 +22,7 @@ class EstudianteController extends Controller
     public function indexAction(Request $request, $page, $orderBy, $order, $limit)
     {
         $em = $this->getDoctrine()->getManager();
-        //$page = $request->get('page', 0);
-        //$limit = $request->get('limit', 10);
-        //$order = $request->get('order', 'apellido');
+        $filter = $this->get('form.factory')->create(new EstudianteFilterType());
         
         $entities = $em->getRepository('AppBundle:Estudiante')->getActiveForList($page, $limit, $orderBy, $order);
 
@@ -33,6 +31,8 @@ class EstudianteController extends Controller
             'page' => $page,
             'orderBy' => $orderBy,
             'order' => $order,
+            'limit' => $limit,
+            'filter' => $filter->createView(),
         ));
     }
     /**

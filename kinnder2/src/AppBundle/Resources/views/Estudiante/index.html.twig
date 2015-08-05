@@ -1,64 +1,164 @@
 {% extends "AppBundle::adminlayout.html.twig" %}
 
 {% block body -%}
-<div class="row">
-  <h1>Alumnos</h1>
-</div>  
-
-<div class="row">
-    <a href="{{ path('estudiante_new') }}">
-        Create a new entry
-    </a>
-    <table class="records_list">
-        <thead>
-            <tr>
+  <div class="row">
+    <div class="col-md-12 mg-b-lg">
+      <a href="{{ path('estudiante_new') }}" class="btn btn-success">
+        {% trans %}students_create_new{% endtrans %}
+      </a>
+    </div>
+    <div class="col-md-8">
+      <section class="panel">
+        <div class="panel-heading">{% trans %}students_title{% endtrans %}</div>
+        <div class="panel-body no-padding">
+          <table class="table table-striped no-margin">
+            <thead>
+              <tr>
                 <th>
+                  {% set tOrder = 'asc' %}
                   {% if orderBy == 'nombre' %}
-                  
+                    {% if order == 'asc' %}
+                      {% set tOrder = 'desc' %}
+                    {% endif %}
                   {% endif %}
-                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'nombre', 'order' : 'asc'}) }}">
-                    Nombre
+                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'nombre', 'order' : tOrder}) }}">
+                    {% trans %}students_name{% endtrans %}
                   </a>  
                 </th>
                 <th>
-                  
-                  Apellido
+                  {% set tOrder = 'asc' %}
+                  {% if orderBy == 'apellido' %}
+                    {% if order == 'asc' %}
+                      {% set tOrder = 'desc' %}
+                    {% endif %}
+                  {% endif %}
+                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'apellido', 'order' : tOrder}) }}">
+                    {% trans %}students_lastname{% endtrans %}
+                  </a>  
                 </th>
-                <th>Fechanacimiento</th>
-                <th>Referenciabancaria</th>
-                <th>Clase</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.nombre }}</td>
-                <td>{{ entity.apellido }}</td>
-                <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('d/m/Y') }}{% endif %}</td>
-                <td>{{ entity.referenciaBancaria }}</td>
-                <td>{{ entity.clase }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('estudiante_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('estudiante_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>  
-    <a href="{{ path('estudiante', {'page' : page - 1}) }}">
-        Anterior
-    </a>    
-    <a href="{{ path('estudiante', {'page' : page + 1}) }}">
-        Siguiente
-    </a>    
-</div>
+                <th>
+                  {% set tOrder = 'asc' %}
+                  {% if orderBy == 'fechaNacimiento' %}
+                    {% if order == 'asc' %}
+                      {% set tOrder = 'desc' %}
+                    {% endif %}
+                  {% endif %}
+                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'fechaNacimiento', 'order' : tOrder}) }}">
+                    {% trans %}students_birthdate{% endtrans %}
+                  </a>
+                </th>
+                <th>
+                  {% set tOrder = 'asc' %}
+                  {% if orderBy == 'referenciaBancaria' %}
+                    {% if order == 'asc' %}
+                      {% set tOrder = 'desc' %}
+                    {% endif %}
+                  {% endif %}
+                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'referenciaBancaria', 'order' : tOrder}) }}">
+                    {% trans %}students_account{% endtrans %}
+                  </a>
+                </th>
+                <th>
+                  {% set tOrder = 'asc' %}
+                  {% if orderBy == 'clase' %}
+                    {% if order == 'asc' %}
+                      {% set tOrder = 'desc' %}
+                    {% endif %}
+                  {% endif %}
+                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'clase', 'order' : tOrder}) }}">
+                    {% trans %}students_class{% endtrans %}
+                  </a>
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for entity in entities %}
+                <tr>
+                  <td>{{ entity.nombre }}</td>
+                  <td>{{ entity.apellido }}</td>
+                  <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('d/m/Y') }}{% endif %}</td>
+                  <td>{{ entity.referenciaBancaria }}</td>
+                  <td>{{ entity.clase }}</td>
+                  <td>
+                    <a href="{{ path('estudiante_edit', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      {% if page > 0 %}
+      <a href="{{ path('estudiante', {'page' : page - 1}) }}" class="btn btn-info">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        {% trans %}students_page_previous{% endtrans %}
+      </a>    
+      {% endif %}
+      {% if entities | length == limit %}
+      <a href="{{ path('estudiante', {'page' : page + 1}) }}" class="btn btn-info">
+        {% trans %}students_page_next{% endtrans %}
+        <i class="glyphicon glyphicon-chevron-right"></i>
+      </a>
+      {% endif %}
+    </div>
+    <div class="col-md-4">
+      <section class="panel">
+        <div class="panel-heading">{% trans %}students_filter_title{% endtrans %}</div>
+        <div class="panel-body no-padding">
+          <form role="form" class="form-horizontal">
+              <div class="form-group">
+                  {{ form_errors(filter.referenciaBancaria) }}
+                  <label class="col-sm-2 control-label" for="{{ filter.referenciaBancaria.vars.id }}">{% trans %}students_account{% endtrans %}</label>
+                  <div class="col-sm-10">
+                      {{ form_widget(filter.referenciaBancaria, {'attr' : {'class' : 'form-control'}}) }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  {{ form_errors(filter.apellido) }}
+                  <label class="col-sm-2 control-label" for="{{ filter.apellido.vars.id }}">{% trans %}students_lastname{% endtrans %}</label>
+                  <div class="col-sm-10">
+                      {{ form_widget(filter.apellido, {'attr' : {'class' : 'form-control'}}) }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  {{ form_errors(filter.nombre) }}
+                  <label class="col-sm-2 control-label" for="{{ filter.nombre.vars.id }}">{% trans %}students_name{% endtrans %}</label>
+                  <div class="col-sm-10">
+                      {{ form_widget(filter.nombre, {'attr' : {'class' : 'form-control'}}) }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  {{ form_errors(filter.clase) }}
+                  <label class="col-sm-2 control-label" for="{{ filter.clase.vars.id }}">{% trans %}students_clase{% endtrans %}</label>
+                  <div class="col-sm-10">
+                      {{ form_widget(filter.clase, {'attr' : {'class' : 'form-control'}}) }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  {{ form_errors(filter.horario) }}
+                  <label class="col-sm-2 control-label" for="{{ filter.horario.vars.id }}">{% trans %}students_horario{% endtrans %}</label>
+                  <div class="col-sm-10">
+                      {{ form_widget(filter.horario, {'attr' : {'class' : 'form-control'}}) }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  {{ form_errors(filter.actividades) }}
+                  <label class="col-sm-2 control-label" for="{{ filter.actividades.vars.id }}">{% trans %}students_actividades{% endtrans %}</label>
+                  <div class="col-sm-10">
+                      {{ form_widget(filter.actividades, {'attr' : {'class' : 'form-control'}}) }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                      <button class="btn btn-default" type="submit">Sign in</button>
+                  </div>
+              </div>
+          </form>
+          {{ form(filter) }}
+        </div>
+    </div>
+  </div>
 
 
 

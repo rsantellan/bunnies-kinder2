@@ -214,4 +214,9 @@ class Actividad
     {
         return $this->newsLetterGroup;
     }
+    
+    public function __toString() {
+      return $this->getNombre();
+    }
+
 }

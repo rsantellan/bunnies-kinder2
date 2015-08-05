@@ -42,7 +42,7 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "jms/security-extra-bundle": "1.5.1",
-        "lexik/form-filter-bundle": "~2.0",
+        "lexik/form-filter-bundle": "4.*",
         "Maith/NewsletterBundle": "dev-master",
         "Maith/Common/AdminBundle": "dev-master",
         "Maith/Common/ImageBundle": "dev-master",

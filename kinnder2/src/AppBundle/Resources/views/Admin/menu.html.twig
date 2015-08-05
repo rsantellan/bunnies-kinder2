@@ -1,20 +1,20 @@
 <div class="collapse navbar-collapse pull-left no-padding" id="hor-menu">
   <ul class="nav navbar-nav">
     <li>
-      <a href="{{ path('admin_alertas')}}">Alertas</a>
+      <a href="{{ path('admin_alertas')}}">{% trans %}menu_alertas{% endtrans %}</a>
     </li>
     <li>
-      <a href="{{ path('admin_alertas')}}">Textos</a>
+      <a href="{{ path('admin_alertas')}}">{% trans %}menu_textos{% endtrans %}</a>
     </li>
     <li class="dropdown show-on-hover">
       <a href="javascript:;" data-toggle="dropdown">
-        <span>Alumnos</span>
+        <span>{% trans %}menu_alumnos{% endtrans %}</span>
         <b class="caret"></b>
       </a>
       <ul class="dropdown-menu">
         <li>
           <a href="{{ path('estudiante') }}">
-            <span>Corrientes</span>
+            <span>{% trans %}menu_alumnos_corrientes{% endtrans %}</span>
           </a>
         </li>
         <li>

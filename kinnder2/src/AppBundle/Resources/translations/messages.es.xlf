@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="824e155d958a01278bee0a149070c751" resname="alertas_cantidad">
+        <source>alertas_cantidad</source>
+        <target>Cantidad</target>
+      </trans-unit>
+      <trans-unit id="0bfd8cbdbd4bc7c6acf37f50a8eeb0cc" resname="alertas_title">
+        <source>alertas_title</source>
+        <target>Alertas</target>
+      </trans-unit>
+      <trans-unit id="5ede4ffe2225ece1793120bc4397561b" resname="alertas_title_subtitle">
+        <source>alertas_title_subtitle</source>
+        <target>Alumnos con deudas</target>
+      </trans-unit>
+      <trans-unit id="2648bfc070d9950b2209948672750dcc" resname="alertas_related_students">
+        <source>alertas_related_students</source>
+        <target>Alumnos relacionados</target>
+      </trans-unit>
+      <trans-unit id="9aec23bdce8344856c5221ecc3c08023" resname="alertas_action_send_email">
+        <source>alertas_action_send_email</source>
+        <target>Enviar email.</target>
+      </trans-unit>
+      <trans-unit id="1bf1b7777666056d59419ae1cc9e4b3d" resname="alertas_action_view_detail">
+        <source>alertas_action_view_detail</source>
+        <target>Ver Detalle</target>
+      </trans-unit>
+      <trans-unit id="aa925c9cc070e1d9b6bafae0b0f9eeb5" resname="alertas_action_pay">
+        <source>alertas_action_pay</source>
+        <target>Pagar</target>
+      </trans-unit>
+      <trans-unit id="f529864e287c79336c7537d0ef0917df" resname="menu_alertas">
+        <source>menu_alertas</source>
+        <target>Alertas</target>
+      </trans-unit>
+      <trans-unit id="4ef78373577f69d0ca383335b875af15" resname="menu_textos">
+        <source>menu_textos</source>
+        <target>Textos</target>
+      </trans-unit>
+      <trans-unit id="a011048b33b5384535c396059ceae0ce" resname="menu_alumnos">
+        <source>menu_alumnos</source>
+        <target>Alumnos</target>
+      </trans-unit>
+      <trans-unit id="0893b11dcdd8255e40366a9bf1e024f8" resname="menu_alumnos_corrientes">
+        <source>menu_alumnos_corrientes</source>
+        <target>Corrientes</target>
+      </trans-unit>
+      <trans-unit id="a537e9d419a3f9c7f9cfcac2c7d68b2d" resname="students_create_new">
+        <source>students_create_new</source>
+        <target>Nuevo</target>
+      </trans-unit>
+      <trans-unit id="056392a455a152a464df0ef3292ef051" resname="students_title">
+        <source>students_title</source>
+        <target>Alumnos</target>
+      </trans-unit>
+      <trans-unit id="d2c69f87084393dbf35816851024b312" resname="students_name">
+        <source>students_name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="d60c737bf04382e0d50d058f7de4e44b" resname="students_lastname">
+        <source>students_lastname</source>
+        <target>Apellido</target>
+      </trans-unit>
+      <trans-unit id="7d20dc0cbb00b3117c46502d510b1e1e" resname="students_birthdate">
+        <source>students_birthdate</source>
+        <target>Fecha Nacimiento</target>
+      </trans-unit>
+      <trans-unit id="e803d0d85bcf55aeffd096eec841f869" resname="students_account">
+        <source>students_account</source>
+        <target>Ref Bancaria</target>
+      </trans-unit>
+      <trans-unit id="8481d075b998a1c0723dddacac9e99ab" resname="students_class">
+        <source>students_class</source>
+        <target>Clase</target>
+      </trans-unit>
+      <trans-unit id="0adf48e653425b4539622d451cc7ff6f" resname="students_page_previous">
+        <source>students_page_previous</source>
+        <target>Anterior</target>
+      </trans-unit>
+      <trans-unit id="47ca8f1b72f57e99c9512ee9662460a9" resname="students_page_next">
+        <source>students_page_next</source>
+        <target>Siguiente</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

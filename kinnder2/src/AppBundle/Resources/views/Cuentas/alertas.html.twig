@@ -16,7 +16,7 @@
               </span>
               <div class="stats-info">
                   <h2 class="no-margin">{{ pendingDebts | length}}</h2>
-                  Cantidad
+                  {% trans %}alertas_cantidad{% endtrans %}
               </div>
           </div>
       </section>
@@ -25,8 +25,8 @@
 </div>                    
 <div class="row">
   <div class="col-xs-12">
-      <h3 class="no-margin">Alertas</h3>
-      <small>Alumnos con deudas</small>
+      <h3 class="no-margin">{% trans %}alertas_title{% endtrans %}</h3>
+      <small>{% trans %}alertas_title_subtitle{% endtrans %}</small>
   </div>
 </div>
 <div class="row">
@@ -42,7 +42,7 @@
               </div>
               <div class="panel-collapse collapse" id="collapsedBy{{ loop.index }}" style="height: 0px;">
                   <div class="panel-body text-center">
-                    <h4>Alumnos relacionados</h4>
+                    <h4>{% trans %}alertas_related_students{% endtrans %}</h4>
                     <ul>
                       {% for estudiante in debt.estudiantes %}
                       <li> 
@@ -55,13 +55,13 @@
                       {% endfor %}
                     </ul>
                     <a href="" class="btn btn-success">
-                      <i class="fa fa-envelope"></i>Enviar email.
+                      <i class="fa fa-envelope"></i>{% trans %}alertas_action_send_email{% endtrans %}
                     </a>
                     <a href="" class="btn btn-primary">
-                      <i class="fa fa-search"></i>Ver Detalle
+                      <i class="fa fa-search"></i>{% trans %}alertas_action_view_detail{% endtrans %}
                     </a>
                     <a href="" class="btn btn-warning">
-                      <i class="fa fa-dollar"></i>Pagar
+                      <i class="fa fa-dollar"></i>{% trans %}alertas_action_pay{% endtrans %}
                     </a>
                   </div>
               </div>
