@@ -4,10 +4,13 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Entity\Estudiante;
 use AppBundle\Form\EstudianteType;
 use AppBundle\Filter\EstudianteFilterType;
+use AppBundle\Entity\Cuenta;
+
 /**
  * Estudiante controller.
  *
@@ -35,6 +38,63 @@ class EstudianteController extends Controller
             'filter' => $filter->createView(),
         ));
     }
+    
+    public function searchAction(Request $request)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $filter = $this->get('form.factory')->create(new EstudianteFilterType());
+      $entities = array();
+      if ($request->query->has($filter->getName())) {
+            // manually bind values from the request
+            $filter->submit($request->query->get($filter->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $em->getRepository('AppBundle:Estudiante')
+                ->createQueryBuilder('e')
+                ->leftJoin('e.clase', 'c');
+                
+            
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filter, $filterBuilder);
+
+            // now look at the DQL =)
+            $filterBuilder->andWhere('e.egresado = false');
+            //var_dump($filterBuilder->getDql());
+            $entities = $filterBuilder->getQuery()->getResult();
+        }
+
+        return $this->render('AppBundle:Estudiante:search.html.twig', array(
+            'entities' => $entities,
+            'filter' => $filter->createView(),
+        ));
+    }
+    
+    public function checkReferenceAction(Request $request){
+      $account = $request->get('account');
+      $em = $this->getDoctrine()->getManager();
+      $students = $em->getRepository('AppBundle:Estudiante')->findBy(array('referenciaBancaria' => $account));
+      $message = "No hay otro alumno con esa referencia";
+      if($students){
+        if(count($students) == 1)
+        {
+          $message = 'El siguiente alumno tiene la misma referencia bancaria.';
+        }
+        else
+        {
+          $message = 'Los siguientes alumnos tienen la misma referencia bancaria.';
+        }
+        foreach($students as $student)
+        {
+          $message .= $student->getNombre(). ' '.$student->getApellido(). '.';
+        }
+      }
+      $response = new JsonResponse();
+      $response->setData(array(
+		'data' => $message
+      ));
+      return $response;
+    }
+    
     /**
      * Creates a new Estudiante entity.
      *
@@ -44,15 +104,34 @@ class EstudianteController extends Controller
         $entity = new Estudiante();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+            
+            $cuenta = $em->getRepository('AppBundle:Cuenta')->findOneBy(array('referenciabancaria' => $entity->getReferenciaBancaria()));
+            
+            if($cuenta){
+              foreach($cuenta->getEstudiantes() as $hermano)
+              {
+                $entity->addMyBrother($hermano);
+              }
+              foreach($cuenta->getProgenitores() as $progenitor){
+                $entity->addProgenitore($progenitor);
+              }
+              $entity->setCuenta($cuenta);
+              $em->persist($entity);  
+            }else{
+              $cuenta = new Cuenta();
+              $cuenta->setReferenciabancaria($entity->getReferenciaBancaria());
+              $em->persist($cuenta);
+              $entity->setCuenta($cuenta);
+            }
+            
             $em->flush();
 
             return $this->redirect($this->generateUrl('estudiante_show', array('id' => $entity->getId())));
         }
-
         return $this->render('AppBundle:Estudiante:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -73,7 +152,7 @@ class EstudianteController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        //$form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -153,7 +232,7 @@ class EstudianteController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }

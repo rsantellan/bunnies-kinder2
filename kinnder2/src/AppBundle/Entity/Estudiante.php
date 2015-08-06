@@ -72,10 +72,11 @@ class Estudiante
     private $emergenciaMedica;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="horario", type="string", nullable=true)
-     */
+     * 
+     * @ORM\ManyToOne(targetEntity="Horario", inversedBy="estudiantes")
+     * @ORM\JoinColumn(name="horario_id", referencedColumnName="id", nullable=true)
+     * 
+     **/     
     private $horario;
 
     /**
@@ -93,10 +94,11 @@ class Estudiante
     private $descuento;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="clase", type="string", nullable=true)
-     */
+     * 
+     * @ORM\ManyToOne(targetEntity="Clase", inversedBy="estudiantes")
+     * @ORM\JoinColumn(name="clase_id", referencedColumnName="id", nullable=true)
+     * 
+     **/    
     private $clase;
 
     /**
@@ -117,13 +119,12 @@ class Estudiante
     private $actividades;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="estudiantes")
-     * @ORM\JoinTable(name="estudiante_cuenta",
-     *      joinColumns={@ORM\JoinColumn(name="estudiante_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="cuenta_id", referencedColumnName="id")}
-     *      )
-     **/    
-    private $cuentas;    
+     * 
+     * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="estudiantes")
+     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=true)
+     * 
+     **/      
+    private $cuenta;    
     
     /**
      * 
@@ -337,29 +338,6 @@ class Estudiante
     }
 
     /**
-     * Set horario
-     *
-     * @param string $horario
-     * @return Estudiante
-     */
-    public function setHorario($horario)
-    {
-        $this->horario = $horario;
-
-        return $this;
-    }
-
-    /**
-     * Get horario
-     *
-     * @return string 
-     */
-    public function getHorario()
-    {
-        return $this->horario;
-    }
-
-    /**
      * Set futuroColegio
      *
      * @param string $futuroColegio
@@ -406,29 +384,6 @@ class Estudiante
     }
 
     /**
-     * Set clase
-     *
-     * @param string $clase
-     * @return Estudiante
-     */
-    public function setClase($clase)
-    {
-        $this->clase = $clase;
-
-        return $this;
-    }
-
-    /**
-     * Get clase
-     *
-     * @return string 
-     */
-    public function getClase()
-    {
-        return $this->clase;
-    }
-
-    /**
      * Set egresado
      *
      * @param boolean $egresado
@@ -449,41 +404,6 @@ class Estudiante
     public function getEgresado()
     {
         return $this->egresado;
-    }
-
-    
-    
-    /**
-     * Add cuentas
-     *
-     * @param \AppBundle\Entity\Cuenta $cuentas
-     * @return Estudiante
-     */
-    public function addCuenta(\AppBundle\Entity\Cuenta $cuentas)
-    {
-        $this->cuentas[] = $cuentas;
-
-        return $this;
-    }
-
-    /**
-     * Remove cuentas
-     *
-     * @param \AppBundle\Entity\Cuenta $cuentas
-     */
-    public function removeCuenta(\AppBundle\Entity\Cuenta $cuentas)
-    {
-        $this->cuentas->removeElement($cuentas);
-    }
-
-    /**
-     * Get cuentas
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCuentas()
-    {
-        return $this->cuentas;
     }
 
     /**
@@ -656,11 +576,11 @@ class Estudiante
     public function __construct()
     {
         $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->facturas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->brothersWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myBrothers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->progenitores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->anioIngreso = date('Y');
     }
 
 
@@ -699,5 +619,74 @@ class Estudiante
     
     public function __toString(){
       return $this->getNombre();
+    }
+
+    /**
+     * Set horario
+     *
+     * @param \AppBundle\Entity\Horario $horario
+     * @return Estudiante
+     */
+    public function setHorario(\AppBundle\Entity\Horario $horario = null)
+    {
+        $this->horario = $horario;
+
+        return $this;
+    }
+
+    /**
+     * Get horario
+     *
+     * @return \AppBundle\Entity\Horario 
+     */
+    public function getHorario()
+    {
+        return $this->horario;
+    }
+
+    /**
+     * Set clase
+     *
+     * @param \AppBundle\Entity\Clase $clase
+     * @return Estudiante
+     */
+    public function setClase(\AppBundle\Entity\Clase $clase = null)
+    {
+        $this->clase = $clase;
+
+        return $this;
+    }
+
+    /**
+     * Get clase
+     *
+     * @return \AppBundle\Entity\Clase 
+     */
+    public function getClase()
+    {
+        return $this->clase;
+    }
+
+    /**
+     * Set cuenta
+     *
+     * @param \AppBundle\Entity\Cuenta $cuenta
+     * @return Estudiante
+     */
+    public function setCuenta(\AppBundle\Entity\Cuenta $cuenta)
+    {
+        $this->cuenta = $cuenta;
+
+        return $this;
+    }
+
+    /**
+     * Get cuenta
+     *
+     * @return \AppBundle\Entity\Cuenta 
+     */
+    public function getCuenta()
+    {
+        return $this->cuenta;
     }
 }

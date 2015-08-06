@@ -5,6 +5,7 @@ namespace AppBundle\Filter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 
 /**
  * Description of EstudianteFilterType
@@ -16,20 +17,31 @@ class EstudianteFilterType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
       $builder->add('referenciaBancaria', 'filter_text');
-      $builder->add('apellido', 'filter_text');
-      $builder->add('nombre', 'filter_text');
-      $builder->add('clase', 'filter_text');
-      $builder->add('horario', 'filter_text');
+      $builder->add('apellido', 'filter_text',
+              array(
+                  'condition_pattern' => FilterOperands::STRING_BOTH
+              ));
+      $builder->add('nombre', 'filter_text',
+              array(
+                  'condition_pattern' => FilterOperands::STRING_BOTH
+              ));
+      $builder->add('clase', 'filter_entity',
+                    array(
+					'required' => false,
+                    'class' => 'AppBundle\Entity\Clase',
+                    'empty_value' => 'Todos',
+                     ));
+      $builder->add('horario', 'filter_entity',
+                    array(
+					'required' => false,
+                    'class' => 'AppBundle\Entity\Horario',
+                    'empty_value' => 'Todos',
+                     ));
       $builder->add('actividades', 'filter_entity',
                     array(
 					'required' => false,
                     'class' => 'AppBundle\Entity\Actividad',
                     'empty_value' => 'Todos',
-                    /*    
-                    'query_builder' => function($repository){
-                        return $repository->createQueryBuilder('t')->where('t.entidadContribuyente = :dgi')->setParameter(':dgi', 'DGI');
-                      }
-                      */
                      )
                    );
   }

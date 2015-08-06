@@ -11,6 +11,8 @@ use AppBundle\Entity\Actividad;
 use AppBundle\Entity\Descuento;
 use AppBundle\ENtity\Email;
 use AppBundle\ENtity\Costos;
+use AppBundle\ENtity\Horario;
+use AppBundle\ENtity\Clase;
 use Maith\NewsletterBundle\Entity\UserGroup;
 use AppBundle\DataFixtures\DataFixturesConstants;
 
@@ -105,6 +107,42 @@ class LoadCodiguerasFixture extends AbstractFixture implements OrderedFixtureInt
     $email->setFromMail('info@bunnyskinder.com.uy');
     $email->setId(1);
     $manager->persist($email);
+    
+    /**
+     * 
+     * Horarios
+     * 
+     */
+    
+    $matutino = new Horario();
+    $matutino->setName('Matutino');
+    $manager->persist($matutino);
+    $vespertino = new Horario();
+    $vespertino->setName('Vespertino');
+    $manager->persist($vespertino);
+    $dobleHorario = new Horario();
+    $dobleHorario->setName('Doble Horario');
+    $manager->persist($dobleHorario);
+    
+    /***
+     * 
+     * Clases
+     * 
+     ***/
+    
+    $verde = new Clase();
+    $verde->setName('Verde');
+    $manager->persist($verde);
+    
+    $amarillo = new Clase();
+    $amarillo->setName('Amarillo');
+    $manager->persist($amarillo);
+    
+    $rojo = new Clase();
+    $rojo->setName('Rojo');
+    $manager->persist($rojo);
+    
+    
     $manager->flush();
     
   }

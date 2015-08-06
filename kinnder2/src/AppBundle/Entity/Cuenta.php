@@ -37,21 +37,21 @@ class Cuenta
      *
      * @ORM\Column(name="debe", type="float", precision=14, scale=2, nullable=true, options={"default": 0})
      */
-    private $debe;
+    private $debe = 0;
 
     /**
      * @var float
      *
      * @ORM\Column(name="pago", type="float", precision=14, scale=2, nullable=true, options={"default": 0})
      */
-    private $pago;
+    private $pago = 0;
 
     /**
      * @var float
      *
      * @ORM\Column(name="diferencia", type="float", precision=14, scale=2, nullable=true, options={"default": 0})
      */
-    private $diferencia;
+    private $diferencia = 0;
 
     /**
      * @var \DateTime
@@ -76,13 +76,13 @@ class Cuenta
     private $cobros;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Progenitor", mappedBy="cuentas")
+     * @ORM\OneToMany(targetEntity="Progenitor", mappedBy="cuenta")
      **/
     private $progenitores;
 
     
     /**
-     * @ORM\ManyToMany(targetEntity="Estudiante", mappedBy="cuentas")
+     * @ORM\OneToMany(targetEntity="Estudiante", mappedBy="cuenta")
      **/
     private $estudiantes;
     

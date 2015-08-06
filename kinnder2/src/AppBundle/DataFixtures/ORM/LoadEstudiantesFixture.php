@@ -58,7 +58,6 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
         $estudiante = new Estudiante();
         $estudiante->setAnioIngreso($anioIngreso);
         $estudiante->setApellido($apellido);
-        $estudiante->setClase($clase);
         $estudiante->setDescuento($descuento);
         $estudiante->setEgresado($egresado);
         $estudiante->setEmergenciaMedica($emergencia_medica);
@@ -67,11 +66,22 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
         }
         
         $estudiante->setFuturoColegio($futuro_colegio);
-        $estudiante->setHorario($horario);
         $estudiante->setNombre($nombre);
         $estudiante->setReferenciaBancaria($referencia_bancaria);
         $estudiante->setSociedad($sociedad);
         $estudiante->setId($id);
+        
+        if($horario == 'doble_horario'){
+          $horario = 'Doble Horario';
+        }
+        
+        $dbHorario = $manager->getRepository('AppBundle:Horario')->findOneBy(array('name' => ucfirst($horario)));
+        
+        $estudiante->setHorario($dbHorario);
+        
+        $dbClase = $manager->getRepository('AppBundle:Clase')->findOneBy(array('name' => ucfirst($clase)));
+        $estudiante->setClase($dbClase);
+        
         $manager->persist($estudiante);
     }
     $manager->flush();

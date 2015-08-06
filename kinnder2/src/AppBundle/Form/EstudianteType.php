@@ -17,8 +17,13 @@ class EstudianteType extends AbstractType
         $builder
             ->add('nombre')
             ->add('apellido')
-            ->add('fechaNacimiento')
-            ->add('anioIngreso')
+            ->add('fechaNacimiento', null, array(
+				'widget'=> 'single_text',
+                'format' => 'dd-MM-yyyy',
+              ))
+            ->add('anioIngreso', null, array(
+                'data' => date('Y')
+            ))
             ->add('sociedad')
             ->add('referenciaBancaria')
             ->add('emergenciaMedica')
@@ -27,11 +32,13 @@ class EstudianteType extends AbstractType
             ->add('descuento')
             ->add('clase')
             ->add('egresado')
-            ->add('actividades')
-            ->add('cuentas')
-            ->add('brothersWithMe')
-            ->add('myBrothers')
-            ->add('progenitores')
+            ->add('actividades', null, array(
+                'expanded' => true
+            ))
+            //->add('cuentas')
+            //->add('brothersWithMe')
+            //->add('myBrothers')
+            //->add('progenitores')
         ;
     }
     

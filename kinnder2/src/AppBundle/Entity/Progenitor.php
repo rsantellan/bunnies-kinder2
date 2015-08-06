@@ -51,10 +51,12 @@ class Progenitor extends BaseUser
     private $celular;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Cuenta", inversedBy="progenitores")
-     * @ORM\JoinTable(name="progenitor_cuenta")
-     **/    
-    private $cuentas;
+     * 
+     * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="progenitores")
+     * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=true)
+     * 
+     **/        
+    private $cuenta;
     
     /**
      * @ORM\ManyToMany(targetEntity="Estudiante", inversedBy="progenitores")
@@ -180,45 +182,11 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Add cuentas
-     *
-     * @param \AppBundle\Entity\Cuenta $cuentas
-     * @return Progenitor
-     */
-    public function addCuenta(\AppBundle\Entity\Cuenta $cuentas)
-    {
-        $this->cuentas[] = $cuentas;
-
-        return $this;
-    }
-
-    /**
-     * Remove cuentas
-     *
-     * @param \AppBundle\Entity\Cuenta $cuentas
-     */
-    public function removeCuenta(\AppBundle\Entity\Cuenta $cuentas)
-    {
-        $this->cuentas->removeElement($cuentas);
-    }
-
-    /**
-     * Get cuentas
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCuentas()
-    {
-        return $this->cuentas;
-    }
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         parent::__construct();
-        $this->cuentas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->estudiantes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->user_roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -415,5 +383,28 @@ class Progenitor extends BaseUser
     public function getNewsletterUser()
     {
         return $this->newsletterUser;
+    }
+
+    /**
+     * Set cuenta
+     *
+     * @param \AppBundle\Entity\Cuenta $cuenta
+     * @return Progenitor
+     */
+    public function setCuenta(\AppBundle\Entity\Cuenta $cuenta)
+    {
+        $this->cuenta = $cuenta;
+
+        return $this;
+    }
+
+    /**
+     * Get cuenta
+     *
+     * @return \AppBundle\Entity\Cuenta 
+     */
+    public function getCuenta()
+    {
+        return $this->cuenta;
     }
 }

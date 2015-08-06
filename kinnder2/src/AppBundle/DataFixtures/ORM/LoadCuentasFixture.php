@@ -51,11 +51,11 @@ class LoadCuentasFixture extends AbstractFixture implements OrderedFixtureInterf
         $manager->persist($cuenta);
         $brotherParents = true;
         foreach($estudiantes as $estudiante){
-          $estudiante->addCuenta($cuenta);
+          $estudiante->setCuenta($cuenta);
           if($brotherParents)
           {
             foreach($estudiante->getProgenitores() as $progenitor){
-              $progenitor->addCuenta($cuenta);
+              $progenitor->setCuenta($cuenta);
               $manager->persist($progenitor);
             }
           }

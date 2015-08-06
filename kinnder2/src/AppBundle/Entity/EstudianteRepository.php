@@ -15,7 +15,7 @@ class EstudianteRepository extends EntityRepository
   
   public function getActiveForList($page = 0, $limit = 10, $orderBy = 'apellido', $order = 'ASC')
   {
-    $dql = sprintf('SELECT e.id, e.nombre, e.apellido, e.fechaNacimiento, e.referenciaBancaria, e.clase FROM AppBundle:Estudiante e where e.egresado = false ORDER BY e.%s %s', $orderBy, $order);
+    $dql = sprintf('SELECT e.id, e.nombre, e.apellido, e.fechaNacimiento, e.referenciaBancaria, c.name as clase FROM AppBundle:Estudiante e left join e.clase c where e.egresado = false ORDER BY e.%s %s', $orderBy, $order);
     return $this->getEntityManager()
             ->createQuery( $dql )
             ->setMaxResults($limit)

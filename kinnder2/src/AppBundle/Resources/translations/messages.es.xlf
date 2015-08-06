@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
+  <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
     <body>
       <trans-unit id="824e155d958a01278bee0a149070c751" resname="alertas_cantidad">
         <source>alertas_cantidad</source>
@@ -81,6 +81,62 @@
       <trans-unit id="47ca8f1b72f57e99c9512ee9662460a9" resname="students_page_next">
         <source>students_page_next</source>
         <target>Siguiente</target>
+      </trans-unit>
+      <trans-unit id="e79cc465bbfb7e50fdd92691400738ba" resname="students_filter_title">
+        <source>students_filter_title</source>
+        <target>Filtro</target>
+      </trans-unit>
+      <trans-unit id="d5a47205166474f16451f59d06ffc434" resname="students_clase">
+        <source>students_clase</source>
+        <target>Clase</target>
+      </trans-unit>
+      <trans-unit id="9b4c86fa823456346140b4fbd734d8c9" resname="students_horario">
+        <source>students_horario</source>
+        <target>Horario</target>
+      </trans-unit>
+      <trans-unit id="c2279ee6e3f2db50d245a0e21d3b1f9b" resname="students_actividades">
+        <source>students_actividades</source>
+        <target>Actividades</target>
+      </trans-unit>
+      <trans-unit id="73dbfe820e2e7f81ee92bbb59d359dec" resname="students_create_title">
+        <source>students_create_title</source>
+        <target>Crear nuevo</target>
+      </trans-unit>
+      <trans-unit id="2113586a0294b26b192d330d90d0211f" resname="students_startyear">
+        <source>students_startyear</source>
+        <target>Año de inicio</target>
+      </trans-unit>
+      <trans-unit id="73cf49c63038379efab127d7d32a52cb" resname="students_sociedad">
+        <source>students_sociedad</source>
+        <target>Sociedad Médica</target>
+      </trans-unit>
+      <trans-unit id="beeba72edc143a835283915dbe1303dd" resname="students_account_check_new">
+        <source>students_account_check_new</source>
+        <target>Verificar Referencia Bancaria</target>
+      </trans-unit>
+      <trans-unit id="df43dec8c58e9e06368cbb08c31cb32f" resname="students_medic_emergency">
+        <source>students_medic_emergency</source>
+        <target>Emergencia Médica</target>
+      </trans-unit>
+      <trans-unit id="3f4689c9891bb61a14b7537078e3f5f5" resname="students_next_college">
+        <source>students_next_college</source>
+        <target>Futuro Colegio</target>
+      </trans-unit>
+      <trans-unit id="6750af6b11df426efac55e46af245f5b" resname="students_discount">
+        <source>students_discount</source>
+        <target>Descuento especial</target>
+      </trans-unit>
+      <trans-unit id="2ac86706582a54d38cecea4283282054" resname="students_egresado">
+        <source>students_egresado</source>
+        <target>Egresado</target>
+      </trans-unit>
+      <trans-unit id="eb7465a1af52fe013d2b052ad8748c2d" resname="students_save">
+        <source>students_save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="44f40739109bf4547f366b006091310d" resname="students_back_to_list">
+        <source>students_back_to_list</source>
+        <target>Volver al listado</target>
       </trans-unit>
     </body>
   </file>

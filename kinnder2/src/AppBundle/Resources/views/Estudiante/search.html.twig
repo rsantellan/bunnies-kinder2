@@ -15,59 +15,19 @@
             <thead>
               <tr>
                 <th>
-                  {% set tOrder = 'asc' %}
-                  {% if orderBy == 'nombre' %}
-                    {% if order == 'asc' %}
-                      {% set tOrder = 'desc' %}
-                    {% endif %}
-                  {% endif %}
-                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'nombre', 'order' : tOrder}) }}">
                     {% trans %}students_name{% endtrans %}
-                  </a>  
                 </th>
                 <th>
-                  {% set tOrder = 'asc' %}
-                  {% if orderBy == 'apellido' %}
-                    {% if order == 'asc' %}
-                      {% set tOrder = 'desc' %}
-                    {% endif %}
-                  {% endif %}
-                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'apellido', 'order' : tOrder}) }}">
                     {% trans %}students_lastname{% endtrans %}
-                  </a>  
                 </th>
                 <th>
-                  {% set tOrder = 'asc' %}
-                  {% if orderBy == 'fechaNacimiento' %}
-                    {% if order == 'asc' %}
-                      {% set tOrder = 'desc' %}
-                    {% endif %}
-                  {% endif %}
-                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'fechaNacimiento', 'order' : tOrder}) }}">
                     {% trans %}students_birthdate{% endtrans %}
-                  </a>
                 </th>
                 <th>
-                  {% set tOrder = 'asc' %}
-                  {% if orderBy == 'referenciaBancaria' %}
-                    {% if order == 'asc' %}
-                      {% set tOrder = 'desc' %}
-                    {% endif %}
-                  {% endif %}
-                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'referenciaBancaria', 'order' : tOrder}) }}">
                     {% trans %}students_account{% endtrans %}
-                  </a>
                 </th>
                 <th>
-                  {% set tOrder = 'asc' %}
-                  {% if orderBy == 'clase' %}
-                    {% if order == 'asc' %}
-                      {% set tOrder = 'desc' %}
-                    {% endif %}
-                  {% endif %}
-                  <a href="{{ path('estudiante', {'page' : 1, 'orderBy' : 'clase', 'order' : tOrder}) }}">
                     {% trans %}students_class{% endtrans %}
-                  </a>
                 </th>
                 <th></th>
               </tr>
@@ -89,24 +49,12 @@
           </table>
         </div>
       </section>
-      {% if page > 0 %}
-      <a href="{{ path('estudiante', {'page' : page - 1}) }}" class="btn btn-info">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        {% trans %}students_page_previous{% endtrans %}
-      </a>    
-      {% endif %}
-      {% if entities | length == limit %}
-      <a href="{{ path('estudiante', {'page' : page + 1}) }}" class="btn btn-info">
-        {% trans %}students_page_next{% endtrans %}
-        <i class="glyphicon glyphicon-chevron-right"></i>
-      </a>
-      {% endif %}
     </div>
     <div class="col-md-5">
       <section class="panel">
         <div class="panel-heading">{% trans %}students_filter_title{% endtrans %}</div>
         <div class="panel-body no-padding">
-          <form role="form" class="form-horizontal" method="get" action="{{ path('estudiante_search')}}">
+          <form role="form" class="form-horizontal">
               <div class="form-group">
                   {{ form_errors(filter.referenciaBancaria) }}
                   <label class="col-sm-2 control-label" for="{{ filter.referenciaBancaria.vars.id }}">{% trans %}students_account{% endtrans %}</label>
@@ -154,8 +102,9 @@
                       <button class="btn btn-default" type="submit">Buscar</button>
                   </div>
               </div>
-                  {{ form_rest(filter) }}
+              {{ form_rest(filter) }}
           </form>
+          
         </div>
     </div>
   </div>

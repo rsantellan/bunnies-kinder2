@@ -2,6 +2,15 @@ estudiante:
     path:     /list/{page}/{orderBy}/{order}/{limit}
     defaults: { _controller: "AppBundle:Estudiante:index", page: 0, orderBy: 'apellido', order : 'asc', limit: 20 }
 
+estudiante_search:
+    path:     /search
+    defaults: { _controller: "AppBundle:Estudiante:search" }
+
+estudiante_check_reference:
+    path:     /check-reference
+    defaults: { _controller: "AppBundle:Estudiante:checkReference" }
+    methods:  [POST, PUT]
+    
 estudiante_show:
     path:     /{id}/show
     defaults: { _controller: "AppBundle:Estudiante:show" }
