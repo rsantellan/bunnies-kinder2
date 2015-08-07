@@ -216,7 +216,7 @@ class EstudianteController extends Controller
 
         return $this->render('AppBundle:Estudiante:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -235,7 +235,7 @@ class EstudianteController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -266,7 +266,7 @@ class EstudianteController extends Controller
 
         return $this->render('AppBundle:Estudiante:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -306,7 +306,7 @@ class EstudianteController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('estudiante_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            //->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

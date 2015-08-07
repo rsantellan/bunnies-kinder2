@@ -1,16 +1,129 @@
-{% extends '::base.html.twig' %}
+{% extends "AppBundle::adminlayout.html.twig" %}
 
+{% block javascripts %}
+<script src="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/admin/vendor/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/addStudent.js') }}"></script>
+
+{% endblock %}
+{% block pagestylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/toastr/toastr.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/datepicker.css') }}" >
+{% endblock %}
 {% block body -%}
-    <h1>Estudiante edit</h1>
-
-    {{ form(edit_form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('estudiante') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading">{% trans %}students_update_title{% endtrans %}</header>
+      <div class="panel-body">
+        <form action="{{ path('estudiante_create') }}" method="post" {{ form_enctype(form) }} role="form">
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.nombre) }}
+              <label for="{{ form.nombre.vars.id }}">{% trans %}students_name{% endtrans %}</label>
+			  {{ form_widget(form.nombre, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.apellido) }}
+              <label for="{{ form.apellido.vars.id }}">{% trans %}students_lastname{% endtrans %}</label>
+			  {{ form_widget(form.apellido, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.fechaNacimiento) }}
+              <label for="{{ form.fechaNacimiento.vars.id }}">{% trans %}students_birthdate{% endtrans %}</label>
+              <div class="">
+                <div class="input-group mg-b-md input-append date datepicker" data-date="{{ form.fechaNacimiento.vars.value | date('d-m-Y') }}" data-date-format="dd-mm-yyyy">
+                    {{ form_widget(form.fechaNacimiento, {'attr' : {'class' : 'form-control'}}) }}
+                    <span class="input-group-btn">
+                        <button class="btn btn-white add-on" type="button">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+          </div>
+          
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.anioIngreso) }}
+              <label for="{{ form.anioIngreso.vars.id }}">{% trans %}students_startyear{% endtrans %}</label>
+			  {{ form_widget(form.anioIngreso, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div style="clear:both"></div>
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.sociedadMedica) }}
+              <label for="{{ form.sociedadMedica.vars.id }}">{% trans %}students_sociedad{% endtrans %}</label>
+			  {{ form_widget(form.sociedadMedica, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.referenciaBancaria) }}
+              <label for="{{ form.referenciaBancaria.vars.id }}">{% trans %}students_account{% endtrans %}</label>
+			  {{ form_widget(form.referenciaBancaria, {'attr' : {'class' : 'form-control'}}) }}
+              <a href="javascript:void(0)" onclick="return checkAccountNumber('{{ path('estudiante_check_reference') }}', '{{form.referenciaBancaria.vars.id}}')" class="btn btn-info">{% trans %}students_account_check_new{% endtrans %}</a>
+          </div>
+          
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.emergenciaMedica) }}
+              <label for="{{ form.emergenciaMedica.vars.id }}">{% trans %}students_medic_emergency{% endtrans %}</label>
+			  {{ form_widget(form.emergenciaMedica, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group col-lg-6 ">
+			  {{ form_errors(form.horario) }}
+              <label for="{{ form.horario.vars.id }}">{% trans %}students_horario{% endtrans %}</label>
+			  {{ form_widget(form.horario, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group col-lg-6 ">
+			  {{ form_errors(form.futuroColegio) }}
+              <label for="{{ form.futuroColegio.vars.id }}">{% trans %}students_next_college{% endtrans %}</label>
+			  {{ form_widget(form.futuroColegio, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.descuento) }}
+              <label for="{{ form.descuento.vars.id }}">{% trans %}students_discount{% endtrans %}</label>
+			  {{ form_widget(form.descuento, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.clase) }}
+              <label for="{{ form.clase.vars.id }}">{% trans %}students_class{% endtrans %}</label>
+			  {{ form_widget(form.clase, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group col-lg-6">
+			  {{ form_errors(form.egresado) }}
+              <label for="{{ form.egresado.vars.id }}">{% trans %}students_egresado{% endtrans %}</label>
+			  {{ form_widget(form.egresado, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group">
+			  {{ form_errors(form.actividades) }}
+              <label for="{{ form.actividades.vars.id }}">{% trans %}students_actividades{% endtrans %}</label>
+              <div class="" id="giroslist">
+              {% for actividad in form.actividades %}
+                <div class="form-group col-lg-4">
+                  {{ form_errors(actividad) }}
+                    <label for="{{ actividad.vars.id }}">
+                      {{ form_widget(actividad) }}
+                      {{ form_label(actividad) }}  
+                    </label>
+                  </div>
+              {% endfor %}				
+              </div>
+          </div>
+          
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">{% trans %}students_save{% endtrans %}</button>
+          </div>	
+              {{ form_rest(form) }}
+          </form>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-12 text-center">
+	  <a href="{{ path('estudiante') }}" class="btn btn-info">
+		  {% trans %}students_back_to_list{% endtrans %}
+	  </a>
+	</div>
+    <form action="{{ path('estudiante_delete', { 'id': entity.id }) }}" method="post" onsubmit="return confirmDeleteDialog();" style="float: right;">
+      <input type="hidden" name="_method" value="DELETE" />
+        {{ form_widget(delete_form) }}
+      <button class="btn btn-danger" type="submit">{% trans %}students_delete{% endtrans %}</button>
+    </form>
+</div>
 {% endblock %}
