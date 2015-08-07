@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Entity\Estudiante;
 use AppBundle\Entity\Colegio;
+use AppBundle\Entity\SociedadMedica;
+use AppBundle\Entity\EmergenciaMedica;
 use AppBundle\DataFixtures\DataFixturesConstants;
 
 /**
@@ -40,6 +42,8 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
     $metadata = $manager->getClassMetaData(get_class(new Estudiante()));
     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
     $colegios = array();
+    $sociedadesMedicas = array();
+    $emergenciaMedicas = array();
     while($row = $stmt->fetch())
     {
         $id = $row['id'];
@@ -61,14 +65,12 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
         $estudiante->setApellido($apellido);
         $estudiante->setDescuento($descuento);
         $estudiante->setEgresado($egresado);
-        $estudiante->setEmergenciaMedica($emergencia_medica);
         if($fechaNacimiento){
           $estudiante->setFechaNacimiento(new \DateTime($fechaNacimiento));
         }
         
         $estudiante->setNombre($nombre);
         $estudiante->setReferenciaBancaria($referencia_bancaria);
-        $estudiante->setSociedad($sociedad);
         $estudiante->setId($id);
         
         if($horario == 'doble_horario'){
@@ -99,6 +101,45 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
             }
           }
           $estudiante->setFuturoColegio($dbColegio);
+        }
+        if($sociedad != '')
+        {
+          $dbSociedad = $manager->getRepository('AppBundle:SociedadMedica')->findOneBy(array('name' => $sociedad));
+          if(!$dbSociedad)
+          {
+            if(!isset($sociedadesMedicas[$sociedad]))
+            {
+              $dbSociedad = new SociedadMedica();
+              $dbSociedad->setName($sociedad);
+              $manager->persist($dbSociedad);
+              $sociedadesMedicas[$sociedad] = $dbSociedad;  
+            }
+            else
+            {
+              $dbSociedad = $sociedadesMedicas[$sociedad];
+            }
+          }
+          $estudiante->setSociedadMedica($dbSociedad);
+        }
+        
+        if($emergencia_medica != '')
+        {
+          $dbEmergenciaMedica = $manager->getRepository('AppBundle:EmergenciaMedica')->findOneBy(array('name' => $emergencia_medica));
+          if(!$dbEmergenciaMedica)
+          {
+            if(!isset($emergenciaMedicas[$emergencia_medica]))
+            {
+              $dbEmergenciaMedica = new EmergenciaMedica();
+              $dbEmergenciaMedica->setName($emergencia_medica);
+              $manager->persist($dbEmergenciaMedica);
+              $emergenciaMedicas[$emergencia_medica] = $dbEmergenciaMedica;  
+            }
+            else
+            {
+              $dbEmergenciaMedica = $emergenciaMedicas[$emergencia_medica];
+            }
+          }
+          $estudiante->setEmergenciaMedica($dbEmergenciaMedica);
         }
         
         $manager->persist($estudiante);

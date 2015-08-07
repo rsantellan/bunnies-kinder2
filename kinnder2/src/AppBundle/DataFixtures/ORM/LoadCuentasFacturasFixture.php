@@ -126,7 +126,7 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
             $facturaFinal = $facturasList[$rowFactura['id']];
           }
           
-          $facturaUsuario->addFacturasFinale($facturaFinal);
+          $facturaUsuario->setFacturaFinal($facturaFinal);
         }
         $manager->persist($facturaUsuario);
         

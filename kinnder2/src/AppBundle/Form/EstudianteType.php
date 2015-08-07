@@ -24,7 +24,7 @@ class EstudianteType extends AbstractType
             ->add('anioIngreso', null, array(
                 'data' => date('Y')
             ))
-            ->add('sociedad')
+            ->add('sociedadMedica')
             ->add('referenciaBancaria')
             ->add('emergenciaMedica')
             ->add('horario')

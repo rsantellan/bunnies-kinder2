@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Horario
+ * Clase
  *
- * @ORM\Table(name="horario")
+ * @ORM\Table(name="sociedad_medica")
  * @ORM\Entity
  */
-class Horario
+class SociedadMedica
 {
     /**
      * @var integer
@@ -29,19 +29,12 @@ class Horario
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="dbname", type="string", length=255, unique = true)
-     */
-    private $dbname;
-
-    
-    /**
      * 
-     * @ORM\OneToMany(targetEntity="Estudiante", mappedBy="horario")
+     * @ORM\OneToMany(targetEntity="Estudiante", mappedBy="sociedadMedica")
      *
      */
     private $estudiantes;
+    
     /**
      * Set id
      *
@@ -51,8 +44,8 @@ class Horario
     {
         $this->id = $id;
         return $this;
-    }    
-
+    }
+    
     /**
      * Get id
      *
@@ -67,7 +60,7 @@ class Horario
      * Set name
      *
      * @param string $name
-     * @return Horario
+     * @return Clase
      */
     public function setName($name)
     {
@@ -97,7 +90,7 @@ class Horario
      * Add estudiantes
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
-     * @return Horario
+     * @return Clase
      */
     public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
     {
@@ -130,26 +123,4 @@ class Horario
         return $this->getName();
     }
 
-    /**
-     * Set dbname
-     *
-     * @param string $dbname
-     * @return Horario
-     */
-    public function setDbname($dbname)
-    {
-        $this->dbname = $dbname;
-
-        return $this;
-    }
-
-    /**
-     * Get dbname
-     *
-     * @return string 
-     */
-    public function getDbname()
-    {
-        return $this->dbname;
-    }
 }

@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="factura_final", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "cuenta_id"})}, indexes={@ORM\Index(name="cuenta_id_idx", columns={"cuenta_id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\FacturaFinalRepository")
  */
 class FacturaFinal
 {
@@ -48,21 +49,21 @@ class FacturaFinal
      *
      * @ORM\Column(name="pago", type="boolean", nullable=false, options={"default": 0})
      */
-    private $pago;
+    private $pago = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="cancelado", type="boolean", nullable=false, options={"default": 0})
      */
-    private $cancelado;
+    private $cancelado = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="enviado", type="boolean", nullable=false, options={"default": 0})
      */
-    private $enviado;
+    private $enviado = false;
 
     /**
      * 
@@ -104,16 +105,16 @@ class FacturaFinal
 
     /**
      * 
-     * @ORM\OneToMany(targetEntity="FacturaFinalDetalle", mappedBy="factura")
+     * @ORM\OneToMany(targetEntity="FacturaFinalDetalle", mappedBy="factura", cascade={"remove"})
      *
      */
     private $facturaFinalDetalles;
 
     
     /**
-     * @ORM\ManyToMany(targetEntity="facturaEstudiante", mappedBy="facturasFinales")
+     * @ORM\OneToMany(targetEntity="facturaEstudiante", mappedBy="facturaFinal")
      **/
-    private $facturaEstudiante;
+    private $facturasEstudiantes;
     
 
     /**
@@ -464,4 +465,37 @@ class FacturaFinal
         $this->facturaEstudiante = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Add facturasEstudiantes
+     *
+     * @param \AppBundle\Entity\facturaEstudiante $facturasEstudiantes
+     * @return FacturaFinal
+     */
+    public function addFacturasEstudiante(\AppBundle\Entity\facturaEstudiante $facturasEstudiantes)
+    {
+        $this->facturasEstudiantes[] = $facturasEstudiantes;
+
+        return $this;
+    }
+
+    /**
+     * Remove facturasEstudiantes
+     *
+     * @param \AppBundle\Entity\facturaEstudiante $facturasEstudiantes
+     */
+    public function removeFacturasEstudiante(\AppBundle\Entity\facturaEstudiante $facturasEstudiantes)
+    {
+        $this->facturasEstudiantes->removeElement($facturasEstudiantes);
+    }
+
+    /**
+     * Get facturasEstudiantes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFacturasEstudiantes()
+    {
+        return $this->facturasEstudiantes;
+    }
 }

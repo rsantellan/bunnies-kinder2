@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="factura_estudiante", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "usuario_id"})}, indexes={@ORM\Index(name="usuario_id_idx", columns={"usuario_id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\FacturaEstudianteRepository")
  */
 class FacturaEstudiante
 {
@@ -56,21 +57,21 @@ class FacturaEstudiante
      *
      * @ORM\Column(name="enviado", type="boolean", nullable=false, options={"default": 0})
      */
-    private $enviado;
+    private $enviado = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="pago", type="boolean", nullable=false, options={"default": 0})
      */
-    private $pago;
+    private $pago  = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="cancelado", type="boolean", nullable=false, options={"default": 0})
      */
-    private $cancelado;
+    private $cancelado  = false;
 
     /**
      * @var \DateTime
@@ -98,19 +99,16 @@ class FacturaEstudiante
 
     /**
      * 
-     * @ORM\OneToMany(targetEntity="FacturaEstudianteDetalle", mappedBy="factura")
+     * @ORM\OneToMany(targetEntity="FacturaEstudianteDetalle", mappedBy="factura", cascade={"remove"})
      *
      */    
     private $facturaDetalles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="FacturaFinal", inversedBy="facturaEstudiante")
-     * @ORM\JoinTable(name="factura_estudiante_final",
-     *      joinColumns={@ORM\JoinColumn(name="factura_usuario_id", referencedColumnName="id", nullable=false)},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="factura_final_id", referencedColumnName="id", nullable=false)}
-     *      )
+     * @ORM\ManyToOne(targetEntity="FacturaFinal", inversedBy="facturasEstudiantes")
+     * @ORM\JoinColumn(name="factura_final_id", referencedColumnName="id", nullable=true)
      **/    
-    private $facturasFinales;
+    private $facturaFinal;
     
     /**
      * Set id
@@ -374,44 +372,11 @@ class FacturaEstudiante
     }
 
     /**
-     * Add facturasFinales
-     *
-     * @param \AppBundle\Entity\FacturaFinal $facturasFinales
-     * @return FacturaEstudiante
-     */
-    public function addFacturasFinale(\AppBundle\Entity\FacturaFinal $facturasFinales)
-    {
-        $this->facturasFinales[] = $facturasFinales;
-
-        return $this;
-    }
-
-    /**
-     * Remove facturasFinales
-     *
-     * @param \AppBundle\Entity\FacturaFinal $facturasFinales
-     */
-    public function removeFacturasFinale(\AppBundle\Entity\FacturaFinal $facturasFinales)
-    {
-        $this->facturasFinales->removeElement($facturasFinales);
-    }
-
-    /**
-     * Get facturasFinales
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFacturasFinales()
-    {
-        return $this->facturasFinales;
-    }
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->facturaDetalles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->facturasFinales = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -435,5 +400,28 @@ class FacturaEstudiante
     public function getEstudiante()
     {
         return $this->estudiante;
+    }
+
+    /**
+     * Set facturaFinal
+     *
+     * @param \AppBundle\Entity\FacturaFinal $facturaFinal
+     * @return FacturaEstudiante
+     */
+    public function setFacturaFinal(\AppBundle\Entity\FacturaFinal $facturaFinal)
+    {
+        $this->facturaFinal = $facturaFinal;
+
+        return $this;
+    }
+
+    /**
+     * Get facturaFinal
+     *
+     * @return \AppBundle\Entity\FacturaFinal 
+     */
+    public function getFacturaFinal()
+    {
+        return $this->facturaFinal;
     }
 }

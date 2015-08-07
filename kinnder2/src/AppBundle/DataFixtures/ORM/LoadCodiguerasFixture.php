@@ -116,12 +116,15 @@ class LoadCodiguerasFixture extends AbstractFixture implements OrderedFixtureInt
     
     $matutino = new Horario();
     $matutino->setName('Matutino');
+    $matutino->setDbname('matutino');
     $manager->persist($matutino);
     $vespertino = new Horario();
     $vespertino->setName('Vespertino');
+    $vespertino->setDbname('vespertino');
     $manager->persist($vespertino);
     $dobleHorario = new Horario();
     $dobleHorario->setName('Doble Horario');
+    $dobleHorario->setDbname('doble_horario');
     $manager->persist($dobleHorario);
     
     /***

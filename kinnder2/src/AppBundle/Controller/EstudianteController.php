@@ -28,7 +28,6 @@ class EstudianteController extends Controller
         $filter = $this->get('form.factory')->create(new EstudianteFilterType());
         
         $entities = $em->getRepository('AppBundle:Estudiante')->getActiveForList($page, $limit, $orderBy, $order);
-
         return $this->render('AppBundle:Estudiante:index.html.twig', array(
             'entities' => $entities,
             'page' => $page,
@@ -129,7 +128,8 @@ class EstudianteController extends Controller
             }
             
             $em->flush();
-
+            $facturasHandler = $this->get('facturas');
+            $facturasHandler->generateUserAndFinalBill($entity);
             return $this->redirect($this->generateUrl('estudiante_show', array('id' => $entity->getId())));
         }
         return $this->render('AppBundle:Estudiante:new.html.twig', array(
@@ -185,7 +185,10 @@ class EstudianteController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Estudiante entity.');
         }
-
+        //$facturasHandler = $this->get('facturas');
+        //$facturasHandler->generateUserBill($entity);
+        //$facturasHandler->generateFinalBill($entity->getCuenta());
+        //die;
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Estudiante:show.html.twig', array(
@@ -232,7 +235,7 @@ class EstudianteController extends Controller
             'method' => 'PUT',
         ));
 
-        //$form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -256,7 +259,8 @@ class EstudianteController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $facturasHandler = $this->get('facturas');
+            $facturasHandler->generateUserAndFinalBill($entity);
             return $this->redirect($this->generateUrl('estudiante_edit', array('id' => $id)));
         }
 

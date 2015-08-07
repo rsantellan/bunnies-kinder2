@@ -51,11 +51,12 @@ class Estudiante
     private $anioIngreso;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="sociedad", type="string", length=64, nullable=true)
-     */
-    private $sociedad;
+     * 
+     * @ORM\ManyToOne(targetEntity="SociedadMedica", inversedBy="estudiantes")
+     * @ORM\JoinColumn(name="sociedad_medica_id", referencedColumnName="id", nullable=true)
+     * 
+     **/ 
+    private $sociedadMedica;
 
     /**
      * @var string
@@ -65,10 +66,11 @@ class Estudiante
     private $referenciaBancaria;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="emergencia_medica", type="string", length=64, nullable=true)
-     */
+     * 
+     * @ORM\ManyToOne(targetEntity="EmergenciaMedica", inversedBy="estudiantes")
+     * @ORM\JoinColumn(name="emergencia_medica_id", referencedColumnName="id", nullable=true)
+     * 
+     **/     
     private $emergenciaMedica;
 
     /**
@@ -270,29 +272,6 @@ class Estudiante
     }
 
     /**
-     * Set sociedad
-     *
-     * @param string $sociedad
-     * @return Estudiante
-     */
-    public function setSociedad($sociedad)
-    {
-        $this->sociedad = $sociedad;
-
-        return $this;
-    }
-
-    /**
-     * Get sociedad
-     *
-     * @return string 
-     */
-    public function getSociedad()
-    {
-        return $this->sociedad;
-    }
-
-    /**
      * Set referenciaBancaria
      *
      * @param string $referenciaBancaria
@@ -314,30 +293,6 @@ class Estudiante
     {
         return $this->referenciaBancaria;
     }
-
-    /**
-     * Set emergenciaMedica
-     *
-     * @param string $emergenciaMedica
-     * @return Estudiante
-     */
-    public function setEmergenciaMedica($emergenciaMedica)
-    {
-        $this->emergenciaMedica = $emergenciaMedica;
-
-        return $this;
-    }
-
-    /**
-     * Get emergenciaMedica
-     *
-     * @return string 
-     */
-    public function getEmergenciaMedica()
-    {
-        return $this->emergenciaMedica;
-    }
-
 
     /**
      * Set descuento
@@ -690,5 +645,51 @@ class Estudiante
     public function getFuturoColegio()
     {
         return $this->futuroColegio;
+    }
+
+    /**
+     * Set sociedadMedica
+     *
+     * @param \AppBundle\Entity\SociedadMedica $sociedadMedica
+     * @return Estudiante
+     */
+    public function setSociedadMedica(\AppBundle\Entity\SociedadMedica $sociedadMedica = null)
+    {
+        $this->sociedadMedica = $sociedadMedica;
+
+        return $this;
+    }
+
+    /**
+     * Get sociedadMedica
+     *
+     * @return \AppBundle\Entity\SociedadMedica 
+     */
+    public function getSociedadMedica()
+    {
+        return $this->sociedadMedica;
+    }
+
+    /**
+     * Set emergenciaMedica
+     *
+     * @param \AppBundle\Entity\EmergenciaMedica $emergenciaMedica
+     * @return Estudiante
+     */
+    public function setEmergenciaMedica(\AppBundle\Entity\EmergenciaMedica $emergenciaMedica = null)
+    {
+        $this->emergenciaMedica = $emergenciaMedica;
+
+        return $this;
+    }
+
+    /**
+     * Get emergenciaMedica
+     *
+     * @return \AppBundle\Entity\EmergenciaMedica 
+     */
+    public function getEmergenciaMedica()
+    {
+        return $this->emergenciaMedica;
     }
 }
