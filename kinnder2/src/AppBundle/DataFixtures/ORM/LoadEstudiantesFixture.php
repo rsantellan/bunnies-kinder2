@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Entity\Estudiante;
+use AppBundle\Entity\Colegio;
 use AppBundle\DataFixtures\DataFixturesConstants;
 
 /**
@@ -38,7 +39,7 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
     $stmt->execute();
     $metadata = $manager->getClassMetaData(get_class(new Estudiante()));
     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
-    
+    $colegios = array();
     while($row = $stmt->fetch())
     {
         $id = $row['id'];
@@ -65,7 +66,6 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
           $estudiante->setFechaNacimiento(new \DateTime($fechaNacimiento));
         }
         
-        $estudiante->setFuturoColegio($futuro_colegio);
         $estudiante->setNombre($nombre);
         $estudiante->setReferenciaBancaria($referencia_bancaria);
         $estudiante->setSociedad($sociedad);
@@ -81,6 +81,25 @@ class LoadEstudiantesFixture extends AbstractFixture implements OrderedFixtureIn
         
         $dbClase = $manager->getRepository('AppBundle:Clase')->findOneBy(array('name' => ucfirst($clase)));
         $estudiante->setClase($dbClase);
+        if($futuro_colegio != '')
+        {
+          $dbColegio = $manager->getRepository('AppBundle:Colegio')->findOneBy(array('name' => $futuro_colegio));
+          if(!$dbColegio)
+          {
+            if(!isset($colegios[$futuro_colegio]))
+            {
+              $dbColegio = new Colegio();
+              $dbColegio->setName($futuro_colegio);
+              $manager->persist($dbColegio);
+              $colegios[$futuro_colegio] = $dbColegio;  
+            }
+            else
+            {
+              $dbColegio = $colegios[$futuro_colegio];
+            }
+          }
+          $estudiante->setFuturoColegio($dbColegio);
+        }
         
         $manager->persist($estudiante);
     }

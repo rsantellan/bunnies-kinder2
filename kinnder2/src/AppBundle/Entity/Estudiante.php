@@ -80,10 +80,11 @@ class Estudiante
     private $horario;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="futuro_colegio", type="string", length=64, nullable=true)
-     */
+     * 
+     * @ORM\ManyToOne(targetEntity="Colegio", inversedBy="estudiantes")
+     * @ORM\JoinColumn(name="futuro_colegio_id", referencedColumnName="id", nullable=true)
+     * 
+     **/     
     private $futuroColegio;
 
     /**
@@ -337,28 +338,6 @@ class Estudiante
         return $this->emergenciaMedica;
     }
 
-    /**
-     * Set futuroColegio
-     *
-     * @param string $futuroColegio
-     * @return Estudiante
-     */
-    public function setFuturoColegio($futuroColegio)
-    {
-        $this->futuroColegio = $futuroColegio;
-
-        return $this;
-    }
-
-    /**
-     * Get futuroColegio
-     *
-     * @return string 
-     */
-    public function getFuturoColegio()
-    {
-        return $this->futuroColegio;
-    }
 
     /**
      * Set descuento
@@ -688,5 +667,28 @@ class Estudiante
     public function getCuenta()
     {
         return $this->cuenta;
+    }
+
+    /**
+     * Set futuroColegio
+     *
+     * @param \AppBundle\Entity\Colegio $futuroColegio
+     * @return Estudiante
+     */
+    public function setFuturoColegio(\AppBundle\Entity\Colegio $futuroColegio = null)
+    {
+        $this->futuroColegio = $futuroColegio;
+
+        return $this;
+    }
+
+    /**
+     * Get futuroColegio
+     *
+     * @return \AppBundle\Entity\Colegio 
+     */
+    public function getFuturoColegio()
+    {
+        return $this->futuroColegio;
     }
 }
