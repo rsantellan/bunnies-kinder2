@@ -16,7 +16,8 @@
     <section class="panel">
       <header class="panel-heading">{% trans %}students_update_title{% endtrans %}</header>
       <div class="panel-body">
-        <form action="{{ path('estudiante_create') }}" method="post" {{ form_enctype(form) }} role="form">
+        <form action="{{ path('estudiante_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }} role="form">
+          <input type="hidden" name="_method" value="PUT" />
           <div class="form-group col-lg-6">
 			  {{ form_errors(form.nombre) }}
               <label for="{{ form.nombre.vars.id }}">{% trans %}students_name{% endtrans %}</label>
@@ -55,13 +56,6 @@
 			  {{ form_widget(form.sociedadMedica, {'attr' : {'class' : 'form-control'}}) }}
           </div>
           <div class="form-group col-lg-6">
-			  {{ form_errors(form.referenciaBancaria) }}
-              <label for="{{ form.referenciaBancaria.vars.id }}">{% trans %}students_account{% endtrans %}</label>
-			  {{ form_widget(form.referenciaBancaria, {'attr' : {'class' : 'form-control'}}) }}
-              <a href="javascript:void(0)" onclick="return checkAccountNumber('{{ path('estudiante_check_reference') }}', '{{form.referenciaBancaria.vars.id}}')" class="btn btn-info">{% trans %}students_account_check_new{% endtrans %}</a>
-          </div>
-          
-          <div class="form-group col-lg-6">
 			  {{ form_errors(form.emergenciaMedica) }}
               <label for="{{ form.emergenciaMedica.vars.id }}">{% trans %}students_medic_emergency{% endtrans %}</label>
 			  {{ form_widget(form.emergenciaMedica, {'attr' : {'class' : 'form-control'}}) }}
@@ -91,6 +85,7 @@
               <label for="{{ form.egresado.vars.id }}">{% trans %}students_egresado{% endtrans %}</label>
 			  {{ form_widget(form.egresado, {'attr' : {'class' : 'form-control'}}) }}
           </div>
+          <div style="clear:both"></div>
           <div class="form-group">
 			  {{ form_errors(form.actividades) }}
               <label for="{{ form.actividades.vars.id }}">{% trans %}students_actividades{% endtrans %}</label>
@@ -116,8 +111,8 @@
       </section>
     </div>
     <div class="col-lg-12 text-center">
-	  <a href="{{ path('estudiante') }}" class="btn btn-info">
-		  {% trans %}students_back_to_list{% endtrans %}
+	  <a href="{{ path('estudiante_show', { 'id': entity.id }) }}" class="btn btn-info">
+		  {% trans %}students_back_to_show{% endtrans %}
 	  </a>
 	</div>
     <form action="{{ path('estudiante_delete', { 'id': entity.id }) }}" method="post" onsubmit="return confirmDeleteDialog();" style="float: right;">

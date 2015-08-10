@@ -81,7 +81,7 @@
                   <td>{{ entity.referenciaBancaria }}</td>
                   <td>{{ entity.clase }}</td>
                   <td>
-                    <a href="{{ path('estudiante_edit', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
+                    <a href="{{ path('estudiante_show', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
                   </td>
                 </tr>
               {% endfor %}

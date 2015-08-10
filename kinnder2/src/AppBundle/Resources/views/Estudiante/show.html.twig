@@ -89,10 +89,27 @@
     </div>
     <div class="col-lg-6">
       <section class="panel">
-        <header class="panel-heading">{% trans %}students_actions_title{% endtrans %}</header>
+        <header class="panel-heading">{% trans %}students_parents_title{% endtrans %}</header>
         <div class="panel-body">
-
-
+              <ul>
+                {% for progenitor in entity.progenitores %}
+                  <li>
+                    {{ progenitor.nombre }} ({{ progenitor.email }})
+                  </li>
+                {% endfor %}
+              </ul>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-6">
+      <section class="panel">
+        <header class="panel-heading">{% trans %}students_brothers_title{% endtrans %}</header>
+        <div class="panel-body">
+              <ul>
+                {% for brother in entity.brothersWithMe %}
+                  <li><a href="{{ path('estudiante_show', { 'id': brother.id }) }}">{{ brother.nombre }} {{ brother.apellido }} {% if brother.egresado %}(Egresado/a){% else %} {{ brother.horario }} / {{ brother.clase }}{% endif %}</a></li>
+                {% endfor %}
+              </ul>
         </div>
       </section>
     </div>

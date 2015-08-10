@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Entity\Estudiante;
 use AppBundle\Form\EstudianteType;
+use AppBundle\Form\EstudianteEditType;
 use AppBundle\Filter\EstudianteFilterType;
 use AppBundle\Entity\Cuenta;
 
@@ -114,6 +115,8 @@ class EstudianteController extends Controller
               foreach($cuenta->getEstudiantes() as $hermano)
               {
                 $entity->addMyBrother($hermano);
+                $hermano->addBrothersWithMe($entity);
+                $em->persist($hermano);
               }
               foreach($cuenta->getProgenitores() as $progenitor){
                 $entity->addProgenitore($progenitor);
@@ -128,6 +131,7 @@ class EstudianteController extends Controller
             }
             
             $em->flush();
+            //die;
             $facturasHandler = $this->get('facturas');
             $facturasHandler->generateUserAndFinalBill($entity);
             return $this->redirect($this->generateUrl('estudiante_show', array('id' => $entity->getId())));
@@ -230,7 +234,7 @@ class EstudianteController extends Controller
     */
     private function createEditForm(Estudiante $entity)
     {
-        $form = $this->createForm(new EstudianteType(), $entity, array(
+        $form = $this->createForm(new EstudianteEditType(), $entity, array(
             'action' => $this->generateUrl('estudiante_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

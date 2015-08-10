@@ -131,7 +131,7 @@ class Estudiante
     
     /**
      * 
-     * @ORM\OneToMany(targetEntity="FacturaEstudiante", mappedBy="estudiante")
+     * @ORM\OneToMany(targetEntity="FacturaEstudiante", mappedBy="estudiante", cascade={"remove"})
      *
      */
     private $facturas;
@@ -338,39 +338,6 @@ class Estudiante
     public function getEgresado()
     {
         return $this->egresado;
-    }
-
-    /**
-     * Add exoneracion
-     *
-     * @param \AppBundle\Entity\Exoneracion $exoneracion
-     * @return Estudiante
-     */
-    public function addExoneracion(\AppBundle\Entity\Exoneracion $exoneracion)
-    {
-        $this->exoneracion[] = $exoneracion;
-
-        return $this;
-    }
-
-    /**
-     * Remove exoneracion
-     *
-     * @param \AppBundle\Entity\Exoneracion $exoneracion
-     */
-    public function removeExoneracion(\AppBundle\Entity\Exoneracion $exoneracion)
-    {
-        $this->exoneracion->removeElement($exoneracion);
-    }
-
-    /**
-     * Get exoneracion
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExoneracion()
-    {
-        return $this->exoneracion;
     }
 
     /**
