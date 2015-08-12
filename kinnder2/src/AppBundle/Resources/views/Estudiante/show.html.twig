@@ -113,5 +113,16 @@
         </div>
       </section>
     </div>
+    <div class="col-lg-6">
+      <section class="panel">
+        <header class="panel-heading">{% trans %}students_account_title{% endtrans %}</header>
+        <div class="panel-body">
+          <a href="{{ path('estudiante_pdf_cuenta', {'id' : entity.id } )}}" class="btn btn-info">
+            <i class="fa fa-cogs"></i>
+            {% trans %}students_account_generate{% endtrans %}
+          </a>
+        </div>
+      </section>
+    </div>
   </div>
 {% endblock %}

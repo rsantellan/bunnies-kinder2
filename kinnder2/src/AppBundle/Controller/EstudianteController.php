@@ -115,11 +115,13 @@ class EstudianteController extends Controller
               foreach($cuenta->getEstudiantes() as $hermano)
               {
                 $entity->addMyBrother($hermano);
-                $hermano->addBrothersWithMe($entity);
+                $hermano->addMyBrother($entity);
                 $em->persist($hermano);
               }
               foreach($cuenta->getProgenitores() as $progenitor){
                 $entity->addProgenitore($progenitor);
+                $progenitor->addEstudiante($entity);
+                $em->persist($progenitor);
               }
               $entity->setCuenta($cuenta);
               $em->persist($entity);  
@@ -185,14 +187,13 @@ class EstudianteController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Estudiante')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Estudiante entity.');
         }
-        //$facturasHandler = $this->get('facturas');
-        //$facturasHandler->generateUserBill($entity);
-        //$facturasHandler->generateFinalBill($entity->getCuenta());
-        //die;
+        
+        $facturasHandler = $this->get('facturas');
+        $facturasHandler->checkAllAccount();
+        
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Estudiante:show.html.twig', array(
@@ -201,6 +202,19 @@ class EstudianteController extends Controller
         ));
     }
 
+    public function showAccountPdfAction($id)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository('AppBundle:Estudiante')->find($id);
+      if (!$entity) {
+          throw $this->createNotFoundException('Unable to find Estudiante entity.');
+      }
+      
+      $pdfHandler = $this->get('pdfs');
+      $pdfHandler->exportAccountToPdf($entity->getCuenta());
+      
+    }
+    
     /**
      * Displays a form to edit an existing Estudiante entity.
      *

@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * FacturaEstudiante
  *
- * @ORM\Table(name="factura_estudiante", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "usuario_id"})}, indexes={@ORM\Index(name="usuario_id_idx", columns={"usuario_id"})})
+ * @ORM\Table(name="factura_estudiante", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "estudiante_id"})}, indexes={@ORM\Index(name="estudiante_id_idx", columns={"estudiante_id"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FacturaEstudianteRepository")
  */
@@ -26,7 +26,7 @@ class FacturaEstudiante
     /**
      * 
      * @ORM\ManyToOne(targetEntity="Estudiante", inversedBy="facturas")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="estudiante_id", referencedColumnName="id", nullable=false)
      * 
      **/      
     private $estudiante;

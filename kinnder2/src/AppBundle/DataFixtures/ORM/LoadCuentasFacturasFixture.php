@@ -30,7 +30,7 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
 
   public function load(ObjectManager $manager) {
     
-	$sqlFacturaUsuario = 'select id, usuario_id, total, month, year, enviado, pago, cancelado, fechavencimiento from facturaUsuario order by usuario_id';
+	$sqlFacturaUsuario = 'select id, usuario_id, total, month, year, enviado, pago, cancelado, fechavencimiento from facturaUsuario order by  usuario_id ASC , year ASC , MONTH ASC';
     $sqlFacturaUsuarioDetalle = 'select id, factura_id, description, amount from facturaUsuarioDetalle where factura_id = ?';
     
     $sqlFacturaFinal = 'select id, total, month, year, pago, cancelado, enviado, cuenta_id, fechavencimiento, pagadodeltotal from facturaFinal where id in (select factura_final_id from facturausuariofinal where factura_usuario_id = ?)';

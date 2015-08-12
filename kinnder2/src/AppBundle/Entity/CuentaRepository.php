@@ -46,5 +46,29 @@ class CuentaRepository extends EntityRepository
     return $returnList;
   }
   
+  public function recheckDbData($cuentaId)
+  {
+    $sqlCobro = 'select sum(monto) as monto from cobro where cuenta_id = ?';
+    $sqlFacturas = 'select sum(total) as total from factura_final where cuenta_id = ?';
+    $cobro = $this->getEntityManager()->getConnection()->executeQuery($sqlCobro, array($cuentaId));
+    $facturas = $this->getEntityManager()->getConnection()->executeQuery($sqlFacturas, array($cuentaId));
+    $cobroRow = $cobro->fetch();
+    $facturasRow = $facturas->fetch();
+    $cobroNum = 0;
+    $facturasNum = 0;
+    if($cobroRow['monto'])
+    {
+      $cobroNum = $cobroRow['monto'];
+    }
+    if($facturasRow['total'])
+    {
+      $facturasNum = $facturasRow['total'];
+    }
+    return array(
+      'cobro' => $cobroNum,
+      'facturas' => $facturasNum,
+    );
+  }
+  
   
 }

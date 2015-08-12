@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * FacturaFinal
  *
  * @ORM\Table(name="factura_final", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "cuenta_id"})}, indexes={@ORM\Index(name="cuenta_id_idx", columns={"cuenta_id"})})
- * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FacturaFinalRepository")
  */
 class FacturaFinal
@@ -498,4 +498,16 @@ class FacturaFinal
     {
         return $this->facturasEstudiantes;
     }
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function calculateDifference()
+    {
+      if(!$this->getCancelado())
+      {
+        $this->getCuenta()->setDebe($this->getCuenta()->getDebe() + $this->getTotal());
+      }
+    }    
 }

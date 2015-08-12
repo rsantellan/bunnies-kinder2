@@ -37,3 +37,7 @@ estudiante_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:Estudiante:delete" }
     methods:  [POST, DELETE]
+
+estudiante_pdf_cuenta:
+    path:     /{id}/pdf-cuenta
+    defaults: { _controller: "AppBundle:Estudiante:showAccountPdf" }

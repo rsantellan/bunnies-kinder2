@@ -1,0 +1,10 @@
+<tr>
+  <td>{{ entity.nombre }}</td>
+  <td>{{ entity.apellido }}</td>
+  <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('d/m/Y') }}{% endif %}</td>
+  <td>{{ entity.referenciaBancaria }}</td>
+  <td>{{ entity.clase }}</td>
+  <td>
+    <a href="{{ path('estudiante_show', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
+  </td>
+</tr>

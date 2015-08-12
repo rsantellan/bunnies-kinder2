@@ -10,7 +10,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Cobro
  *
  * @ORM\Table(name="cobro", indexes={@ORM\Index(name="cuenta_id_idx", columns={"cuenta_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\CobrosRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Cobro
 {
@@ -196,5 +197,14 @@ class Cobro
     public function getCuenta()
     {
         return $this->cuenta;
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function calculateDifference()
+    {
+      $this->getCuenta()->setPago($this->getCuenta()->getPago() + $this->getMonto());
     }
 }

@@ -43,9 +43,11 @@ class LoadCuentasFixture extends AbstractFixture implements OrderedFixtureInterf
         // Adding cuenta.
         $cuenta = new Cuenta();
         $cuenta->setId($row['id']);
-        $cuenta->setDebe($row['debe']);
+        //$cuenta->setDebe($row['debe']);
+        $cuenta->setDebe(0);
         //$cuenta->setDiferencia($row['diferencia']);
-        $cuenta->setPago($row['pago']);
+        //$cuenta->setPago($row['pago']);
+        $cuenta->setPago(0);
         $cuenta->setReferenciabancaria($row['referenciabancaria']);
         $estudiantes = $manager->getRepository('AppBundle:Estudiante')->findBy(array('referenciaBancaria' => $row['referenciabancaria']));
         $manager->persist($cuenta);

@@ -196,4 +196,9 @@ class FacturaFinalDetalle
     {
         return $this->factura;
     }
+    
+    public function getFormatedAmount()
+    {
+      return number_format($this->getAmount(), 0, ',', '.');
+    }
 }

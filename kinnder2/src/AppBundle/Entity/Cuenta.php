@@ -411,4 +411,13 @@ class Cuenta
     public function __toString(){
       return $this->getReferenciabancaria();
     }
+    
+    public function getFormatedDiferencia()
+    {
+      if($this->getDiferencia() < 0)
+      {
+        return number_format(- $this->getDiferencia(), 0, ',', '.');
+      }
+      return number_format($this->getDiferencia(), 0, ',', '.');
+    }
 }

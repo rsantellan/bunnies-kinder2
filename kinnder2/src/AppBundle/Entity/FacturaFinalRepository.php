@@ -22,4 +22,12 @@ class FacturaFinalRepository extends EntityRepository
           'year' => $year
       ))->setMaxResults(1)->getOneOrNullResult();
     }
+    
+    public function retrieveUnpaidFacturasOfAccount($accountId)
+    {
+      $dql = 'select f from AppBundle:FacturaFinal f where f.cuenta = :cuentaId and f.pago = false and f.cancelado = false order by f.year asc, f.month asc';
+      return $this->getEntityManager()->createQuery($dql)->setParameters(array(
+          'cuentaId' => $accountId,
+      ))->getResult();
+    }
 }

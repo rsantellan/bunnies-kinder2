@@ -22,4 +22,32 @@ class EstudianteRepository extends EntityRepository
             ->setFirstResult(($page * $limit))
             ->getResult();
   }
+  
+  public function getBrothers($entityId){
+    $sqlBrothers = 'select estudiante_from, estudiante_to from estudiante_hermano where estudiante_from = :from or estudiante_to = :to';
+    $brothers = $this->getEntityManager()->getConnection()->executeQuery($sqlBrothers, array('from' => $entityId, 'to' => $entityId));
+    $brothersIds = array();
+    while($row = $brothers->fetch())
+    {
+      $from = $row['estudiante_from'];
+      $to = $row['estudiante_to'];
+      if((int) $from == $entityId)
+      {
+        $brothersIds[] = $to;
+      }
+      else
+      {
+        $brothersIds[] = $from;
+      }
+    }
+    if(count($brothersIds) == 0){
+      return array();
+    }
+    
+    $dql = 'SELECT e.id, e.nombre, e.apellido, e.fechaNacimiento, c.name as clase, e.egresado, h.name as horario FROM AppBundle:Estudiante e left join e.clase c left join e.horario h where e.id IN (:brothersId)';
+    return $this->getEntityManager()->createQuery($dql)->setParameters(array(
+        'brothersId' => $brothersIds,
+    ))->getResult();
+    
+  }
 }

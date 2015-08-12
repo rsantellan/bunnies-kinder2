@@ -93,7 +93,7 @@ class FacturasManager {
     // Descuento de hermano
     $activeBrother = 0;
     
-    foreach($estudiante->getBrothersWithMe() as $brother)
+    foreach($estudiante->getMyBrothers() as $brother)
     {
       if(!$brother->getEgresado())
       {
@@ -133,7 +133,6 @@ class FacturasManager {
       $listadoDetalles[] = $detalleActividad;
       $total += $actividad->getCosto();
     }
-    
     foreach($factura->getFacturaDetalles() as $detalle)
     {
       if(count($listadoDetalles) > 0)
@@ -281,5 +280,131 @@ class FacturasManager {
   {
     $this->generateUserBill($estudiante, $month, $year);
     $this->generateFinalBill($estudiante->getCuenta(), $month, $year);
+  }
+  
+  public function checkAllAccount($correct = true, $verbose = true)
+  {
+    $cuentas = $this->em->getRepository('AppBundle:Cuenta')->findAll();
+    foreach($cuentas as $cuenta)
+    {
+      $cuentaDbData = $this->em->getRepository('AppBundle:Cuenta')->recheckDbData($cuenta->getId());
+      if($cuenta->getPago() != $cuentaDbData['cobro'] || $cuenta->getDebe() != $cuentaDbData['facturas'] )
+      {
+        if($verbose)
+        {
+          var_dump($cuenta->getId());
+          var_dump($cuentaDbData);
+          var_dump($cuenta->getDiferencia());
+          echo '<hr/>';
+        }
+        
+      }
+      
+      $facturas = $this->em->getRepository('AppBundle:FacturaFinal')->retrieveUnpaidFacturasOfAccount($cuenta->getId());
+      $monto = 0;
+      foreach($facturas as $factura)
+      {
+        $monto += $factura->getTotal() - $factura->getPagadodeltotal();
+      }
+      if($monto != $cuenta->getDiferencia())
+      {
+        if($cuenta->getDiferencia() > 0 && $monto == 0)
+        {
+          if($verbose)
+          {
+            var_dump(sprintf('Error en la cuenta: %s Diferencia en la cuenta: %s diferencia en las facturas %s. Pago: %s Debe: %s', $cuenta->getId(), $cuenta->getDiferencia(), $monto, $cuenta->getPago(), $cuenta->getDebe()));
+          }
+          
+          if($correct)
+          {
+            $cuenta->setPago($cuenta->getDebe());
+            $this->em->persist($cuenta);
+          }
+        }
+        else 
+        {
+          if($monto != 0)
+          {
+            if($verbose)
+            {
+              var_dump(sprintf('Error en las facturas de la cuenta: %s Diferencia en la cuenta: %s diferencia en las facturas %s', $cuenta->getId(), $cuenta->getDiferencia(), $monto));
+            }
+            if($cuenta->getDiferencia() <= 0)
+            {
+              foreach($facturas as $factura)
+              {
+                if($verbose)
+                {
+                  var_dump(sprintf('La factura: %s deberia de estar paga', $factura->getId()));
+                }
+                if($correct)
+                {
+                  $factura->setPago(true);
+                  $this->em->persist($factura);
+                }
+              }
+            }
+            else
+            {
+              var_dump($monto);
+              foreach($facturas as $factura)
+              {
+                $monto = $monto - ($factura->getTotal() - $factura->getPagadodeltotal());
+                var_dump($monto);
+                var_dump(($factura->getTotal() - $factura->getPagadodeltotal()));
+                if($monto >= $factura->getTotal())
+                {
+                  if($verbose)
+                  {
+                    var_dump(sprintf('La factura: %s deberia de estar paga  %s', $factura->getId(), $factura->getTotal()));
+                  }
+                  if($correct)
+                  {
+                    $factura->setPago(true);
+                    //$this->em->persist($factura);
+                  }
+
+                }
+                else
+                {
+                  if($monto > 0)
+                  {
+                    if($verbose)
+                    {
+                      var_dump(sprintf('La factura: %s deberia de tener un pago del total de: %s. Monto: %s', $factura->getId(), $factura->getTotal(), $factura->getTotal() - $monto));  
+                    }
+                    if($correct)
+                    {
+                      $factura->setPagadodeltotal($factura->getTotal() - $monto);
+                      //$this->em->persist($factura);
+                    }
+                  }
+                  else 
+                  {
+                    if($verbose)
+                    {
+                      var_dump(sprintf('La factura: %s Tiene el monto justo siendo el monto: %s', $factura->getId(), $monto));  
+                    }
+                  }
+                }
+              }
+              if($verbose)
+              {
+                var_dump(sprintf('La cuenta: %s Deberia de tener el monto: %s', $cuenta->getId(), $monto));  
+              }
+            }            
+          }
+        }
+        echo '<hr/>';
+      }
+      if($verbose)
+      {
+        //echo '<hr/>';
+      }
+    }
+    if($correct)
+    {
+      $this->em->flush();  
+    }
   }
 }
