@@ -24,6 +24,11 @@ fos_user_change_password:
 user_show:
     path:     /profile
     defaults: { _controller: "MaithTekoaBundle:User:show" }
+
+maith_newsletter:
+    resource: "@MaithNewsletterBundle/Resources/config/routing.yml"
+    prefix:   /
+
     
 # FOS User registration valid urls.
 #fos_user_registration_check_email:

@@ -108,3 +108,7 @@ jms_security_extra:
     
 lexik_form_filter:
     where_method: ~  # null | and | or    
+
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine    
