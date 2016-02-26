@@ -17,3 +17,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Migration data
+    old_db_host:       bunnies
+    old_db_user:       ~
+    old_db_password:   ~
+    

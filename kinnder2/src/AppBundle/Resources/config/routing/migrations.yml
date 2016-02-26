@@ -1,0 +1,19 @@
+migrate_activity:
+    path:     /activity/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:migrateActivity }
+
+remove_activity:
+    path:     /activity-remove/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:removeActivity }
+
+migrate_discount:
+    path:     /discount/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:migrateDiscount }
+
+remove_discounts:
+    path:     /discount-remove/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:removeDiscount }
+
+update_costos:
+    path:     /costos/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:updateCostos }                  

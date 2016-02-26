@@ -39,7 +39,7 @@ class LoadCuentasFacturasFixture extends AbstractFixture implements OrderedFixtu
     $username = DataFixturesConstants::DBUSER;
     $password = DataFixturesConstants::DBPASS;
     $database = DataFixturesConstants::DBSCHEMA;
-    
+    return;
     $conn = new \PDO(sprintf('mysql:host=localhost;dbname=%s', $database), $username, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
     $stmt = $conn->prepare($sqlFacturaUsuario);
     $stmt->execute();

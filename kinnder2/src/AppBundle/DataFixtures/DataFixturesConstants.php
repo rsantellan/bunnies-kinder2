@@ -12,4 +12,5 @@ class DataFixturesConstants {
   const DBUSER = 'root';
   const DBPASS = 'root';
   const DBSCHEMA = 'bunnyski_site';
+  const BASEURL = 'http://kinder2.local/';
 }

@@ -2,7 +2,7 @@ app_estudiante:
     resource: "@AppBundle/Resources/config/routing/estudiante.yml"
     prefix:   /admin/estudiante
 
-app:
+cuentas:
     resource: "@AppBundle/Resources/config/routing/cuentas.yml"
     prefix:   /admin
 
@@ -13,3 +13,7 @@ admin_index:
 homepage:
     path:     /
     defaults: { _controller: AppBundle:Default:index }  
+
+migrations:
+    resource: "@AppBundle/Resources/config/routing/migrations.yml"
+    prefix:   /migrations

@@ -34,7 +34,7 @@ class LoadOldNewsLetterFixture extends AbstractFixture implements OrderedFixture
     $username = DataFixturesConstants::DBUSER;
     $password = DataFixturesConstants::DBPASS;
     $database = DataFixturesConstants::DBSCHEMA;
-    
+    return;
     $conn = new \PDO(sprintf('mysql:host=localhost;dbname=%s', $database), $username, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
     
     $sqlUsers = 'select nu.id, nu.md_user_id, u.email, u.culture, u.id as userId from md_news_letter_user nu left join md_user u on nu.md_user_id = u.id';

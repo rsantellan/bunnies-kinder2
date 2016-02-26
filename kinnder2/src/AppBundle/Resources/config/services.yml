@@ -7,6 +7,9 @@ services:
     facturas:
         class: AppBundle\Service\FacturasManager
         arguments: ["@doctrine.orm.entity_manager", "@logger"]
+    migrations:
+        class: AppBundle\Service\MigrationService
+        arguments: ["@doctrine.orm.entity_manager", "@logger", "%old_db_host%", "%old_db_user%", "%old_db_password%"]
     pdfs:
         class: AppBundle\Service\PdfManager
         arguments: ["@doctrine.orm.entity_manager", "@logger", "%kernel.root_dir%"]

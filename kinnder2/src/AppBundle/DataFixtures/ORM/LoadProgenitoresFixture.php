@@ -26,7 +26,10 @@ class LoadProgenitoresFixture extends AbstractFixture implements OrderedFixtureI
     }
 
     public function load(ObjectManager $manager) {
+      
       $sql = 'select id, nombre, direccion, telefono, celular, mail, clave from progenitor';
+      return;
+      
       $username = DataFixturesConstants::DBUSER;
       $password = DataFixturesConstants::DBPASS;
       $database = DataFixturesConstants::DBSCHEMA;
