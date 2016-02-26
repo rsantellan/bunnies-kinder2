@@ -16,4 +16,36 @@ remove_discounts:
 
 update_costos:
     path:     /costos/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:updateCostos }                  
+    defaults: { _controller: AppBundle:Migration:updateCostos }
+    
+update_estudiante:
+    path:     /estudiante/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:updateEstudiante }    
+
+disable_estudiante:
+    path:     /estudiante-disable/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:disableEstudiante }    
+    
+update_parent:
+    path:     /parent/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:updateParent }    
+
+remove_parent:
+    path:     /parent-remove/{id}/{hash}
+    defaults: { _controller: AppBundle:Migration:removeParent }    
+    
+update_user_activity:
+    path:     /user-activity/{userId}/{activityId}/{hash}
+    defaults: { _controller: AppBundle:Migration:updateUserActivity }    
+
+remove_user_activity:
+    path:     /user-activity-remove/{userId}/{activityId}/{hash}
+    defaults: { _controller: AppBundle:Migration:removeUserActivity }    
+    
+update_user_parent:
+    path:     /user-parent/{userId}/{parentId}/{hash}
+    defaults: { _controller: AppBundle:Migration:updateUserParent }    
+
+remove_user_parent:
+    path:     /user-parent-remove/{userId}/{parentId}/{hash}
+    defaults: { _controller: AppBundle:Migration:removeUserParent }    

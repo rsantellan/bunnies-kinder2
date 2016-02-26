@@ -46,10 +46,24 @@ class Estudiante
     /**
      * @var integer
      *
-     * @ORM\Column(name="anio_ingreso", type="bigint", nullable=true)
+     * @ORM\Column(name="anio_ingreso", type="integer", nullable=true)
      */
     private $anioIngreso;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=true)
+     */
+    private $active;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="old_id", type="integer", nullable=true)
+     */
+    private $oldId;
+    
     /**
      * 
      * @ORM\ManyToOne(targetEntity="SociedadMedica", inversedBy="estudiantes")
@@ -658,5 +672,51 @@ class Estudiante
     public function getEmergenciaMedica()
     {
         return $this->emergenciaMedica;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return Estudiante
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set oldId
+     *
+     * @param integer $oldId
+     * @return Estudiante
+     */
+    public function setOldId($oldId)
+    {
+        $this->oldId = $oldId;
+
+        return $this;
+    }
+
+    /**
+     * Get oldId
+     *
+     * @return integer 
+     */
+    public function getOldId()
+    {
+        return $this->oldId;
     }
 }

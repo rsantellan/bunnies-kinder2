@@ -51,7 +51,11 @@ class LoadCodiguerasFixture extends AbstractFixture implements OrderedFixtureInt
      * Horarios
      * 
      */
-    
+    $horarios = array(
+        'Matutino',
+        'Vespertino',
+        'Doble Horario',
+    );
     $matutino = new Horario();
     $matutino->setName('Matutino');
     $matutino->setDbname('matutino');
@@ -70,7 +74,11 @@ class LoadCodiguerasFixture extends AbstractFixture implements OrderedFixtureInt
      * Clases
      * 
      ***/
-    
+    $clases = array(
+        'Verde',
+        'Amarillo',
+        'Rojo',
+    );
     $verde = new Clase();
     $verde->setName('Verde');
     $manager->persist($verde);
@@ -84,8 +92,32 @@ class LoadCodiguerasFixture extends AbstractFixture implements OrderedFixtureInt
     $manager->persist($rojo);
     
     
-    $manager->flush();
     
+    
+    
+    
+    $newsLetterFuturos = new UserGroup();
+    $newsLetterFuturos->setName('Futuros');
+    $manager->persist($newsLetterFuturos);
+    
+    $newsLetterPadresActivos = new UserGroup();
+    $newsLetterPadresActivos->setName('PADRES');
+    $manager->persist($newsLetterPadresActivos);
+    
+    $newsLetterEgresados = new UserGroup();
+    $newsLetterEgresados->setName('EGRESADOS');
+    $manager->persist($newsLetterEgresados);
+    
+    foreach($horarios as $horario)
+    {
+      foreach($clases as $clase)
+      {
+        $newsLetter = new UserGroup();
+        $newsLetter->setName($clase . ' (' . $horario . ')');
+        $manager->persist($newsLetter);
+      }
+    }
+    $manager->flush();
     return;
   }
 

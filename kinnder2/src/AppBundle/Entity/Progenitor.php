@@ -49,6 +49,13 @@ class Progenitor extends BaseUser
      * @ORM\Column(name="celular", type="string", length=64, nullable=true)
      */
     private $celular;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="old_id", type="integer", nullable=true)
+     */
+    private $oldId;    
 
     /**
      * 
@@ -406,5 +413,28 @@ class Progenitor extends BaseUser
     public function getCuenta()
     {
         return $this->cuenta;
+    }
+
+    /**
+     * Set oldId
+     *
+     * @param integer $oldId
+     * @return Progenitor
+     */
+    public function setOldId($oldId)
+    {
+        $this->oldId = $oldId;
+
+        return $this;
+    }
+
+    /**
+     * Get oldId
+     *
+     * @return integer 
+     */
+    public function getOldId()
+    {
+        return $this->oldId;
     }
 }
