@@ -189,11 +189,13 @@ class DoMigration{
 }
 
 $m = new DoMigration('root', 'root', 'bunnyski_site', 'http://kinder2.local:9550/app_dev.php/');
+
 $m->migrateActividades();
 $m->migrateDescuentos();
 $m->doCallUpdateCostos();
 $m->migrateEstudiantes();
 $m->migratePadres();
 $m->migrateUsuariosActividades();
+
 $m->migrateUsuariosProgenitores();
 return;

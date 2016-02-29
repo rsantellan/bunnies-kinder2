@@ -379,6 +379,7 @@ class MigrationService {
     {
       $estudiante->addActividade($activity);
       $this->em->persist($estudiante);
+      $this->em->persist($activity);
       $this->em->flush();
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
     }
@@ -422,7 +423,9 @@ class MigrationService {
     if($estudiante && $progenitor)
     {
       $estudiante->addProgenitore($progenitor);
+      $progenitor->addEstudiante($estudiante);
       $this->em->persist($estudiante);
+      $this->em->persist($progenitor);
       $this->em->flush();
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
     }
@@ -443,6 +446,8 @@ class MigrationService {
     if($estudiante && $progenitor)
     {
       $estudiante->removeProgenitore($progenitor);
+      $progenitor->removeEstudiante($estudiante);
+      $this->em->persist($progenitor);
       $this->em->persist($estudiante);
       $this->em->flush();
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
