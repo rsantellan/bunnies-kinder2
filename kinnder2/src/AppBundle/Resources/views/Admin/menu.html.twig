@@ -34,6 +34,13 @@
         </li>
       </ul>
     </li>
+    {% if is_expr_granted("hasRole('ROLE_MANAGE_NEWSLETTER')") %}
+    <li class="{% if (activemenu is defined) and activemenu == 'newsletter' %}active{%endif%}">
+		<a href="{{ path('admin_newsletter_index')}}">
+			<span>{% trans %}app_admin_menu_newsletter{% endtrans %}</span>
+		</a>
+	</li>
+    {% endif %}
     <li class="dropdown active show-on-hover">
       <a href="javascript:;" data-toggle="dropdown">
         <span>Layouts</span>
