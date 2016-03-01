@@ -181,7 +181,7 @@ class DoMigration{
     curl_setopt ($crl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt ($crl, CURLOPT_CONNECTTIMEOUT, $timeout);
     $ret = curl_exec($crl);
-    //var_dump($ret);
+    var_dump($ret);
     curl_close($crl);
   }
   

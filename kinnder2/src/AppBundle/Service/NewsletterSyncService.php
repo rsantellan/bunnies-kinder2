@@ -47,10 +47,13 @@ class NewsletterSyncService {
     foreach($estudiante->getProgenitores() as $progenitor)
     {
       $newsletterUser = $progenitor->getNewsletterUser();
+      $toRemoveGroups = array();
+      $toAddGroups = array();
       $newsletterGroups = $newsletterUser->getUserGroups();
       foreach($newsletterGroups as $group)
       {
-        $newsletterUser->removeUserGroup($group);
+        //$newsletterUser->removeUserGroup($group);
+        $toRemoveGroups[] = $group;
       }
       if($estudiante->getActive())
       {
@@ -61,7 +64,8 @@ class NewsletterSyncService {
               );
           if($newsLetterUserGroup)
           {
-            $newsletterUser->addUserGroup($newsLetterUserGroup);
+            $toAddGroups[] = $newsLetterUserGroup;
+            //$newsletterUser->addUserGroup($newsLetterUserGroup);
           }
         }
         else
@@ -76,7 +80,8 @@ class NewsletterSyncService {
               );
               if($newsLetterUserGroup)
               {
-                $newsletterUser->addUserGroup($newsLetterUserGroup);
+                //$newsletterUser->addUserGroup($newsLetterUserGroup);
+                $toAddGroups[] = $newsLetterUserGroup;
               }
             }
             else
@@ -86,22 +91,55 @@ class NewsletterSyncService {
               );
               if($newsLetterUserGroup)
               {
-                $newsletterUser->addUserGroup($newsLetterUserGroup);
+                //$newsletterUser->addUserGroup($newsLetterUserGroup);
+                $toAddGroups[] = $newsLetterUserGroup;
               }
               if($estudiante->getClase() && $estudiante->getHorario())
               {
                 $newsLetterUserGroup = $this->em->getRepository('MaithNewsletterBundle:UserGroup')->findOneBy(
                   array('name' => $estudiante->getClase()->getName() . ' (' . $estudiante->getHorario()->getName() . ')')
                 );
-                $newsletterUser->addUserGroup($newsLetterUserGroup);
+                //$newsletterUser->addUserGroup($newsLetterUserGroup);
+                $toAddGroups[] = $newsLetterUserGroup;
               }
             }
           }
           foreach($estudiante->getActividades() as $actividad)
           {
-            $newsletterUser->addUserGroup($actividad->getNewsLetterGroup());
+            //$newsletterUser->addUserGroup($actividad->getNewsLetterGroup());
+            $toAddGroups[] = $actividad->getNewsLetterGroup();
           }  
         }  
+      }
+      $dontChangeKeys = array();
+      $dontAddKeys = array();
+      foreach($toRemoveGroups as $keyRemove => $removeGroup)
+      {
+        foreach($toAddGroups as $keyAdd => $addGroup)
+        {
+          if($removeGroup->getId() == $addGroup->getId())
+          {
+            $dontChangeKeys[] = $keyRemove;
+            $dontAddKeys[] = $keyAdd;
+            break 1;
+          }
+        }
+      }
+      foreach($dontChangeKeys as $key)
+      {
+        unset($toRemoveGroups[$key]);
+      }
+      foreach($dontAddKeys as $key)
+      {
+        unset($toAddGroups[$key]);
+      }
+      foreach($toRemoveGroups as $group)
+      {
+        $newsletterUser->removeUserGroup($group);
+      }
+      foreach($toAddGroups as $group)
+      {
+        $newsletterUser->addUserGroup($group);
       }
       $this->em->persist($newsletterUser);
       $this->em->flush();

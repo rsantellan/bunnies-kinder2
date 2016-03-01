@@ -377,10 +377,21 @@ class MigrationService {
             );
     if($estudiante && $activity)
     {
-      $estudiante->addActividade($activity);
-      $this->em->persist($estudiante);
-      $this->em->persist($activity);
-      $this->em->flush();
+      $found = false;
+      foreach($estudiante->getActividades() as $act)
+      {
+        if($act->getId() == $activity->getId())
+        {
+          $found = true;
+        }
+      }
+      if(!$found)
+      {
+        $estudiante->addActividade($activity);
+        $this->em->persist($estudiante);
+        $this->em->persist($activity);
+        $this->em->flush();
+      }
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
     }
   }
@@ -422,11 +433,22 @@ class MigrationService {
             );
     if($estudiante && $progenitor)
     {
-      $estudiante->addProgenitore($progenitor);
-      $progenitor->addEstudiante($estudiante);
-      $this->em->persist($estudiante);
-      $this->em->persist($progenitor);
-      $this->em->flush();
+      $found = false;
+      foreach($estudiante->getProgenitores() as $act)
+      {
+        if($act->getId() == $progenitor->getId())
+        {
+          $found = true;
+        }
+      }
+      if(!$found)
+      {
+        $estudiante->addProgenitore($progenitor);
+        $progenitor->addEstudiante($estudiante);
+        $this->em->persist($estudiante);
+        $this->em->persist($progenitor);
+        $this->em->flush();
+      }
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
     }
   }
