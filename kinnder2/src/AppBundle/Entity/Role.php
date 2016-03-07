@@ -55,7 +55,7 @@ class Role implements RoleInterface {
         return $this->name;
     }
  
-    public function addUser(User $user)
+    public function addUser(Progenitor $user)
     {
         $user->addRole($this);
         $this->users->add($user);
@@ -63,7 +63,7 @@ class Role implements RoleInterface {
         return $this;
     }
  
-    public function removeUser(User $user)
+    public function removeUser(Progenitor $user)
     {
         $user->removeRole($this);
         $this->users->removeElement($user);

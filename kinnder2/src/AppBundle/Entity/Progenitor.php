@@ -332,7 +332,7 @@ class Progenitor extends BaseUser
      * Directly set the ArrayCollection of Roles. Type hinted as Collection which is the parent of (Array|Persistent)Collection.
      * @param Doctrine\Common\Collections\Collection $role
      */
-    public function setRolesCollection(Collection $collection) {
+    public function setRolesCollection(\Doctrine\Common\Collections\Collection $collection) {
         $this->user_roles = $collection;
     }    
 

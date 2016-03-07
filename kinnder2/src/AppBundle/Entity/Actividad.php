@@ -57,6 +57,12 @@ class Actividad
      **/    
     private $estudiantes;    
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="old_id", type="integer", nullable=true)
+     */
+    private $oldId;
     
     /**
      * Set id
@@ -219,4 +225,27 @@ class Actividad
       return $this->getNombre();
     }
 
+
+    /**
+     * Set oldId
+     *
+     * @param integer $oldId
+     * @return Actividad
+     */
+    public function setOldId($oldId)
+    {
+        $this->oldId = $oldId;
+
+        return $this;
+    }
+
+    /**
+     * Get oldId
+     *
+     * @return integer 
+     */
+    public function getOldId()
+    {
+        return $this->oldId;
+    }
 }

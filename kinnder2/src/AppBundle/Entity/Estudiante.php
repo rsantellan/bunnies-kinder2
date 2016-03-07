@@ -532,6 +532,24 @@ class Estudiante
         return $this->actividades;
     }
     
+    public function mergeActividades(\Doctrine\Common\Collections\Collection $list)
+    {
+      foreach($this->getActividades() as $oldObject)
+      {
+        if(!$list->contains($oldObject))
+        {
+          $this->removeActividade($oldObject);
+        }
+      }
+      foreach($list as $newObject)
+      {
+        if(!$this->getActividades()->contains($newObject))
+        {
+          $this->addActividade($newObject);
+        }
+      }
+    }
+    
     public function __toString(){
       return $this->getNombre();
     }

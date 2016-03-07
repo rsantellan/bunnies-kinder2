@@ -10,6 +10,7 @@ namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Monolog\Logger;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Entity\Actividad;
 use AppBundle\Entity\Descuento;
@@ -67,20 +68,21 @@ class MigrationService {
     if(!$row){
       return;
     }
-    $name = trim($row['nombre']);
     $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
-                array('nombre' => $name)
-            );
+              array(
+                  'oldId' => $row['id']
+              )
+          );
     if(!$activity)
     {
       $activity = new Actividad();
     }
     $activity->setCosto($row['costo']);
     $activity->setHorario($row['horario']);
-    $activity->setNombre($name);
-    
+    $activity->setNombre(trim($row['nombre']));
+    $activity->setOldId($id);
     $this->em->persist($activity);
-    $activity->setNewsLetterGroup($this->newsLetterSyncService->updateOrCreateActivityGroup($name));
+    $activity->setNewsLetterGroup($this->newsLetterSyncService->updateOrCreateActivityGroup(trim($row['nombre'])));
     $this->em->persist($activity);
     $this->em->flush();
     return true;
@@ -88,7 +90,11 @@ class MigrationService {
   
   public function removeActivity($id)
   {
-    $activity = $this->em->getRepository('AppBundle:Actividad')->find($id);
+    $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
+              array(
+                  'oldId' => $row['id']
+              )
+          );
     if($activity)
     {
       $this->em->remove($activity->getNewsLetterGroup());
@@ -163,7 +169,15 @@ class MigrationService {
     $stmt = $conn->prepare($sql);
     $stmt->execute(array($id));
     return $stmt->fetch();
-    
+  }
+  
+  private function retrieveOldStudentActivities($id)
+  {
+    $sql = 'select actividad_id from usuario_actividades where usuario_id = ?';
+    $conn = $this->getConn();
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array($id));
+    return $stmt->fetchAll();
   }
   
   public function updateStudent($id)
@@ -255,6 +269,21 @@ class MigrationService {
       }
       $estudiante->setEmergenciaMedica($dbEmergenciaMedica);
     }
+    $oldDbActivities = $this->retrieveOldStudentActivities($id);
+    $activitiesList = new ArrayCollection();
+    foreach($oldDbActivities as $rowActivity)
+    {
+      $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
+              array(
+                  'oldId' => $rowActivity['actividad_id']
+              )
+          );
+      if($activity)
+      {
+        $activitiesList->add($activity);
+      }
+    }
+    $estudiante->mergeActividades($activitiesList);
     $this->em->persist($estudiante);
     $this->em->flush();
     if(!$isUpdate)
@@ -341,7 +370,11 @@ class MigrationService {
 
   public function removeParent($id)
   {
-    $progenitor = $this->em->getRepository('AppBundle:Progenitor')->find($id);
+    $progenitor = $this->em->getRepository('AppBundle:Progenitor')->findOneBy(
+                array(
+                    'oldId' => $id
+                )
+            );
     if($progenitor)
     {
       $this->em->remove($progenitor);
@@ -349,7 +382,7 @@ class MigrationService {
     }
     return true;
   }
-  
+/*  
   private function retrieveOldUserActivity($userId, $activityId)
   {
     $sql = 'select ua.usuario_id, ua.actividad_id, a.nombre from usuario_actividades ua join actividades a on ua.actividad_id = a.id where ua.usuario_id = ? and ua.actividad_id = ?';
@@ -359,22 +392,20 @@ class MigrationService {
     return $stmt->fetch();
     
   }  
-
+*/
   
   public function updateUserActivity($userId, $activityId)
   {
-    $row = $this->retrieveOldUserActivity($userId, $activityId);
-    if(!$row){
-      return;
-    }
     $estudiante = $this->em->getRepository('AppBundle:Estudiante')->findOneBy(
                 array(
-                    'oldId' => $row['usuario_id']
+                    'oldId' => $userId
                 )
             );
     $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
-                array('nombre' => $row['nombre'])
-            );
+              array(
+                  'oldId' => $activityId
+              )
+          );
     if($estudiante && $activity)
     {
       $found = false;
@@ -398,18 +429,16 @@ class MigrationService {
 
   public function removeUserActivity($userId, $activityId)
   {
-    $row = $this->retrieveOldUserActivity($userId, $activityId);
-    if(!$row){
-      return;
-    }
     $estudiante = $this->em->getRepository('AppBundle:Estudiante')->findOneBy(
                 array(
-                    'oldId' => $row['usuario_id']
+                    'oldId' => $userId
                 )
             );
     $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
-                array('nombre' => $row['nombre'])
-            );
+              array(
+                  'oldId' => $activityId
+              )
+          );
     if($estudiante && $activity)
     {
       $estudiante->removeActividade($activity);

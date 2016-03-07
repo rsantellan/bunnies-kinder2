@@ -1,6 +1,15 @@
 app:
     resource: "@AppBundle/Resources/config/routing.yml"
     prefix:   /
+    
+maith_common_image:
+    resource: "@MaithCommonImageBundle/Resources/config/routing.yml"
+    prefix:   /
+
+maith_common_admin:
+    resource: "@MaithCommonAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+    
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     prefix: /
