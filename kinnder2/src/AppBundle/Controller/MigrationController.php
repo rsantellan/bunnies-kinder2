@@ -209,7 +209,14 @@ class MigrationController extends Controller
         return $returnJson;
       }	
       $migrationService = $this->get('migrations');
-      $migrationService->updateUserParent($userId, $parentId);
+      try
+      {
+        $migrationService->updateUserParent($userId, $parentId);
+      } catch (\Exception $ex) {
+        $logger = $this->get('logger');
+        $logger->error($ex->getMessage());
+      }
+      
       $returnJson = new JsonResponse();
       $returnJson->setData(array('ok' => true));
       return $returnJson;

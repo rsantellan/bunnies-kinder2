@@ -74,7 +74,7 @@
             </thead>
             <tbody>
               {% for entity in entities %}
-                {% include 'studentTableRow.html.twig' with {'entity' : entity} %}
+                {% include 'AppBundle:Estudiante:studentTableRow.html.twig' with {'entity' : entity} %}
               {% endfor %}
             </tbody>
           </table>

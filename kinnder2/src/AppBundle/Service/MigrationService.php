@@ -34,8 +34,9 @@ class MigrationService {
   protected $oldDbPassword;
   protected $cuentaService;
   protected $newsLetterSyncService;
+  protected $facturasServices;
   
-  function __construct(EntityManager $em, Logger $logger, $oldDb, $oldDbUser, $oldDbPassword, CuentasService $cuentaService, NewsletterSyncService $newsLetterSyncService, UserManager $userManager) {
+  function __construct(EntityManager $em, Logger $logger, $oldDb, $oldDbUser, $oldDbPassword, CuentasService $cuentaService, NewsletterSyncService $newsLetterSyncService, UserManager $userManager, FacturasManager $facturasManager) {
     $this->em = $em;
     $this->logger = $logger;
     $this->logger->addDebug("Actividades migration service");
@@ -45,11 +46,14 @@ class MigrationService {
     $this->cuentaService = $cuentaService;
     $this->newsLetterSyncService = $newsLetterSyncService;
     $this->userManager = $userManager;
+    $this->facturasServices = $facturasManager;
   }
   
   private function getConn()
   {
-    return new \PDO(sprintf('mysql:host=localhost;dbname=%s', $this->oldDb), $this->oldDbUser, $this->oldDbPassword, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+    //$host = 'localhost';
+    $host = '192.168.100.124';
+    return new \PDO(sprintf('mysql:host=%s;dbname=%s', $host, $this->oldDb), $this->oldDbUser, $this->oldDbPassword, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
   }
 
   private function retrieveOldActivity($id)
@@ -85,6 +89,10 @@ class MigrationService {
     $activity->setNewsLetterGroup($this->newsLetterSyncService->updateOrCreateActivityGroup(trim($row['nombre'])));
     $this->em->persist($activity);
     $this->em->flush();
+    foreach($activity->getEstudiantes() as $estudiante)
+    {
+      $this->facturasServices->generateUserAndFinalBill($estudiante);
+    }
     return true;
   }
   
@@ -273,6 +281,7 @@ class MigrationService {
     $activitiesList = new ArrayCollection();
     foreach($oldDbActivities as $rowActivity)
     {
+      //var_dump($rowActivity);
       $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
               array(
                   'oldId' => $rowActivity['actividad_id']
@@ -290,17 +299,26 @@ class MigrationService {
     {
       $this->cuentaService->updateOrCreateCuenta($estudiante);
     }
+    $this->facturasServices->generateUserAndFinalBill($estudiante);
     $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
     return true;
   }
   
   public function disableEstudiante($id)
   {
-    $estudiante = $this->em->getRepository('AppBundle:Estudiante')->find($id);
-    $estudiante->setActive(false);
-    $this->em->persist($estudiante);
+    $estudiante = $this->em->getRepository('AppBundle:Estudiante')->findOneBy(
+                array(
+                    'oldId' => $id
+                )
+            );
+    $progenitores = $estudiante->getProgenitores();
+    $this->em->remove($estudiante);
     $this->em->flush();
-    $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
+    foreach($progenitores as $progenitor)
+    {
+      $this->newsLetterSyncService->updateProgenitorRelations($progenitor);
+    }
+    
     return true;
   }
 
@@ -382,18 +400,6 @@ class MigrationService {
     }
     return true;
   }
-/*  
-  private function retrieveOldUserActivity($userId, $activityId)
-  {
-    $sql = 'select ua.usuario_id, ua.actividad_id, a.nombre from usuario_actividades ua join actividades a on ua.actividad_id = a.id where ua.usuario_id = ? and ua.actividad_id = ?';
-    $conn = $this->getConn();
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(array($userId, $activityId));
-    return $stmt->fetch();
-    
-  }  
-*/
-  
   public function updateUserActivity($userId, $activityId)
   {
     $estudiante = $this->em->getRepository('AppBundle:Estudiante')->findOneBy(
@@ -424,6 +430,7 @@ class MigrationService {
         $this->em->flush();
       }
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
+      $this->facturasServices->generateUserAndFinalBill($estudiante);
     }
   }
 
@@ -445,6 +452,7 @@ class MigrationService {
       $this->em->persist($estudiante);
       $this->em->flush();
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
+      $this->facturasServices->generateUserAndFinalBill($estudiante);
     }
   }
   
@@ -472,13 +480,20 @@ class MigrationService {
       }
       if(!$found)
       {
+        foreach($progenitor->getEstudiantes() as $auxEstudiante)
+        {
+          if($estudiante->getReferenciaBancaria() != $auxEstudiante->getReferenciaBancaria())
+          {
+            throw new \Exception('No se puede agregar este padre por que tiene un hijo con distinta referencia bancaria');
+          }
+        }
         $estudiante->addProgenitore($progenitor);
         $progenitor->addEstudiante($estudiante);
         $this->em->persist($estudiante);
         $this->em->persist($progenitor);
         $this->em->flush();
       }
-      $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
+      $this->newsLetterSyncService->updateProgenitorRelations($progenitor);
     }
   }
 
@@ -502,6 +517,7 @@ class MigrationService {
       $this->em->persist($estudiante);
       $this->em->flush();
       $this->newsLetterSyncService->updateEstudianteRelations($estudiante);
+      $this->newsLetterSyncService->updateProgenitorRelations($progenitor);
     }
   }
 

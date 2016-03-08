@@ -78,16 +78,19 @@ class FacturasManager {
     $factura->setYear($year);
     $factura->setFechavencimiento(new \DateTime());
     $this->em->persist($factura);
-    
-    $costoHorario = $this->getCostoOfHorario($estudiante->getHorario());
-    $total = $costoHorario;
+    $total = 0;
     $listadoDetalles = array();
+    if($estudiante->getHorario() != null)
+    {
+      $costoHorario = $this->getCostoOfHorario($estudiante->getHorario());
+      $total = $costoHorario;
+      $detalleMensualidad = new FacturaEstudianteDetalle();
+      $detalleMensualidad->setAmount($costoHorario);
+      $detalleMensualidad->setDescription('Mensualidad');
+      $detalleMensualidad->setFactura($factura);
+      $listadoDetalles[] = $detalleMensualidad;      
+    }
     
-    $detalleMensualidad = new FacturaEstudianteDetalle();
-    $detalleMensualidad->setAmount($costoHorario);
-    $detalleMensualidad->setDescription('Mensualidad');
-    $detalleMensualidad->setFactura($factura);
-    $listadoDetalles[] = $detalleMensualidad;
     //$this->em->persist($detalleMensualidad);
     
     // Descuento de hermano

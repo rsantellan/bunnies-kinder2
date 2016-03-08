@@ -188,7 +188,7 @@ class DoMigration{
   
 }
 
-$m = new DoMigration('root', 'root', 'bunnyski_site', 'http://kinder2.local:9550/app_dev.php/');
+$m = new DoMigration('root', 'root', 'bunnyski_site', 'http://kinder2.local:9550/');
 
 $m->migrateActividades();
 $m->migrateDescuentos();
