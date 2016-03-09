@@ -238,4 +238,21 @@ class MigrationController extends Controller
       $returnJson->setData(array('ok' => true));
       return $returnJson;
     }
+    
+    public function updatePaymentAction($paymentId, $hash)
+    {
+      $today = new \DateTime();
+      if($hash != md5($today->format('Y-m-d'))){
+      	$logger = $this->get('logger');
+    	$logger->error('Access denied on updatePaymentAction');
+      	$returnJson = new JsonResponse();
+        $returnJson->setData(array('ok' => true));
+        return $returnJson;
+      }	
+      $migrationService = $this->get('migrations');
+      $migrationService->updatePayment($paymentId);
+      $returnJson = new JsonResponse();
+      $returnJson->setData(array('ok' => true));
+      return $returnJson;
+    }
 }

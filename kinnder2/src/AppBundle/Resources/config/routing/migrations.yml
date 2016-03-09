@@ -48,4 +48,9 @@ update_user_parent:
 
 remove_user_parent:
     path:     /user-parent-remove/{userId}/{parentId}/{hash}
-    defaults: { _controller: AppBundle:Migration:removeUserParent }    
+    defaults: { _controller: AppBundle:Migration:removeUserParent }
+    
+update_payment:
+    path:     /payment/{paymentId}/{hash}
+    defaults: { _controller: AppBundle:Migration:updatePayment }
+        

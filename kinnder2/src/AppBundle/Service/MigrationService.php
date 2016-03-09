@@ -128,7 +128,15 @@ class MigrationService {
     if(!$row){
       return;
     }
-    $descuento = new Descuento();
+    $descuento = $this->em->getRepository('AppBundle:Descuento')->findOneBy(
+                array(
+                    'cantidadDeHermanos' => $row['cantidad_de_hermanos']
+                )
+            );
+    if(!$descuento)
+    {
+      $descuento = new Descuento();
+    }
     $descuento->setId($row['id']);
     $descuento->setCantidadDeHermanos($row['cantidad_de_hermanos']);
     $descuento->setPorcentaje($row['porcentaje']);
@@ -138,7 +146,15 @@ class MigrationService {
 
   public function removeDiscount($id)
   {
-    $descuento = $this->em->getRepository('AppBundle:Descuento')->find($id);
+    $row = $this->retrieveOldDiscount($id);
+    if(!$row){
+      return;
+    }
+    $descuento = $this->em->getRepository('AppBundle:Descuento')->findOneBy(
+                array(
+                    'cantidadDeHermanos' => $row['cantidad_de_hermanos']
+                )
+            );
     if($descuento)
     {
       $this->em->remove($descuento);
@@ -155,7 +171,7 @@ class MigrationService {
       $costos = new Costos();
     }
     $conn = $this->getConn();
-    $sqlCostos = 'select matricula, matutino, vespertino, doble_horario from costos';
+    $sqlCostos = 'select matricula, matutino, vespertino, doble_horario from costos limit 1';
     $stmtCostos = $conn->prepare($sqlCostos);
     $stmtCostos->execute();
     $rowCostos = $stmtCostos->fetch();
@@ -521,4 +537,67 @@ class MigrationService {
     }
   }
 
+
+  public function updatePayment($paymentId)
+  {
+    $row = $this->retrieveOldPayment($paymentId);
+    if(!$row){
+      return;
+    }
+    
+    $cuenta = $this->em->getRepository('AppBundle:Cuenta')->findOneBy(
+                array(
+                    'referenciabancaria' => $row['referenciabancaria']
+                )
+            );
+    $this->cuentaService->addCobroToCuenta($cuenta, $row['monto'], new \DateTime($row['fecha']));
+    return true;
+  }
+
+  private function retrieveOldPayment($id)
+  {
+    $sql = 'select c.fecha, c.monto, cu.referenciabancaria from cobro c inner join cuenta cu on c.cuenta_id = cu.id where c.id = ?';
+    $conn = $this->getConn();
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array($id));
+    return $stmt->fetch();
+    
+  } 
+  
+  public function compareCuentas()
+  {
+    $cuentasList = array();
+    $oldActiveCuentasSql = 'select id, referenciabancaria, debe, pago, diferencia from cuenta where referenciabancaria in (select referencia_bancaria from usuario where egresado = 0) order by referenciabancaria';
+    $newActiveCuentasSql = 'select id, referenciabancaria, debe, pago, diferencia from cuenta where referenciabancaria in (select referencia_bancaria from estudiante where egresado = 0)';
+    
+    $sql = 'select c.fecha, c.monto, cu.referenciabancaria from cobro c inner join cuenta cu on c.cuenta_id = cu.id where c.id = ?';
+    $conn = $this->getConn();
+    $stmt = $conn->prepare($oldActiveCuentasSql);
+    $stmt->execute();
+    foreach($stmt->fetchAll() as $row)
+    {
+      $cuentasList[$row['referenciabancaria']] = $row;
+    }
+    
+    $query = $this->em->getConnection()->prepare($newActiveCuentasSql);
+    $query->execute();
+    foreach($query->fetchAll() as $row)
+    {
+      if(isset($cuentasList[$row['referenciabancaria']]))
+      {
+          if((int) $cuentasList[$row['referenciabancaria']]['diferencia'] == (int) $row['diferencia'])
+          {
+
+          }
+      }
+      else
+      {
+          var_dump($row);
+          var_dump('cuenta no exite... errror');
+      }
+      
+    } 
+    //$clients = $query->fetchAll();
+  }
+  
 }

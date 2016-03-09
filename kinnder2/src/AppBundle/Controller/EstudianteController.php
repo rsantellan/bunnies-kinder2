@@ -191,8 +191,8 @@ class EstudianteController extends Controller
             throw $this->createNotFoundException('Unable to find Estudiante entity.');
         }
         
-        $facturasHandler = $this->get('facturas');
-        $facturasHandler->checkAllAccount();
+        //$facturasHandler = $this->get('facturas');
+        //$facturasHandler->checkAllAccount();
         
         $deleteForm = $this->createDeleteForm($id);
 

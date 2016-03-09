@@ -197,4 +197,9 @@ class FacturaEstudianteDetalle
     {
         return $this->factura;
     }
+    
+    public function generateUniqueHash()
+    {
+      return md5($this->getFactura()->getId().$this->getAmount().$this->getDescription());
+    }
 }

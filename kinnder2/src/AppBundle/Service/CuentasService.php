@@ -7,6 +7,7 @@ use Monolog\Logger;
 
 use AppBundle\Entity\Estudiante;
 use AppBundle\Entity\Cuenta;
+use AppBundle\Entity\Cobro;
 
 /**
  * Description of CuentasService
@@ -51,6 +52,16 @@ class CuentasService {
       $estudiante->setCuenta($cuenta);
     }
     $this->em->persist($estudiante);
+    $this->em->flush();
+  }
+  
+  function addCobroToCuenta(Cuenta $cuenta, $amount, \DateTime $paymentDate)
+  {
+    $cobro = new Cobro();
+    $cobro->setMonto($amount);
+    $cobro->setFecha($paymentDate);
+    $cobro->setCuenta($cuenta);
+    $this->em->persist($cobro);
     $this->em->flush();
   }
 }

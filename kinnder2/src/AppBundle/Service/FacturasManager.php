@@ -30,7 +30,8 @@ class FacturasManager {
     $this->logger->addDebug("Starting facturas manager");
   }
 
-  function generateUserBill(Estudiante $estudiante, $month = null, $year = null){
+  function generateUserBill(Estudiante $estudiante, $month = null, $year = null)
+  {
     if($month == null){
       $month = date('n');
     }
@@ -88,7 +89,7 @@ class FacturasManager {
       $detalleMensualidad->setAmount($costoHorario);
       $detalleMensualidad->setDescription('Mensualidad');
       $detalleMensualidad->setFactura($factura);
-      $listadoDetalles[] = $detalleMensualidad;      
+      $listadoDetalles[$detalleMensualidad->generateUniqueHash()] = $detalleMensualidad;      
     }
     
     //$this->em->persist($detalleMensualidad);
@@ -111,7 +112,7 @@ class FacturasManager {
       $detalleDescuentoHermano->setAmount($amount);
       $detalleDescuentoHermano->setDescription('Descuento hermano');
       $detalleDescuentoHermano->setFactura($factura);
-      $listadoDetalles[] = $detalleDescuentoHermano;
+      $listadoDetalles[$detalleDescuentoHermano->generateUniqueHash()] = $detalleDescuentoHermano;
       //$this->em->persist($detalleDescuentoHermano);
       $total += $amount;
     }
@@ -123,7 +124,7 @@ class FacturasManager {
       $detalleDescuento->setDescription('Descuento usuario');
       $detalleDescuento->setFactura($factura);
       //$this->em->persist($detalleDescuento);
-      $listadoDetalles[] = $detalleDescuento;
+      $listadoDetalles[$detalleDescuento->generateUniqueHash()] = $detalleDescuento;
       $total += $amount;
     }
     foreach($estudiante->getActividades() as $actividad)
@@ -133,11 +134,12 @@ class FacturasManager {
       $detalleActividad->setDescription($actividad->getNombre());
       $detalleActividad->setFactura($factura);
       //$this->em->persist($detalleActividad);
-      $listadoDetalles[] = $detalleActividad;
+      $listadoDetalles[$detalleActividad->generateUniqueHash()] = $detalleActividad;
       $total += $actividad->getCosto();
     }
     foreach($factura->getFacturaDetalles() as $detalle)
     {
+      
       if(count($listadoDetalles) > 0)
       {
         $auxDetalle = array_pop($listadoDetalles);
@@ -160,7 +162,8 @@ class FacturasManager {
     //$this->em->clear();
   }
   
-  public function getCostoOfHorario(Horario $horario){
+  public function getCostoOfHorario(Horario $horario)
+  {
     $costo = $this->em->getRepository('AppBundle:Costos')->getCostoValue();
     $returnCosto = 0;
     switch ($horario->getDbname()) 
@@ -273,7 +276,7 @@ class FacturasManager {
     }
     $factura->setTotal($total);
     $this->em->persist($factura);
-    $cuenta->setDebe($cuenta->getDebe() + $factura->getTotal());
+    //$cuenta->setDebe($cuenta->getDebe() + $factura->getTotal());
     $this->em->persist($cuenta);
     $this->em->flush();
   }
