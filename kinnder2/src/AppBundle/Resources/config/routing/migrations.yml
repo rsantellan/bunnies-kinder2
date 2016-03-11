@@ -53,4 +53,8 @@ remove_user_parent:
 update_payment:
     path:     /payment/{paymentId}/{hash}
     defaults: { _controller: AppBundle:Migration:updatePayment }
+    
+cancel_billing:
+    path:     /billing-cancel/{account}/{month}/{year}/{hash}
+    defaults: { _controller: AppBundle:Migration:cancelBilling }    
         

@@ -207,9 +207,8 @@ class FacturasManager {
         return;
       }
       $pagoDelTotal = $factura->getPagadodeltotal();
+      $this->logger->addInfo(sprintf('The account %s has the bill of %s/%s resting to debt. Debt: %s , bill old total: %s. ZZZAAA', $cuenta->getId(), $month, $year, $cuenta->getDebe(), $factura->getTotal()));
       $cuenta->setDebe($cuenta->getDebe() - $factura->getTotal());
-      //$this->em->remove($factura);
-      //$this->em->flush($factura);
     }
     else
     {
@@ -248,7 +247,6 @@ class FacturasManager {
         $facturaFinalDetalle->setDescription($descripcion);
         $listadoDetalles[] = $facturaFinalDetalle;
       }
-      //$factura->addFacturaEstudiante($facturaEstudiante);
       $facturaEstudiante->setFacturaFinal($factura);
       $this->em->persist($facturaEstudiante);
     }
@@ -276,7 +274,7 @@ class FacturasManager {
     }
     $factura->setTotal($total);
     $this->em->persist($factura);
-    //$cuenta->setDebe($cuenta->getDebe() + $factura->getTotal());
+    $cuenta->setDebe($cuenta->getDebe() + $factura->getTotal());
     $this->em->persist($cuenta);
     $this->em->flush();
   }
@@ -286,6 +284,26 @@ class FacturasManager {
   {
     $this->generateUserBill($estudiante, $month, $year);
     $this->generateFinalBill($estudiante->getCuenta(), $month, $year);
+  }
+  
+  public function cancelFactura(FacturaFinal $factura)
+  {
+    if($factura->getCancelado() && $factura->getPago())
+    {
+      return;
+    }
+    $cuenta = $factura->getCuenta();
+    $cuenta->setDebe($cuenta->getDebe() - $factura->getTotal());
+    $factura->setCancelado(true);
+    foreach($factura->getFacturasEstudiantes() as $facturaEstudiante)
+    {
+      $facturaEstudiante->setCancelado(true);
+      $this->em->persist($facturaEstudiante);
+    }
+    $this->em->persist($factura);
+    $this->em->persist($cuenta);
+    $this->em->flush();
+    
   }
   
   public function checkAllAccount($correct = true, $verbose = true)

@@ -507,7 +507,7 @@ class FacturaFinal
     {
       if(!$this->getCancelado())
       {
-        $this->getCuenta()->setDebe($this->getCuenta()->getDebe() + $this->getTotal());
+        //$this->getCuenta()->setDebe($this->getCuenta()->getDebe() + $this->getTotal());
       }
     }    
 }

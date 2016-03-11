@@ -255,4 +255,21 @@ class MigrationController extends Controller
       $returnJson->setData(array('ok' => true));
       return $returnJson;
     }
+    
+    public function cancelBillingAction($account, $month, $year, $hash)
+    {
+      $today = new \DateTime();
+      if($hash != md5($today->format('Y-m-d'))){
+      	$logger = $this->get('logger');
+    	$logger->error('Access denied on cancelPaymentAction');
+      	$returnJson = new JsonResponse();
+        $returnJson->setData(array('ok' => true));
+        return $returnJson;
+      }	
+      $migrationService = $this->get('migrations');
+      $migrationService->cancelBilling($account, $month, $year);
+      $returnJson = new JsonResponse();
+      $returnJson->setData(array('ok' => true));
+      return $returnJson;
+    }
 }

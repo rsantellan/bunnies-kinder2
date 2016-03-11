@@ -554,6 +554,23 @@ class MigrationService {
     return true;
   }
 
+  public function cancelBilling($account, $month, $year)
+  {
+    $cuenta = $this->em->getRepository('AppBundle:Cuenta')->findOneBy(
+                array(
+                    'referenciabancaria' => $account
+                )
+            );
+    foreach($cuenta->getFacturas() as $factura)
+    {
+      if($factura->getMonth() == $month && $factura->getYear() == $year)
+      {
+        $this->facturasServices->cancelFactura($factura);
+      }
+    }
+    return true;
+  }
+  
   private function retrieveOldPayment($id)
   {
     $sql = 'select c.fecha, c.monto, cu.referenciabancaria from cobro c inner join cuenta cu on c.cuenta_id = cu.id where c.id = ?';

@@ -61,7 +61,9 @@ class CuentasService {
     $cobro->setMonto($amount);
     $cobro->setFecha($paymentDate);
     $cobro->setCuenta($cuenta);
+    $cuenta->setPago($cuenta->getPago() + $amount);
     $this->em->persist($cobro);
+    $this->em->persist($cuenta);
     $this->em->flush();
   }
 }
