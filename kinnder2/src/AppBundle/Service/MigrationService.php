@@ -51,8 +51,8 @@ class MigrationService {
   
   private function getConn()
   {
-    //$host = 'localhost';
-    $host = '192.168.100.124';
+    $host = 'localhost';
+    //$host = '192.168.100.124';
     return new \PDO(sprintf('mysql:host=%s;dbname=%s', $host, $this->oldDb), $this->oldDbUser, $this->oldDbPassword, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
   }
 

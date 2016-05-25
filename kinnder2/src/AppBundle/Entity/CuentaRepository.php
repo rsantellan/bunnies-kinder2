@@ -70,5 +70,20 @@ class CuentaRepository extends EntityRepository
     );
   }
   
+  public function retrieveAllWithUsers()
+  {
+    $dql = 'select c, u from AppBundle:Cuenta c join c.estudiantes u';
+    return $this->getEntityManager()
+                ->createQuery($dql)
+              ->getResult();
+  }
+
+  public function retrieveWithParents()
+  {
+    $dql = 'select c, p from AppBundle:Cuenta c join c.progenitores p';
+    return $this->getEntityManager()
+                ->createQuery($dql)
+              ->getResult();
+  }
   
 }

@@ -18,4 +18,17 @@ class CuentasController extends Controller
       
     }
 
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllWithUsers();
+        $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveWithParents();
+        $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllPendingDebts();
+        $migrationService = $this->get('migrations');
+        $migrationService->compareCuentas();
+        return $this->render('AppBundle:Cuentas:alertas.html.twig', array(
+                    'pendingDebts' => $pendingDebts,
+            ));    
+      
+    }
 }

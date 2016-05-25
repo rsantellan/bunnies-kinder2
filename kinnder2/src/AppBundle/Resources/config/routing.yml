@@ -4,7 +4,11 @@ app_estudiante:
 
 cuentas:
     resource: "@AppBundle/Resources/config/routing/cuentas.yml"
-    prefix:   /admin
+    prefix:   /admin/cuentas
+
+admin_alertas:
+    path:     /admin
+    defaults: { _controller: AppBundle:Cuentas:index }
 
 admin_index:
     path:     /admin/

@@ -1,3 +1,4 @@
-admin_alertas:
-    path:     /
-    defaults: { _controller: AppBundle:Cuentas:index }
+listado_cuentas:
+    path:     /listado.html
+    defaults: { _controller: AppBundle:Cuentas:list }
+    
