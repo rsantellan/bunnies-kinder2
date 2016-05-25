@@ -1,0 +1,19 @@
+<tr>
+	<td>{{ cuenta.referenciabancaria }}</td>
+	<td>
+		{% for estudiante in cuenta.estudiantes %}
+			<a href="{{ path('estudiante_show', { 'id': estudiante.id }) }}">
+			{{ estudiante.nombre ~ ' ' ~ estudiante.apellido }} {% if estudiante.egresado %} (Egresado) {% endif %} {% if not loop.last %} | {% endif %}
+			</a>
+		{% endfor %}
+	</td>
+	<td>
+		{% for progenitor in cuenta.progenitores %}
+			{{ progenitor.nombre }} ({{ progenitor.email }}) {% if not loop.last %} | {% endif %}
+		{% endfor %}
+	</td>
+	<td>$ {{ cuenta.diferencia | number_format(0, ',', '.') }}</td>
+	<td>
+
+	</td>
+</tr>

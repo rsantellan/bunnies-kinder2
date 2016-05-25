@@ -1,0 +1,72 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block title %}AppBundle:Alarms:index{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-6">	
+	  <section class="panel">
+	  	<header class="panel-heading">{% trans %}cuentas_saldo_negativo_title{% endtrans %}</header>
+		  <div class="panel-body">
+			<div class="table-responsive no-border">
+			  <table class="table table-bordered table-striped mg-t datatable">
+				{% include 'AppBundle:Cuentas:_cuentaTableHeader.html.twig'%}
+				<tbody>
+					{% for cuenta in data['positive'] %}
+						{% include 'AppBundle:Cuentas:_cuentaTableRow.html.twig' with { 'cuenta' : cuenta } %}
+					{% endfor %}
+				</tbody>
+				</table>
+			  </div>
+			</div>	
+	  </section>
+  </div>
+  <div class="col-md-6">	
+	  <section class="panel">
+	  	<div class="panel-heading no-border">
+	        <div>{% trans %}cuentas_saldo_positivo_title{% endtrans %}
+	            <small class="pull-right">
+	                <a class="fa fa-chevron-up panel-collapsible pd-r-xs" href="javascript:;"></a>
+	            </small>
+	        </div>
+	    </div>
+	  	
+		  <div class="panel-body" style="display: none;">
+			<div class="table-responsive no-border">
+			  <table class="table table-bordered table-striped mg-t datatable">
+				{% include 'AppBundle:Cuentas:_cuentaTableHeader.html.twig'%}
+				<tbody>
+					{% for cuenta in data['negative'] %}
+						{% include 'AppBundle:Cuentas:_cuentaTableRow.html.twig' with { 'cuenta' : cuenta } %}
+					{% endfor %}
+				</tbody>
+				</table>
+			  </div>
+			</div>	
+	  </section>
+  </div>
+  <div class="col-md-6">	
+		  <section class="panel">
+		  	<div class="panel-heading no-border">
+		        <div>{% trans %}cuentas_saldo_cero_title{% endtrans %}
+		            <small class="pull-right">
+		                <a class="fa fa-chevron-up panel-collapsible pd-r-xs" href="javascript:;"></a>
+		            </small>
+		        </div>
+	    	</div>
+			  <div class="panel-body" style="display: none;">
+				<div class="table-responsive no-border">
+				  <table class="table table-bordered table-striped mg-t datatable">
+					{% include 'AppBundle:Cuentas:_cuentaTableHeader.html.twig'%}
+					<tbody>
+						{% for cuenta in data['zero'] %}
+							{% include 'AppBundle:Cuentas:_cuentaTableRow.html.twig' with { 'cuenta' : cuenta } %}
+						{% endfor %}
+					</tbody>
+					</table>
+				  </div>
+				</div>	
+		  </section>
+	  </div>
+</div>	
+{% endblock %}

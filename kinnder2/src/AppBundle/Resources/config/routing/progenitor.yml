@@ -1,0 +1,34 @@
+admin_progenitor:
+    path:     /
+    defaults: { _controller: "AppBundle:Progenitor:index", page: 0, orderBy: 'nombre', order : 'asc', limit: 20 }
+
+admin_progenitor_search:
+    path:     /search
+    defaults: { _controller: "AppBundle:Progenitor:search" }
+
+admin_progenitor_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Progenitor:show" }
+
+admin_progenitor_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Progenitor:new" }
+
+admin_progenitor_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Progenitor:create" }
+    methods:  POST
+
+admin_progenitor_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Progenitor:edit" }
+
+admin_progenitor_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Progenitor:update" }
+    methods:  [POST, PUT]
+
+admin_progenitor_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Progenitor:delete" }
+    methods:  [POST, DELETE]

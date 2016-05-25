@@ -9,7 +9,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * Progenitor
  *
  * @ORM\Table(name="progenitor")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProgenitorRepository")
  */
 class Progenitor extends BaseUser
 {

@@ -505,6 +505,7 @@ class MigrationService {
         }
         $estudiante->addProgenitore($progenitor);
         $progenitor->addEstudiante($estudiante);
+        $progenitor->setCuenta($estudiante->getCuenta());
         $this->em->persist($estudiante);
         $this->em->persist($progenitor);
         $this->em->flush();

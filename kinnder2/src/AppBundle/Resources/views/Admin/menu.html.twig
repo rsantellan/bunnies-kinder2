@@ -39,8 +39,18 @@
 		<a href="{{ path('admin_newsletter_index')}}">
 			<span>{% trans %}app_admin_menu_newsletter{% endtrans %}</span>
 		</a>
-	</li>
+	   </li>
     {% endif %}
+    <li class="{% if (activemenu is defined) and activemenu == 'progenitor' %}active{%endif%}">
+      <a href="{{ path('admin_progenitor')}}">
+        <span>{% trans %}app_admin_menu_progenitores{% endtrans %}</span>
+      </a>
+     </li>
+     <li class="{% if (activemenu is defined) and activemenu == 'cuentas' %}active{%endif%}">
+      <a href="{{ path('listado_cuentas')}}">
+        <span>{% trans %}app_admin_menu_cuentas{% endtrans %}</span>
+      </a>
+     </li>
     <li class="dropdown active show-on-hover">
       <a href="javascript:;" data-toggle="dropdown">
         <span>Layouts</span>

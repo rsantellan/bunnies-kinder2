@@ -85,5 +85,18 @@ class CuentaRepository extends EntityRepository
                 ->createQuery($dql)
               ->getResult();
   }
+
+  public function retrieveAllWithUsersAndParents($process = false){
+    $dql = 'select c, u, p from AppBundle:Cuenta c join c.estudiantes u join c.progenitores p order by c.diferencia desc';
+
+    $data = $this->getEntityManager()
+                ->createQuery($dql)
+              ->getResult();
+
+    if(!$process){
+      return $data;
+    }
+
+  }
   
 }

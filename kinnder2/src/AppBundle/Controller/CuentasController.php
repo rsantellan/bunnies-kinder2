@@ -11,7 +11,7 @@ class CuentasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllPendingDebts();
         $migrationService = $this->get('migrations');
-        $migrationService->compareCuentas();
+        //$migrationService->compareCuentas();
         return $this->render('AppBundle:Cuentas:alertas.html.twig', array(
                     'pendingDebts' => $pendingDebts,
             ));    
@@ -21,13 +21,29 @@ class CuentasController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllWithUsers();
-        $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveWithParents();
-        $pendingDebts = $em->getRepository('AppBundle:Cuenta')->retrieveAllPendingDebts();
-        $migrationService = $this->get('migrations');
-        $migrationService->compareCuentas();
-        return $this->render('AppBundle:Cuentas:alertas.html.twig', array(
-                    'pendingDebts' => $pendingDebts,
+        $accounts = $em->getRepository('AppBundle:Cuenta')->retrieveAllWithUsersAndParents();
+        
+        $data = array(
+            'negative' => array(),
+            'positive' => array(),
+            'zero' => array(),
+        );
+        foreach($accounts as $account)
+        {
+
+            if($account->getDiferencia() == 0){
+                $data['zero'][] = $account;
+            }else{
+                if($account->getDiferencia() > 0){
+                    $data['positive'][] = $account;  
+                }else{
+                    $data['negative'][] = $account;
+                }
+            }
+        }
+        return $this->render('AppBundle:Cuentas:cuentas.html.twig', array(
+                    'data' => $data,
+                    'activemenu' => 'cuentas',
             ));    
       
     }

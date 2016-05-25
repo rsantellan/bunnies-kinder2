@@ -1,3 +1,7 @@
+app_admin_progenitor:
+    resource: "@AppBundle/Resources/config/routing/progenitor.yml"
+    prefix:   /admin/progenitor
+
 app_estudiante:
     resource: "@AppBundle/Resources/config/routing/estudiante.yml"
     prefix:   /admin/estudiante
