@@ -12,5 +12,4 @@ class AlarmsControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
     }
-
 }

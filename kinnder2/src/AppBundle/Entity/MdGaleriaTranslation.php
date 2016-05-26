@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * MdGaleriaTranslation
+ * MdGaleriaTranslation.
  *
  * @ORM\Table(name="md_galeria_translation")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class MdGaleriaTranslation
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -44,12 +44,11 @@ class MdGaleriaTranslation
      */
     private $descripcion;
 
-
-
     /**
-     * Set id
+     * Set id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return MdGaleriaTranslation
      */
     public function setId($id)
@@ -60,9 +59,9 @@ class MdGaleriaTranslation
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -70,9 +69,10 @@ class MdGaleriaTranslation
     }
 
     /**
-     * Set lang
+     * Set lang.
      *
      * @param string $lang
+     *
      * @return MdGaleriaTranslation
      */
     public function setLang($lang)
@@ -83,9 +83,9 @@ class MdGaleriaTranslation
     }
 
     /**
-     * Get lang
+     * Get lang.
      *
-     * @return string 
+     * @return string
      */
     public function getLang()
     {
@@ -93,9 +93,10 @@ class MdGaleriaTranslation
     }
 
     /**
-     * Set titulo
+     * Set titulo.
      *
      * @param string $titulo
+     *
      * @return MdGaleriaTranslation
      */
     public function setTitulo($titulo)
@@ -106,9 +107,9 @@ class MdGaleriaTranslation
     }
 
     /**
-     * Get titulo
+     * Get titulo.
      *
-     * @return string 
+     * @return string
      */
     public function getTitulo()
     {
@@ -116,9 +117,10 @@ class MdGaleriaTranslation
     }
 
     /**
-     * Set descripcion
+     * Set descripcion.
      *
      * @param string $descripcion
+     *
      * @return MdGaleriaTranslation
      */
     public function setDescripcion($descripcion)
@@ -129,9 +131,9 @@ class MdGaleriaTranslation
     }
 
     /**
-     * Get descripcion
+     * Get descripcion.
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {

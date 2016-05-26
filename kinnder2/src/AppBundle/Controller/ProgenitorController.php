@@ -4,28 +4,25 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use AppBundle\Entity\Progenitor;
 use AppBundle\Form\ProgenitorType;
 use AppBundle\Filter\ProgenitorFilterType;
 
 /**
  * Progenitor controller.
- *
  */
 class ProgenitorController extends Controller
 {
-
     /**
      * Lists all Progenitor entities.
-     *
      */
     public function indexAction(Request $request, $page, $orderBy, $order, $limit)
     {
         $em = $this->getDoctrine()->getManager();
         $filter = $this->get('form.factory')->create(new ProgenitorFilterType());
-        
+
         $entities = $em->getRepository('AppBundle:Progenitor')->getActiveForList($page, $limit, $orderBy, $order);
+
         return $this->render('AppBundle:Progenitor:index.html.twig', array(
             'entities' => $entities,
             'page' => $page,
@@ -34,19 +31,38 @@ class ProgenitorController extends Controller
             'limit' => $limit,
             'filter' => $filter->createView(),
         ));
-        /*
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AppBundle:Progenitor')->findAll();
-
-        return $this->render('AppBundle:Progenitor:index.html.twig', array(
-            'entities' => $entities,
-        ));
-        */
     }
+
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $filter = $this->get('form.factory')->create(new ProgenitorFilterType());
+        $entities = array();
+        if ($request->query->has($filter->getName())) {
+            // manually bind values from the request
+            $filter->submit($request->query->get($filter->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $em->getRepository('AppBundle:Progenitor')
+                ->createQueryBuilder('p');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filter, $filterBuilder);
+
+            // now look at the DQL =)
+            //$filterBuilder->andWhere('e.egresado = false');
+            //var_dump($filterBuilder->getDql());
+            $entities = $filterBuilder->getQuery()->getResult();
+        }
+
+        return $this->render('AppBundle:Progenitor:search.html.twig', array(
+            'entities' => $entities,
+            'filter' => $filter->createView(),
+        ));
+    }
+
     /**
      * Creates a new Progenitor entity.
-     *
      */
     public function createAction(Request $request)
     {
@@ -59,12 +75,12 @@ class ProgenitorController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_progenitor_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_progenitor_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('AppBundle:Progenitor:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -82,29 +98,27 @@ class ProgenitorController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        //$form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
 
     /**
      * Displays a form to create a new Progenitor entity.
-     *
      */
     public function newAction()
     {
         $entity = new Progenitor();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('AppBundle:Progenitor:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
      * Finds and displays a Progenitor entity.
-     *
      */
     public function showAction($id)
     {
@@ -119,14 +133,13 @@ class ProgenitorController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Progenitor:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Displays a form to edit an existing Progenitor entity.
-     *
      */
     public function editAction($id)
     {
@@ -142,19 +155,19 @@ class ProgenitorController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Progenitor:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Progenitor entity.
-    *
-    * @param Progenitor $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Progenitor entity.
+     *
+     * @param Progenitor $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Progenitor $entity)
     {
         $form = $this->createForm(new ProgenitorType(), $entity, array(
@@ -162,13 +175,12 @@ class ProgenitorController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
     /**
      * Edits an existing Progenitor entity.
-     *
      */
     public function updateAction(Request $request, $id)
     {
@@ -191,14 +203,13 @@ class ProgenitorController extends Controller
         }
 
         return $this->render('AppBundle:Progenitor:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
      * Deletes a Progenitor entity.
-     *
      */
     public function deleteAction(Request $request, $id)
     {
@@ -232,7 +243,6 @@ class ProgenitorController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_progenitor_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

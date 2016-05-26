@@ -4,12 +4,12 @@
   <div class="row">
     <div class="col-md-12 mg-b-lg">
       <a href="{{ path('admin_progenitor_new') }}" class="btn btn-success">
-        {% trans %}students_create_new{% endtrans %}
+        {% trans %}progenitor_create_new{% endtrans %}
       </a>
     </div>
     <div class="col-md-7">
       <section class="panel">
-        <div class="panel-heading">{% trans %}students_title{% endtrans %}</div>
+        <div class="panel-heading">{% trans %}progenitor_title{% endtrans %}</div>
         <div class="panel-body no-padding">
           <table class="table table-striped no-margin">
             <thead>
@@ -22,79 +22,49 @@
                     {% endif %}
                   {% endif %}
                   <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'nombre', 'order' : tOrder}) }}">
-                    {% trans %}students_name{% endtrans %}
+                    {% trans %}progenitor_nombre{% endtrans %}
                   </a>  
                 </th>
                 <th>
                   {% set tOrder = 'asc' %}
-                  {% if orderBy == 'apellido' %}
+                  {% if orderBy == 'direccion' %}
                     {% if order == 'asc' %}
                       {% set tOrder = 'desc' %}
                     {% endif %}
                   {% endif %}
-                  <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'apellido', 'order' : tOrder}) }}">
-                    {% trans %}students_lastname{% endtrans %}
+                  <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'direccion', 'order' : tOrder}) }}">
+                    {% trans %}progenitor_direccion{% endtrans %}
                   </a>  
                 </th>
                 <th>
                   {% set tOrder = 'asc' %}
-                  {% if orderBy == 'fechaNacimiento' %}
+                  {% if orderBy == 'telefono' %}
                     {% if order == 'asc' %}
                       {% set tOrder = 'desc' %}
                     {% endif %}
                   {% endif %}
-                  <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'fechaNacimiento', 'order' : tOrder}) }}">
-                    {% trans %}students_birthdate{% endtrans %}
+                  <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'telefono', 'order' : tOrder}) }}">
+                    {% trans %}progenitor_telefono{% endtrans %}
                   </a>
                 </th>
                 <th>
                   {% set tOrder = 'asc' %}
-                  {% if orderBy == 'referenciaBancaria' %}
+                  {% if orderBy == 'email' %}
                     {% if order == 'asc' %}
                       {% set tOrder = 'desc' %}
                     {% endif %}
                   {% endif %}
-                  <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'referenciaBancaria', 'order' : tOrder}) }}">
-                    {% trans %}students_account{% endtrans %}
-                  </a>
-                </th>
-                <th>
-                  {% set tOrder = 'asc' %}
-                  {% if orderBy == 'clase' %}
-                    {% if order == 'asc' %}
-                      {% set tOrder = 'desc' %}
-                    {% endif %}
-                  {% endif %}
-                  <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'clase', 'order' : tOrder}) }}">
-                    {% trans %}students_class{% endtrans %}
+                  <a href="{{ path('admin_progenitor', {'page' : 1, 'orderBy' : 'email', 'order' : tOrder}) }}">
+                    {% trans %}progenitor_email{% endtrans %}
                   </a>
                 </th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-                {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('admin_progenitor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.nombre }}</td>
-                <td>{{ entity.direccion }}</td>
-                <td>{{ entity.telefono }}</td>
-                <td>{{ entity.celular }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_progenitor_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_progenitor_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-              {% for entity in entities %}
-                
-              {% endfor %}
+            {% for entity in entities %}
+              {% include 'AppBundle:Progenitor:_progenitorTableRow.html.twig' with {'entity' : entity} %}
+            {% endfor %}
             </tbody>
           </table>
         </div>
@@ -102,53 +72,15 @@
       {% if page > 0 %}
       <a href="{{ path('admin_progenitor', {'page' : page - 1}) }}" class="btn btn-info">
         <i class="glyphicon glyphicon-chevron-left"></i>
-        {% trans %}students_page_previous{% endtrans %}
+        {% trans %}progenitor_page_previous{% endtrans %}
       </a>    
       {% endif %}
       {% if entities | length == limit %}
       <a href="{{ path('admin_progenitor', {'page' : page + 1}) }}" class="btn btn-info">
-        {% trans %}students_page_next{% endtrans %}
+        {% trans %}progenitor_page_next{% endtrans %}
         <i class="glyphicon glyphicon-chevron-right"></i>
       </a>
       {% endif %}
     </div>
-    <div class="col-md-5">
-      <section class="panel">
-        <div class="panel-heading">{% trans %}students_filter_title{% endtrans %}</div>
-        <div class="panel-body no-padding">
-          <form role="form" class="form-horizontal" method="get" action="{{ path('admin_progenitor_search')}}">
-              <div class="form-group">
-                  {{ form_errors(filter.referenciaBancaria) }}
-                  <label class="col-sm-2 control-label" for="{{ filter.referenciaBancaria.vars.id }}">{% trans %}students_account{% endtrans %}</label>
-                  <div class="col-sm-10">
-                      {{ form_widget(filter.referenciaBancaria, {'attr' : {'class' : 'form-control'}}) }}
-                  </div>
-              </div>
-              <div class="form-group">
-                  {{ form_errors(filter.nombre) }}
-                  <label class="col-sm-2 control-label" for="{{ filter.nombre.vars.id }}">{% trans %}students_lastname{% endtrans %}</label>
-                  <div class="col-sm-10">
-                      {{ form_widget(filter.nombre, {'attr' : {'class' : 'form-control'}}) }}
-                  </div>
-              </div>
-              <div class="form-group">
-                  {{ form_errors(filter.email) }}
-                  <label class="col-sm-2 control-label" for="{{ filter.email.vars.id }}">{% trans %}students_name{% endtrans %}</label>
-                  <div class="col-sm-10">
-                      {{ form_widget(filter.email, {'attr' : {'class' : 'form-control'}}) }}
-                  </div>
-              </div>
-              <div class="form-group">
-                  <div class="col-sm-offset-2 col-sm-10">
-                      <button class="btn btn-default" type="submit">Buscar</button>
-                  </div>
-              </div>
-                  {{ form_rest(filter) }}
-          </form>
-        </div>
-    </div>
-  </div>
- <a href="{{ path('admin_progenitor_new') }}">
-                Create a new entry
-            </a>
+    {% include 'AppBundle:Progenitor:_filterIndex.html.twig' with {'filter' : filter} %}
 {% endblock %}

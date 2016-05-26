@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Horario
+ * Horario.
  *
  * @ORM\Table(name="colegio")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Colegio
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,28 +28,26 @@ class Colegio
      */
     private $name;
 
-    
     /**
-     * 
      * @ORM\OneToMany(targetEntity="Estudiante", mappedBy="futuroColegio")
-     *
      */
     private $estudiantes;
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
-    }    
+    }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -57,9 +55,10 @@ class Colegio
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Horario
      */
     public function setName($name)
@@ -70,16 +69,16 @@ class Colegio
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -87,9 +86,10 @@ class Colegio
     }
 
     /**
-     * Add estudiantes
+     * Add estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
+     *
      * @return Horario
      */
     public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
@@ -100,7 +100,7 @@ class Colegio
     }
 
     /**
-     * Remove estudiantes
+     * Remove estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
      */
@@ -110,16 +110,17 @@ class Colegio
     }
 
     /**
-     * Get estudiantes
+     * Get estudiantes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEstudiantes()
     {
         return $this->estudiantes;
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->getName();
     }
 }

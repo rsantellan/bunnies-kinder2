@@ -1,16 +1,57 @@
-{% extends '::base.html.twig' %}
+{% extends "AppBundle::adminlayout.html.twig" %}
 
 {% block body -%}
-    <h1>Progenitor edit</h1>
+<div class="row">
+  <div class="col-lg-8">
+	<section class="panel">
+	  <header class="panel-heading">{% trans %}progenitor_edit_entry{% endtrans %}</header>
+	  <div class="panel-body">
 
-    {{ form(edit_form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_progenitor') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+		<form action="{{ path('admin_progenitor_update', { 'id': entity.id }) }}" method="post" role="form">
+		  <input type="hidden" name="_method" value="PUT" />
+		  <div class="form-group">
+			  {{ form_errors(edit_form.nombre) }}
+			  <label for="{{ edit_form.nombre.vars.id }}">{% trans %}progenitor_nombre{% endtrans %}</label>
+			  {{ form_widget(edit_form.nombre, {'attr' : {'class' : 'form-control'}}) }}
+			</div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.direccion) }}
+              <label for="{{ edit_form.direccion.vars.id }}">{% trans %}progenitor_direccion{% endtrans %}</label>
+			  {{ form_widget(edit_form.direccion, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.telefono) }}
+              <label for="{{ edit_form.telefono.vars.id }}">{% trans %}progenitor_telefono{% endtrans %}</label>
+			  {{ form_widget(edit_form.telefono, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.celular) }}
+              <label for="{{ edit_form.celular.vars.id }}">{% trans %}progenitor_celular{% endtrans %}</label>
+			  {{ form_widget(edit_form.celular, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.newsletterUser.email) }}
+              <label for="{{ edit_form.newsletterUser.email.vars.id }}">{% trans %}progenitor_email{% endtrans %}</label>
+			  {{ form_widget(edit_form.newsletterUser.email, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          
+			  <div class="form-group">
+				<button type="submit" class="btn btn-default">{% trans %}progenitor_save{% endtrans %}</button>
+			  </div>	
+				{{ form_rest(edit_form) }}
+			</form>
+		  </div>
+		</section>
+	  </div>
+	  <div class="col-lg-8">
+		  <a href="{{ path('admin_progenitor') }}" class="btn btn-info">
+			{% trans %}progenitor_back_to_list{% endtrans %}
+			</a>
+		  <form action="{{ path('admin_progenitor_delete', { 'id': entity.id }) }}" method="post" onsubmit="return confirmDeleteDialog();" style="float: right;">
+			<input type="hidden" name="_method" value="DELETE" />
+			  {{ form_widget(delete_form) }}
+			<button class="btn btn-danger" type="submit">{% trans %}progenitor_delete{% endtrans %}</button>
+		  </form>
+		  </div>
+		</div>
 {% endblock %}

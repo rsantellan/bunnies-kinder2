@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Emails
+ * Emails.
  *
  * @ORM\Table(name="email", uniqueConstraints={@ORM\UniqueConstraint(name="type_index_idx", columns={"type"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Email
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -42,12 +42,10 @@ class Email
      */
     private $fromMail;
 
-
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -55,9 +53,10 @@ class Email
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return Emails
      */
     public function setType($type)
@@ -68,9 +67,9 @@ class Email
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -78,9 +77,10 @@ class Email
     }
 
     /**
-     * Set fromName
+     * Set fromName.
      *
      * @param string $fromName
+     *
      * @return Emails
      */
     public function setFromName($fromName)
@@ -91,9 +91,9 @@ class Email
     }
 
     /**
-     * Get fromName
+     * Get fromName.
      *
-     * @return string 
+     * @return string
      */
     public function getFromName()
     {
@@ -101,9 +101,10 @@ class Email
     }
 
     /**
-     * Set fromMail
+     * Set fromMail.
      *
      * @param string $fromMail
+     *
      * @return Emails
      */
     public function setFromMail($fromMail)
@@ -114,9 +115,9 @@ class Email
     }
 
     /**
-     * Get fromMail
+     * Get fromMail.
      *
-     * @return string 
+     * @return string
      */
     public function getFromMail()
     {
@@ -124,9 +125,10 @@ class Email
     }
 
     /**
-     * Set id
+     * Set id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return Emails
      */
     public function setId($id)

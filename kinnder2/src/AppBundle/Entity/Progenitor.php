@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * Progenitor
+ * Progenitor.
  *
  * @ORM\Table(name="progenitor")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProgenitorRepository")
@@ -14,7 +14,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 class Progenitor extends BaseUser
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -49,30 +49,28 @@ class Progenitor extends BaseUser
      * @ORM\Column(name="celular", type="string", length=64, nullable=true)
      */
     private $celular;
-    
+
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="old_id", type="integer", nullable=true)
      */
-    private $oldId;    
+    private $oldId;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="progenitores")
      * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=true)
-     * 
-     **/        
+     **/
     private $cuenta;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Estudiante", inversedBy="progenitores")
      * @ORM\JoinTable(name="estudiante_progenitor",
      *      joinColumns={@ORM\JoinColumn(name="progenitor_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="estudiante_id", referencedColumnName="id")}
      *      )
-     **/    
-    private $estudiantes;    
+     **/
+    private $estudiantes;
 
     /**
      * @ORM\ManyToMany(targetEntity="Role", indexBy="name", inversedBy="users")
@@ -85,11 +83,11 @@ class Progenitor extends BaseUser
      * @ORM\JoinColumn(name="news_letter_user_id", referencedColumnName="id")
      */
     private $newsletterUser;
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -97,9 +95,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Set nombre
+     * Set nombre.
      *
      * @param string $nombre
+     *
      * @return Progenitor
      */
     public function setNombre($nombre)
@@ -110,9 +109,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get nombre
+     * Get nombre.
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -120,9 +119,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Set direccion
+     * Set direccion.
      *
      * @param string $direccion
+     *
      * @return Progenitor
      */
     public function setDireccion($direccion)
@@ -133,9 +133,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get direccion
+     * Get direccion.
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -143,9 +143,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Set telefono
+     * Set telefono.
      *
      * @param string $telefono
+     *
      * @return Progenitor
      */
     public function setTelefono($telefono)
@@ -156,9 +157,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get telefono
+     * Get telefono.
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -166,9 +167,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Set celular
+     * Set celular.
      *
      * @param string $celular
+     *
      * @return Progenitor
      */
     public function setCelular($celular)
@@ -179,9 +181,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get celular
+     * Get celular.
      *
-     * @return string 
+     * @return string
      */
     public function getCelular()
     {
@@ -189,7 +191,7 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -199,9 +201,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Add estudiantes
+     * Add estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
+     *
      * @return Progenitor
      */
     public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
@@ -212,7 +215,7 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Remove estudiantes
+     * Remove estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
      */
@@ -222,90 +225,105 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get estudiantes
+     * Get estudiantes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEstudiantes()
     {
         return $this->estudiantes;
     }
 
-  /**
+    /**
      * Returns an ARRAY of Role objects with the default Role object appended.
+     *
      * @return array
      */
-    public function getRoles() {
+    public function getRoles()
+    {
         $user_roles = array();
-        if($this->user_roles)
-          $user_roles = $this->user_roles->toArray();
+        if ($this->user_roles) {
+            $user_roles = $this->user_roles->toArray();
+        }
+
         return $user_roles;
+
         return array_merge($user_roles, array(new Role(array(parent::ROLE_DEFAULT))));
     }
 
     /**
      * Returns the true ArrayCollection of Roles.
+     *
      * @return Doctrine\Common\Collections\ArrayCollection
      */
-    public function getRolesCollection() {
+    public function getRolesCollection()
+    {
         return $this->user_roles;
     }
 
     /**
      * Pass a string, get the desired Role object or null.
+     *
      * @param string $role
+     *
      * @return Role|null
      */
-    public function getRole($role) {
+    public function getRole($role)
+    {
         foreach ($this->getRoles() as $roleItem) {
             if ($role == $roleItem->getRole()) {
                 return $roleItem;
             }
         }
-        return null;
+
+        return;
     }
 
     /**
      * Pass a string, checks if we have that Role. Same functionality as getRole() except returns a real boolean.
+     *
      * @param string $role
-     * @return boolean
+     *
+     * @return bool
      */
-    public function hasRole($role) {
+    public function hasRole($role)
+    {
         if ($this->getRole($role)) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Adds a Role OBJECT to the ArrayCollection. Can't type hint due to interface so throws Exception.
+     *
      * @throws Exception
+     *
      * @param Role $role
      */
-    public function addRole($role) {
-        if(is_string($role))
-        {
-          parent::addRole($role);
-        }
-        else
-        {
-          if($role instanceof Role)
-          {
-            if (!$this->hasRole($role->getRole())) {
-              $this->user_roles->add($role);
+    public function addRole($role)
+    {
+        if (is_string($role)) {
+            parent::addRole($role);
+        } else {
+            if ($role instanceof Role) {
+                if (!$this->hasRole($role->getRole())) {
+                    $this->user_roles->add($role);
+                }
+            } else {
+                throw new \Exception(sprintf('addRole takes a Role object as the parameter. %s given', get_class($role)));
             }
-          }else{
-            throw new \Exception(sprintf("addRole takes a Role object as the parameter. %s given", get_class($role)));
-          }
         }
-        
     }
 
     /**
      * Pass a string, remove the Role object from collection.
+     *
      * @param string $role
      */
-    public function removeRole($role) {
+    public function removeRole($role)
+    {
         $roleElement = $this->getRole($role);
         if ($roleElement) {
             $this->user_roles->removeElement($roleElement);
@@ -315,9 +333,11 @@ class Progenitor extends BaseUser
     /**
      * Pass an ARRAY of Role objects and will clear the collection and re-set it with new Roles.
      * Type hinted array due to interface.
+     *
      * @param array $roles Of Role objects.
      */
-    public function setRoles(array $roles) {
+    public function setRoles(array $roles)
+    {
         $this->user_roles->clear();
         $parentRoles = array();
         foreach ($roles as $role) {
@@ -325,21 +345,23 @@ class Progenitor extends BaseUser
             $parentRoles[] = $role->getName();
         }
         parent::setRoles($parentRoles);
-        
     }
 
     /**
      * Directly set the ArrayCollection of Roles. Type hinted as Collection which is the parent of (Array|Persistent)Collection.
+     *
      * @param Doctrine\Common\Collections\Collection $role
      */
-    public function setRolesCollection(\Doctrine\Common\Collections\Collection $collection) {
+    public function setRolesCollection(\Doctrine\Common\Collections\Collection $collection)
+    {
         $this->user_roles = $collection;
-    }    
+    }
 
     /**
-     * Add user_roles
+     * Add user_roles.
      *
      * @param \AppBundle\Entity\Role $userRoles
+     *
      * @return Progenitor
      */
     public function addUserRole(\AppBundle\Entity\Role $userRoles)
@@ -350,7 +372,7 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Remove user_roles
+     * Remove user_roles.
      *
      * @param \AppBundle\Entity\Role $userRoles
      */
@@ -360,9 +382,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get user_roles
+     * Get user_roles.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUserRoles()
     {
@@ -370,9 +392,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Set newsletterUser
+     * Set newsletterUser.
      *
      * @param \Maith\NewsletterBundle\Entity\User $newsletterUser
+     *
      * @return Progenitor
      */
     public function setNewsletterUser(\Maith\NewsletterBundle\Entity\User $newsletterUser = null)
@@ -383,9 +406,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get newsletterUser
+     * Get newsletterUser.
      *
-     * @return \Maith\NewsletterBundle\Entity\User 
+     * @return \Maith\NewsletterBundle\Entity\User
      */
     public function getNewsletterUser()
     {
@@ -393,9 +416,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Set cuenta
+     * Set cuenta.
      *
      * @param \AppBundle\Entity\Cuenta $cuenta
+     *
      * @return Progenitor
      */
     public function setCuenta(\AppBundle\Entity\Cuenta $cuenta)
@@ -406,9 +430,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get cuenta
+     * Get cuenta.
      *
-     * @return \AppBundle\Entity\Cuenta 
+     * @return \AppBundle\Entity\Cuenta
      */
     public function getCuenta()
     {
@@ -416,9 +440,10 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Set oldId
+     * Set oldId.
      *
-     * @param integer $oldId
+     * @param int $oldId
+     *
      * @return Progenitor
      */
     public function setOldId($oldId)
@@ -429,9 +454,9 @@ class Progenitor extends BaseUser
     }
 
     /**
-     * Get oldId
+     * Get oldId.
      *
-     * @return integer 
+     * @return int
      */
     public function getOldId()
     {

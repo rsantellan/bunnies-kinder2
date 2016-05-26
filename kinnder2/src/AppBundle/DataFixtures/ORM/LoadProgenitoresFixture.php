@@ -10,69 +10,67 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Description of LoadUserFixture
+ * Description of LoadUserFixture.
  *
  * @author Rodrigo Santellan
  */
-class LoadProgenitoresFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
-    
+class LoadProgenitoresFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+{
     /**
      * @var ContainerInterface
      */
     private $container;
-    
-    public function getOrder() {
+
+    public function getOrder()
+    {
         return 2;
     }
 
-    public function load(ObjectManager $manager) {
-      
-      $sql = 'select id, nombre, direccion, telefono, celular, mail, clave from progenitor';
-      return;
-      
-      $username = DataFixturesConstants::DBUSER;
-      $password = DataFixturesConstants::DBPASS;
-      $database = DataFixturesConstants::DBSCHEMA;
-      $conn = new \PDO(sprintf('mysql:host=localhost;dbname=%s', $database), $username, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-      $stmt = $conn->prepare($sql);
-      $stmt->execute();
-      
-      $userManager = $this->container->get('fos_user.user_manager');
-      while($row = $stmt->fetch())
-      {
-        //var_dump($row);
+    public function load(ObjectManager $manager)
+    {
+        $sql = 'select id, nombre, direccion, telefono, celular, mail, clave from progenitor';
+
+        return;
+
+        $username = DataFixturesConstants::DBUSER;
+        $password = DataFixturesConstants::DBPASS;
+        $database = DataFixturesConstants::DBSCHEMA;
+        $conn = new \PDO(sprintf('mysql:host=localhost;dbname=%s', $database), $username, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        while ($row = $stmt->fetch()) {
+            //var_dump($row);
         //$id = $row['id'];
         $nombre = $row['nombre'];
-        $direccion = $row['direccion'];
-        $telefono = $row['telefono'];
-        $celular = $row['celular'];
-        $mail = trim($row['mail']);
-        if($mail){
-          $user = $userManager->createUser();
-          $user->setUsername($mail);
-          $user->setEmail($mail);
-          $user->setPlainPassword('bunnyskinder');
-          $user->setEnabled(true);
-          $user->setSuperAdmin(false);
-          $user->setNombre($nombre);
-          $user->setDireccion($direccion);
-          $user->setTelefono($telefono);
-          $user->setCelular($celular);
-          $manager->persist($user);
+            $direccion = $row['direccion'];
+            $telefono = $row['telefono'];
+            $celular = $row['celular'];
+            $mail = trim($row['mail']);
+            if ($mail) {
+                $user = $userManager->createUser();
+                $user->setUsername($mail);
+                $user->setEmail($mail);
+                $user->setPlainPassword('bunnyskinder');
+                $user->setEnabled(true);
+                $user->setSuperAdmin(false);
+                $user->setNombre($nombre);
+                $user->setDireccion($direccion);
+                $user->setTelefono($telefono);
+                $user->setCelular($celular);
+                $manager->persist($user);
           //var_dump($user->getId(). ' -|'.$mail.'|');
+            } else {
+                var_dump('not inserted parent');
+                var_dump($row);
+            }
         }
-        else
-        {
-          var_dump('not inserted parent');
-          var_dump($row);
-        }
-      }
-      $manager->flush();
+        $manager->flush();
     }
 
-    public function setContainer(ContainerInterface $container = null) {
+    public function setContainer(ContainerInterface $container = null)
+    {
         $this->container = $container;
     }
 }
-
-

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * FacturaFinal
+ * FacturaFinal.
  *
  * @ORM\Table(name="factura_final", uniqueConstraints={@ORM\UniqueConstraint(name="monthly_yearly_user_index_idx", columns={"month", "year", "cuenta_id"})}, indexes={@ORM\Index(name="cuenta_id_idx", columns={"cuenta_id"})})
  * @ORM\HasLifecycleCallbacks
@@ -15,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class FacturaFinal
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
@@ -31,46 +31,44 @@ class FacturaFinal
     private $total;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="month", type="integer", nullable=false)
      */
     private $month;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="year", type="integer", nullable=false)
      */
     private $year;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="pago", type="boolean", nullable=false, options={"default": 0})
      */
     private $pago = false;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="cancelado", type="boolean", nullable=false, options={"default": 0})
      */
     private $cancelado = false;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="enviado", type="boolean", nullable=false, options={"default": 0})
      */
     private $enviado = false;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="facturas")
      * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=false)
-     * 
-     **/ 
+     **/
     private $cuenta;
 
     /**
@@ -104,34 +102,31 @@ class FacturaFinal
     private $updatedAt;
 
     /**
-     * 
      * @ORM\OneToMany(targetEntity="FacturaFinalDetalle", mappedBy="factura", cascade={"remove"})
-     *
      */
     private $facturaFinalDetalles;
 
-    
     /**
      * @ORM\OneToMany(targetEntity="facturaEstudiante", mappedBy="facturaFinal")
      **/
     private $facturasEstudiantes;
-    
 
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return  $this;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -139,9 +134,10 @@ class FacturaFinal
     }
 
     /**
-     * Set total
+     * Set total.
      *
      * @param float $total
+     *
      * @return FacturaFinal
      */
     public function setTotal($total)
@@ -152,9 +148,9 @@ class FacturaFinal
     }
 
     /**
-     * Get total
+     * Get total.
      *
-     * @return float 
+     * @return float
      */
     public function getTotal()
     {
@@ -162,9 +158,10 @@ class FacturaFinal
     }
 
     /**
-     * Set month
+     * Set month.
      *
-     * @param integer $month
+     * @param int $month
+     *
      * @return FacturaFinal
      */
     public function setMonth($month)
@@ -175,9 +172,9 @@ class FacturaFinal
     }
 
     /**
-     * Get month
+     * Get month.
      *
-     * @return integer 
+     * @return int
      */
     public function getMonth()
     {
@@ -185,9 +182,10 @@ class FacturaFinal
     }
 
     /**
-     * Set year
+     * Set year.
      *
-     * @param integer $year
+     * @param int $year
+     *
      * @return FacturaFinal
      */
     public function setYear($year)
@@ -198,9 +196,9 @@ class FacturaFinal
     }
 
     /**
-     * Get year
+     * Get year.
      *
-     * @return integer 
+     * @return int
      */
     public function getYear()
     {
@@ -208,9 +206,10 @@ class FacturaFinal
     }
 
     /**
-     * Set pago
+     * Set pago.
      *
-     * @param boolean $pago
+     * @param bool $pago
+     *
      * @return FacturaFinal
      */
     public function setPago($pago)
@@ -221,9 +220,9 @@ class FacturaFinal
     }
 
     /**
-     * Get pago
+     * Get pago.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getPago()
     {
@@ -231,9 +230,10 @@ class FacturaFinal
     }
 
     /**
-     * Set cancelado
+     * Set cancelado.
      *
-     * @param boolean $cancelado
+     * @param bool $cancelado
+     *
      * @return FacturaFinal
      */
     public function setCancelado($cancelado)
@@ -244,9 +244,9 @@ class FacturaFinal
     }
 
     /**
-     * Get cancelado
+     * Get cancelado.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCancelado()
     {
@@ -254,9 +254,10 @@ class FacturaFinal
     }
 
     /**
-     * Set enviado
+     * Set enviado.
      *
-     * @param boolean $enviado
+     * @param bool $enviado
+     *
      * @return FacturaFinal
      */
     public function setEnviado($enviado)
@@ -267,9 +268,9 @@ class FacturaFinal
     }
 
     /**
-     * Get enviado
+     * Get enviado.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getEnviado()
     {
@@ -277,9 +278,10 @@ class FacturaFinal
     }
 
     /**
-     * Set fechavencimiento
+     * Set fechavencimiento.
      *
      * @param \DateTime $fechavencimiento
+     *
      * @return FacturaFinal
      */
     public function setFechavencimiento($fechavencimiento)
@@ -290,9 +292,9 @@ class FacturaFinal
     }
 
     /**
-     * Get fechavencimiento
+     * Get fechavencimiento.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechavencimiento()
     {
@@ -300,9 +302,10 @@ class FacturaFinal
     }
 
     /**
-     * Set pagadodeltotal
+     * Set pagadodeltotal.
      *
      * @param float $pagadodeltotal
+     *
      * @return FacturaFinal
      */
     public function setPagadodeltotal($pagadodeltotal)
@@ -313,9 +316,9 @@ class FacturaFinal
     }
 
     /**
-     * Get pagadodeltotal
+     * Get pagadodeltotal.
      *
-     * @return float 
+     * @return float
      */
     public function getPagadodeltotal()
     {
@@ -323,9 +326,10 @@ class FacturaFinal
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return FacturaFinal
      */
     public function setCreatedAt($createdAt)
@@ -336,9 +340,9 @@ class FacturaFinal
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -346,9 +350,10 @@ class FacturaFinal
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return FacturaFinal
      */
     public function setUpdatedAt($updatedAt)
@@ -359,9 +364,9 @@ class FacturaFinal
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -369,9 +374,10 @@ class FacturaFinal
     }
 
     /**
-     * Set cuenta
+     * Set cuenta.
      *
      * @param \AppBundle\Entity\Cuenta $cuenta
+     *
      * @return FacturaFinal
      */
     public function setCuenta(\AppBundle\Entity\Cuenta $cuenta = null)
@@ -382,9 +388,9 @@ class FacturaFinal
     }
 
     /**
-     * Get cuenta
+     * Get cuenta.
      *
-     * @return \AppBundle\Entity\Cuenta 
+     * @return \AppBundle\Entity\Cuenta
      */
     public function getCuenta()
     {
@@ -392,9 +398,10 @@ class FacturaFinal
     }
 
     /**
-     * Add facturaFinalDetalles
+     * Add facturaFinalDetalles.
      *
      * @param \AppBundle\Entity\FacturaFinalDetalle $facturaFinalDetalles
+     *
      * @return FacturaFinal
      */
     public function addFacturaFinalDetalle(\AppBundle\Entity\FacturaFinalDetalle $facturaFinalDetalles)
@@ -405,7 +412,7 @@ class FacturaFinal
     }
 
     /**
-     * Remove facturaFinalDetalles
+     * Remove facturaFinalDetalles.
      *
      * @param \AppBundle\Entity\FacturaFinalDetalle $facturaFinalDetalles
      */
@@ -415,9 +422,9 @@ class FacturaFinal
     }
 
     /**
-     * Get facturaFinalDetalles
+     * Get facturaFinalDetalles.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFacturaFinalDetalles()
     {
@@ -425,9 +432,10 @@ class FacturaFinal
     }
 
     /**
-     * Add facturaEstudiante
+     * Add facturaEstudiante.
      *
      * @param \AppBundle\Entity\FacturaEstudiante $facturaEstudiante
+     *
      * @return FacturaFinal
      */
     public function addFacturaEstudiante(\AppBundle\Entity\FacturaEstudiante $facturaEstudiante)
@@ -438,7 +446,7 @@ class FacturaFinal
     }
 
     /**
-     * Remove facturaEstudiante
+     * Remove facturaEstudiante.
      *
      * @param \AppBundle\Entity\FacturaEstudiante $facturaEstudiante
      */
@@ -448,16 +456,16 @@ class FacturaFinal
     }
 
     /**
-     * Get facturaEstudiante
+     * Get facturaEstudiante.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFacturaEstudiante()
     {
         return $this->facturaEstudiante;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -465,11 +473,11 @@ class FacturaFinal
         $this->facturaEstudiante = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
-     * Add facturasEstudiantes
+     * Add facturasEstudiantes.
      *
      * @param \AppBundle\Entity\facturaEstudiante $facturasEstudiantes
+     *
      * @return FacturaFinal
      */
     public function addFacturasEstudiante(\AppBundle\Entity\facturaEstudiante $facturasEstudiantes)
@@ -480,7 +488,7 @@ class FacturaFinal
     }
 
     /**
-     * Remove facturasEstudiantes
+     * Remove facturasEstudiantes.
      *
      * @param \AppBundle\Entity\facturaEstudiante $facturasEstudiantes
      */
@@ -490,24 +498,23 @@ class FacturaFinal
     }
 
     /**
-     * Get facturasEstudiantes
+     * Get facturasEstudiantes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFacturasEstudiantes()
     {
         return $this->facturasEstudiantes;
     }
-    
+
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
     public function calculateDifference()
     {
-      if(!$this->getCancelado())
-      {
-        //$this->getCuenta()->setDebe($this->getCuenta()->getDebe() + $this->getTotal());
-      }
-    }    
+        if (!$this->getCancelado()) {
+            //$this->getCuenta()->setDebe($this->getCuenta()->getDebe() + $this->getTotal());
+        }
+    }
 }

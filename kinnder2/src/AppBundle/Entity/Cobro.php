@@ -3,11 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Cobro
+ * Cobro.
  *
  * @ORM\Table(name="cobro", indexes={@ORM\Index(name="cuenta_id_idx", columns={"cuenta_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CobrosRepository")
@@ -16,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Cobro
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -25,11 +24,9 @@ class Cobro
     private $id;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="cobros")
      * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=false)
-     * 
-     **/    
+     **/
     private $cuenta;
 
     /**
@@ -63,21 +60,21 @@ class Cobro
     private $updatedAt;
 
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return  $this;
     }
-    
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -85,9 +82,10 @@ class Cobro
     }
 
     /**
-     * Set fecha
+     * Set fecha.
      *
      * @param \DateTime $fecha
+     *
      * @return Cobro
      */
     public function setFecha($fecha)
@@ -98,9 +96,9 @@ class Cobro
     }
 
     /**
-     * Get fecha
+     * Get fecha.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -108,9 +106,10 @@ class Cobro
     }
 
     /**
-     * Set monto
+     * Set monto.
      *
      * @param float $monto
+     *
      * @return Cobro
      */
     public function setMonto($monto)
@@ -121,9 +120,9 @@ class Cobro
     }
 
     /**
-     * Get monto
+     * Get monto.
      *
-     * @return float 
+     * @return float
      */
     public function getMonto()
     {
@@ -131,9 +130,10 @@ class Cobro
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return Cobro
      */
     public function setCreatedAt($createdAt)
@@ -144,9 +144,9 @@ class Cobro
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -154,9 +154,10 @@ class Cobro
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return Cobro
      */
     public function setUpdatedAt($updatedAt)
@@ -167,9 +168,9 @@ class Cobro
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -177,9 +178,10 @@ class Cobro
     }
 
     /**
-     * Set cuenta
+     * Set cuenta.
      *
      * @param \AppBundle\Entity\Cuenta $cuenta
+     *
      * @return Cobro
      */
     public function setCuenta(\AppBundle\Entity\Cuenta $cuenta = null)
@@ -190,21 +192,21 @@ class Cobro
     }
 
     /**
-     * Get cuenta
+     * Get cuenta.
      *
-     * @return \AppBundle\Entity\Cuenta 
+     * @return \AppBundle\Entity\Cuenta
      */
     public function getCuenta()
     {
         return $this->cuenta;
     }
-    
+
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
     public function calculateDifference()
     {
-      //$this->getCuenta()->setPago($this->getCuenta()->getPago() + $this->getMonto());
+        //$this->getCuenta()->setPago($this->getCuenta()->getPago() + $this->getMonto());
     }
 }

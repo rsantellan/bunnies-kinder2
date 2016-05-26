@@ -10,6 +10,6 @@ class TestingController extends Controller
     {
         return $this->render('AppBundle:Testing:index.html.twig', array(
                 // ...
-            ));    }
-
+            ));
+    }
 }

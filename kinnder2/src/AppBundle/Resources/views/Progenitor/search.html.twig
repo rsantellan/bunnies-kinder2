@@ -1,0 +1,42 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+  <div class="row">
+    <div class="col-md-12 mg-b-lg">
+      <a href="{{ path('admin_progenitor_new') }}" class="btn btn-success">
+        {% trans %}progenitor_create_new{% endtrans %}
+      </a>
+    </div>
+    <div class="col-md-7">
+      <section class="panel">
+        <div class="panel-heading">{% trans %}progenitor_search_title{% endtrans %}</div>
+        <div class="panel-body no-padding">
+          <table class="table table-striped no-margin">
+            <thead>
+              <tr>
+                <th>
+                    {% trans %}progenitor_nombre{% endtrans %}
+                </th>
+                <th>
+                    {% trans %}progenitor_direccion{% endtrans %}
+                </th>
+                <th>
+                    {% trans %}progenitor_telefono{% endtrans %}
+                </th>
+                <th>
+                    {% trans %}progenitor_email{% endtrans %}
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+              {% include 'AppBundle:Progenitor:_progenitorTableRow.html.twig' with {'entity' : entity} %}
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    {% include 'AppBundle:Progenitor:_filterIndex.html.twig' with {'filter' : filter} %}
+{% endblock %}

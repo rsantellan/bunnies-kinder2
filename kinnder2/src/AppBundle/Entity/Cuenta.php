@@ -3,11 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Cuenta
+ * Cuenta.
  *
  * @ORM\Table(name="cuenta")
  * @ORM\Entity
@@ -17,7 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Cuenta
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -67,48 +66,42 @@ class Cuenta
      */
     private $updatedAt;
 
-
     /**
-     * 
      * @ORM\OneToMany(targetEntity="Cobro", mappedBy="cuenta")
-     *
      */
     private $cobros;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Progenitor", mappedBy="cuenta")
      **/
     private $progenitores;
 
-    
     /**
      * @ORM\OneToMany(targetEntity="Estudiante", mappedBy="cuenta")
      **/
     private $estudiantes;
-    
+
     /**
-     * 
      * @ORM\OneToMany(targetEntity="FacturaFinal", mappedBy="cuenta")
-     *
      */
-    private $facturas;    
-    
-    
+    private $facturas;
+
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return  $this;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -116,9 +109,10 @@ class Cuenta
     }
 
     /**
-     * Set referenciabancaria
+     * Set referenciabancaria.
      *
      * @param string $referenciabancaria
+     *
      * @return Cuenta
      */
     public function setReferenciabancaria($referenciabancaria)
@@ -129,9 +123,9 @@ class Cuenta
     }
 
     /**
-     * Get referenciabancaria
+     * Get referenciabancaria.
      *
-     * @return string 
+     * @return string
      */
     public function getReferenciabancaria()
     {
@@ -139,9 +133,10 @@ class Cuenta
     }
 
     /**
-     * Set debe
+     * Set debe.
      *
      * @param float $debe
+     *
      * @return Cuenta
      */
     public function setDebe($debe)
@@ -152,9 +147,9 @@ class Cuenta
     }
 
     /**
-     * Get debe
+     * Get debe.
      *
-     * @return float 
+     * @return float
      */
     public function getDebe()
     {
@@ -162,9 +157,10 @@ class Cuenta
     }
 
     /**
-     * Set pago
+     * Set pago.
      *
      * @param float $pago
+     *
      * @return Cuenta
      */
     public function setPago($pago)
@@ -175,9 +171,9 @@ class Cuenta
     }
 
     /**
-     * Get pago
+     * Get pago.
      *
-     * @return float 
+     * @return float
      */
     public function getPago()
     {
@@ -185,9 +181,10 @@ class Cuenta
     }
 
     /**
-     * Set diferencia
+     * Set diferencia.
      *
      * @param float $diferencia
+     *
      * @return Cuenta
      */
     public function setDiferencia($diferencia)
@@ -198,9 +195,9 @@ class Cuenta
     }
 
     /**
-     * Get diferencia
+     * Get diferencia.
      *
-     * @return float 
+     * @return float
      */
     public function getDiferencia()
     {
@@ -208,9 +205,10 @@ class Cuenta
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return Cuenta
      */
     public function setCreatedAt($createdAt)
@@ -221,9 +219,9 @@ class Cuenta
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -231,9 +229,10 @@ class Cuenta
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return Cuenta
      */
     public function setUpdatedAt($updatedAt)
@@ -244,21 +243,20 @@ class Cuenta
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
-    
-
     /**
-     * Add cobros
+     * Add cobros.
      *
      * @param \AppBundle\Entity\Cobro $cobros
+     *
      * @return Cuenta
      */
     public function addCobro(\AppBundle\Entity\Cobro $cobros)
@@ -269,7 +267,7 @@ class Cuenta
     }
 
     /**
-     * Remove cobros
+     * Remove cobros.
      *
      * @param \AppBundle\Entity\Cobro $cobros
      */
@@ -279,9 +277,9 @@ class Cuenta
     }
 
     /**
-     * Get cobros
+     * Get cobros.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCobros()
     {
@@ -289,9 +287,10 @@ class Cuenta
     }
 
     /**
-     * Add progenitores
+     * Add progenitores.
      *
      * @param \AppBundle\Entity\Progenitor $progenitores
+     *
      * @return Cuenta
      */
     public function addProgenitore(\AppBundle\Entity\Progenitor $progenitores)
@@ -302,7 +301,7 @@ class Cuenta
     }
 
     /**
-     * Remove progenitores
+     * Remove progenitores.
      *
      * @param \AppBundle\Entity\Progenitor $progenitores
      */
@@ -312,20 +311,20 @@ class Cuenta
     }
 
     /**
-     * Get progenitores
+     * Get progenitores.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProgenitores()
     {
         return $this->progenitores;
     }
 
-
     /**
-     * Add facturas
+     * Add facturas.
      *
      * @param \AppBundle\Entity\FacturaFinal $facturas
+     *
      * @return Cuenta
      */
     public function addFactura(\AppBundle\Entity\FacturaFinal $facturas)
@@ -336,7 +335,7 @@ class Cuenta
     }
 
     /**
-     * Remove facturas
+     * Remove facturas.
      *
      * @param \AppBundle\Entity\FacturaFinal $facturas
      */
@@ -346,16 +345,16 @@ class Cuenta
     }
 
     /**
-     * Get facturas
+     * Get facturas.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFacturas()
     {
         return $this->facturas;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -366,9 +365,10 @@ class Cuenta
     }
 
     /**
-     * Add estudiantes
+     * Add estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
+     *
      * @return Cuenta
      */
     public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
@@ -379,7 +379,7 @@ class Cuenta
     }
 
     /**
-     * Remove estudiantes
+     * Remove estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
      */
@@ -389,35 +389,35 @@ class Cuenta
     }
 
     /**
-     * Get estudiantes
+     * Get estudiantes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEstudiantes()
     {
         return $this->estudiantes;
     }
-    
-    
+
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
     public function calculateDifference()
     {
-      $this->setDiferencia($this->getDebe() - $this->getPago());
+        $this->setDiferencia($this->getDebe() - $this->getPago());
     }
-    
-    public function __toString(){
-      return $this->getReferenciabancaria();
+
+    public function __toString()
+    {
+        return $this->getReferenciabancaria();
     }
-    
+
     public function getFormatedDiferencia()
     {
-      if($this->getDiferencia() < 0)
-      {
-        return number_format(- $this->getDiferencia(), 0, ',', '.');
-      }
-      return number_format($this->getDiferencia(), 0, ',', '.');
+        if ($this->getDiferencia() < 0) {
+            return number_format(-$this->getDiferencia(), 0, ',', '.');
+        }
+
+        return number_format($this->getDiferencia(), 0, ',', '.');
     }
 }

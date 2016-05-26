@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * MdGaleria
+ * MdGaleria.
  *
  * @ORM\Table(name="md_galeria", uniqueConstraints={@ORM\UniqueConstraint(name="md_galeria_position_sortable_idx", columns={"position"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class MdGaleria
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,39 +22,37 @@ class MdGaleria
     private $id;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="curso_verde", type="boolean", nullable=true, options={"default" = 0})
      */
     private $cursoVerde;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="curso_rojo", type="boolean", nullable=true, options={"default" = 0})
      */
     private $cursoRojo;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="curso_amarillo", type="boolean", nullable=true, options={"default" = 0})
      */
     private $cursoAmarillo;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
     private $position;
 
-
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -62,9 +60,10 @@ class MdGaleria
     }
 
     /**
-     * Set cursoVerde
+     * Set cursoVerde.
      *
-     * @param boolean $cursoVerde
+     * @param bool $cursoVerde
+     *
      * @return MdGaleria
      */
     public function setCursoVerde($cursoVerde)
@@ -75,9 +74,9 @@ class MdGaleria
     }
 
     /**
-     * Get cursoVerde
+     * Get cursoVerde.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCursoVerde()
     {
@@ -85,9 +84,10 @@ class MdGaleria
     }
 
     /**
-     * Set cursoRojo
+     * Set cursoRojo.
      *
-     * @param boolean $cursoRojo
+     * @param bool $cursoRojo
+     *
      * @return MdGaleria
      */
     public function setCursoRojo($cursoRojo)
@@ -98,9 +98,9 @@ class MdGaleria
     }
 
     /**
-     * Get cursoRojo
+     * Get cursoRojo.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCursoRojo()
     {
@@ -108,9 +108,10 @@ class MdGaleria
     }
 
     /**
-     * Set cursoAmarillo
+     * Set cursoAmarillo.
      *
-     * @param boolean $cursoAmarillo
+     * @param bool $cursoAmarillo
+     *
      * @return MdGaleria
      */
     public function setCursoAmarillo($cursoAmarillo)
@@ -121,9 +122,9 @@ class MdGaleria
     }
 
     /**
-     * Get cursoAmarillo
+     * Get cursoAmarillo.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCursoAmarillo()
     {
@@ -131,9 +132,10 @@ class MdGaleria
     }
 
     /**
-     * Set position
+     * Set position.
      *
-     * @param integer $position
+     * @param int $position
+     *
      * @return MdGaleria
      */
     public function setPosition($position)
@@ -144,9 +146,9 @@ class MdGaleria
     }
 
     /**
-     * Get position
+     * Get position.
      *
-     * @return integer 
+     * @return int
      */
     public function getPosition()
     {

@@ -7,36 +7,37 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use AppBundle\Entity\Role;
+
 /**
- * Description of LoadUserFixture
+ * Description of LoadUserFixture.
  *
  * @author Rodrigo Santellan
  */
-class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
-    
+class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+{
     /**
      * @var ContainerInterface
      */
     private $container;
-    
-    public function getOrder() {
+
+    public function getOrder()
+    {
         return 1;
     }
 
-    public function load(ObjectManager $manager) {
-        
+    public function load(ObjectManager $manager)
+    {
         $role = new Role();
-        $role->setName("ROLE_ADMIN");
+        $role->setName('ROLE_ADMIN');
         $manager->persist($role);
-        
+
         /***
          * 
          * Newsletter roles
          * 
          */
-        
+
         $roles_string_list = array(
             'ROLE_MANAGE_NEWSLETTER',
             'ROLE_NEWSLETTER_ADD_CONTENT',
@@ -53,16 +54,13 @@ class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface
             'ROLE_NEWSLETTER_EDIT_EMAIL_LAYOUT',
         );
         $roles_list = array();
-        foreach($roles_string_list as $name)
-        {
-          $r1 = new Role();
-          $r1->setName($name);
-          $manager->persist($r1);
-          $roles_list[] = $r1;
+        foreach ($roles_string_list as $name) {
+            $r1 = new Role();
+            $r1->setName($name);
+            $manager->persist($r1);
+            $roles_list[] = $r1;
         }
-        
-        
-        
+
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->createUser();
         $user->setUsername('rsantellan@gmail.com');
@@ -70,14 +68,13 @@ class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface
         $user->setPlainPassword('1234');
         $user->setEnabled(true);
         $user->setSuperAdmin(true);
-        $user->setNombre("Rodrigo Santellan");
+        $user->setNombre('Rodrigo Santellan');
         $user->addRole($role);
-        foreach($roles_list as $rl)
-        {
-          $user->addRole($rl);
+        foreach ($roles_list as $rl) {
+            $user->addRole($rl);
         }
         $manager->persist($user);
-        
+
         $admin = $userManager->createUser();
         $admin->setUsername('bunnysadministrador');
         $admin->setEmail('info@bunnyskinder.com.uy');
@@ -85,18 +82,16 @@ class LoadUserFixture extends AbstractFixture implements OrderedFixtureInterface
         $admin->setEnabled(true);
         $admin->setSuperAdmin(true);
         $admin->addRole($role);
-        foreach($roles_list as $rl)
-        {
-          $admin->addRole($rl);
+        foreach ($roles_list as $rl) {
+            $admin->addRole($rl);
         }
         $manager->persist($admin);
-        
+
         $manager->flush();
     }
 
-    public function setContainer(ContainerInterface $container = null) {
+    public function setContainer(ContainerInterface $container = null)
+    {
         $this->container = $container;
     }
 }
-
-

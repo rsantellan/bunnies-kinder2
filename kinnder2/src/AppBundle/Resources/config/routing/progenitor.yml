@@ -1,6 +1,6 @@
 admin_progenitor:
-    path:     /
-    defaults: { _controller: "AppBundle:Progenitor:index", page: 0, orderBy: 'nombre', order : 'asc', limit: 20 }
+    path:     /list/{page}/{orderBy}/{order}/{limit}
+    defaults: { _controller: "AppBundle:Progenitor:index", page: 0, orderBy: 'nombre', order : 'desc', limit: 20 }
 
 admin_progenitor_search:
     path:     /search

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Descuentos
+ * Descuentos.
  *
  * @ORM\Table(name="descuento", uniqueConstraints={@ORM\UniqueConstraint(name="cantidad_de_hermanos", columns={"cantidad_de_hermanos"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Descuento
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,36 +22,37 @@ class Descuento
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="cantidad_de_hermanos", type="bigint", nullable=false)
      */
     private $cantidadDeHermanos;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="porcentaje", type="bigint", nullable=false)
      */
     private $porcentaje;
 
-
     /**
-     * Set id
+     * Set id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return Descuentos
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -59,9 +60,10 @@ class Descuento
     }
 
     /**
-     * Set cantidadDeHermanos
+     * Set cantidadDeHermanos.
      *
-     * @param integer $cantidadDeHermanos
+     * @param int $cantidadDeHermanos
+     *
      * @return Descuentos
      */
     public function setCantidadDeHermanos($cantidadDeHermanos)
@@ -72,9 +74,9 @@ class Descuento
     }
 
     /**
-     * Get cantidadDeHermanos
+     * Get cantidadDeHermanos.
      *
-     * @return integer 
+     * @return int
      */
     public function getCantidadDeHermanos()
     {
@@ -82,9 +84,10 @@ class Descuento
     }
 
     /**
-     * Set porcentaje
+     * Set porcentaje.
      *
-     * @param integer $porcentaje
+     * @param int $porcentaje
+     *
      * @return Descuentos
      */
     public function setPorcentaje($porcentaje)
@@ -95,9 +98,9 @@ class Descuento
     }
 
     /**
-     * Get porcentaje
+     * Get porcentaje.
      *
-     * @return integer 
+     * @return int
      */
     public function getPorcentaje()
     {

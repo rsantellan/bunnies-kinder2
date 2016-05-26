@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Horario
+ * Horario.
  *
  * @ORM\Table(name="horario")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Horario
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,28 +35,26 @@ class Horario
      */
     private $dbname;
 
-    
     /**
-     * 
      * @ORM\OneToMany(targetEntity="Estudiante", mappedBy="horario")
-     *
      */
     private $estudiantes;
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
-    }    
+    }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -64,9 +62,10 @@ class Horario
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Horario
      */
     public function setName($name)
@@ -77,16 +76,16 @@ class Horario
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -94,9 +93,10 @@ class Horario
     }
 
     /**
-     * Add estudiantes
+     * Add estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
+     *
      * @return Horario
      */
     public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
@@ -107,7 +107,7 @@ class Horario
     }
 
     /**
-     * Remove estudiantes
+     * Remove estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
      */
@@ -117,23 +117,25 @@ class Horario
     }
 
     /**
-     * Get estudiantes
+     * Get estudiantes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEstudiantes()
     {
         return $this->estudiantes;
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->getName();
     }
 
     /**
-     * Set dbname
+     * Set dbname.
      *
      * @param string $dbname
+     *
      * @return Horario
      */
     public function setDbname($dbname)
@@ -144,9 +146,9 @@ class Horario
     }
 
     /**
-     * Get dbname
+     * Get dbname.
      *
-     * @return string 
+     * @return string
      */
     public function getDbname()
     {

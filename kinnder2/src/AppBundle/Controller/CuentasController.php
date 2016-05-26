@@ -14,37 +14,34 @@ class CuentasController extends Controller
         //$migrationService->compareCuentas();
         return $this->render('AppBundle:Cuentas:alertas.html.twig', array(
                     'pendingDebts' => $pendingDebts,
-            ));    
-      
+            ));
     }
 
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
         $accounts = $em->getRepository('AppBundle:Cuenta')->retrieveAllWithUsersAndParents();
-        
+
         $data = array(
             'negative' => array(),
             'positive' => array(),
             'zero' => array(),
         );
-        foreach($accounts as $account)
-        {
-
-            if($account->getDiferencia() == 0){
+        foreach ($accounts as $account) {
+            if ($account->getDiferencia() == 0) {
                 $data['zero'][] = $account;
-            }else{
-                if($account->getDiferencia() > 0){
-                    $data['positive'][] = $account;  
-                }else{
+            } else {
+                if ($account->getDiferencia() > 0) {
+                    $data['positive'][] = $account;
+                } else {
                     $data['negative'][] = $account;
                 }
             }
         }
+
         return $this->render('AppBundle:Cuentas:cuentas.html.twig', array(
                     'data' => $data,
                     'activemenu' => 'cuentas',
-            ));    
-      
+            ));
     }
 }

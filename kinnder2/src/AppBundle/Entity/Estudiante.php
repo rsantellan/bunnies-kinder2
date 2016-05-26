@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Estudiante
+ * Estudiante.
  *
  * @ORM\Table(name="estudiante")
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Estudiante
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -44,32 +44,30 @@ class Estudiante
     private $fechaNacimiento;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="anio_ingreso", type="integer", nullable=true)
      */
     private $anioIngreso;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
     private $active;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="old_id", type="integer", nullable=true)
      */
     private $oldId;
-    
+
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="SociedadMedica", inversedBy="estudiantes")
      * @ORM\JoinColumn(name="sociedad_medica_id", referencedColumnName="id", nullable=true)
-     * 
-     **/ 
+     **/
     private $sociedadMedica;
 
     /**
@@ -80,51 +78,42 @@ class Estudiante
     private $referenciaBancaria;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="EmergenciaMedica", inversedBy="estudiantes")
      * @ORM\JoinColumn(name="emergencia_medica_id", referencedColumnName="id", nullable=true)
-     * 
-     **/     
+     **/
     private $emergenciaMedica;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="Horario", inversedBy="estudiantes")
      * @ORM\JoinColumn(name="horario_id", referencedColumnName="id", nullable=true)
-     * 
-     **/     
+     **/
     private $horario;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="Colegio", inversedBy="estudiantes")
      * @ORM\JoinColumn(name="futuro_colegio_id", referencedColumnName="id", nullable=true)
-     * 
-     **/     
+     **/
     private $futuroColegio;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="descuento", type="bigint", nullable=true)
      */
     private $descuento;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="Clase", inversedBy="estudiantes")
      * @ORM\JoinColumn(name="clase_id", referencedColumnName="id", nullable=true)
-     * 
-     **/    
+     **/
     private $clase;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="egresado", type="boolean", nullable=true, options={"default": 0})
      */
     private $egresado;
-
 
     /**
      * @ORM\ManyToMany(targetEntity="Actividad", inversedBy="estudiantes")
@@ -132,25 +121,20 @@ class Estudiante
      *      joinColumns={@ORM\JoinColumn(name="estudiante_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="actividad_id", referencedColumnName="id")}
      *      )
-     **/    
+     **/
     private $actividades;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="estudiantes")
      * @ORM\JoinColumn(name="cuenta_id", referencedColumnName="id", nullable=true)
-     * 
-     **/      
-    private $cuenta;    
-    
+     **/
+    private $cuenta;
+
     /**
-     * 
      * @ORM\OneToMany(targetEntity="FacturaEstudiante", mappedBy="estudiante", cascade={"remove"})
-     *
      */
     private $facturas;
-    
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Estudiante", mappedBy="myBrothers")
      **/
@@ -164,29 +148,28 @@ class Estudiante
      *      )
      **/
     private $myBrothers;
-    
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Progenitor", mappedBy="estudiantes")
-     * 
-     * */    
+     * */
     private $progenitores;
 
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -194,9 +177,10 @@ class Estudiante
     }
 
     /**
-     * Set nombre
+     * Set nombre.
      *
      * @param string $nombre
+     *
      * @return Estudiante
      */
     public function setNombre($nombre)
@@ -207,9 +191,9 @@ class Estudiante
     }
 
     /**
-     * Get nombre
+     * Get nombre.
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -217,9 +201,10 @@ class Estudiante
     }
 
     /**
-     * Set apellido
+     * Set apellido.
      *
      * @param string $apellido
+     *
      * @return Estudiante
      */
     public function setApellido($apellido)
@@ -230,9 +215,9 @@ class Estudiante
     }
 
     /**
-     * Get apellido
+     * Get apellido.
      *
-     * @return string 
+     * @return string
      */
     public function getApellido()
     {
@@ -240,9 +225,10 @@ class Estudiante
     }
 
     /**
-     * Set fechaNacimiento
+     * Set fechaNacimiento.
      *
      * @param \DateTime $fechaNacimiento
+     *
      * @return Estudiante
      */
     public function setFechaNacimiento($fechaNacimiento)
@@ -253,9 +239,9 @@ class Estudiante
     }
 
     /**
-     * Get fechaNacimiento
+     * Get fechaNacimiento.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaNacimiento()
     {
@@ -263,9 +249,10 @@ class Estudiante
     }
 
     /**
-     * Set anioIngreso
+     * Set anioIngreso.
      *
-     * @param integer $anioIngreso
+     * @param int $anioIngreso
+     *
      * @return Estudiante
      */
     public function setAnioIngreso($anioIngreso)
@@ -276,9 +263,9 @@ class Estudiante
     }
 
     /**
-     * Get anioIngreso
+     * Get anioIngreso.
      *
-     * @return integer 
+     * @return int
      */
     public function getAnioIngreso()
     {
@@ -286,9 +273,10 @@ class Estudiante
     }
 
     /**
-     * Set referenciaBancaria
+     * Set referenciaBancaria.
      *
      * @param string $referenciaBancaria
+     *
      * @return Estudiante
      */
     public function setReferenciaBancaria($referenciaBancaria)
@@ -299,9 +287,9 @@ class Estudiante
     }
 
     /**
-     * Get referenciaBancaria
+     * Get referenciaBancaria.
      *
-     * @return string 
+     * @return string
      */
     public function getReferenciaBancaria()
     {
@@ -309,9 +297,10 @@ class Estudiante
     }
 
     /**
-     * Set descuento
+     * Set descuento.
      *
-     * @param integer $descuento
+     * @param int $descuento
+     *
      * @return Estudiante
      */
     public function setDescuento($descuento)
@@ -322,9 +311,9 @@ class Estudiante
     }
 
     /**
-     * Get descuento
+     * Get descuento.
      *
-     * @return integer 
+     * @return int
      */
     public function getDescuento()
     {
@@ -332,9 +321,10 @@ class Estudiante
     }
 
     /**
-     * Set egresado
+     * Set egresado.
      *
-     * @param boolean $egresado
+     * @param bool $egresado
+     *
      * @return Estudiante
      */
     public function setEgresado($egresado)
@@ -345,9 +335,9 @@ class Estudiante
     }
 
     /**
-     * Get egresado
+     * Get egresado.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getEgresado()
     {
@@ -355,9 +345,10 @@ class Estudiante
     }
 
     /**
-     * Add facturas
+     * Add facturas.
      *
      * @param \AppBundle\Entity\FacturaEstudiante $facturas
+     *
      * @return Estudiante
      */
     public function addFactura(\AppBundle\Entity\FacturaEstudiante $facturas)
@@ -368,7 +359,7 @@ class Estudiante
     }
 
     /**
-     * Remove facturas
+     * Remove facturas.
      *
      * @param \AppBundle\Entity\FacturaEstudiante $facturas
      */
@@ -378,9 +369,9 @@ class Estudiante
     }
 
     /**
-     * Get facturas
+     * Get facturas.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFacturas()
     {
@@ -388,9 +379,10 @@ class Estudiante
     }
 
     /**
-     * Add brothersWithMe
+     * Add brothersWithMe.
      *
      * @param \AppBundle\Entity\Estudiante $brothersWithMe
+     *
      * @return Estudiante
      */
     public function addBrothersWithMe(\AppBundle\Entity\Estudiante $brothersWithMe)
@@ -401,7 +393,7 @@ class Estudiante
     }
 
     /**
-     * Remove brothersWithMe
+     * Remove brothersWithMe.
      *
      * @param \AppBundle\Entity\Estudiante $brothersWithMe
      */
@@ -411,9 +403,9 @@ class Estudiante
     }
 
     /**
-     * Get brothersWithMe
+     * Get brothersWithMe.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBrothersWithMe()
     {
@@ -421,9 +413,10 @@ class Estudiante
     }
 
     /**
-     * Add myBrothers
+     * Add myBrothers.
      *
      * @param \AppBundle\Entity\Estudiante $myBrothers
+     *
      * @return Estudiante
      */
     public function addMyBrother(\AppBundle\Entity\Estudiante $myBrothers)
@@ -434,7 +427,7 @@ class Estudiante
     }
 
     /**
-     * Remove myBrothers
+     * Remove myBrothers.
      *
      * @param \AppBundle\Entity\Estudiante $myBrothers
      */
@@ -444,9 +437,9 @@ class Estudiante
     }
 
     /**
-     * Get myBrothers
+     * Get myBrothers.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMyBrothers()
     {
@@ -454,9 +447,10 @@ class Estudiante
     }
 
     /**
-     * Add progenitores
+     * Add progenitores.
      *
      * @param \AppBundle\Entity\Progenitor $progenitores
+     *
      * @return Estudiante
      */
     public function addProgenitore(\AppBundle\Entity\Progenitor $progenitores)
@@ -467,7 +461,7 @@ class Estudiante
     }
 
     /**
-     * Remove progenitores
+     * Remove progenitores.
      *
      * @param \AppBundle\Entity\Progenitor $progenitores
      */
@@ -477,16 +471,16 @@ class Estudiante
     }
 
     /**
-     * Get progenitores
+     * Get progenitores.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProgenitores()
     {
         return $this->progenitores;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -498,11 +492,11 @@ class Estudiante
         $this->anioIngreso = date('Y');
     }
 
-
     /**
-     * Add actividades
+     * Add actividades.
      *
      * @param \AppBundle\Entity\Actividad $actividades
+     *
      * @return Estudiante
      */
     public function addActividade(\AppBundle\Entity\Actividad $actividades)
@@ -513,7 +507,7 @@ class Estudiante
     }
 
     /**
-     * Remove actividades
+     * Remove actividades.
      *
      * @param \AppBundle\Entity\Actividad $actividades
      */
@@ -523,41 +517,39 @@ class Estudiante
     }
 
     /**
-     * Get actividades
+     * Get actividades.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getActividades()
     {
         return $this->actividades;
     }
-    
+
     public function mergeActividades(\Doctrine\Common\Collections\Collection $list)
     {
-      foreach($this->getActividades() as $oldObject)
-      {
-        if(!$list->contains($oldObject))
-        {
-          $this->removeActividade($oldObject);
+        foreach ($this->getActividades() as $oldObject) {
+            if (!$list->contains($oldObject)) {
+                $this->removeActividade($oldObject);
+            }
         }
-      }
-      foreach($list as $newObject)
-      {
-        if(!$this->getActividades()->contains($newObject))
-        {
-          $this->addActividade($newObject);
+        foreach ($list as $newObject) {
+            if (!$this->getActividades()->contains($newObject)) {
+                $this->addActividade($newObject);
+            }
         }
-      }
     }
-    
-    public function __toString(){
-      return $this->getNombre();
+
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 
     /**
-     * Set horario
+     * Set horario.
      *
      * @param \AppBundle\Entity\Horario $horario
+     *
      * @return Estudiante
      */
     public function setHorario(\AppBundle\Entity\Horario $horario = null)
@@ -568,9 +560,9 @@ class Estudiante
     }
 
     /**
-     * Get horario
+     * Get horario.
      *
-     * @return \AppBundle\Entity\Horario 
+     * @return \AppBundle\Entity\Horario
      */
     public function getHorario()
     {
@@ -578,9 +570,10 @@ class Estudiante
     }
 
     /**
-     * Set clase
+     * Set clase.
      *
      * @param \AppBundle\Entity\Clase $clase
+     *
      * @return Estudiante
      */
     public function setClase(\AppBundle\Entity\Clase $clase = null)
@@ -591,9 +584,9 @@ class Estudiante
     }
 
     /**
-     * Get clase
+     * Get clase.
      *
-     * @return \AppBundle\Entity\Clase 
+     * @return \AppBundle\Entity\Clase
      */
     public function getClase()
     {
@@ -601,9 +594,10 @@ class Estudiante
     }
 
     /**
-     * Set cuenta
+     * Set cuenta.
      *
      * @param \AppBundle\Entity\Cuenta $cuenta
+     *
      * @return Estudiante
      */
     public function setCuenta(\AppBundle\Entity\Cuenta $cuenta)
@@ -614,9 +608,9 @@ class Estudiante
     }
 
     /**
-     * Get cuenta
+     * Get cuenta.
      *
-     * @return \AppBundle\Entity\Cuenta 
+     * @return \AppBundle\Entity\Cuenta
      */
     public function getCuenta()
     {
@@ -624,9 +618,10 @@ class Estudiante
     }
 
     /**
-     * Set futuroColegio
+     * Set futuroColegio.
      *
      * @param \AppBundle\Entity\Colegio $futuroColegio
+     *
      * @return Estudiante
      */
     public function setFuturoColegio(\AppBundle\Entity\Colegio $futuroColegio = null)
@@ -637,9 +632,9 @@ class Estudiante
     }
 
     /**
-     * Get futuroColegio
+     * Get futuroColegio.
      *
-     * @return \AppBundle\Entity\Colegio 
+     * @return \AppBundle\Entity\Colegio
      */
     public function getFuturoColegio()
     {
@@ -647,9 +642,10 @@ class Estudiante
     }
 
     /**
-     * Set sociedadMedica
+     * Set sociedadMedica.
      *
      * @param \AppBundle\Entity\SociedadMedica $sociedadMedica
+     *
      * @return Estudiante
      */
     public function setSociedadMedica(\AppBundle\Entity\SociedadMedica $sociedadMedica = null)
@@ -660,9 +656,9 @@ class Estudiante
     }
 
     /**
-     * Get sociedadMedica
+     * Get sociedadMedica.
      *
-     * @return \AppBundle\Entity\SociedadMedica 
+     * @return \AppBundle\Entity\SociedadMedica
      */
     public function getSociedadMedica()
     {
@@ -670,9 +666,10 @@ class Estudiante
     }
 
     /**
-     * Set emergenciaMedica
+     * Set emergenciaMedica.
      *
      * @param \AppBundle\Entity\EmergenciaMedica $emergenciaMedica
+     *
      * @return Estudiante
      */
     public function setEmergenciaMedica(\AppBundle\Entity\EmergenciaMedica $emergenciaMedica = null)
@@ -683,9 +680,9 @@ class Estudiante
     }
 
     /**
-     * Get emergenciaMedica
+     * Get emergenciaMedica.
      *
-     * @return \AppBundle\Entity\EmergenciaMedica 
+     * @return \AppBundle\Entity\EmergenciaMedica
      */
     public function getEmergenciaMedica()
     {
@@ -693,9 +690,10 @@ class Estudiante
     }
 
     /**
-     * Set active
+     * Set active.
      *
-     * @param boolean $active
+     * @param bool $active
+     *
      * @return Estudiante
      */
     public function setActive($active)
@@ -706,9 +704,9 @@ class Estudiante
     }
 
     /**
-     * Get active
+     * Get active.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getActive()
     {
@@ -716,9 +714,10 @@ class Estudiante
     }
 
     /**
-     * Set oldId
+     * Set oldId.
      *
-     * @param integer $oldId
+     * @param int $oldId
+     *
      * @return Estudiante
      */
     public function setOldId($oldId)
@@ -729,9 +728,9 @@ class Estudiante
     }
 
     /**
-     * Get oldId
+     * Get oldId.
      *
-     * @return integer 
+     * @return int
      */
     public function getOldId()
     {

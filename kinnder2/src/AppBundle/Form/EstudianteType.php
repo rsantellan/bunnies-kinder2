@@ -10,7 +10,7 @@ class EstudianteType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,11 +18,11 @@ class EstudianteType extends AbstractType
             ->add('nombre')
             ->add('apellido')
             ->add('fechaNacimiento', null, array(
-				'widget'=> 'single_text',
+                'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
               ))
             ->add('anioIngreso', null, array(
-                'data' => date('Y')
+                'data' => date('Y'),
             ))
             ->add('sociedadMedica')
             ->add('referenciaBancaria')
@@ -33,7 +33,7 @@ class EstudianteType extends AbstractType
             ->add('clase')
             ->add('egresado')
             ->add('actividades', null, array(
-                'expanded' => true
+                'expanded' => true,
             ))
             //->add('cuentas')
             //->add('brothersWithMe')
@@ -41,14 +41,14 @@ class EstudianteType extends AbstractType
             //->add('progenitores')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Estudiante'
+            'data_class' => 'AppBundle\Entity\Estudiante',
         ));
     }
 

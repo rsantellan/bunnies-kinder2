@@ -4,66 +4,65 @@ namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Monolog\Logger;
-
 use AppBundle\Entity\Estudiante;
 use AppBundle\Entity\Cuenta;
 use AppBundle\Entity\Cobro;
 
 /**
- * Description of CuentasService
+ * Description of CuentasService.
  *
  * @author Rodrigo Santellan
  */
-class CuentasService {
-  
-  protected $em;
-  
-  protected $logger;
-  
-  function __construct(EntityManager $em, Logger $logger) {
-    $this->em = $em;
-    $this->logger = $logger;
-    $this->logger->addDebug("Starting cuentas service");
-  }
+class CuentasService
+{
+    protected $em;
 
-  function updateOrCreateCuenta(Estudiante $estudiante)
-  {
-    $cuenta = $this->em->getRepository('AppBundle:Cuenta')->findOneBy(array('referenciabancaria' => $estudiante->getReferenciaBancaria()));
-            
-    if($cuenta){
-      foreach($cuenta->getEstudiantes() as $hermano)
-      {
-        $estudiante->addMyBrother($hermano);
-        $hermano->addMyBrother($estudiante);
-        $this->em->persist($hermano);
-      }
-      foreach($cuenta->getProgenitores() as $progenitor){
-        $estudiante->addProgenitore($progenitor);
-        $progenitor->addEstudiante($estudiante);
-        $this->em->persist($progenitor);
-      }
-      $estudiante->setCuenta($cuenta);
-      $this->em->persist($estudiante);  
-    }else{
-      $this->logger->addDebug(sprintf('Account not exists. Creating with reference: %s', $estudiante->getReferenciaBancaria()));
-      $cuenta = new Cuenta();
-      $cuenta->setReferenciabancaria($estudiante->getReferenciaBancaria());
-      $this->em->persist($cuenta);
-      $estudiante->setCuenta($cuenta);
+    protected $logger;
+
+    public function __construct(EntityManager $em, Logger $logger)
+    {
+        $this->em = $em;
+        $this->logger = $logger;
+        $this->logger->addDebug('Starting cuentas service');
     }
-    $this->em->persist($estudiante);
-    $this->em->flush();
-  }
-  
-  function addCobroToCuenta(Cuenta $cuenta, $amount, \DateTime $paymentDate)
-  {
-    $cobro = new Cobro();
-    $cobro->setMonto($amount);
-    $cobro->setFecha($paymentDate);
-    $cobro->setCuenta($cuenta);
-    $cuenta->setPago($cuenta->getPago() + $amount);
-    $this->em->persist($cobro);
-    $this->em->persist($cuenta);
-    $this->em->flush();
-  }
+
+    public function updateOrCreateCuenta(Estudiante $estudiante)
+    {
+        $cuenta = $this->em->getRepository('AppBundle:Cuenta')->findOneBy(array('referenciabancaria' => $estudiante->getReferenciaBancaria()));
+
+        if ($cuenta) {
+            foreach ($cuenta->getEstudiantes() as $hermano) {
+                $estudiante->addMyBrother($hermano);
+                $hermano->addMyBrother($estudiante);
+                $this->em->persist($hermano);
+            }
+            foreach ($cuenta->getProgenitores() as $progenitor) {
+                $estudiante->addProgenitore($progenitor);
+                $progenitor->addEstudiante($estudiante);
+                $this->em->persist($progenitor);
+            }
+            $estudiante->setCuenta($cuenta);
+            $this->em->persist($estudiante);
+        } else {
+            $this->logger->addDebug(sprintf('Account not exists. Creating with reference: %s', $estudiante->getReferenciaBancaria()));
+            $cuenta = new Cuenta();
+            $cuenta->setReferenciabancaria($estudiante->getReferenciaBancaria());
+            $this->em->persist($cuenta);
+            $estudiante->setCuenta($cuenta);
+        }
+        $this->em->persist($estudiante);
+        $this->em->flush();
+    }
+
+    public function addCobroToCuenta(Cuenta $cuenta, $amount, \DateTime $paymentDate)
+    {
+        $cobro = new Cobro();
+        $cobro->setMonto($amount);
+        $cobro->setFecha($paymentDate);
+        $cobro->setCuenta($cuenta);
+        $cuenta->setPago($cuenta->getPago() + $amount);
+        $this->em->persist($cobro);
+        $this->em->persist($cuenta);
+        $this->em->flush();
+    }
 }

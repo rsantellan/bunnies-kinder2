@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * FacturaFinalDetalle
+ * FacturaFinalDetalle.
  *
  * @ORM\Table(name="factura_final_detalle", indexes={@ORM\Index(name="factura_id_idx", columns={"factura_id"})})
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class FacturaFinalDetalle
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
@@ -23,11 +23,9 @@ class FacturaFinalDetalle
     private $id;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="FacturaFinal", inversedBy="facturaFinalDetalles")
      * @ORM\JoinColumn(name="factura_id", referencedColumnName="id", nullable=false)
-     * 
-     **/         
+     **/
     private $factura;
 
     /**
@@ -60,22 +58,22 @@ class FacturaFinalDetalle
      */
     private $updatedAt;
 
-
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return  $this;
-    }    
+    }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -83,9 +81,10 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return FacturaFinalDetalle
      */
     public function setDescription($description)
@@ -96,9 +95,9 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -106,9 +105,10 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return FacturaFinalDetalle
      */
     public function setAmount($amount)
@@ -119,9 +119,9 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -129,9 +129,10 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return FacturaFinalDetalle
      */
     public function setCreatedAt($createdAt)
@@ -142,9 +143,9 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -152,9 +153,10 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return FacturaFinalDetalle
      */
     public function setUpdatedAt($updatedAt)
@@ -165,9 +167,9 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -175,9 +177,10 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Set factura
+     * Set factura.
      *
      * @param \AppBundle\Entity\FacturaFinal $factura
+     *
      * @return FacturaFinalDetalle
      */
     public function setFactura(\AppBundle\Entity\FacturaFinal $factura = null)
@@ -188,17 +191,17 @@ class FacturaFinalDetalle
     }
 
     /**
-     * Get factura
+     * Get factura.
      *
-     * @return \AppBundle\Entity\FacturaFinal 
+     * @return \AppBundle\Entity\FacturaFinal
      */
     public function getFactura()
     {
         return $this->factura;
     }
-    
+
     public function getFormatedAmount()
     {
-      return number_format($this->getAmount(), 0, ',', '.');
+        return number_format($this->getAmount(), 0, ',', '.');
     }
 }

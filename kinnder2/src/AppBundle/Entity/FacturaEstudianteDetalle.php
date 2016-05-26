@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * FacturaEstudianteDetalle
+ * FacturaEstudianteDetalle.
  *
  * @ORM\Table(name="factura_estudiante_detalle", indexes={@ORM\Index(name="factura_id_idx", columns={"factura_id"})})
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class FacturaEstudianteDetalle
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
@@ -23,11 +23,9 @@ class FacturaEstudianteDetalle
     private $id;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="FacturaEstudiante", inversedBy="facturaDetalles")
      * @ORM\JoinColumn(name="factura_id", referencedColumnName="id", nullable=false)
-     * 
-     **/    
+     **/
     private $factura;
 
     /**
@@ -60,23 +58,22 @@ class FacturaEstudianteDetalle
      */
     private $updatedAt;
 
-
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return  $this;
     }
-    
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -84,9 +81,10 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return FacturaEstudianteDetalle
      */
     public function setDescription($description)
@@ -97,9 +95,9 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -107,9 +105,10 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return FacturaEstudianteDetalle
      */
     public function setAmount($amount)
@@ -120,9 +119,9 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -130,9 +129,10 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return FacturaEstudianteDetalle
      */
     public function setCreatedAt($createdAt)
@@ -143,9 +143,9 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -153,9 +153,10 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return FacturaEstudianteDetalle
      */
     public function setUpdatedAt($updatedAt)
@@ -166,9 +167,9 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -176,9 +177,10 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Set factura
+     * Set factura.
      *
      * @param \AppBundle\Entity\FacturaEstudiante $factura
+     *
      * @return FacturaEstudianteDetalle
      */
     public function setFactura(\AppBundle\Entity\FacturaEstudiante $factura = null)
@@ -189,17 +191,17 @@ class FacturaEstudianteDetalle
     }
 
     /**
-     * Get factura
+     * Get factura.
      *
-     * @return \AppBundle\Entity\FacturaEstudiante 
+     * @return \AppBundle\Entity\FacturaEstudiante
      */
     public function getFactura()
     {
         return $this->factura;
     }
-    
+
     public function generateUniqueHash()
     {
-      return md5($this->getFactura()->getId().$this->getAmount().$this->getDescription());
+        return md5($this->getFactura()->getId().$this->getAmount().$this->getDescription());
     }
 }

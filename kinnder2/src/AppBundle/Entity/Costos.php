@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Costos
+ * Costos.
  *
  * @ORM\Table(name="costos")
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Costos
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -50,12 +50,10 @@ class Costos
      */
     private $dobleHorario;
 
-
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -63,9 +61,10 @@ class Costos
     }
 
     /**
-     * Set matricula
+     * Set matricula.
      *
      * @param float $matricula
+     *
      * @return Costos
      */
     public function setMatricula($matricula)
@@ -76,9 +75,9 @@ class Costos
     }
 
     /**
-     * Get matricula
+     * Get matricula.
      *
-     * @return float 
+     * @return float
      */
     public function getMatricula()
     {
@@ -86,9 +85,10 @@ class Costos
     }
 
     /**
-     * Set matutino
+     * Set matutino.
      *
      * @param float $matutino
+     *
      * @return Costos
      */
     public function setMatutino($matutino)
@@ -99,9 +99,9 @@ class Costos
     }
 
     /**
-     * Get matutino
+     * Get matutino.
      *
-     * @return float 
+     * @return float
      */
     public function getMatutino()
     {
@@ -109,9 +109,10 @@ class Costos
     }
 
     /**
-     * Set vespertino
+     * Set vespertino.
      *
      * @param float $vespertino
+     *
      * @return Costos
      */
     public function setVespertino($vespertino)
@@ -122,9 +123,9 @@ class Costos
     }
 
     /**
-     * Get vespertino
+     * Get vespertino.
      *
-     * @return float 
+     * @return float
      */
     public function getVespertino()
     {
@@ -132,9 +133,10 @@ class Costos
     }
 
     /**
-     * Set dobleHorario
+     * Set dobleHorario.
      *
      * @param float $dobleHorario
+     *
      * @return Costos
      */
     public function setDobleHorario($dobleHorario)
@@ -145,9 +147,9 @@ class Costos
     }
 
     /**
-     * Get dobleHorario
+     * Get dobleHorario.
      *
-     * @return float 
+     * @return float
      */
     public function getDobleHorario()
     {

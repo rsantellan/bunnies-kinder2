@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Actividades
+ * Actividades.
  *
  * @ORM\Table(name="actividad", indexes={@ORM\Index(name="md_news_letter_group_id_idx", columns={"md_news_letter_group_id"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Actividad
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -42,43 +42,40 @@ class Actividad
      */
     private $horario;
 
-
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="\Maith\NewsletterBundle\Entity\UserGroup")
      * @ORM\JoinColumn(name="md_news_letter_group_id", referencedColumnName="id")
-     * 
-     * 
      **/
     private $newsLetterGroup;
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="Estudiante", mappedBy="actividades")
-     **/    
-    private $estudiantes;    
 
     /**
-     * @var integer
+     * @ORM\ManyToMany(targetEntity="Estudiante", mappedBy="actividades")
+     **/
+    private $estudiantes;
+
+    /**
+     * @var int
      *
      * @ORM\Column(name="old_id", type="integer", nullable=true)
      */
     private $oldId;
-    
+
     /**
-     * Set id
+     * Set id.
      *
-     * @return integer 
+     * @return int
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -86,9 +83,10 @@ class Actividad
     }
 
     /**
-     * Set nombre
+     * Set nombre.
      *
      * @param string $nombre
+     *
      * @return Actividades
      */
     public function setNombre($nombre)
@@ -99,9 +97,9 @@ class Actividad
     }
 
     /**
-     * Get nombre
+     * Get nombre.
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -109,9 +107,10 @@ class Actividad
     }
 
     /**
-     * Set costo
+     * Set costo.
      *
      * @param float $costo
+     *
      * @return Actividades
      */
     public function setCosto($costo)
@@ -122,9 +121,9 @@ class Actividad
     }
 
     /**
-     * Get costo
+     * Get costo.
      *
-     * @return float 
+     * @return float
      */
     public function getCosto()
     {
@@ -132,9 +131,10 @@ class Actividad
     }
 
     /**
-     * Set horario
+     * Set horario.
      *
      * @param string $horario
+     *
      * @return Actividades
      */
     public function setHorario($horario)
@@ -145,20 +145,17 @@ class Actividad
     }
 
     /**
-     * Get horario
+     * Get horario.
      *
-     * @return string 
+     * @return string
      */
     public function getHorario()
     {
         return $this->horario;
     }
 
-    
-
-    
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -166,9 +163,10 @@ class Actividad
     }
 
     /**
-     * Add estudiantes
+     * Add estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
+     *
      * @return Actividad
      */
     public function addEstudiante(\AppBundle\Entity\Estudiante $estudiantes)
@@ -179,7 +177,7 @@ class Actividad
     }
 
     /**
-     * Remove estudiantes
+     * Remove estudiantes.
      *
      * @param \AppBundle\Entity\Estudiante $estudiantes
      */
@@ -189,9 +187,9 @@ class Actividad
     }
 
     /**
-     * Get estudiantes
+     * Get estudiantes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEstudiantes()
     {
@@ -199,9 +197,10 @@ class Actividad
     }
 
     /**
-     * Set newsLetterGroup
+     * Set newsLetterGroup.
      *
      * @param \Maith\NewsletterBundle\Entity\UserGroup $newsLetterGroup
+     *
      * @return Actividad
      */
     public function setNewsLetterGroup(\Maith\NewsletterBundle\Entity\UserGroup $newsLetterGroup = null)
@@ -212,24 +211,25 @@ class Actividad
     }
 
     /**
-     * Get newsLetterGroup
+     * Get newsLetterGroup.
      *
-     * @return \Maith\NewsletterBundle\Entity\UserGroup 
+     * @return \Maith\NewsletterBundle\Entity\UserGroup
      */
     public function getNewsLetterGroup()
     {
         return $this->newsLetterGroup;
     }
-    
-    public function __toString() {
-      return $this->getNombre();
+
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 
-
     /**
-     * Set oldId
+     * Set oldId.
      *
-     * @param integer $oldId
+     * @param int $oldId
+     *
      * @return Actividad
      */
     public function setOldId($oldId)
@@ -240,9 +240,9 @@ class Actividad
     }
 
     /**
-     * Get oldId
+     * Get oldId.
      *
-     * @return integer 
+     * @return int
      */
     public function getOldId()
     {

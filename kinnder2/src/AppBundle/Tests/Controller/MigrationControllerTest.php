@@ -12,5 +12,4 @@ class MigrationControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/activity/{id}');
     }
-
 }

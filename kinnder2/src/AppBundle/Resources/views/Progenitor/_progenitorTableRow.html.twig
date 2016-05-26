@@ -1,0 +1,13 @@
+<tr>
+    <td><a href="{{ path('admin_progenitor_show', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
+    <td>{{ entity.direccion }}</td>
+    <td>{{ entity.telefono }}</td>
+    <td>{{ entity.email }}</td>
+    <td>
+    <ul>
+        <li>
+            <a href="{{ path('admin_progenitor_edit', { 'id': entity.id }) }}">edit</a>
+        </li>
+    </ul>
+    </td>
+</tr>
