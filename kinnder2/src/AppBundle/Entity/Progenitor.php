@@ -79,7 +79,7 @@ class Progenitor extends BaseUser
     protected $user_roles;
 
     /**
-     * @ORM\OneToOne(targetEntity="\Maith\NewsletterBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="\Maith\NewsletterBundle\Entity\User",cascade={"persist"})
      * @ORM\JoinColumn(name="news_letter_user_id", referencedColumnName="id")
      */
     private $newsletterUser;
