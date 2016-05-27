@@ -4,10 +4,6 @@
     <td>{{ entity.telefono }}</td>
     <td>{{ entity.email }}</td>
     <td>
-    <ul>
-        <li>
-            <a href="{{ path('admin_progenitor_edit', { 'id': entity.id }) }}">edit</a>
-        </li>
-    </ul>
+      <a href="{{ path('admin_progenitor_edit', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
     </td>
 </tr>

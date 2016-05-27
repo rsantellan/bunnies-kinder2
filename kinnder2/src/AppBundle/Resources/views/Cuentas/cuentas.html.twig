@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="row">
-  <div class="col-md-6">	
+  <div class="col-md-12">
 	  <section class="panel">
 	  	<header class="panel-heading">{% trans %}cuentas_saldo_negativo_title{% endtrans %}</header>
 		  <div class="panel-body">
@@ -18,10 +18,10 @@
 				</tbody>
 				</table>
 			  </div>
-			</div>	
+			</div>
 	  </section>
   </div>
-  <div class="col-md-6">	
+  <div class="col-md-12">
 	  <section class="panel">
 	  	<div class="panel-heading no-border">
 	        <div>{% trans %}cuentas_saldo_positivo_title{% endtrans %}
@@ -30,7 +30,7 @@
 	            </small>
 	        </div>
 	    </div>
-	  	
+
 		  <div class="panel-body" style="display: none;">
 			<div class="table-responsive no-border">
 			  <table class="table table-bordered table-striped mg-t datatable">
@@ -42,10 +42,10 @@
 				</tbody>
 				</table>
 			  </div>
-			</div>	
+			</div>
 	  </section>
   </div>
-  <div class="col-md-6">	
+  <div class="col-md-12">
 		  <section class="panel">
 		  	<div class="panel-heading no-border">
 		        <div>{% trans %}cuentas_saldo_cero_title{% endtrans %}
@@ -65,8 +65,8 @@
 					</tbody>
 					</table>
 				  </div>
-				</div>	
+				</div>
 		  </section>
 	  </div>
-</div>	
+</div>
 {% endblock %}

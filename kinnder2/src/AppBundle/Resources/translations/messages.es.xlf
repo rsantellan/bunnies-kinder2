@@ -138,6 +138,150 @@
         <source>students_back_to_list</source>
         <target>Volver al listado</target>
       </trans-unit>
+      <trans-unit id="8e443923f4afbe5d853dda0fe46ebc54" resname="students_update_title">
+        <source>students_update_title</source>
+        <target>Actualizar alumno</target>
+      </trans-unit>
+      <trans-unit id="6033fcc6f89dbe428a6c876ba1e9fbc4" resname="students_back_to_show">
+        <source>students_back_to_show</source>
+        <target>Vista completa de estudiante</target>
+      </trans-unit>
+      <trans-unit id="891cfe65623b67d31d7d3e3f2a2be24c" resname="students_delete">
+        <source>students_delete</source>
+        <target>Eliminar estudiante</target>
+      </trans-unit>
+      <trans-unit id="18d2e0a0b34d83bc50949c2e0c9745d0" resname="students_show_title">
+        <source>students_show_title</source>
+        <target>Vista completa</target>
+      </trans-unit>
+      <trans-unit id="40823085a210fc43eeffb26dd2f43d21" resname="students_parents_title">
+        <source>students_parents_title</source>
+        <target>Padres del alumno</target>
+      </trans-unit>
+      <trans-unit id="0dc966b1765bbd8adc1936596b047b19" resname="students_brothers_title">
+        <source>students_brothers_title</source>
+        <target>Hermanos del alumno</target>
+      </trans-unit>
+      <trans-unit id="475366206a3e5a58fb228b78c8058c5f" resname="students_account_title">
+        <source>students_account_title</source>
+        <target>Cuenta del alumno</target>
+      </trans-unit>
+      <trans-unit id="ac41c61c19ce0ef7d0c5375340fb971d" resname="students_account_generate">
+        <source>students_account_generate</source>
+        <target>Generar cuenta.</target>
+      </trans-unit>
+      <trans-unit id="9a8cfdfea20605970ee3c6c3c1ae0282" resname="app_admin_menu_newsletter">
+        <source>app_admin_menu_newsletter</source>
+        <target>Newsletter</target>
+      </trans-unit>
+      <trans-unit id="5cbeeff89e6f46ffa3a93550ae343b89" resname="app_admin_menu_progenitores">
+        <source>app_admin_menu_progenitores</source>
+        <target>Padres</target>
+      </trans-unit>
+      <trans-unit id="5dc3ff7ad58fce57b2d7791bb67cf6b5" resname="app_admin_menu_cuentas">
+        <source>app_admin_menu_cuentas</source>
+        <target>Cuentas</target>
+      </trans-unit>
+      <trans-unit id="eb49b5c00416063dc15f7260b74e26b1" resname="progenitor_create_new">
+        <source>progenitor_create_new</source>
+        <target>Crear padre</target>
+      </trans-unit>
+      <trans-unit id="c7f70e3c3312a77f09caae8f6ab7ed97" resname="progenitor_search_title">
+        <source>progenitor_search_title</source>
+        <target>Buscar</target>
+      </trans-unit>
+      <trans-unit id="750903f47aa61c51616b4e56a9e826a9" resname="progenitor_nombre">
+        <source>progenitor_nombre</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="f42c0030ac88a0367437954fc6be6ef9" resname="progenitor_direccion">
+        <source>progenitor_direccion</source>
+        <target>Dirección</target>
+      </trans-unit>
+      <trans-unit id="ee01b517c366e664953f817fa90f6faa" resname="progenitor_telefono">
+        <source>progenitor_telefono</source>
+        <target>Télefono</target>
+      </trans-unit>
+      <trans-unit id="c1c9b6b4bce16d33c974de246ef6812b" resname="progenitor_email">
+        <source>progenitor_email</source>
+        <target>Correo electronico</target>
+      </trans-unit>
+      <trans-unit id="a2f9010fc799a3b1d162802ba4f650e2" resname="progenitor_edit_entry">
+        <source>progenitor_edit_entry</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="a376afcd5d54e7b640b2995960e775c3" resname="progenitor_celular">
+        <source>progenitor_celular</source>
+        <target>Celular</target>
+      </trans-unit>
+      <trans-unit id="0bc28b4fa9794cc647caa9758e1b6043" resname="progenitor_save">
+        <source>progenitor_save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="42ff42a951ef4d7d99b32d2ece624ef7" resname="progenitor_back_to_list">
+        <source>progenitor_back_to_list</source>
+        <target>Volver al listado</target>
+      </trans-unit>
+      <trans-unit id="76055ec84e90bccae845036bc2cf4284" resname="progenitor_delete">
+        <source>progenitor_delete</source>
+        <target>Borrar</target>
+      </trans-unit>
+      <trans-unit id="a118f66b7e25e3fd383227ea73312021" resname="progenitor_title">
+        <source>progenitor_title</source>
+        <target>Listado de padres</target>
+      </trans-unit>
+      <trans-unit id="81c1638ff08b0970869c7e2f600bfe7c" resname="progenitor_page_previous">
+        <source>progenitor_page_previous</source>
+        <target>Página anterior</target>
+      </trans-unit>
+      <trans-unit id="26a2fa269fe6e791b1b00219b4038019" resname="progenitor_page_next">
+        <source>progenitor_page_next</source>
+        <target>Página siguiente</target>
+      </trans-unit>
+      <trans-unit id="60fb20f4da2e3b27f8da822ba2cc23c1" resname="progenitor_create_entry">
+        <source>progenitor_create_entry</source>
+        <target>Crear</target>
+      </trans-unit>
+      <trans-unit id="c91146f409e276da96f3726ee786265a" resname="progenitor_filter_title">
+        <source>progenitor_filter_title</source>
+        <target>Buscar</target>
+      </trans-unit>
+      <trans-unit id="408d483fbeb48e17800f2639edc1f14e" resname="progenitor_name">
+        <source>progenitor_name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="a1b09deb767979430d455093bde54118" resname="cuenta_referencia">
+        <source>cuenta_referencia</source>
+        <target>Referencia bancaria</target>
+      </trans-unit>
+      <trans-unit id="cb9a3a99a963b90cf1487280ed2ee923" resname="cuenta_alumnos">
+        <source>cuenta_alumnos</source>
+        <target>Alumnos</target>
+      </trans-unit>
+      <trans-unit id="b40912ce4394afdd1e1697fe83c1bb57" resname="cuenta_progenitor">
+        <source>cuenta_progenitor</source>
+        <target>Padres</target>
+      </trans-unit>
+      <trans-unit id="26df85e2fbfb200c62269d48dd885742" resname="cuenta_saldo">
+        <source>cuenta_saldo</source>
+        <target>Saldo</target>
+      </trans-unit>
+      <trans-unit id="809a0f1cd8b8f6f60bcccf311f68dfde" resname="cuenta_actions">
+        <source>cuenta_actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="a18c1d1b9423b390fe1762cac922c616" resname="cuentas_saldo_negativo_title">
+        <source>cuentas_saldo_negativo_title</source>
+        <target>Cuentas con saldo negativo</target>
+      </trans-unit>
+      <trans-unit id="a7a6fe25e54f600875efeae1c2af307a" resname="cuentas_saldo_positivo_title">
+        <source>cuentas_saldo_positivo_title</source>
+        <target>Cuentas con saldo positivo</target>
+      </trans-unit>
+      <trans-unit id="0b1d1fabeadd459012ff4d1bf04b77f9" resname="cuentas_saldo_cero_title">
+        <source>cuentas_saldo_cero_title</source>
+        <target>Cuentas con saldo cero</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Progenitor;
 use AppBundle\Form\ProgenitorType;
+use AppBundle\Form\ProgenitorEditType;
 use AppBundle\Filter\ProgenitorFilterType;
 
 /**
@@ -69,18 +70,32 @@ class ProgenitorController extends Controller
         $entity = new Progenitor();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        $errorMessage = null;
         if ($form->isValid()) {
+            // Check email.
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+            $progenitor = $em->getRepository('AppBundle:Progenitor')->checkEmailExists($entity->getNewsletterUser()->getEmail());
+            if($progenitor === null){
+              $entity->setUsername($entity->getNewsletterUser()->getEmail());
+              $entity->setEmail($entity->getNewsletterUser()->getEmail());
+              $entity->setPlainPassword('kinder2');
+              $entity->setEnabled(true);
+              $token = sha1(uniqid(mt_rand(), true)); // Or whatever you prefer to generate a token
+              $entity->setConfirmationToken($token);
 
-            return $this->redirect($this->generateUrl('admin_progenitor_edit', array('id' => $entity->getId())));
+              $em->persist($entity);
+              $em->flush();
+              $mailer = $this->container->get('fos_user.mailer');
+              $mailer->sendConfirmationEmailMessage($entity);
+              return $this->redirect($this->generateUrl('admin_progenitor_edit', array('id' => $entity->getId())));
+            }
+            $errorMessage = "El email ya se encuentra utilizado. Revisa que el padre no este ingresado.";
         }
 
         return $this->render('AppBundle:Progenitor:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
+            'errorMessage' => $errorMessage,
         ));
     }
 
@@ -170,7 +185,7 @@ class ProgenitorController extends Controller
      */
     private function createEditForm(Progenitor $entity)
     {
-        $form = $this->createForm(new ProgenitorType(), $entity, array(
+        $form = $this->createForm(new ProgenitorEditType(), $entity, array(
             'action' => $this->generateUrl('admin_progenitor_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -223,7 +238,7 @@ class ProgenitorController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Progenitor entity.');
             }
-
+            $em->remove($entity->getNewsletterUser());
             $em->remove($entity);
             $em->flush();
         }

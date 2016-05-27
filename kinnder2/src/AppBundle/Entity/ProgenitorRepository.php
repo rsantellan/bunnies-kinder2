@@ -12,6 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProgenitorRepository extends EntityRepository
 {
+    public function checkEmailExists($email)
+    {
+        $dql = 'select p from AppBundle:Progenitor p where p.email = :email';
+        return $this->getEntityManager()
+                ->createQuery($dql)
+                ->setParameters(array('email' => $email))
+                ->setMaxResults(1)
+                ->getOneOrNullResult();
+    }
+
     public function getActiveForList($page = 0, $limit = 10, $orderBy = 'nombre', $order = 'ASC')
     {
         $dql = sprintf('SELECT p.id, p.nombre, p.email, p.direccion, p.telefono, p.celular FROM AppBundle:Progenitor p ORDER BY p.%s %s', $orderBy, $order);

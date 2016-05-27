@@ -22,7 +22,7 @@
       </section>
   </div>  <div class="col-sm-4">
   </div>
-</div>                    
+</div>
 <div class="row">
   <div class="col-xs-12">
       <h3 class="no-margin">{% trans %}alertas_title{% endtrans %}</h3>
@@ -38,14 +38,14 @@
                   <a href="#collapsedBy{{ loop.index }}" data-parent="#accordion" data-toggle="collapse" class="collapsed" style="font-size: 20px">
                     {{ debt.apellido }} (Ref: <strong>{{ debt.referenciaBancaria }}</strong>) ($ <strong>{{ debt.diferencia}}</strong>)
                   </a>
-                  
+
               </div>
               <div class="panel-collapse collapse" id="collapsedBy{{ loop.index }}" style="height: 0px;">
                   <div class="panel-body text-center">
                     <h4>{% trans %}alertas_related_students{% endtrans %}</h4>
                     <ul>
                       {% for estudiante in debt.estudiantes %}
-                      <li> 
+                      <li>
                         {% if estudiante.egresado %}
                           <span class="strike-span">{{ estudiante.nombre }} (Egresado)</span>
                         {% else %}
@@ -69,5 +69,5 @@
           {% endfor %}
       </div>
   </section>
-</div>  
+</div>
 {% endblock %}

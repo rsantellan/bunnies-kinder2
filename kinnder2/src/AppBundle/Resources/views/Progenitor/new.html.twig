@@ -6,7 +6,9 @@
 	<section class="panel">
 	  <header class="panel-heading">{% trans %}progenitor_create_entry{% endtrans %}</header>
 	  <div class="panel-body">
-
+    {% if errorMessage is defined %}
+      <h3>{{ errorMessage }}</h3>
+    {% endif %}
 		<form action="{{ path('admin_progenitor_create') }}" method="post" role="form">
 		  <div class="form-group">
 			  {{ form_errors(form.nombre) }}
@@ -33,10 +35,10 @@
               <label for="{{ form.newsletterUser.email.vars.id }}">{% trans %}progenitor_email{% endtrans %}</label>
 			  {{ form_widget(form.newsletterUser.email, {'attr' : {'class' : 'form-control'}}) }}
           </div>
-          
+
 			  <div class="form-group">
 				<button type="submit" class="btn btn-default">{% trans %}progenitor_save{% endtrans %}</button>
-			  </div>	
+			  </div>
 				{{ form_rest(form) }}
 			</form>
 		  </div>

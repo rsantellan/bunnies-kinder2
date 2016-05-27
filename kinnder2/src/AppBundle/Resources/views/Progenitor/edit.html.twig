@@ -29,15 +29,9 @@
               <label for="{{ edit_form.celular.vars.id }}">{% trans %}progenitor_celular{% endtrans %}</label>
 			  {{ form_widget(edit_form.celular, {'attr' : {'class' : 'form-control'}}) }}
           </div>
-          <div class="form-group">
-			  {{ form_errors(edit_form.newsletterUser.email) }}
-              <label for="{{ edit_form.newsletterUser.email.vars.id }}">{% trans %}progenitor_email{% endtrans %}</label>
-			  {{ form_widget(edit_form.newsletterUser.email, {'attr' : {'class' : 'form-control'}}) }}
-          </div>
-          
 			  <div class="form-group">
 				<button type="submit" class="btn btn-default">{% trans %}progenitor_save{% endtrans %}</button>
-			  </div>	
+			  </div>
 				{{ form_rest(edit_form) }}
 			</form>
 		  </div>
