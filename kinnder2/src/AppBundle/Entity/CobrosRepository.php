@@ -17,7 +17,16 @@ class CobrosRepository extends EntityRepository
         $dql = 'select c from AppBundle:Cobro c where c.cuenta = :cuenta order by c.fecha desc';
 
         return $this->getEntityManager()->createQuery($dql)->setParameters(array(
-        'cuenta' => $accountId,
-    ))->setMaxResults(1)->getOneOrNullResult();
+              'cuenta' => $accountId,
+              ))->setMaxResults(1)->getOneOrNullResult();
+    }
+
+    public function retrieveFromAccount($accountId)
+    {
+        $dql = 'select c from AppBundle:Cobro c where c.cuenta = :cuenta order by c.fecha desc';
+
+        return $this->getEntityManager()->createQuery($dql)->setParameters(array(
+              'cuenta' => $accountId,
+              ))->getResult();
     }
 }

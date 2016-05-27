@@ -44,4 +44,23 @@ class CuentasController extends Controller
                     'activemenu' => 'cuentas',
             ));
     }
+
+    public function showAction($id){
+      $em = $this->getDoctrine()->getManager();
+
+      $entity = $em->getRepository('AppBundle:Cuenta')->find($id);
+      if (!$entity) {
+          throw $this->createNotFoundException('La cuenta no existe');
+      }
+      $facturasFinales = $em->getRepository('AppBundle:FacturaFinal')->retrieveFacturasOfAccount($id);
+      $cobros = $em->getRepository('AppBundle:Cobro')->retrieveFromAccount($id);
+
+      return $this->render('AppBundle:Cuentas:show.html.twig', array(
+                  'cuenta' => $entity,
+                  'cobros' => $cobros,
+                  'facturas' => $facturasFinales,
+                  'activemenu' => 'cuentas',
+          ));
+      die($id);
+    }
 }

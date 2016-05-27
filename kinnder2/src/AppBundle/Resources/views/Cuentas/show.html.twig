@@ -1,0 +1,40 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block title %}AppBundle:Alarms:index{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-12">
+    {{ dump(cuenta)}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <section class="panel">
+	  	<header class="panel-heading">{% trans %}cuentas_facturas_generadas{% endtrans %}</header>
+		  <div class="panel-body">
+			<div class="table-responsive no-border">
+        {% for factura in facturas %}
+          {{dump(factura)}}
+        {% endfor %}
+
+			  </div>
+			</div>
+	  </section>
+  </div>
+  <div class="col-md-6">
+    <section class="panel">
+	  	<header class="panel-heading">{% trans %}cuentas_pagos{% endtrans %}</header>
+		  <div class="panel-body">
+			<div class="table-responsive no-border">
+        {% for cobro in cobros %}
+          {{dump(cobro)}}
+        {% endfor %}
+
+			  </div>
+			</div>
+	  </section>
+  </div>
+</div>
+{% endblock %}

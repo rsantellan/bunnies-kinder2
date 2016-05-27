@@ -31,4 +31,13 @@ class FacturaFinalRepository extends EntityRepository
           'cuentaId' => $accountId,
       ))->getResult();
     }
+
+    public function retrieveFacturasOfAccount($accountId)
+    {
+      $dql = 'select f, fd from AppBundle:FacturaFinal f join f.facturaFinalDetalles fd where f.cuenta = :cuentaId order by f.year asc, f.month asc';
+
+      return $this->getEntityManager()->createQuery($dql)->setParameters(array(
+              'cuentaId' => $accountId,
+            ))->getResult();
+    }
 }

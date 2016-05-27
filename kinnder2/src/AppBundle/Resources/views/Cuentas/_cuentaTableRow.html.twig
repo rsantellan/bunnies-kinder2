@@ -1,5 +1,7 @@
 <tr>
-	<td>{{ cuenta.referenciabancaria }}</td>
+	<td>
+		<a href="{{ path('show_cuenta', { 'id': cuenta.id }) }}" class="btn btn-white">{{ cuenta.referenciabancaria }}</a>
+	</td>
 	<td>
 		{% for estudiante in cuenta.estudiantes %}
 			<a href="{{ path('estudiante_show', { 'id': estudiante.id }) }}">
@@ -14,6 +16,6 @@
 	</td>
 	<td>$ {{ cuenta.diferencia | number_format(0, ',', '.') }}</td>
 	<td>
-
+		<a href="{{ path('show_cuenta', { 'id': cuenta.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
 	</td>
 </tr>

@@ -1,4 +1,7 @@
 listado_cuentas:
     path:     /listado.html
     defaults: { _controller: AppBundle:Cuentas:list }
-    
+
+show_cuenta:
+    path:     /{id}/cuenta
+    defaults: { _controller: AppBundle:Cuentas:show }
