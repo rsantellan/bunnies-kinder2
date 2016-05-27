@@ -6,11 +6,27 @@ estudiante_search:
     path:     /search
     defaults: { _controller: "AppBundle:Estudiante:search" }
 
+estudiante_futuros:
+    path:     /futuros/list/{page}/{orderBy}/{order}/{limit}
+    defaults: { _controller: "AppBundle:Estudiante:futuros", page: 0, orderBy: 'apellido', order : 'asc', limit: 20 }
+
+estudiante_futuros_search:
+    path:     /futuros/search
+    defaults: { _controller: "AppBundle:Estudiante:futurosSearch" }
+
+estudiante_egresados:
+    path:     /egresados/list/{page}/{orderBy}/{order}/{limit}
+    defaults: { _controller: "AppBundle:Estudiante:egresados", page: 0, orderBy: 'apellido', order : 'asc', limit: 20 }
+
+estudiante_egresados_search:
+    path:     /egresados/search
+    defaults: { _controller: "AppBundle:Estudiante:egresadosSearch" }
+
 estudiante_check_reference:
     path:     /check-reference
     defaults: { _controller: "AppBundle:Estudiante:checkReference" }
     methods:  [POST, PUT]
-    
+
 estudiante_show:
     path:     /{id}/show
     defaults: { _controller: "AppBundle:Estudiante:show" }

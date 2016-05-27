@@ -1,0 +1,75 @@
+<section class="panel">
+  <div class="panel-heading">{{ title }}</div>
+  <div class="panel-body no-padding">
+    <table class="table table-striped no-margin">
+      <thead>
+        <tr>
+          <th>
+            {% if links['nombre'] is defined %}
+            <a href="{{ links['nombre'] }}">
+              {% trans %}students_name{% endtrans %}
+            </a>
+            {% else %}
+              {% trans %}students_name{% endtrans %}
+            {% endif %}
+          </th>
+          <th>
+              {% if links['apellido'] is defined %}
+              <a href="{{ links['apellido'] }}">
+                {% trans %}students_lastname{% endtrans %}
+              </a>
+              {% else %}
+                {% trans %}students_lastname{% endtrans %}
+              {% endif %}
+          </th>
+          <th>
+              {% if links['fechaNacimiento'] is defined %}
+              <a href="{{ links['fechaNacimiento'] }}">
+                {% trans %}students_birthdate{% endtrans %}
+              </a>
+              {% else %}
+                {% trans %}students_birthdate{% endtrans %}
+              {% endif %}
+          </th>
+          <th>
+            {% if links['referenciaBancaria'] is defined %}
+            <a href="{{ links['referenciaBancaria'] }}">
+              {% trans %}students_account{% endtrans %}
+            </a>
+            {% else %}
+              {% trans %}students_account{% endtrans %}
+            {% endif %}
+          </th>
+          </th>
+          <th>
+            {% if links['clase'] is defined %}
+            <a href="{{ links['clase'] }}">
+              {% trans %}students_class{% endtrans %}
+            </a>
+            {% else %}
+              {% trans %}students_class{% endtrans %}
+            {% endif %}
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entity in entities %}
+          {% include 'AppBundle:Estudiante:studentTableRow.html.twig' with {'entity' : entity} %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% if links['prevPage'] is defined %}
+<a href="{{ links['prevPage'] }}" class="btn btn-info">
+  <i class="glyphicon glyphicon-chevron-left"></i>
+  {% trans %}students_page_previous{% endtrans %}
+</a>
+{% endif %}
+{% if links['nextPage'] is defined %}
+<a href="{{ links['nextPage'] }}" class="btn btn-info">
+  {% trans %}students_page_next{% endtrans %}
+  <i class="glyphicon glyphicon-chevron-right"></i>
+</a>
+{% endif %}

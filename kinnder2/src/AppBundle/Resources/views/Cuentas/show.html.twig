@@ -4,26 +4,156 @@
 
 {% block body %}
 <div class="row">
+  <div class="col-md-3 col-sm-6 col-xs-12">
+      <section class="panel">
+          <div class="panel-body">
+              <div class="circle-icon bg-default">
+                  <i class="fa fa-credit-card"></i>
+              </div>
+              <div>
+                  <h3 class="no-margin">{{ cuenta.referenciabancaria}}</h3>
+                  {% trans %}cuentas_referencia{% endtrans %}
+              </div>
+          </div>
+      </section>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+      <section class="panel">
+          <div class="panel-body">
+              <div class="circle-icon {% if cuenta.diferencia > 0 %}bg-danger{% else %}bg-success{% endif %}">
+                  <i class="fa fa-usd"></i>
+              </div>
+              <div>
+                  <h3 class="no-margin">{{ cuenta.diferencia | number_format(0, ',', '.') }}</h3>
+                  {% trans %}cuentas_debt_amount{% endtrans %}
+              </div>
+          </div>
+      </section>
+  </div>
+  {#
   <div class="col-md-12">
     {{ dump(cuenta)}}
   </div>
+  #}
 </div>
 
 <div class="row">
   <div class="col-md-6">
-    <section class="panel">
-	  	<header class="panel-heading">{% trans %}cuentas_facturas_generadas{% endtrans %}</header>
-		  <div class="panel-body">
-			<div class="table-responsive no-border">
-        {% for factura in facturas %}
-          {{dump(factura)}}
-        {% endfor %}
+    <section class="panel bg-none">
+        <header class="panel-heading">{% trans %}cuentas_facturas_generadas{% endtrans %}</header>
+        <div class="panel-body">
+          <div id="accordion" class="panel-group">
+            {% for factura in facturas %}
+            <div class="panel">
+                <div class="panel-heading">
+                    <a href="#collapse{{loop.index}}" data-parent="#accordion" data-toggle="collapse" class="collapsed">
+                        Factura del {{ factura.month }}/{{factura.year}}
+                        <div class="pull-right">
+                        {% if factura.cancelado %}
+                          {% trans %}cuentas_facturas_cancel{% endtrans %}
+                        {% elseif factura.pago %}
+                          {% trans %}cuentas_facturas_paid{% endtrans %}
+                        {% else %}
+                          {% trans %}cuentas_facturas_pending{% endtrans %}
+                        {% endif %}
+                        </div>
+                    </a>
 
-			  </div>
-			</div>
-	  </section>
+                </div>
+                <div class="panel-collapse collapse" id="collapse{{loop.index}}" style="height: 0px;">
+                    <div class="panel-body">
+                      <div class="table-responsive no-border">
+                        <table  class="table table-bordered table-striped mg-t datatable">
+                          <thead>
+                            <tr>
+                              <th>{% trans %}cuentas_facturas_description{% endtrans %}</th>
+                              <th>{% trans %}cuentas_facturas_amount{% endtrans %}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for detalle in factura.facturaFinalDetalles %}
+                            <tr>
+                              <td>{{ detalle.description }}</td>
+                              <td>{{ detalle.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr class="{% if not factura.cancelado %}warning{%else%}danger{%endif%}">
+                              <td><strong>{% trans %}cuentas_facturas_total{% endtrans %}</strong></td>
+                              <td><strong>{{ factura.total | number_format(0, ',', '.') }}</strong></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        {% if not factura.cancelado %}
+                          <button class="btn btn-warning pull-right">Cancelar</button>
+                        {% endif %}
+              			  </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </section>
   </div>
   <div class="col-md-6">
+    <section class="panel bg-none">
+        <header class="panel-heading">{% trans %}cuentas_pagos{% endtrans %}</header>
+        <div class="panel-body">
+          <div id="accordion" class="panel-group">
+            {% for cobro in cobros %}
+              {{dump(cobro)}}
+            {% endfor %}
+            {% for factura in facturas %}
+            <div class="panel">
+                <div class="panel-heading">
+                    <a href="#collapse{{loop.index}}" data-parent="#accordion" data-toggle="collapse" class="collapsed">
+                        Factura del {{ factura.month }}/{{factura.year}}
+                        <div class="pull-right">
+                        {% if factura.cancelado %}
+                          {% trans %}cuentas_facturas_cancel{% endtrans %}
+                        {% elseif factura.pago %}
+                          {% trans %}cuentas_facturas_paid{% endtrans %}
+                        {% else %}
+                          {% trans %}cuentas_facturas_pending{% endtrans %}
+                        {% endif %}
+                        </div>
+                    </a>
+
+                </div>
+                <div class="panel-collapse collapse" id="collapse{{loop.index}}" style="height: 0px;">
+                    <div class="panel-body">
+                      <div class="table-responsive no-border">
+                        <table  class="table table-bordered table-striped mg-t datatable">
+                          <thead>
+                            <tr>
+                              <th>{% trans %}cuentas_facturas_description{% endtrans %}</th>
+                              <th>{% trans %}cuentas_facturas_amount{% endtrans %}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for detalle in factura.facturaFinalDetalles %}
+                            <tr>
+                              <td>{{ detalle.description }}</td>
+                              <td>{{ detalle.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr class="{% if not factura.cancelado %}warning{%else%}danger{%endif%}">
+                              <td><strong>{% trans %}cuentas_facturas_total{% endtrans %}</strong></td>
+                              <td><strong>{{ factura.total | number_format(0, ',', '.') }}</strong></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        {% if not factura.cancelado %}
+                          <button class="btn btn-warning pull-right">Cancelar</button>
+                        {% endif %}
+              			  </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </section>
     <section class="panel">
 	  	<header class="panel-heading">{% trans %}cuentas_pagos{% endtrans %}</header>
 		  <div class="panel-body">
