@@ -21,49 +21,72 @@ class EstudianteController extends Controller
      */
     public function indexAction(Request $request, $page, $orderBy, $order, $limit)
     {
-        $em = $this->getDoctrine()->getManager();
-        $filter = $this->get('form.factory')->create(new EstudianteFilterType());
-
-        $entities = $em->getRepository('AppBundle:Estudiante')->getActiveForList($page, $limit, $orderBy, $order);
-
-        return $this->render('AppBundle:Estudiante:index.html.twig', array(
-            'entities' => $entities,
-            'page' => $page,
-            'orderBy' => $orderBy,
-            'order' => $order,
-            'limit' => $limit,
-            'filter' => $filter->createView(),
-        ));
+        return $this->render('AppBundle:Estudiante:index.html.twig', $this->getDataForList($page, $limit, $orderBy, $order, false, false));
     }
 
     public function searchAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $filter = $this->get('form.factory')->create(new EstudianteFilterType());
-        $entities = array();
-        if ($request->query->has($filter->getName())) {
-            // manually bind values from the request
-            $filter->submit($request->query->get($filter->getName()));
-
-            // initialize a query builder
-            $filterBuilder = $em->getRepository('AppBundle:Estudiante')
-                ->createQueryBuilder('e')
-                ->leftJoin('e.clase', 'c');
-
-            // build the query from the given form object
-            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filter, $filterBuilder);
-
-            // now look at the DQL =)
-            $filterBuilder->andWhere('e.egresado = false');
-            //var_dump($filterBuilder->getDql());
-            $entities = $filterBuilder->getQuery()->getResult();
-        }
-
-        return $this->render('AppBundle:Estudiante:search.html.twig', array(
-            'entities' => $entities,
-            'filter' => $filter->createView(),
-        ));
+        return $this->render('AppBundle:Estudiante:search.html.twig', $this->doSearch($request, false, false));
     }
+
+
+    private function getDataForList($page = 0, $limit = 10, $orderBy = 'apellido', $order = 'ASC', $egresado = false, $future = false)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $filter = $this->get('form.factory')->create(new EstudianteFilterType());
+
+      $entities = $em->getRepository('AppBundle:Estudiante')->getDataForList($page, $limit, $orderBy, $order);
+      return array(
+          'entities' => $entities,
+          'page' => $page,
+          'orderBy' => $orderBy,
+          'order' => $order,
+          'limit' => $limit,
+          'filter' => $filter->createView(),
+      );
+    }
+
+    private function doSearch(Request $request, $egresado = false, $future = false)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $filter = $this->get('form.factory')->create(new EstudianteFilterType());
+      $entities = array();
+      if ($request->query->has($filter->getName())) {
+          // manually bind values from the request
+          $filter->submit($request->query->get($filter->getName()));
+
+          // initialize a query builder
+          $filterBuilder = $em->getRepository('AppBundle:Estudiante')
+              ->createQueryBuilder('e')
+              ->leftJoin('e.clase', 'c');
+
+          // build the query from the given form object
+          $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filter, $filterBuilder);
+
+          // now look at the DQL =)
+          if(!$egresado){
+              $filterBuilder->andWhere('e.egresado = false');
+              if(!$future){
+                $filterBuilder->andWhere('e.anioIngreso <= '.date('Y'));
+              }else{
+                $filterBuilder->andWhere('e.anioIngreso > '.date('Y'));  
+              }
+
+          }else{
+              $filterBuilder->andWhere('e.egresado = true');
+          }
+
+
+          //var_dump($filterBuilder->getDql());
+          $entities = $filterBuilder->getQuery()->getResult();
+      }
+      return array(
+          'entities' => $entities,
+          'filter' => $filter->createView(),
+      );
+    }
+
+
 
     public function checkReferenceAction(Request $request)
     {

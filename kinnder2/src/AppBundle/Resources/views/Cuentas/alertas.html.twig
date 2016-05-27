@@ -57,7 +57,7 @@
                     <a href="" class="btn btn-success">
                       <i class="fa fa-envelope"></i>{% trans %}alertas_action_send_email{% endtrans %}
                     </a>
-                    <a href="" class="btn btn-primary">
+                    <a href="{{ path('show_cuenta', { 'id': debt.cuentaId }) }}" class="btn btn-primary">
                       <i class="fa fa-search"></i>{% trans %}alertas_action_view_detail{% endtrans %}
                     </a>
                     <a href="" class="btn btn-warning">
