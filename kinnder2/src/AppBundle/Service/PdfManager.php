@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Monolog\Logger;
 use AppBundle\Fpdf\Invoice;
 use AppBundle\Entity\Cuenta;
+use AppBundle\Entity\Cobro;
 use AppBundle\Entity\FacturaFinalDetalle;
 
 /**
@@ -26,6 +27,79 @@ class PdfManager
         $this->webDirectory = $rootDir.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR;
         $this->logger->addDebug('Starting pdf manager');
     //var_dump($this->assetPackages->getUrl('thumbnail.png'));
+    }
+
+    public function exportCobroToPdf(Cobro $cobro, Cuenta $account = null, $location = null)
+    {
+        if($account === null)
+        {
+          $account = $cobro->getCuenta();
+        }
+        $alumnos = '';
+        $apellido = '';
+        foreach ($account->getEstudiantes() as $estudiante) {
+            $alumnos .= $estudiante->getNombre().',';
+            $apellido = $estudiante->getApellido();
+        }
+        if (strlen($alumnos) > 0) {
+            $alumnos = rtrim($alumnos, ',');
+        }
+
+        $padres = '';
+        foreach ($account->getProgenitores() as $progenitor) {
+            $padres .= $progenitor->getNombre().' '.',';
+        }
+        if (strlen($padres) > 0) {
+            $padres = rtrim($padres, ',');
+        }
+        $pdf = new Invoice(20, 'P', 'mm', 'A4');
+        $pdf->AddPage();
+
+
+        $pdf->addSociete($this->webDirectory.'bundles/app/img/logo.png');
+        $pdf->temporaire("Bunny's Kinder");
+        $pdf->addDate(date('d/m/Y'));
+        $pdf->addClient($account->getReferenciabancaria());
+        $pdf->addAlumnos($alumnos);
+        $pdf->addPadres($padres);
+        $colsNumbers = array('Item' => 30,
+              'Descripción' => 130,
+               'Precio' => 30,
+              );
+        $pdf->addCols($colsNumbers);
+        $cols = array('Item' => 'C',
+              'Descripción' => 'C',
+               'Precio' => 'C',
+               );
+        $pdf->addLineFormat($cols);
+        $y = 70;
+        $size = 0;
+        $counterItems = 1;
+
+        $linea = array(
+          "Item" => $counterItems,
+          "Descripción"    => sprintf('Pago en la fecha: %s', $cobro->getFecha()->format('d/m/Y')),
+          "Precio"  => '$'.number_format($cobro->getMonto(), 0, ',', '.')
+        );
+        $size = $pdf->addLine($y, $linea);
+        $y   += $size + 2;
+        ++$counterItems;
+        $pdf->addCadreEurosFrancs('$ '.number_format($cobro->getMonto(), 0, ',', '.'));
+        $outputOption = 'I';
+        if ($location !== null) {
+            if (!is_dir($location)) {
+                $location = sys_get_temp_dir();
+            }
+            $outputOption = 'F';
+            $location .= DIRECTORY_SEPARATOR;
+        } else {
+            $location = '';
+        }
+        $outputName = sprintf('Cobro-%s-%s.pdf', $account->getReferenciabancaria(), date('m-Y'));
+        $pdf->Output($location.$outputName, $outputOption);
+        if ($outputOption == 'F') {
+            return $location.$outputName;
+        }
     }
 
     public function exportAccountToPdf(Cuenta $account, $location = null)

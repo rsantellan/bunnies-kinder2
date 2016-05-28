@@ -5,3 +5,7 @@ listado_cuentas:
 show_cuenta:
     path:     /{id}/cuenta
     defaults: { _controller: AppBundle:Cuentas:show }
+
+view_cobro_pdf:
+    path:     /{id}/pdf-cobro
+    defaults: { _controller: "AppBundle:Cuentas:showCobroPdf" }

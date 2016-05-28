@@ -24,7 +24,7 @@
                   <i class="fa fa-usd"></i>
               </div>
               <div>
-                  <h3 class="no-margin">{{ cuenta.diferencia | number_format(0, ',', '.') }}</h3>
+                  <h3 class="no-margin">{{ cuenta.formatedDiferencia }}</h3>
                   {% trans %}cuentas_debt_amount{% endtrans %}
               </div>
           </div>
@@ -42,11 +42,11 @@
     <section class="panel bg-none">
         <header class="panel-heading">{% trans %}cuentas_facturas_generadas{% endtrans %}</header>
         <div class="panel-body">
-          <div id="accordion" class="panel-group">
+          <div id="accordionFactura" class="panel-group">
             {% for factura in facturas %}
             <div class="panel">
                 <div class="panel-heading">
-                    <a href="#collapse{{loop.index}}" data-parent="#accordion" data-toggle="collapse" class="collapsed">
+                    <a href="#collapse{{loop.index}}" data-parent="#accordionFactura" data-toggle="collapse" class="collapsed">
                         Factura del {{ factura.month }}/{{factura.year}}
                         <div class="pull-right">
                         {% if factura.cancelado %}
@@ -85,6 +85,8 @@
                         </table>
                         {% if not factura.cancelado %}
                           <button class="btn btn-warning pull-right">Cancelar</button>
+                        {% else %}
+                          <button class="btn btn-warning pull-right">Activar</button>
                         {% endif %}
               			  </div>
                     </div>
@@ -111,6 +113,15 @@
                   <div class="panel-collapse collapse" id="cobro-collapse{{loop.index}}" style="height: 0px;">
                       <div class="panel-body">
                         <div class="table-responsive no-border">
+                          <a href="{{ path('view_cobro_pdf', {'id' : cobro.id } )}}" class="btn btn-info">
+                            <i class="fa fa-cogs"></i>
+                            {% trans %}account_cobro_generate_pdf{% endtrans %}
+                          </a>
+                          {% if not cobro.cancelado %}
+                            <button class="btn btn-warning pull-right">Cancelar</button>
+                          {% else %}
+                            <button class="btn btn-warning pull-right">Activar</button>
+                          {% endif %}
                             {{dump(cobro)}}
                         </div>
                       </div>
@@ -120,17 +131,6 @@
           </div>
         </div>
     </section>
-    <section class="panel">
-	  	<header class="panel-heading">{% trans %}cuentas_pagos{% endtrans %}</header>
-		  <div class="panel-body">
-			<div class="table-responsive no-border">
-        {% for cobro in cobros %}
-          {{dump(cobro)}}
-        {% endfor %}
-
-			  </div>
-			</div>
-	  </section>
   </div>
 </div>
 {% endblock %}

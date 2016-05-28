@@ -44,6 +44,20 @@ class Cobro
     private $monto;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="cancelado", type="boolean", nullable=false, options={"default": 0})
+     */
+    private $cancelado = false;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="enviado", type="boolean", nullable=false, options={"default": 0})
+     */
+    private $enviado = false;
+    
+    /**
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -208,5 +222,51 @@ class Cobro
     public function calculateDifference()
     {
         //$this->getCuenta()->setPago($this->getCuenta()->getPago() + $this->getMonto());
+    }
+
+    /**
+     * Set cancelado
+     *
+     * @param boolean $cancelado
+     * @return Cobro
+     */
+    public function setCancelado($cancelado)
+    {
+        $this->cancelado = $cancelado;
+
+        return $this;
+    }
+
+    /**
+     * Get cancelado
+     *
+     * @return boolean 
+     */
+    public function getCancelado()
+    {
+        return $this->cancelado;
+    }
+
+    /**
+     * Set enviado
+     *
+     * @param boolean $enviado
+     * @return Cobro
+     */
+    public function setEnviado($enviado)
+    {
+        $this->enviado = $enviado;
+
+        return $this;
+    }
+
+    /**
+     * Get enviado
+     *
+     * @return boolean 
+     */
+    public function getEnviado()
+    {
+        return $this->enviado;
     }
 }

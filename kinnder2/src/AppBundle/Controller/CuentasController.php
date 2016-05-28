@@ -61,6 +61,17 @@ class CuentasController extends Controller
                   'facturas' => $facturasFinales,
                   'activemenu' => 'cuentas',
           ));
-      die($id);
+    }
+
+    public function showCobroPdfAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Cobro')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Cobro entity.');
+        }
+
+        $pdfHandler = $this->get('pdfs');
+        $pdfHandler->exportCobroToPdf($entity);
     }
 }
