@@ -53,14 +53,15 @@ class EstudianteController extends Controller
           default:
             break;
         }
-        if(count($data['entities']) < $limit){
-          unset($links['nextPage']);
+        if (count($data['entities']) < $limit) {
+            unset($links['nextPage']);
         }
-        if($page == 0){
-          unset($links['prevPage']);
+        if ($page == 0) {
+            unset($links['prevPage']);
         }
         $data['links'] = $links;
         $data['title'] = $this->get('translator')->trans('students_title');
+
         return $this->render('AppBundle:Estudiante:index.html.twig', $data);
     }
 
@@ -72,6 +73,7 @@ class EstudianteController extends Controller
           'base' => $this->generateUrl('estudiante'),
         );
         $data['title'] = $this->get('translator')->trans('students_title_search');
+
         return $this->render('AppBundle:Estudiante:search.html.twig', $data);
     }
 
@@ -112,26 +114,28 @@ class EstudianteController extends Controller
           default:
             break;
         }
-        if(count($data['entities']) < $limit){
-          unset($links['nextPage']);
+        if (count($data['entities']) < $limit) {
+            unset($links['nextPage']);
         }
-        if($page == 0){
-          unset($links['prevPage']);
+        if ($page == 0) {
+            unset($links['prevPage']);
         }
         $data['links'] = $links;
         $data['title'] = $this->get('translator')->trans('students_egresados_title');
+
         return $this->render('AppBundle:Estudiante:index.html.twig', $data);
     }
 
     public function futurosSearchAction(Request $request)
     {
-      $data = $this->doSearch($request, false, true);
-      $data['title'] = $this->get('translator')->trans('students_egresados_title_search');
-      $data['links'] = array(
+        $data = $this->doSearch($request, false, true);
+        $data['title'] = $this->get('translator')->trans('students_egresados_title_search');
+        $data['links'] = array(
         'filter' => $this->generateUrl('estudiante_futuros_search'),
         'base' => $this->generateUrl('estudiante_futuros'),
       );
-      return $this->render('AppBundle:Estudiante:search.html.twig', $data);
+
+        return $this->render('AppBundle:Estudiante:search.html.twig', $data);
     }
 
     /**
@@ -171,35 +175,38 @@ class EstudianteController extends Controller
           default:
             break;
         }
-        if(count($data['entities']) < $limit){
-          unset($links['nextPage']);
+        if (count($data['entities']) < $limit) {
+            unset($links['nextPage']);
         }
-        if($page == 0){
-          unset($links['prevPage']);
+        if ($page == 0) {
+            unset($links['prevPage']);
         }
         $data['links'] = $links;
         $data['title'] = $this->get('translator')->trans('students_future_title');
+
         return $this->render('AppBundle:Estudiante:index.html.twig', $data);
     }
 
     public function egresadosSearchAction(Request $request)
     {
-      $data = $this->doSearch($request, true, false);
-      $data['title'] = $this->get('translator')->trans('students_future_title_search');
-      $data['links'] = array(
+        $data = $this->doSearch($request, true, false);
+        $data['title'] = $this->get('translator')->trans('students_future_title_search');
+        $data['links'] = array(
         'filter' => $this->generateUrl('estudiante_egresados_search'),
         'base' => $this->generateUrl('estudiante_egresados'),
       );
-      return $this->render('AppBundle:Estudiante:search.html.twig', $data);
+
+        return $this->render('AppBundle:Estudiante:search.html.twig', $data);
     }
 
     private function getDataForList($page = 0, $limit = 10, $orderBy = 'apellido', $order = 'ASC', $egresado = false, $future = false)
     {
-      $em = $this->getDoctrine()->getManager();
-      $filter = $this->get('form.factory')->create(new EstudianteFilterType());
+        $em = $this->getDoctrine()->getManager();
+        $filter = $this->get('form.factory')->create(new EstudianteFilterType());
 
-      $entities = $em->getRepository('AppBundle:Estudiante')->getDataForList($page, $limit, $orderBy, $order, $egresado, $future);
-      return array(
+        $entities = $em->getRepository('AppBundle:Estudiante')->getDataForList($page, $limit, $orderBy, $order, $egresado, $future);
+
+        return array(
           'entities' => $entities,
           'page' => $page,
           'orderBy' => $orderBy,
@@ -211,11 +218,11 @@ class EstudianteController extends Controller
 
     private function doSearch(Request $request, $egresado = false, $future = false)
     {
-      $em = $this->getDoctrine()->getManager();
-      $filter = $this->get('form.factory')->create(new EstudianteFilterType());
-      $entities = array();
-      if ($request->query->has($filter->getName())) {
-          // manually bind values from the request
+        $em = $this->getDoctrine()->getManager();
+        $filter = $this->get('form.factory')->create(new EstudianteFilterType());
+        $entities = array();
+        if ($request->query->has($filter->getName())) {
+            // manually bind values from the request
           $filter->submit($request->query->get($filter->getName()));
 
           // initialize a query builder
@@ -227,29 +234,26 @@ class EstudianteController extends Controller
           $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filter, $filterBuilder);
 
           // now look at the DQL =)
-          if(!$egresado){
+          if (!$egresado) {
               $filterBuilder->andWhere('e.egresado = false');
-              if(!$future){
-                $filterBuilder->andWhere('e.anioIngreso <= '.date('Y'));
-              }else{
-                $filterBuilder->andWhere('e.anioIngreso > '.date('Y'));
+              if (!$future) {
+                  $filterBuilder->andWhere('e.anioIngreso <= '.date('Y'));
+              } else {
+                  $filterBuilder->andWhere('e.anioIngreso > '.date('Y'));
               }
-
-          }else{
+          } else {
               $filterBuilder->andWhere('e.egresado = true');
           }
 
-
           //var_dump($filterBuilder->getDql());
           $entities = $filterBuilder->getQuery()->getResult();
-      }
-      return array(
+        }
+
+        return array(
           'entities' => $entities,
           'filter' => $filter->createView(),
       );
     }
-
-
 
     public function checkReferenceAction(Request $request)
     {

@@ -75,21 +75,22 @@ class ProgenitorController extends Controller
             // Check email.
             $em = $this->getDoctrine()->getManager();
             $progenitor = $em->getRepository('AppBundle:Progenitor')->checkEmailExists($entity->getNewsletterUser()->getEmail());
-            if($progenitor === null){
-              $entity->setUsername($entity->getNewsletterUser()->getEmail());
-              $entity->setEmail($entity->getNewsletterUser()->getEmail());
-              $entity->setPlainPassword('kinder2');
-              $entity->setEnabled(true);
-              $token = sha1(uniqid(mt_rand(), true)); // Or whatever you prefer to generate a token
+            if ($progenitor === null) {
+                $entity->setUsername($entity->getNewsletterUser()->getEmail());
+                $entity->setEmail($entity->getNewsletterUser()->getEmail());
+                $entity->setPlainPassword('kinder2');
+                $entity->setEnabled(true);
+                $token = sha1(uniqid(mt_rand(), true)); // Or whatever you prefer to generate a token
               $entity->setConfirmationToken($token);
 
-              $em->persist($entity);
-              $em->flush();
-              $mailer = $this->container->get('fos_user.mailer');
-              $mailer->sendConfirmationEmailMessage($entity);
-              return $this->redirect($this->generateUrl('admin_progenitor_edit', array('id' => $entity->getId())));
+                $em->persist($entity);
+                $em->flush();
+                $mailer = $this->container->get('fos_user.mailer');
+                $mailer->sendConfirmationEmailMessage($entity);
+
+                return $this->redirect($this->generateUrl('admin_progenitor_edit', array('id' => $entity->getId())));
             }
-            $errorMessage = "El email ya se encuentra utilizado. Revisa que el padre no este ingresado.";
+            $errorMessage = 'El email ya se encuentra utilizado. Revisa que el padre no este ingresado.';
         }
 
         return $this->render('AppBundle:Progenitor:new.html.twig', array(

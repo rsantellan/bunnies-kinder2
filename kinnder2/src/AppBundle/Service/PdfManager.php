@@ -31,9 +31,8 @@ class PdfManager
 
     public function exportCobroToPdf(Cobro $cobro, Cuenta $account = null, $location = null)
     {
-        if($account === null)
-        {
-          $account = $cobro->getCuenta();
+        if ($account === null) {
+            $account = $cobro->getCuenta();
         }
         $alumnos = '';
         $apellido = '';
@@ -54,7 +53,6 @@ class PdfManager
         }
         $pdf = new Invoice(20, 'P', 'mm', 'A4');
         $pdf->AddPage();
-
 
         $pdf->addSociete($this->webDirectory.'bundles/app/img/logo.png');
         $pdf->temporaire("Bunny's Kinder");
@@ -77,9 +75,9 @@ class PdfManager
         $counterItems = 1;
 
         $linea = array(
-          "Item" => $counterItems,
-          "Descripción"    => sprintf('Pago en la fecha: %s', $cobro->getFecha()->format('d/m/Y')),
-          "Precio"  => '$'.number_format($cobro->getMonto(), 0, ',', '.')
+          'Item' => $counterItems,
+          'Descripción' => sprintf('Pago en la fecha: %s', $cobro->getFecha()->format('d/m/Y')),
+          'Precio' => '$'.number_format($cobro->getMonto(), 0, ',', '.'),
         );
         $size = $pdf->addLine($y, $linea);
         $y   += $size + 2;

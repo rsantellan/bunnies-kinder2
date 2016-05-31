@@ -168,9 +168,9 @@ class Invoice extends \fpdf\FPDF_EXTENDED
           $this->SetFont('Arial', 'B', $szfont);
           $sz = $this->GetStringWidth($texte);
           if (($r1 + $sz) > $r2) {
-              $szfont--;
+              --$szfont;
           } else {
-              $loop++;
+              ++$loop;
           }
       }
 

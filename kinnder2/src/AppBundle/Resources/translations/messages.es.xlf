@@ -282,6 +282,66 @@
         <source>cuentas_saldo_cero_title</source>
         <target>Cuentas con saldo cero</target>
       </trans-unit>
+      <trans-unit id="f23686de925de40b5927014ec8c81652" resname="cuentas_referencia">
+        <source>cuentas_referencia</source>
+        <target>Referencia Bancaria</target>
+      </trans-unit>
+      <trans-unit id="a844ff7ceb533eaf5b4971f110d07830" resname="cuentas_debt_amount">
+        <source>cuentas_debt_amount</source>
+        <target>Monto</target>
+      </trans-unit>
+      <trans-unit id="064b681e39b03e231ffaa6bfd244bf2e" resname="cuentas_facturas_generadas">
+        <source>cuentas_facturas_generadas</source>
+        <target>Facturas</target>
+      </trans-unit>
+      <trans-unit id="8bf7678ebd7040396a04025f3bc01a28" resname="cuentas_facturas_cancel">
+        <source>cuentas_facturas_cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="6dd27b2cfa226124d75f6d33385cc0ce" resname="cuentas_facturas_paid">
+        <source>cuentas_facturas_paid</source>
+        <target>Pagada</target>
+      </trans-unit>
+      <trans-unit id="bd1e8ef8bf356b6ce71416c874a39de9" resname="cuentas_facturas_pending">
+        <source>cuentas_facturas_pending</source>
+        <target>Pendiente</target>
+      </trans-unit>
+      <trans-unit id="0e78be9256598fc3834fe8606b7f92fe" resname="cuentas_facturas_description">
+        <source>cuentas_facturas_description</source>
+        <target>Descripción</target>
+      </trans-unit>
+      <trans-unit id="e7ec634abcf2f232fe0203b4158e0e72" resname="cuentas_facturas_amount">
+        <source>cuentas_facturas_amount</source>
+        <target>Monto</target>
+      </trans-unit>
+      <trans-unit id="5b40be87c23ccab6431f8c83e5ebb54a" resname="cuentas_facturas_total">
+        <source>cuentas_facturas_total</source>
+        <target>Total</target>
+      </trans-unit>
+      <trans-unit id="e8bd2e28a8ef26c5abf6f6b7b5e555a5" resname="cuentas_pagos">
+        <source>cuentas_pagos</source>
+        <target>Pagos</target>
+      </trans-unit>
+      <trans-unit id="bc85a8f71ffa9cddd037f4b081f38691" resname="account_cobro_generate_pdf">
+        <source>account_cobro_generate_pdf</source>
+        <target>Pdf</target>
+      </trans-unit>
+      <trans-unit id="551a6ff07dbdefa9e72411b0268d739e" resname="account_cobro_send_email">
+        <source>account_cobro_send_email</source>
+        <target>Enviar</target>
+      </trans-unit>
+      <trans-unit id="2d7e850edbc66df09cb206a7ad1b3fd9" resname="account_cobro_re_send_email">
+        <source>account_cobro_re_send_email</source>
+        <target>Re enviar</target>
+      </trans-unit>
+      <trans-unit id="eaac9076fddb39fd2ae48005db2df1f0" resname="account_cobro_cancel">
+        <source>account_cobro_cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="9537eab875dad51bfa9f35d07263f95e" resname="account_cobro_activate">
+        <source>account_cobro_activate</source>
+        <target>Activar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

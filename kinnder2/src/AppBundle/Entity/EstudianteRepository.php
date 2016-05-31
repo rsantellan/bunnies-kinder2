@@ -15,10 +15,10 @@ class EstudianteRepository extends EntityRepository
     public function getDataForList($page = 0, $limit = 10, $orderBy = 'apellido', $order = 'ASC', $egresado = false, $future = false)
     {
         $futureDql = ' and e.anioIngreso > :anioIngreso';
-        if(!$future){
-          $futureDql = ' and e.anioIngreso <= :anioIngreso';
+        if (!$future) {
+            $futureDql = ' and e.anioIngreso <= :anioIngreso';
         }
-        
+
         $dql = sprintf('SELECT e.id, e.nombre, e.apellido, e.fechaNacimiento, e.referenciaBancaria, c.name as clase FROM AppBundle:Estudiante e left join e.clase c where e.egresado = :egresado %s ORDER BY e.%s %s', $futureDql, $orderBy, $order);
 
         return $this->getEntityManager()

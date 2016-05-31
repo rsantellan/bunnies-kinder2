@@ -56,7 +56,7 @@ class Cobro
      * @ORM\Column(name="enviado", type="boolean", nullable=false, options={"default": 0})
      */
     private $enviado = false;
-    
+
     /**
      * @var \DateTime
      *
@@ -225,9 +225,10 @@ class Cobro
     }
 
     /**
-     * Set cancelado
+     * Set cancelado.
      *
-     * @param boolean $cancelado
+     * @param bool $cancelado
+     *
      * @return Cobro
      */
     public function setCancelado($cancelado)
@@ -238,9 +239,9 @@ class Cobro
     }
 
     /**
-     * Get cancelado
+     * Get cancelado.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCancelado()
     {
@@ -248,9 +249,10 @@ class Cobro
     }
 
     /**
-     * Set enviado
+     * Set enviado.
      *
-     * @param boolean $enviado
+     * @param bool $enviado
+     *
      * @return Cobro
      */
     public function setEnviado($enviado)
@@ -261,9 +263,9 @@ class Cobro
     }
 
     /**
-     * Get enviado
+     * Get enviado.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getEnviado()
     {

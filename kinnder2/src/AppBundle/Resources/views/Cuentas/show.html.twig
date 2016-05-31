@@ -1,6 +1,15 @@
 {% extends "AppBundle::adminlayout.html.twig" %}
 
-{% block title %}AppBundle:Alarms:index{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/admin/vendor/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/showcuenta.js') }}"></script>
+
+{% endblock %}
+{% block pagestylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/toastr/toastr.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/datepicker.css') }}" >
+{% endblock %}
 
 {% block body %}
 <div class="row">
@@ -20,11 +29,11 @@
   <div class="col-md-3 col-sm-6 col-xs-12">
       <section class="panel">
           <div class="panel-body">
-              <div class="circle-icon {% if cuenta.diferencia > 0 %}bg-danger{% else %}bg-success{% endif %}">
+              <div id="cuenta-dash-amount-circle" class="circle-icon {% if cuenta.diferencia > 0 %}bg-danger{% else %}bg-success{% endif %}">
                   <i class="fa fa-usd"></i>
               </div>
               <div>
-                  <h3 class="no-margin">{{ cuenta.formatedDiferencia }}</h3>
+                  <h3 id="cuenta-dash-amount" class="no-margin">{{ cuenta.formatedDiferencia }}</h3>
                   {% trans %}cuentas_debt_amount{% endtrans %}
               </div>
           </div>
@@ -99,38 +108,36 @@
   </div>
   <div class="col-md-6">
     <section class="panel bg-none">
-        <header class="panel-heading">{% trans %}cuentas_pagos{% endtrans %}</header>
+        <header class="panel-heading">
+          <a href="{{ path('add_cobro', {'cuentaId' : cuenta.id } )}}" onclick="return sendAddCobroModal(this);"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i><a/>
+          {% trans %}cuentas_pagos{% endtrans %}
+        </header>
         <div class="panel-body">
           <div id="accordion" class="panel-group">
             {% for cobro in cobros %}
-              <div class="panel">
-                  <div class="panel-heading">
-                      <a href="#cobro-collapse{{loop.index}}" data-parent="#accordion" data-toggle="collapse" class="collapsed">
-                          Pago el {{ cobro.fecha | date('d/m/Y') }} Monto: {{ cobro.monto }}
-                      </a>
-
-                  </div>
-                  <div class="panel-collapse collapse" id="cobro-collapse{{loop.index}}" style="height: 0px;">
-                      <div class="panel-body">
-                        <div class="table-responsive no-border">
-                          <a href="{{ path('view_cobro_pdf', {'id' : cobro.id } )}}" class="btn btn-info">
-                            <i class="fa fa-cogs"></i>
-                            {% trans %}account_cobro_generate_pdf{% endtrans %}
-                          </a>
-                          {% if not cobro.cancelado %}
-                            <button class="btn btn-warning pull-right">Cancelar</button>
-                          {% else %}
-                            <button class="btn btn-warning pull-right">Activar</button>
-                          {% endif %}
-                            {{dump(cobro)}}
-                        </div>
-                      </div>
-                  </div>
-              </div>
+              {% include 'AppBundle:Cuentas:_cobroRow.html.twig' with { 'cobro' : cobro } %}
             {% endfor %}
           </div>
         </div>
     </section>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal" id="addCobroModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">{% trans %}account_cobro_add_title{% endtrans %}</h4>
+        </div>
+        <div class="modal-body" id="addCobroModalBody">
+          hello
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}account_cobro_add_close{% endtrans %}</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock %}

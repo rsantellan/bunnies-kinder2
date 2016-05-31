@@ -15,6 +15,7 @@ class ProgenitorRepository extends EntityRepository
     public function checkEmailExists($email)
     {
         $dql = 'select p from AppBundle:Progenitor p where p.email = :email';
+
         return $this->getEntityManager()
                 ->createQuery($dql)
                 ->setParameters(array('email' => $email))

@@ -420,4 +420,14 @@ class Cuenta
 
         return number_format($this->getDiferencia(), 0, ',', '.');
     }
+
+    public function addPagoAmount($amount)
+    {
+        $this->setPago($this->getPago() + $amount);
+    }
+
+    public function removePagoAmount($amount)
+    {
+        $this->setPago($this->getPago() - $amount);
+    }
 }
