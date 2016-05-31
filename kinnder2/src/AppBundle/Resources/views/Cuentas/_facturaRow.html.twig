@@ -1,0 +1,48 @@
+<div class="panel" id="factura-panel-{{ factura.id }}">
+    <div class="panel-heading">
+        <a href="#collapse{{factura.id}}" data-parent="#accordionFactura" data-toggle="collapse" class="collapsed">
+            Factura del {{ factura.month }}/{{factura.year}}
+            <div class="pull-right">
+            {% if factura.cancelado %}
+              {% trans %}cuentas_facturas_cancel{% endtrans %}
+            {% elseif factura.pago %}
+              {% trans %}cuentas_facturas_paid{% endtrans %}
+            {% else %}
+              {% trans %}cuentas_facturas_pending{% endtrans %}
+            {% endif %}
+            </div>
+        </a>
+
+    </div>
+    <div class="panel-collapse collapse" id="collapse{{factura.id}}" style="height: 0px;">
+        <div class="panel-body">
+          <div class="table-responsive no-border">
+            <table  class="table table-bordered table-striped mg-t datatable">
+              <thead>
+                <tr>
+                  <th>{% trans %}cuentas_facturas_description{% endtrans %}</th>
+                  <th>{% trans %}cuentas_facturas_amount{% endtrans %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for detalle in factura.facturaFinalDetalles %}
+                <tr>
+                  <td>{{ detalle.description }}</td>
+                  <td>{{ detalle.amount }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="{% if not factura.cancelado %}warning{%else%}danger{%endif%}">
+                  <td><strong>{% trans %}cuentas_facturas_total{% endtrans %}</strong></td>
+                  <td><strong>{{ factura.total | number_format(0, ',', '.') }}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            {% if not factura.cancelado %}
+              <a class="btn btn-warning pull-right" href="{{ path('disable_factura', {'id' : factura.id }) }}" onclick="return cancelOrActivateFactura({{ factura.id }}, this, '{% trans %}cuentas_facturas_cancel_question{% endtrans %}')">{% trans %}cuentas_facturas_cancel_link{% endtrans %}</a>
+            {% else %}
+              <a class="btn btn-warning pull-right" href="{{ path('enable_factura', {'id' : factura.id }) }}" onclick="return cancelOrActivateFactura({{ factura.id }}, this, '{% trans %}cuentas_facturas_activate_question{% endtrans %}')">{% trans %}cuentas_facturas_activate_link{% endtrans %}</a>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+</div>

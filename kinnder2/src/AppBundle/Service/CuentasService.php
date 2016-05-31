@@ -65,4 +65,75 @@ class CuentasService
         $this->em->persist($cuenta);
         $this->em->flush();
     }
+
+    public function disableCobro($id)
+    {
+      $cobro = $this->em->getRepository('AppBundle:Cobro')->find($id);
+      if(!$cobro){
+        return null;
+      }
+      if (!$cobro->getCancelado()) {
+          $cobro->setCancelado(true);
+          $cuenta = $cobro->getCuenta();
+          $cuenta->removePagoAmount($cobro->getMonto());
+          $this->em->persist($cobro);
+          $this->em->persist($cuenta);
+          $this->em->flush();
+      }
+      return $cobro;
+    }
+
+    public function enableCobro($id)
+    {
+      $cobro = $this->em->getRepository('AppBundle:Cobro')->find($id);
+      if(!$cobro){
+        return null;
+      }
+      if ($cobro->getCancelado()) {
+
+          $cobro->setCancelado(false);
+          $cuenta = $cobro->getCuenta();
+          $cuenta->addPagoAmount($cobro->getMonto());
+          $this->em->persist($cobro);
+          $this->em->persist($cuenta);
+          $this->em->flush();
+      }
+      return $cobro;
+    }
+
+    public function disableFactura($id)
+    {
+      $factura = $this->em->getRepository('AppBundle:FacturaFinal')->find($id);
+      if (!$factura) {
+          return null;
+      }
+      if (!$factura->getCancelado()) {
+          $factura->setCancelado(true);
+          $factura->setPagadodeltotal(0);
+          $factura->setPago(false);
+          $cuenta = $factura->getCuenta();
+          $cuenta->removeDebeAmount($factura->getTotal());
+          $this->em->persist($factura);
+          $this->em->persist($cuenta);
+          $this->em->flush();
+      }
+      return $factura;
+    }
+
+    public function enableFactura($id)
+    {
+      $factura = $this->em->getRepository('AppBundle:FacturaFinal')->find($id);
+      if (!$factura) {
+          return null;
+      }
+      if ($factura->getCancelado()) {
+          $factura->setCancelado(false);
+          $cuenta = $factura->getCuenta();
+          $cuenta->addDebeAmount($factura->getTotal());
+          $this->em->persist($factura);
+          $this->em->persist($cuenta);
+          $this->em->flush();
+      }
+      return $factura;
+    }
 }

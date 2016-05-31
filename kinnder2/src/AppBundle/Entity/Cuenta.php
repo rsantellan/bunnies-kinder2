@@ -430,4 +430,14 @@ class Cuenta
     {
         $this->setPago($this->getPago() - $amount);
     }
+
+    public function addDebeAmount($amount)
+    {
+        $this->setDebe($this->getDebe() + $amount);
+    }
+
+    public function removeDebeAmount($amount)
+    {
+        $this->setDebe($this->getDebe() - $amount);
+    }
 }

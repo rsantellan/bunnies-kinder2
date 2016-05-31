@@ -296,7 +296,7 @@
       </trans-unit>
       <trans-unit id="8bf7678ebd7040396a04025f3bc01a28" resname="cuentas_facturas_cancel">
         <source>cuentas_facturas_cancel</source>
-        <target>Cancelar</target>
+        <target>Cancelada</target>
       </trans-unit>
       <trans-unit id="6dd27b2cfa226124d75f6d33385cc0ce" resname="cuentas_facturas_paid">
         <source>cuentas_facturas_paid</source>

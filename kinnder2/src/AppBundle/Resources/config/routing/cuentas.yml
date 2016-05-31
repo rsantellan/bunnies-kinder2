@@ -28,3 +28,13 @@ enable_cobro:
     path:     /{id}/enable-cobro
     defaults: { _controller: "AppBundle:Cuentas:enableCobro" }
     methods:  [POST, PUT]
+
+disable_factura:
+    path:     /{id}/disable-factura
+    defaults: { _controller: "AppBundle:Cuentas:disableFactura" }
+    methods:  [POST, PUT]
+
+enable_factura:
+    path:     /{id}/enable-factura
+    defaults: { _controller: "AppBundle:Cuentas:enableFactura" }
+    methods:  [POST, PUT]

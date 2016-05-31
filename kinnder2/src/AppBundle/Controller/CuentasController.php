@@ -159,26 +159,18 @@ class CuentasController extends Controller
 
     public function disableCobroAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $cuentaService = $this->get('cuentas');
+        $cobro = $cuentaService->disableCobro($id);
 
-        $cobro = $em->getRepository('AppBundle:Cobro')->find($id);
         if (!$cobro) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');
-        }
-        if (!$cobro->getCancelado()) {
-            $cobro->setCancelado(true);
-            $cuenta = $cobro->getCuenta();
-            $cuenta->removePagoAmount($cobro->getMonto());
-            $em->persist($cobro);
-            $em->persist($cuenta);
-            $em->flush();
         }
         $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
                   'cobro' => $cobro,
           ));
-        $amount = $cuenta->getFormatedDiferencia();
+        $amount = $cobro->getCuenta()->getFormatedDiferencia();
         $positive = false;
-        if ($cuenta->getDiferencia() < 0) {
+        if ($cobro->getCuenta()->getDiferencia() < 0) {
             $positive = true;
         }
         $message = 'Cobro cancelado con exito';
@@ -196,30 +188,80 @@ class CuentasController extends Controller
 
     public function enableCobroAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $cuentaService = $this->get('cuentas');
+        $cobro = $cuentaService->enableCobro($id);
 
-        $cobro = $em->getRepository('AppBundle:Cobro')->find($id);
         if (!$cobro) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');
         }
 
-        if ($cobro->getCancelado()) {
-            $cobro->setCancelado(false);
-            $cuenta = $cobro->getCuenta();
-            $cuenta->addPagoAmount($cobro->getMonto());
-            $em->persist($cobro);
-            $em->persist($cuenta);
-            $em->flush();
-        }
         $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
                   'cobro' => $cobro,
           ));
-        $amount = $cuenta->getFormatedDiferencia();
+        $amount = $cobro->getCuenta()->getFormatedDiferencia();
         $positive = false;
-        if ($cuenta->getDiferencia() < 0) {
+        if ($cobro->getCuenta()->getDiferencia() < 0) {
             $positive = true;
         }
         $message = 'Cobro activado con exito';
+        $response = new JsonResponse();
+        $response->setData(array(
+                'result' => true,
+                'html' => $html,
+                'message' => $message,
+                'amount' => $amount,
+                'positive' => $positive,
+              ));
+
+        return $response;
+    }
+
+    public function disableFacturaAction($id)
+    {
+        $cuentaService = $this->get('cuentas');
+        $factura = $cuentaService->disableFactura($id);
+        if (!$factura) {
+            throw $this->createNotFoundException('Unable to find Factura entity.');
+        }
+        $html = $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
+                  'factura' => $factura,
+          ));
+        $amount = $factura->getCuenta()->getFormatedDiferencia();
+        $positive = false;
+        if ($factura->getCuenta()->getDiferencia() < 0) {
+            $positive = true;
+        }
+        $message = 'Factura cancelada con exito';
+        $response = new JsonResponse();
+        $response->setData(array(
+                'result' => true,
+                'html' => $html,
+                'message' => $message,
+                'amount' => $amount,
+                'positive' => $positive,
+              ));
+
+        return $response;
+    }
+
+    public function enableFacturaAction($id)
+    {
+        $cuentaService = $this->get('cuentas');
+        $factura = $cuentaService->enableFactura($id);
+        if (!$factura) {
+            throw $this->createNotFoundException('Unable to find Factura entity.');
+        }
+
+        $html = $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
+                  'factura' => $factura,
+          ));
+
+        $amount = $factura->getCuenta()->getFormatedDiferencia();
+        $positive = false;
+        if ($factura->getCuenta()->getDiferencia() < 0) {
+            $positive = true;
+        }
+        $message = 'Factura activada con exito';
         $response = new JsonResponse();
         $response->setData(array(
                 'result' => true,
