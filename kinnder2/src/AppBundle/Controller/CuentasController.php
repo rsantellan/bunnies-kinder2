@@ -152,6 +152,7 @@ class CuentasController extends Controller
                 'message' => $message,
                 'amount' => $amount,
                 'positive' => $positive,
+                'cuentaId' => $cuentaId,
               ));
 
         return $response;
@@ -160,14 +161,24 @@ class CuentasController extends Controller
     public function disableCobroAction($id)
     {
         $cuentaService = $this->get('cuentas');
-        $cobro = $cuentaService->disableCobro($id);
+        $cobroResponse = $cuentaService->disableCobro($id);
 
-        if (!$cobro) {
+        if (!$cobroResponse) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');
         }
+        $cobro = $cobroResponse['cobro'];
         $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
                   'cobro' => $cobro,
           ));
+        $facturasHtml = array();
+        foreach($cobroResponse['facturas'] as $factura){
+          $facturasHtml[] = array(
+            'id' => $factura->getId(),
+            'html' => $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
+                      'factura' => $factura,
+              )),
+          );
+        }
         $amount = $cobro->getCuenta()->getFormatedDiferencia();
         $positive = false;
         if ($cobro->getCuenta()->getDiferencia() < 0) {
@@ -181,6 +192,7 @@ class CuentasController extends Controller
                 'message' => $message,
                 'amount' => $amount,
                 'positive' => $positive,
+                'facturas' => $facturasHtml,
               ));
 
         return $response;
@@ -189,15 +201,24 @@ class CuentasController extends Controller
     public function enableCobroAction($id)
     {
         $cuentaService = $this->get('cuentas');
-        $cobro = $cuentaService->enableCobro($id);
+        $cobroResponse = $cuentaService->enableCobro($id);
 
-        if (!$cobro) {
+        if (!$cobroResponse) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');
         }
-
+        $cobro = $cobroResponse['cobro'];
         $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
                   'cobro' => $cobro,
           ));
+        $facturasHtml = array();
+        foreach($cobroResponse['facturas'] as $factura){
+          $facturasHtml[] = array(
+            'id' => $factura->getId(),
+            'html' => $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
+                      'factura' => $factura,
+              )),
+          );
+        }
         $amount = $cobro->getCuenta()->getFormatedDiferencia();
         $positive = false;
         if ($cobro->getCuenta()->getDiferencia() < 0) {
@@ -211,6 +232,7 @@ class CuentasController extends Controller
                 'message' => $message,
                 'amount' => $amount,
                 'positive' => $positive,
+                'facturas' => $facturasHtml,
               ));
 
         return $response;

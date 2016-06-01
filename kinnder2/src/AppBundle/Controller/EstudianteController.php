@@ -9,6 +9,7 @@ use AppBundle\Entity\Estudiante;
 use AppBundle\Form\EstudianteType;
 use AppBundle\Form\EstudianteEditType;
 use AppBundle\Filter\EstudianteFilterType;
+use AppBundle\Filter\EstudianteExportFilterType;
 use AppBundle\Entity\Cuenta;
 
 /**
@@ -253,6 +254,17 @@ class EstudianteController extends Controller
           'entities' => $entities,
           'filter' => $filter->createView(),
       );
+    }
+
+    public function exportDatosShowAction(Request $request)
+    {
+      $filter = $this->get('form.factory')->create(new EstudianteExportFilterType());
+      $entities = array();
+      $data = array(
+        'entities' => $entities,
+        'filter' => $filter->createView(),
+      );
+      return $this->render('AppBundle:Estudiante:exportDatos.html.twig', $data);
     }
 
     public function checkReferenceAction(Request $request)

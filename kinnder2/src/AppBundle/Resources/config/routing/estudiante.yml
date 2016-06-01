@@ -31,6 +31,10 @@ estudiante_show:
     path:     /{id}/show
     defaults: { _controller: "AppBundle:Estudiante:show" }
 
+estudiante_exportar:
+    path:     /exportacion-datos-alumnos.html
+    defaults: { _controller: "AppBundle:Estudiante:exportDatosShow" }
+
 estudiante_new:
     path:     /new
     defaults: { _controller: "AppBundle:Estudiante:new" }

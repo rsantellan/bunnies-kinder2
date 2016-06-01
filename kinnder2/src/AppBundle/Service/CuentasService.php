@@ -72,6 +72,7 @@ class CuentasService
       if(!$cobro){
         return null;
       }
+      $facturasForRefresh = array();
       if (!$cobro->getCancelado()) {
           $cobro->setCancelado(true);
           $cuenta = $cobro->getCuenta();
@@ -79,8 +80,27 @@ class CuentasService
           $this->em->persist($cobro);
           $this->em->persist($cuenta);
           $this->em->flush();
+
+          if($cuenta->getDiferencia() > 0)
+          {
+            $facturas = $this->em->getRepository('AppBundle:FacturaFinal')->retrievePaidFacturasOfAccount($cuenta->getId());
+            $monto = $cobro->getMonto();
+            foreach($facturas as $factura){
+              if($monto > 0){
+                $monto = $monto - $factura->getTotal();
+                $factura->setPagadodeltotal(0);
+                $factura->setPago(false);
+                $this->em->persist($factura);
+                $this->em->flush();
+                $facturasForRefresh[] = $factura;
+              }
+            }
+          }
       }
-      return $cobro;
+      return array(
+        'cobro' => $cobro,
+        'facturas' => $facturasForRefresh,
+      );
     }
 
     public function enableCobro($id)
@@ -89,6 +109,7 @@ class CuentasService
       if(!$cobro){
         return null;
       }
+      $facturasForRefresh = array();
       if ($cobro->getCancelado()) {
 
           $cobro->setCancelado(false);
@@ -97,8 +118,24 @@ class CuentasService
           $this->em->persist($cobro);
           $this->em->persist($cuenta);
           $this->em->flush();
+          $facturas = $this->em->getRepository('AppBundle:FacturaFinal')->retrieveUnpaidFacturasOfAccount($cuenta->getId(), false);
+          $monto = $cobro->getMonto();
+          foreach($facturas as $factura){
+            if($monto > 0){
+              $monto = $monto - $factura->getTotal();
+              $factura->setPagadodeltotal(0);
+              $factura->setPago(true);
+              $this->em->persist($factura);
+              $this->em->flush();
+              $facturasForRefresh[] = $factura;
+            }
+          }
+
       }
-      return $cobro;
+      return array(
+        'cobro' => $cobro,
+        'facturas' => $facturasForRefresh,
+      );
     }
 
     public function disableFactura($id)
@@ -134,10 +171,10 @@ class CuentasService
           $this->em->persist($cuenta);
           $this->em->flush();
           // Reviso si esa factura puede estar paga
-          if($cuenta->getDiferencia() <  $factura->getTotal()){
-            if(( $factura->getTotal() - $cuenta->getDiferencia()) <= 0){
-              
-            }
+          if($cuenta->getDiferencia() <= 0){
+            $factura->setPago(true);
+            $this->em->persist($factura);
+            $this->em->flush();
           }
       }
       return $factura;

@@ -1,6 +1,15 @@
 {% extends "AppBundle::adminlayout.html.twig" %}
 
-{% block title %}AppBundle:Alarms:index{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/admin/vendor/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/alertas.js') }}"></script>
+{% endblock %}
+{% block pagestylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/toastr/toastr.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/datepicker.css') }}" >
+{% endblock %}
+
 
 {% block body %}
 <div class="row">
@@ -24,50 +33,78 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-sm-3">
+  </div>
+  <div class="col-sm-6 text-center">
       <h3 class="no-margin">{% trans %}alertas_title{% endtrans %}</h3>
       <small>{% trans %}alertas_title_subtitle{% endtrans %}</small>
   </div>
+  <div class="col-sm-3">
+  </div>
 </div>
 <div class="row">
-  <section class="panel bg-none">
-      <div id="accordion" class="panel-group">
-          {% for debt in pendingDebts %}
-          <div class="panel">
-              <div class="panel-heading text-center">
-                  <a href="#collapsedBy{{ loop.index }}" data-parent="#accordion" data-toggle="collapse" class="collapsed" style="font-size: 20px">
-                    {{ debt.apellido }} (Ref: <strong>{{ debt.referenciaBancaria }}</strong>) ($ <strong>{{ debt.diferencia}}</strong>)
-                  </a>
-
-              </div>
-              <div class="panel-collapse collapse" id="collapsedBy{{ loop.index }}" style="height: 0px;">
-                  <div class="panel-body text-center">
-                    <h4>{% trans %}alertas_related_students{% endtrans %}</h4>
-                    <ul>
-                      {% for estudiante in debt.estudiantes %}
-                      <li>
-                        {% if estudiante.egresado %}
-                          <span class="strike-span">{{ estudiante.nombre }} (Egresado)</span>
-                        {% else %}
-                          <span>{{ estudiante.nombre }} [{{ estudiante.clase }}/{{ estudiante.horario }}]</span>
-                        {% endif %}
-                      </li>
-                      {% endfor %}
-                    </ul>
-                    <a href="" class="btn btn-success">
-                      <i class="fa fa-envelope"></i>{% trans %}alertas_action_send_email{% endtrans %}
+  <div class="col-sm-3">
+  </div>
+  <div class="col-sm-6">
+    <section class="panel bg-none">
+        <div id="accordion" class="panel-group">
+            {% for debt in pendingDebts %}
+            <div class="panel" id="account-panel-container-{{ debt.cuentaId }}">
+                <div class="panel-heading text-center">
+                    <a href="#collapsedBy{{ loop.index }}" data-parent="#accordion" data-toggle="collapse" class="collapsed" style="font-size: 20px">
+                      {{ debt.apellido }} (Ref: <strong>{{ debt.referenciaBancaria }}</strong>) ($ <strong id="account-debt-container-{{ debt.cuentaId }}">{{ debt.diferencia}}</strong>)
                     </a>
-                    <a href="{{ path('show_cuenta', { 'id': debt.cuentaId }) }}" class="btn btn-primary">
-                      <i class="fa fa-search"></i>{% trans %}alertas_action_view_detail{% endtrans %}
-                    </a>
-                    <a href="" class="btn btn-warning">
-                      <i class="fa fa-dollar"></i>{% trans %}alertas_action_pay{% endtrans %}
-                    </a>
-                  </div>
-              </div>
-          </div>
-          {% endfor %}
-      </div>
-  </section>
+                </div>
+                <div class="panel-collapse collapse" id="collapsedBy{{ loop.index }}" style="height: 0px;">
+                    <div class="panel-body text-center">
+                      <h4>{% trans %}alertas_related_students{% endtrans %}</h4>
+                      <ul>
+                        {% for estudiante in debt.estudiantes %}
+                        <li>
+                          {% if estudiante.egresado %}
+                            <span class="strike-span">{{ estudiante.nombre }} (Egresado)</span>
+                          {% else %}
+                            <span>{{ estudiante.nombre }} [{{ estudiante.clase }}/{{ estudiante.horario }}]</span>
+                          {% endif %}
+                        </li>
+                        {% endfor %}
+                      </ul>
+                      <a href="" class="btn btn-success">
+                        <i class="fa fa-envelope"></i>{% trans %}alertas_action_send_email{% endtrans %}
+                      </a>
+                      <a href="{{ path('show_cuenta', { 'id': debt.cuentaId }) }}" class="btn btn-primary">
+                        <i class="fa fa-search"></i>{% trans %}alertas_action_view_detail{% endtrans %}
+                      </a>
+                      <a href="{{ path('add_cobro', {'cuentaId' : debt.cuentaId } )}}" onclick="return sendAddCobroModal(this);" class="btn btn-warning">
+                          <i class="fa fa-dollar"></i>{% trans %}alertas_action_pay{% endtrans %}
+                      </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+  </div>
+  <div class="col-sm-3">
+  </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal" id="addCobroModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">{% trans %}account_cobro_add_title{% endtrans %}</h4>
+        </div>
+        <div class="modal-body" id="addCobroModalBody">
+          hello
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}account_cobro_add_close{% endtrans %}</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock %}

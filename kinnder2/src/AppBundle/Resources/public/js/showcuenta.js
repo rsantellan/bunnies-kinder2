@@ -67,6 +67,10 @@ function cancelOrActivateCobro(cobroId, element, confirmationText)
             $('#cuenta-dash-amount-circle').addClass('bg-danger');
           }
           $('#cuenta-dash-amount').html(json.amount);
+
+          $.each(json.facturas, function(i, item){
+            $('#factura-panel-' + item.id).replaceWith(item.html);
+          });
       }else{
         toastr.error(json.message);
       }

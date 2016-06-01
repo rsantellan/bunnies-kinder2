@@ -23,9 +23,23 @@ class FacturaFinalRepository extends EntityRepository
       ))->setMaxResults(1)->getOneOrNullResult();
     }
 
-    public function retrieveUnpaidFacturasOfAccount($accountId)
+    public function retrieveUnpaidFacturasOfAccount($accountId, $orderDesc = true)
     {
-        $dql = 'select f from AppBundle:FacturaFinal f where f.cuenta = :cuentaId and f.pago = false and f.cancelado = false order by f.year desc, f.month desc';
+        $orderBy = 'order by f.year desc, f.month desc';
+        if(!$orderDesc){
+          $orderBy = 'order by f.year asc, f.month asc';
+        }
+        $dql = 'select f from AppBundle:FacturaFinal f where f.cuenta = :cuentaId and f.pago = false and f.cancelado = false '.$orderBy;
+
+        return $this->getEntityManager()->createQuery($dql)->setParameters(array(
+          'cuentaId' => $accountId,
+      ))->getResult();
+    }
+
+
+    public function retrievePaidFacturasOfAccount($accountId)
+    {
+        $dql = 'select f from AppBundle:FacturaFinal f where f.cuenta = :cuentaId and f.pago = true and f.cancelado = false order by f.year desc, f.month desc';
 
         return $this->getEntityManager()->createQuery($dql)->setParameters(array(
           'cuentaId' => $accountId,
