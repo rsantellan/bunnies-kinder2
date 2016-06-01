@@ -133,6 +133,12 @@ class CuentasService
           $this->em->persist($factura);
           $this->em->persist($cuenta);
           $this->em->flush();
+          // Reviso si esa factura puede estar paga
+          if($cuenta->getDiferencia() <  $factura->getTotal()){
+            if(( $factura->getTotal() - $cuenta->getDiferencia()) <= 0){
+              
+            }
+          }
       }
       return $factura;
     }
