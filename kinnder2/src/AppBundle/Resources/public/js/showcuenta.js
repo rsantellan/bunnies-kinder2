@@ -1,3 +1,18 @@
+function sendAddDetalleFacturaModal(element){
+      $.ajax({
+          url: $(element).attr('href'),
+          success: function(data){
+            $('#addFacturaDetalleBody').html(data.html);
+            $('#addFacturaDetalleModal').modal('show');
+          },
+          complete: function()
+          {
+          }
+      });
+      return false;
+}
+
+
 function sendAddCobroModal(element){
       $.ajax({
           url: $(element).attr('href'),

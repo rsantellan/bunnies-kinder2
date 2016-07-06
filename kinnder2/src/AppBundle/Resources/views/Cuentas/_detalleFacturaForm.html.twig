@@ -1,0 +1,19 @@
+{{ form_start(form, {'attr' : {'role' : 'form',  'onsubmit' : 'return saveCobroForm(this);'}}) }}
+{{ form_errors(form) }}
+<div class="form-group">
+    {{ form_errors(form.alumnos) }}
+    <label for="{{ form.alumnos.vars.id }}">{% trans %}account_factura_detalle_alumnos{% endtrans %}</label>
+    {{ form_widget(form.alumnos, {'attr' : {'class' : 'form-control'}}) }}
+</div>
+<div class="form-group">
+    {{ form_errors(form.amount) }}
+    <label for="{{ form.amount.vars.id }}">{% trans %}account_factura_detalle_amount{% endtrans %}</label>
+    {{ form_widget(form.amount, {'attr' : {'class' : 'form-control'}}) }}
+</div>
+<div class="form-group">
+    {{ form_errors(form.description) }}
+    <label for="{{ form.description.vars.id }}">{% trans %}account_factura_detalle_description{% endtrans %}</label>
+    {{ form_widget(form.description, {'attr' : {'class' : 'form-control'}}) }}
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

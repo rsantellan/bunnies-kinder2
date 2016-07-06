@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\CobroType;
+use AppBundle\Form\AddFacturaDetalleType;
 use AppBundle\Entity\Cobro;
 
 class CuentasController extends Controller
@@ -78,6 +79,36 @@ class CuentasController extends Controller
 
         $pdfHandler = $this->get('pdfs');
         $pdfHandler->exportCobroToPdf($entity);
+    }
+
+    public function addDetalleFacturaFormAction($facturaId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:FacturaFinal')->find($facturaId);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Cobro entity.');
+        }
+        $alumnos = array();
+        foreach($entity->getCuenta()->getEstudiantes() as $estudiante)
+        {
+            $alumnos[$estudiante->getId()] = $estudiante->getNombre();
+        }
+        $form = $this->createForm(new AddFacturaDetalleType(), null, array(
+          'action' => $this->generateUrl('save_cobro', array('cuentaId' => $facturaId)),
+          'method' => 'POST',
+          'alumnos' => $alumnos,
+        ));
+        $html = $this->renderView('AppBundle:Cuentas:_detalleFacturaForm.html.twig', array(
+                  'facturaId' => $facturaId,
+                  'form' => $form->createView(),
+          ));
+        $response = new JsonResponse();
+        $response->setData(array(
+                'result' => true,
+                'html' => $html,
+              ));
+
+        return $response;
     }
 
     public function addCobroFormAction($cuentaId)

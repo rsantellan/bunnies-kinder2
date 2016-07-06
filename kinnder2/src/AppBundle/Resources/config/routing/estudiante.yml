@@ -34,6 +34,12 @@ estudiante_show:
 estudiante_exportar:
     path:     /exportacion-datos-alumnos.html
     defaults: { _controller: "AppBundle:Estudiante:exportDatosShow" }
+    methods:  GET
+
+estudiante_exportar_submit:
+    path:     /exportacion-datos-alumnos.html
+    defaults: { _controller: "AppBundle:Estudiante:exportDatosFilter" }
+    methods:  POST
 
 estudiante_new:
     path:     /new

@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 
 /**
  * Description of EstudianteFilterType.
@@ -21,25 +22,25 @@ class EstudianteExportFilterType extends AbstractType
     $camposUsuario = array(
         'nombre' => 'Nombre',
         'apellido' => 'Apellido',
-        'fecha_nacimiento' => 'Fecha Nacimiento',
-        'anio_ingreso' => 'Año de ingreso',
-        'sociedad' => 'Sociedad',
-        'referencia_bancaria' => 'Referencia',
-        'emergencia_medica' => 'Emergencia Medica',
+        'fechaNacimiento' => 'Fecha Nacimiento',
+        'anioIngreso' => 'Año de ingreso',
+        'sociedadMedica' => 'Sociedad',
+        'referenciaBancaria' => 'Referencia',
+        'emergenciaMedica' => 'Emergencia Medica',
         'horario' => 'Horario',
         'futuro_colegio' => 'Futuro Colegio',
-        'clase' => 'clase',
+        'clase' => 'Clase',
     );
 
     $camposPadres = array(
-        'padre' => 'nombre',
+        'progenitor' => 'Nombre',
         'direccion' => 'Dirección',
         'telefono' => 'Teléfono',
         'celular' => 'Celular',
-        'mail' => 'Correo Electronico',
+        'email' => 'Correo Electronico',
     );
 
-    $exportar = array('1' => 'Si', '0' => 'No');
+    $exportar = array('0' => 'No', '1' => 'Si');
 
     $builder->add('clase', 'filter_entity',
                 array(
@@ -60,6 +61,9 @@ class EstudianteExportFilterType extends AbstractType
                  'choices' => $camposUsuario,
                  'expanded' => true,
                  'multiple' => true,
+                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                        return null;
+                     }
                   ));
      $builder->add('padres', 'filter_choice',
                  array(
@@ -67,13 +71,19 @@ class EstudianteExportFilterType extends AbstractType
                  'choices' => $camposPadres,
                  'expanded' => true,
                  'multiple' => true,
+                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                        return null;
+                     }
                   ));
      $builder->add('exportar', 'filter_choice',
                  array(
-                 'required' => false,
+                 'required' => true,
                  'choices' => $exportar,
-                 'expanded' => true,
-                 'multiple' => true,
+                 'expanded' => false,
+                 'multiple' => false,
+                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                        return null;
+                     }
                   ));
   }
 

@@ -342,6 +342,114 @@
         <source>account_cobro_activate</source>
         <target>Activar</target>
       </trans-unit>
+      <trans-unit id="ced130c22f85b34b104bb3d2f700c520" resname="account_cobro_add_title">
+        <source>account_cobro_add_title</source>
+        <target>Ingresar cobro</target>
+      </trans-unit>
+      <trans-unit id="f03497e10b34db8b8d48d4d8534e00ef" resname="account_cobro_add_close">
+        <source>account_cobro_add_close</source>
+        <target>Cerrar</target>
+      </trans-unit>
+      <trans-unit id="85bf05600f11290de76eefa87ddec6eb" resname="account_cobro_cancel_question">
+        <source>account_cobro_cancel_question</source>
+        <target>¿Esta seguro de cancelar el cobro?</target>
+      </trans-unit>
+      <trans-unit id="2d2960a5c67a57bd4906965b742a333b" resname="account_cobro_activate_question">
+        <source>account_cobro_activate_question</source>
+        <target>¿Esta seguro de activar el cobro?</target>
+      </trans-unit>
+      <trans-unit id="507e59b83d01a53494f33a2216181ba2" resname="cuentas_facturas_cancel_question">
+        <source>cuentas_facturas_cancel_question</source>
+        <target>¿Esta seguro de cancelar la factura?</target>
+      </trans-unit>
+      <trans-unit id="83ddd3a50c5b2816bac33fe6153f62bf" resname="cuentas_facturas_cancel_link">
+        <source>cuentas_facturas_cancel_link</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="2440f7e0a58786f62e7c26817b836463" resname="cuentas_facturas_activate_question">
+        <source>cuentas_facturas_activate_question</source>
+        <target>¿Esta seguro de activar la factura?</target>
+      </trans-unit>
+      <trans-unit id="ba7ac0842652d7154ecfdf5f7f43fc3f" resname="cuentas_facturas_activate_link">
+        <source>cuentas_facturas_activate_link</source>
+        <target>Activar</target>
+      </trans-unit>
+      <trans-unit id="2e4367ed4ae62fdb5bb5c266959064d2" resname="account_cobro_date">
+        <source>account_cobro_date</source>
+        <target>Fecha</target>
+      </trans-unit>
+      <trans-unit id="b176d7867acd77e21b1cdbef1941ac15" resname="account_cobro_amount">
+        <source>account_cobro_amount</source>
+        <target>Monto</target>
+      </trans-unit>
+      <trans-unit id="b2d1ace78163883086457d8bd655a722" resname="account_cobro_send_now">
+        <source>account_cobro_send_now</source>
+        <target>Enviar email</target>
+      </trans-unit>
+      <trans-unit id="c4c582778cd30395ef78bb5d9fef8a88" resname="account_cobro_save">
+        <source>account_cobro_save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="18d720add73198d8862789cd98de8656" resname="menu_alumnos_exportar_corrientes">
+        <source>menu_alumnos_exportar_corrientes</source>
+        <target>Exportar</target>
+      </trans-unit>
+      <trans-unit id="684ea8f1414a8c16f361314937cd5dc9" resname="menu_alumnos_futuros">
+        <source>menu_alumnos_futuros</source>
+        <target>Futuros</target>
+      </trans-unit>
+      <trans-unit id="e79a9952770d5a0ce01af8ec83fe85c4" resname="menu_alumnos_egresado">
+        <source>menu_alumnos_egresado</source>
+        <target>Egresados</target>
+      </trans-unit>
+      <trans-unit id="5a5aa6e23ad6bc96fe6f9e3ad18e84c8" resname="students_export_clase">
+        <source>students_export_clase</source>
+        <target>Clase</target>
+      </trans-unit>
+      <trans-unit id="07a76f6840e0217444701f11890b889b" resname="students_export_horario">
+        <source>students_export_horario</source>
+        <target>Horario</target>
+      </trans-unit>
+      <trans-unit id="7dee51502c1b50f0cf66000c4676f526" resname="students_export_estudiante">
+        <source>students_export_estudiante</source>
+        <target>Campos de los estudiantes</target>
+      </trans-unit>
+      <trans-unit id="69146984c458fecf5197a7be4a4f0d1c" resname="students_export_padres">
+        <source>students_export_padres</source>
+        <target>Campos de los padres</target>
+      </trans-unit>
+      <trans-unit id="7cd0497256b87758b5d7ddd7b2d01ace" resname="students_export_tipo">
+        <source>students_export_tipo</source>
+        <target>Generar excel</target>
+      </trans-unit>
+      <trans-unit id="c921f3931e18fac98f3a0adc41507c39" resname="students_export_submit">
+        <source>students_export_submit</source>
+        <target>Buscar</target>
+      </trans-unit>
+      <trans-unit id="a" resname="students_title">
+        <source>students_title</source>
+        <target>Almunos</target>
+      </trans-unit>
+      <trans-unit id="a1" resname="students_title_search">
+        <source>students_title_search</source>
+        <target>Buscar alumnos</target>
+      </trans-unit>
+      <trans-unit id="a2" resname="students_future_title">
+        <source>students_future_title</source>
+        <target>Alumnos futuros</target>
+      </trans-unit>
+      <trans-unit id="a21" resname="students_future_title_search">
+        <source>students_future_title_search</source>
+        <target>Buscar alumnos futuros</target>
+      </trans-unit>
+      <trans-unit id="a3" resname="students_egresados_title">
+        <source>students_egresados_title</source>
+        <target>Alumnos egresados</target>
+      </trans-unit>
+      <trans-unit id="a4" resname="students_egresados_title_search">
+        <source>students_egresados_title_search</source>
+        <target>Buscar alumnos egresados</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

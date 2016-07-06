@@ -38,3 +38,7 @@ enable_factura:
     path:     /{id}/enable-factura
     defaults: { _controller: "AppBundle:Cuentas:enableFactura" }
     methods:  [POST, PUT]
+
+add_detalle_factura:
+    path:     /{facturaId}/add-factura
+    defaults: { _controller: "AppBundle:Cuentas:addDetalleFacturaForm" }

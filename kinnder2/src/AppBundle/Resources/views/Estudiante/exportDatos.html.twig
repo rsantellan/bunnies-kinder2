@@ -7,17 +7,176 @@
   <div class="col-sm-4">
       <section class="panel">
           <div class="panel-body">
-
-              {{ form_rest(filter) }}
-              
+              <form action="{{ path('estudiante_exportar') }}" method="get" {{ form_enctype(filter) }} role="form">
+                  <div class="row">
+                      <div class="form-group col-lg-6">
+            			  {{ form_errors(filter.clase) }}
+                          <label for="{{ filter.clase.vars.id }}">{% trans %}students_export_clase{% endtrans %}</label>
+            			  {{ form_widget(filter.clase, {'attr' : {'class' : 'form-control'}}) }}
+                      </div>
+                      <div class="form-group col-lg-6">
+            			  {{ form_errors(filter.horario) }}
+                          <label for="{{ filter.horario.vars.id }}">{% trans %}students_export_horario{% endtrans %}</label>
+            			  {{ form_widget(filter.horario, {'attr' : {'class' : 'form-control'}}) }}
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-6">
+                          <div class="form-group col-lg-12">
+                			  {{ form_errors(filter.estudiantes) }}
+                              <label for="{{ filter.estudiantes.vars.id }}">{% trans %}students_export_estudiante{% endtrans %}</label>
+                              <ul>
+                              {% for key,studentField in filter.estudiantes %}
+                              <li>
+                                  {{ form_widget(studentField) }} {{ form_label(studentField) }}
+                              </li>
+                            {% endfor %}
+                            </ul>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group col-lg-12">
+                			  {{ form_errors(filter.padres) }}
+                              <label for="{{ filter.padres.vars.id }}">{% trans %}students_export_padres{% endtrans %}</label>
+                              <ul>
+                              {% for key,parentField in filter.padres %}
+                                <li>
+                                    {{ form_widget(parentField) }} {{ form_label(parentField) }}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-3"></div>
+                      <div class="form-group col-lg-6">
+            			  {{ form_errors(filter.exportar) }}
+                          <label for="{{ filter.exportar.vars.id }}">{% trans %}students_export_tipo{% endtrans %}</label>
+            			  {{ form_widget(filter.exportar, {'attr' : {'class' : 'form-control'}}) }}
+                      </div>
+                      <div class="col-lg-3"></div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-12 text-center">
+                          <input type="submit" value="{% trans %}students_export_submit{% endtrans %}" class="btn btn-success"/>
+                      </div>
+                  </div>
+                  {{ form_rest(filter) }}
+              </form>
           </div>
       </section>
   </div>
-  <div class="col-sm-4">
-  </div>
+  {% if entities | length > 0 %}
+
   <div class="col-md-12 mg-b-lg">
-
-
+      <section class="panel">
+        <header class="panel-heading">Listado de alumnos</header>
+        <div class="panel-body">
+          <table class="table table-striped no-margin">
+              <thead>
+                  <tr>
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['referenciaBancaria'] is defined %}
+                      <th>Referencia Bancaria</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow']  or filterMetadata['estudiantesRow']['nombre'] is defined %}
+                      <th>Nombre</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['apellido'] is defined %}
+                      <th>Apellido</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['fechaNacimiento'] is defined %}
+                      <th>Fecha Nacimiento</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['anioIngreso'] is defined %}
+                      <th>Año de ingreso</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['sociedadMedica'] is defined %}
+                      <th>Sociedad</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['emergenciaMedica'] is defined %}
+                      <th>Emergencia Medica</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['horario'] is defined %}
+                      <th>Horario</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['futuroColegio'] is defined %}
+                      <th>Futuro Colegio</th>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['clase'] is defined %}
+                      <th>Clase</th>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['progenitor'] is defined %}
+                      <th>Padre</th>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['direccion'] is defined %}
+                      <th>Dirección</th>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['telefono'] is defined %}
+                      <th>Teléfono</th>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['celular'] is defined %}
+                      <th>Celular</th>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['email'] is defined %}
+                      <th>Correo Electronico</th>
+                      {% endif %}
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for entity in entities %}
+                  <tr>
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['referenciaBancaria'] is defined %}
+                      <td>{{ entity.referenciaBancaria }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['nombre'] is defined %}
+                      <td>{{ entity.nombre }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['apellido'] is defined %}
+                      <td>{{ entity.apellido }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['fechaNacimiento'] is defined %}
+                      <td>{{ entity.fechaNacimiento | date('d/m/Y') }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['anioIngreso'] is defined %}
+                      <td>{{ entity.anioIngreso }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['sociedadMedica'] is defined %}
+                      <td>{{ entity.sociedadMedica }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['emergenciaMedica'] is defined %}
+                      <td>{{ entity.emergenciaMedica }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['horario'] is defined %}
+                      <td>{{ entity.horario }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['futuroColegio'] is defined %}
+                      <td>{{ entity.futuroColegio }}</td>
+                      {% endif %}
+                      {% if filterMetadata['useEstudianteRow'] or filterMetadata['estudiantesRow']['clase'] is defined %}
+                      <td>{{ entity.clase }}</td>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['progenitor'] is defined %}
+                      <td>{{ entity.progenitor }}</td>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['direccion'] is defined %}
+                      <td>{{ entity.direccion }}</td>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['telefono'] is defined %}
+                      <td>{{ entity.telefono }}</td>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['celular'] is defined %}
+                      <td>{{ entity.celular }}</td>
+                      {% endif %}
+                      {% if filterMetadata['usePadresRow'] or filterMetadata['padresRow']['email'] is defined %}
+                      <td>{{ entity.email }}</td>
+                      {% endif %}
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
