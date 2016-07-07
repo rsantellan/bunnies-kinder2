@@ -10,7 +10,7 @@
 
     <title>Bunnies Kinder Administrador</title>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    
+
     <!-- page level plugin styles -->
     {% block pagestylesheets %}{% endblock %}
     <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/offline/theme.css') }}">
@@ -27,10 +27,10 @@
     <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/skins/palette.6.css') }}" id="skin">
     <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/fonts/style.1.css') }}" id="font">
     <link rel="stylesheet" href="{{ asset('bundles/app/admin/css/main.css') }}">
-    
+
     <!-- jquery ui -->
     <link rel="stylesheet" href="{{ asset('bundles/maithnewsletter/admin/vendor/jquery-ui-1.11.2.custom/jquery-ui.min.css') }}">
-    
+
     <!-- template styles -->
 	{% block stylesheets %}{% endblock %}
   </head>
@@ -38,7 +38,7 @@
   <!-- body -->
 
   <body>
-    <div class="app {% if (smallnavigation is defined) and smallnavigation %} small-sidebar{% endif %}" {% if (smallnavigation is defined) and smallnavigation %}data-sidebar="locked"{% endif %}>
+    <div class="app horizontal">
 	  <!-- top header -->
 	  <header class="header header-fixed navbar">
 
@@ -53,55 +53,23 @@
 		</div>
 
 		{{ include('AppBundle:Admin:menu.html.twig') }}
-        
+
 		{{ include('AppBundle:Admin:userheader.html.twig') }}
 
 	  </header>
 	  <!-- /top header -->
 
 	  <section class="layout">
-		<!-- sidebar menu -->
-		<aside class="sidebar collapsible canvas-left">
-		  <div class="scroll-menu">
-			<!-- main navigation -->
-			<!-- /main navigation -->
-		  </div>
-
-		  <!-- footer -->
-		  <footer>
-			<div class="about-app pd-md animated pulse">
-			  <span>
-				<b>Newsletter</b>
-				<a href="javascript:;">
-				  <b>Mas informacion</b>
-				</a>
-			  </span>
-			</div>
-
-			<div class="footer-toolbar pull-left">
-			  <a href="javascript:;" class="pull-left help">
-				<i class="fa fa-question-circle"></i>
-			  </a>
-
-			  <a href="javascript:;" class="toggle-sidebar pull-right hidden-xs">
-				<i class="fa fa-angle-left"></i>
-			  </a>
-			</div>
-		  </footer>
-		  <!-- /footer -->
-		</aside>
-		<!-- /sidebar menu -->
-
 		{% block profileinfo %}
 
 		{% endblock %}
-		
+
 		<!-- Emails like Sidebars datas -->
-		
+
 		{% block emailssidebars %}
 
 		{% endblock %}
-		
+
 		<!-- main content -->
 		<section class="main-content">
 
@@ -169,7 +137,7 @@
 
     <!-- load modernizer -->
     <script src="{{ asset('bundles/maithnewsletter/admin/vendor/modernizr.js') }}"></script>
-	
+
     <!-- core scripts -->
     <script src="{{ asset('bundles/maithnewsletter/admin/vendor/jquery-1.11.1.min.js') }}"></script>
     <script src="{{ asset('bundles/maithnewsletter/admin/bootstrap/js/bootstrap.js') }}"></script>
@@ -186,10 +154,10 @@
     <!-- template scripts -->
     <script src="{{ asset('bundles/maithnewsletter/admin/js/off-canvas.js') }}"></script>
     <script src="{{ asset('bundles/maithnewsletter/admin/js/main.js') }}"></script>
-    
+
     <!-- Search plugin -->
     <script src="{{ asset('bundles/maithnewsletter/admin/vendor/jquery-ui-1.11.2.custom/jquery-ui.min.js') }}"></script>
-    
+
     <!-- /template scripts -->
 	{% block javascripts %}{% endblock %}
   </body>
