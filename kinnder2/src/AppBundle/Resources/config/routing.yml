@@ -10,6 +10,10 @@ cuentas:
     resource: "@AppBundle/Resources/config/routing/cuentas.yml"
     prefix:   /admin/cuentas
 
+reactnewsletter:
+    resource: "@AppBundle/Resources/config/routing/reactnewsletter.yml"
+    prefix:   /admin/react
+
 admin_alertas:
     path:     /admin
     defaults: { _controller: AppBundle:Cuentas:index }
@@ -17,10 +21,10 @@ admin_alertas:
 admin_index:
     path:     /admin/
     defaults: { _controller: AppBundle:Cuentas:index }
-    
+
 homepage:
     path:     /
-    defaults: { _controller: AppBundle:Default:index }  
+    defaults: { _controller: AppBundle:Default:index }
 
 migrations:
     resource: "@AppBundle/Resources/config/routing/migrations.yml"

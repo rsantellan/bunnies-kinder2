@@ -9,3 +9,6 @@
 /composer.phar
 /vendor/
 /web/bundles/
+/reactjs/node_modules/
+/web/js/*
+!web/js/.gitkeep
