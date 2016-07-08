@@ -31,6 +31,10 @@ class UsersManagement extends React.Component{
 	}
 
 	deleteAction(e){
+		if(!confirm('Desea eliminar el usuario?')){
+			e.preventDefault();
+			return false;
+		}
 		var el = e.target;
 		var dataId = el.getAttribute("data-id");
 		var that = this;

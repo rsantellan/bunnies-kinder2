@@ -27,3 +27,13 @@ rnewsletter_user_group_add:
 rnewsletter_user_group_search:
     path:     /r/search-user-group
     defaults: { _controller: AppBundle:ReactNewsletter:userGroupSearch }
+
+rnewsletter_user_group_edit:
+    path:     /r/edit-user-group
+    defaults: { _controller: AppBundle:ReactNewsletter:userGroupEdit }
+    requirements: { _method: post }
+
+rnewsletter_user_group_remove:
+    path:     /r/remove-user-group
+    defaults: { _controller: AppBundle:ReactNewsletter:userGroupRemove }    
+    requirements: { _method: post }

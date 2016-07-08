@@ -118,6 +118,10 @@
             </div>
             {% endif %}
 				{% block body %}
+
+                <div id="newsletterContainer">
+                </div>
+
                 <div>
                     <div class="row">
                         <div class="col-lg-4">
@@ -142,8 +146,10 @@
                 <input type="text" value="{{ path('admin_newsletter_download_user')}}" id="user-download-csv-url" />
                 <input type="text" value="{{ path('rnewsletter_search_users')}}" id="user-search-url" />
                 <input type="text" value="{{ path('rnewsletter_remove_users')}}" id="user-remove-url" />
-                
+
                 <input type="text" value="{{ path('rnewsletter_user_group_add')}}" id="user-group-add-url" />
+                <input type="text" value="{{ path('rnewsletter_user_group_edit')}}" id="user-group-edit-url" />
+                <input type="text" value="{{ path('rnewsletter_user_group_remove')}}" id="user-group-remove-url" />
                 <input type="text" value="{{ path('rnewsletter_user_group_search')}}" id="user-search-groups-url" />
 				{% endblock %}
 		  </div>

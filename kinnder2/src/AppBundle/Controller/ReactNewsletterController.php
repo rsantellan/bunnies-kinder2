@@ -103,7 +103,7 @@ class ReactNewsletterController extends Controller
         );
         $valid = false;
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Estudiante')->find($userId);
+        $entity = $em->getRepository('MaithNewsletterBundle:User')->find($userId);
 
         if ($entity) {
             try{
@@ -122,7 +122,7 @@ class ReactNewsletterController extends Controller
         $response->setData($responseData);
         return $response;
     }
-    
+
     public function userGroupAddAction(Request $request)
     {
         $name = $request->request->get('userGroupName');
@@ -162,8 +162,8 @@ class ReactNewsletterController extends Controller
         $response->setData($responseData);
         return $response;
     }
-    
-    
+
+
     public function userGroupSearchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -176,6 +176,78 @@ class ReactNewsletterController extends Controller
         $response = new JsonResponse();
         $response->setData($list);
 
+        return $response;
+    }
+
+    public function userGroupEditAction(Request $request)
+    {
+        $name = $request->request->get('userGroupName');
+        $id = $request->request->get('id');
+        $errorMessage = '';
+        $valid = false;
+        $responseData = array(
+            'message' => 'todo ok',
+            'name' => $name,
+            'errorMessage' => $errorMessage,
+            'item' => null,
+        );
+
+        $valid = false;
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('MaithNewsletterBundle:UserGroup')->find($id);
+
+        if ($entity) {
+            $entity->setName($name);
+            $validator = $this->get('validator');
+            $errors = $validator->validate($entity);
+            if (count($errors) > 0) {
+                $responseData['message'] = (string) $entity;
+            }else{
+                try{
+                    $em->persist($entity);
+                    $em->flush();
+                    $responseData['message'] = 'Datos guardados con exito';
+                    $valid = true;
+                    $responseData['item'] = array('id' => $entity->getId(), 'name' => $entity->getName());
+                    $valid = true;
+                }catch(\Exception $e){
+                    $responseData['message'] = 'No se pudo editar el grupo. Revisa que no este ingresado.';
+                    $logger = $this->get('logger');
+                    $logger->error($e);
+                 }
+            }
+
+        }
+        $responseData['result'] = $valid;
+        $response = new JsonResponse();
+        $response->setData($responseData);
+        return $response;
+    }
+
+    public function userGroupRemoveAction(Request $request){
+        $userId = $request->request->get('id');
+        $responseData = array(
+            'message' => 'No existe el grupo.',
+        );
+        $valid = false;
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('MaithNewsletterBundle:UserGroup')->find($userId);
+
+        if ($entity) {
+            try{
+                $em->remove($entity);
+                //$em->flush();
+                $valid = true;
+                $responseData['message'] = 'Grupo borrado correctamente';
+            }catch(\Exception $e){
+                $responseData['message'] = 'Error al borrar el grupo';
+                $logger = $this->get('logger');
+                $logger->error($e);
+            }
+        }
+        $responseData['result'] = $valid;
+        $response = new JsonResponse();
+        $response->setData($responseData);
         return $response;
     }
 

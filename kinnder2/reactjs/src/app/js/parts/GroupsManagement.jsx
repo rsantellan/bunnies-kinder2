@@ -28,12 +28,13 @@ class GroupsManagement extends React.Component{
 		this.submitAddSimpleUserGroup = this.submitAddSimpleUserGroup.bind(this);
 		this.submitUserSearch = this.submitUserSearch.bind(this);
 		this.changeStateSearchSimpleUser = this.changeStateSearchSimpleUser.bind(this);
-		this.changeStateGroupName = this.changeStateGroupName.bind(this);
+		//this.changeStateGroupName = this.changeStateGroupName.bind(this);
 		this.goToStateZero = this.goToStateZero.bind(this);
 		this.goToStateOne = this.goToStateOne.bind(this);
 		this.goToStateTwo = this.goToStateTwo.bind(this);
 		this.deleteAction = this.deleteAction.bind(this);
 		this.editAction = this.editAction.bind(this);
+		this.submitEditUserGroup = this.submitEditUserGroup.bind(this);
 	}
 
 	componentDidMount() {
@@ -66,8 +67,11 @@ class GroupsManagement extends React.Component{
 		var items = this.state.listdata.items;
 		var object = _.clone(_.find(items, function(o){ return o.id == dataId }));
 		if(object !== undefined){
-			this.setState({groupName: object.name});
-			this.setState({editedGroupId: dataId});
+			var sessionData = that.state;
+        	sessionData['groupName'] = object.name;
+        	sessionData['editedGroupId'] = dataId;
+        	console.log(sessionData);
+        	that.setState(sessionData);
 			this.goToStateTwo();	
 		}else{
 			alert('Objecto no encontrado!');
@@ -76,6 +80,10 @@ class GroupsManagement extends React.Component{
   	}
 
 	deleteAction(e){
+		if(!confirm('Desea eliminar el grupo?')){
+			e.preventDefault();
+			return false;
+		}
 		var el = e.target;
 		var dataId = el.getAttribute("data-id");
 		var that = this;
@@ -121,10 +129,11 @@ class GroupsManagement extends React.Component{
 	changeStateSearchSimpleUser(event){
 		this.setState({searchEmail: event.target.value});
 	}
+/*	
 	changeStateGroupName(event){
 		this.setState({groupName: event.target.value});
 	}
-
+*/
 	submitUserSearch(e){
 		var that = this;
 		$.ajax({
@@ -145,6 +154,43 @@ class GroupsManagement extends React.Component{
         });
 		e.preventDefault();
 	}
+
+	submitEditUserGroup(e){
+		console.log(e);
+		console.log(e.target);
+		var sendData = {};
+		_.forEach($(e.target).serializeArray(), function(arrayElement){
+			 sendData[arrayElement.name] = arrayElement.value;
+		});
+		sendData['id'] = this.state.editedGroupId;
+		var that = this;
+		$.ajax({
+            url: $('#'+this.props.editUrlId).val(),
+            type: 'post',
+            data: sendData,
+            dataType: "json",
+            success: function (data) {
+	        	var sessionData = that.state;
+            	sessionData['message'] = data.message;
+            	if(data.result == true){
+            		var items = sessionData['listdata']['items'];
+					_.remove(items, function(o){ return o.id == sendData['id'] });
+            		sessionData['groupName'] = '';
+            		items.push(data.item);
+            		sessionData['listdata']['items'] = items;
+            	}
+				that.setState(sessionData);
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log(this.props.actionUrl, status, err.toString());
+            }.bind(this)
+        });
+		e.preventDefault();
+		console.log(sendData);
+		console.log($(e.target).serializeArray());
+		e.preventDefault();
+	}
+
 	submitAddSimpleUserGroup(e){
 		var that = this;
 		$.ajax({
@@ -190,10 +236,12 @@ class GroupsManagement extends React.Component{
 					</section>);
 				break;
 			case 2:
-				return (<AddEditUserGroup groupName={ this.state.groupName } buttonText="Editar" message={this.state.message} submitSendFunction={this.submitAddSimpleUserGroup} goToState={this.goToStateOne} />);
+				var aux = _.clone(this.state.groupName);
+				return (<AddEditUserGroup groupName={ aux } buttonText="Editar" message={this.state.message} submitSendFunction={this.submitEditUserGroup} goToState={this.goToStateOne} />);
 			break;
 			default:
-				return (<AddEditUserGroup groupName={ this.state.groupName } buttonText="Guardar" message={this.state.message} submitSendFunction={this.submitAddSimpleUserGroup} goToState={this.goToStateOne} />);
+				var aux = _.clone(this.state.groupName);
+				return (<AddEditUserGroup groupName={ aux } buttonText="Guardar" message={this.state.message} submitSendFunction={this.submitAddSimpleUserGroup} goToState={this.goToStateOne} />);
 			break;
 		}
 		
@@ -205,13 +253,13 @@ class AddEditUserGroup extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			userGroupName: '',
+			formUserGroupName: this.props.groupName,
 		}
 		this.changeStateGroupName = this.changeStateGroupName.bind(this);
 	}
 
 	changeStateGroupName(event){
-		this.setState({userGroupName: event.target.value});
+		this.setState({formUserGroupName: event.target.value});
 	}
 
 	render(){
@@ -224,7 +272,7 @@ class AddEditUserGroup extends React.Component{
 		            <form onSubmit={ this.props.submitSendFunction } role="form">
 		                <div className="form-group">
 		                    <label htmlFor="userGroupName">Nombre</label>
-		                    <input type="text" className="form-control" required="required" name="userGroupName" id="userGroupName" value={this.props.groupName} onChange={this.changeStateGroupName}/>
+		                    <input type="text" className="form-control" required="required" name="userGroupName" id="userGroupName" value={this.state.formUserGroupName} onChange={this.changeStateGroupName}/>
 		                </div>
 		                <div className="form-group">
 		                    <button className="btn btn-default" type="submit">{this.props.buttonText}</button>
