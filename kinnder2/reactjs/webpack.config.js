@@ -26,7 +26,8 @@ var config = {
         }
       }
     ]
-  }
+  },
+  //devtool: 'eval'
 
 };
 

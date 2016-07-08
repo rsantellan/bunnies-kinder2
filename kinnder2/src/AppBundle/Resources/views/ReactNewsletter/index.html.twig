@@ -127,10 +127,10 @@
 
 
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div id="newsletterUserManageContainer"></div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div id="newsletterGroupManageContainer"></div>
                         </div>
                     </div>
@@ -142,6 +142,9 @@
                 <input type="text" value="{{ path('admin_newsletter_download_user')}}" id="user-download-csv-url" />
                 <input type="text" value="{{ path('rnewsletter_search_users')}}" id="user-search-url" />
                 <input type="text" value="{{ path('rnewsletter_remove_users')}}" id="user-remove-url" />
+                
+                <input type="text" value="{{ path('rnewsletter_user_group_add')}}" id="user-group-add-url" />
+                <input type="text" value="{{ path('rnewsletter_user_group_search')}}" id="user-search-groups-url" />
 				{% endblock %}
 		  </div>
 		  <!-- /content wrapper -->

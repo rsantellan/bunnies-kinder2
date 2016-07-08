@@ -186,7 +186,7 @@ class SimpleTableRow extends React.Component{
         var editAction = null;
         var deleteAction = null;
 		if(this.props.editAction !== undefined){
-			editAction = <SimpleTableButton onClick={this.props.editAction} disabled={false} text="Editar" idMeta={this.props.item.id}/>
+			editAction = <SimpleTableButton onClick={this.props.editAction} disabled={false} text="Editar" idMeta={this.props.item.id} className="btn btn-warning" style="padding-right: 10px"/>
 		} 
 		if(this.props.deleteAction !== undefined ){
 			deleteAction = <SimpleTableButton onClick={this.props.deleteAction} disabled={false} text="Eliminar" idMeta={this.props.item.id} className="btn btn-danger"/>

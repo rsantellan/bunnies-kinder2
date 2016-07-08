@@ -45,6 +45,7 @@
   },
   "scripts": {
     "dev": "webpack -d --watch",
+    "devSlow": "webpack -d --watch",
     "build" : "webpack -p"
   }
 

@@ -136,7 +136,7 @@ class UsersManagement extends React.Component{
 				        	<div className="message">{this.state.message}</div>
 				            <form onSubmit={ this.submitAddSimpleUser } role="form">
 				                <div className="form-group">
-				                    <label for="user_email">Email</label>
+				                    <label htmlFor="user_email">Email</label>
 				                    <input type="email" className="form-control" required="required" name="user_email" id="user_email" value={this.state.addEmail} onChange={this.changeStateAddSimpleUser}/>
 				                </div>
 				                <div className="form-group">
@@ -176,7 +176,7 @@ class SearchUsers extends React.Component{
             <div id="search_user_container">
 	            <form onSubmit={ that.props.submitUserSearch } role="form">
 	                <div className="form-group">
-	                    <label for="user_search_email">Email</label>
+	                    <label htmlFor="user_search_email">Email</label>
 	                    <input type="text" id="user_search_email" name="search" placeholder="Buscar por email" className="form-control" required="requiered" value={this.state.searchEmail} onChange={this.changeStateSearchSimpleUser}></input>
 	                </div>
 	                <div className="form-group">

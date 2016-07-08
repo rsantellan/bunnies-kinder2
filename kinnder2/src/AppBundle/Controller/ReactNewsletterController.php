@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 /** Newsletter includes **/
 
 use Maith\NewsletterBundle\Entity\User;
+use Maith\NewsletterBundle\Entity\UserGroup;
 
 class ReactNewsletterController extends Controller
 {
@@ -63,7 +64,9 @@ class ReactNewsletterController extends Controller
                 $valid = true;
             }catch(\Exception $e)
             {
-                $responseData['message'] = 'El email ya existe.';
+                $responseData['message'] = 'No se pudo ingresar el email. Revisa que no este ingresado.';
+                $logger = $this->get('logger');
+                $logger->error($e);
                 //throw $e;
             }
         }
@@ -110,11 +113,69 @@ class ReactNewsletterController extends Controller
                 $responseData['message'] = 'Usuario borrado correctamente';
             }catch(\Exception $e){
                 $responseData['message'] = 'Error al borrar el usuario';
+                $logger = $this->get('logger');
+                $logger->error($e);
             }
         }
         $responseData['result'] = $valid;
         $response = new JsonResponse();
         $response->setData($responseData);
+        return $response;
+    }
+    
+    public function userGroupAddAction(Request $request)
+    {
+        $name = $request->request->get('userGroupName');
+        $group = new UserGroup();
+        $group->setName($name);
+        // Missing validate not empty on entity.
+        $validator = $this->get('validator');
+        $errors = $validator->validate($group);
+        $errorMessage = '';
+        $valid = false;
+        $responseData = array(
+            'message' => 'todo ok',
+            'name' => $name,
+            'errorMessage' => $errorMessage,
+            'item' => null,
+        );
+        if (count($errors) > 0) {
+            $responseData['message'] = (string) $errors;
+        }else{
+            try{
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($group);
+                $em->flush();
+                $responseData['message'] = 'Datos guardados con exito';
+                $valid = true;
+                $responseData['item'] = array('id' => $group->getId(), 'name' => $group->getName());
+            }catch(\Exception $e)
+            {
+                $responseData['message'] = 'No se pudo ingresar el grupo. Revisa que no este ingresado.';
+                $logger = $this->get('logger');
+                $logger->error($e);
+                //throw $e;
+            }
+        }
+        $responseData['result'] = $valid;
+        $response = new JsonResponse();
+        $response->setData($responseData);
+        return $response;
+    }
+    
+    
+    public function userGroupSearchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $groups = $em->getRepository('MaithNewsletterBundle:UserGroup')->findAll();
+        $list = array();
+        foreach($groups as $group)
+        {
+          $list[] = array('id' => $group->getId(), 'name' => $group->getName());
+        }
+        $response = new JsonResponse();
+        $response->setData($list);
+
         return $response;
     }
 

@@ -19,3 +19,11 @@ rnewsletter_remove_users:
     path:     /r/remove-list-user
     defaults: { _controller: AppBundle:ReactNewsletter:removeListUser }
     requirements: { _method: post }
+
+rnewsletter_user_group_add:
+    path:     /r/add-user-group
+    defaults: { _controller: AppBundle:ReactNewsletter:userGroupAdd }
+
+rnewsletter_user_group_search:
+    path:     /r/search-user-group
+    defaults: { _controller: AppBundle:ReactNewsletter:userGroupSearch }
