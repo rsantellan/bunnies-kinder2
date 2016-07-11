@@ -42,3 +42,8 @@ enable_factura:
 add_detalle_factura:
     path:     /{facturaId}/add-factura
     defaults: { _controller: "AppBundle:Cuentas:addDetalleFacturaForm" }
+
+save_detalle_factura:
+    path:     /{facturaId}/save-factura
+    defaults: { _controller: "AppBundle:Cuentas:saveDetalleFacturaForm" }
+    methods:  [POST, PUT]

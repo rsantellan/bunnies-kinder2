@@ -168,6 +168,19 @@ class FacturasManager
         return $returnCosto;
     }
 
+    public function createDetalleFacturaUsuario(Estudiante $estudiante, $month, $year, $description, $amount)
+    {
+        $factura = $em->getRepository('AppBundle:FacturaEstudiante')->retrieveFacturaOfEstudiantePerMonthAndYear($estudiante, $month, $year);
+        $detalleActividad = new FacturaEstudianteDetalle();
+        $detalleActividad->setAmount($amount);
+        $detalleActividad->setDescription($description);
+        $detalleActividad->setFactura($factura);
+        $factura->setTotal($factura->getTotal() + $amount);
+        $this->em->persist($factura);
+        $this->em->flush();
+        
+    }
+
     public function generateFinalBill(Cuenta $cuenta, $month = null, $year = null)
     {
         if ($month == null) {

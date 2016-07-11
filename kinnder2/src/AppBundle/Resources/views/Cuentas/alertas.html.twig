@@ -50,7 +50,7 @@
             <div class="panel" id="account-panel-container-{{ debt.cuentaId }}">
                 <div class="panel-heading text-center">
                     <a href="#collapsedBy{{ loop.index }}" data-parent="#accordion" data-toggle="collapse" class="collapsed" style="font-size: 20px">
-                      {{ debt.apellido }} (Ref: <strong>{{ debt.referenciaBancaria }}</strong>) ($ <strong id="account-debt-container-{{ debt.cuentaId }}">{{ debt.diferencia}}</strong>)
+                      {{ debt.apellido }} (Ref: <strong>{{ debt.referenciaBancaria }}</strong>) ($ <strong id="account-debt-container-{{ debt.cuentaId }}">{{ debt.diferencia |number_format(0, ',', '.')}}</strong>)
                     </a>
                 </div>
                 <div class="panel-collapse collapse" id="collapsedBy{{ loop.index }}" style="height: 0px;">

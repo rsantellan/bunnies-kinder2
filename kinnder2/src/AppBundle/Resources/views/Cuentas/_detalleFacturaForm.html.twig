@@ -1,4 +1,4 @@
-{{ form_start(form, {'attr' : {'role' : 'form',  'onsubmit' : 'return saveCobroForm(this);'}}) }}
+{{ form_start(form, {'attr' : {'role' : 'form',  'onsubmit' : 'return saveFacturaForm(this);'}}) }}
 {{ form_errors(form) }}
 <div class="form-group">
     {{ form_errors(form.alumnos) }}
@@ -14,6 +14,9 @@
     {{ form_errors(form.description) }}
     <label for="{{ form.description.vars.id }}">{% trans %}account_factura_detalle_description{% endtrans %}</label>
     {{ form_widget(form.description, {'attr' : {'class' : 'form-control'}}) }}
+</div>
+<div class="form-group">
+  <button type="submit" class="btn btn-success">{% trans %}account_factura_detalle_save{% endtrans %}</button>
 </div>
 {{ form_rest(form) }}
 {{ form_end(form) }}

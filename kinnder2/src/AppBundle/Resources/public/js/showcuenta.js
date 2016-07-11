@@ -12,6 +12,31 @@ function sendAddDetalleFacturaModal(element){
       return false;
 }
 
+function saveFacturaForm(form)
+{
+  $.ajax({
+      url: $(form).attr('action'),
+      data: $(form).serialize(),
+      type: 'post',
+      dataType: 'json',
+      success: function(json){
+        if(json.result){
+            toastr.info(json.message);
+            $('#addFacturaDetalleModal').modal('hide');
+
+        }else{
+          toastr.error(json.message);
+          $('#addFacturaDetalleBody').html(data.html);
+        }
+
+      }
+      ,
+      complete: function()
+      {
+      }
+  });
+  return false;
+}
 
 function sendAddCobroModal(element){
       $.ajax({

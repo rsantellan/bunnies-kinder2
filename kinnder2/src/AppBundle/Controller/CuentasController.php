@@ -94,7 +94,7 @@ class CuentasController extends Controller
             $alumnos[$estudiante->getId()] = $estudiante->getNombre();
         }
         $form = $this->createForm(new AddFacturaDetalleType(), null, array(
-          'action' => $this->generateUrl('save_cobro', array('cuentaId' => $facturaId)),
+          'action' => $this->generateUrl('save_detalle_factura', array('facturaId' => $facturaId)),
           'method' => 'POST',
           'alumnos' => $alumnos,
         ));
@@ -111,6 +111,84 @@ class CuentasController extends Controller
         return $response;
     }
 
+    public function saveDetalleFacturaFormAction(Request $request, $facturaId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:FacturaFinal')->find($facturaId);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Cobro entity.');
+        }
+        $alumnos = array();
+        foreach($entity->getCuenta()->getEstudiantes() as $estudiante)
+        {
+            $alumnos[$estudiante->getId()] = $estudiante->getNombre();
+        }
+        $form = $this->createForm(new AddFacturaDetalleType(), null, array(
+          'action' => $this->generateUrl('save_detalle_factura', array('facturaId' => $facturaId)),
+          'method' => 'POST',
+          'alumnos' => $alumnos,
+        ));
+        $form->handleRequest($request);
+        $result = false;
+        $message = 'Ocurrion un error al guardar el cobro.';
+        $amount = 0;
+        $positive = false;
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $data = $form->getData();
+            $description = $form->get('description')->getData();
+            $amount = $form->get('amount')->getData();
+            $student = $form->get('alumnos')->getData();
+            $month = $entity->getMonth();
+            $year = $entity->getYear();
+
+            $estudiante = $em->getRepository('AppBundle:Estudiante')->find($student);
+            if (!$estudiante) {
+                throw $this->createNotFoundException('Unable to find Estudiante entity.');
+            }
+            $facturaEstudiante = $em->getRepository('AppBundle:FacturaEstudiante')->retrieveFacturaOfEstudiantePerMonthAndYear($estudiante, $month, $year);
+            var_dump($facturaEstudiante->getId());
+            die('aca !');
+            /*
+            $cobro->setCuenta($cuenta);
+            $em->persist($cobro);
+            $cuenta->addPagoAmount($cobro->getMonto());
+            $em->persist($cuenta);
+            */
+            $em->flush();
+            $result = true;
+            $message = 'Cobro guardado con exito.';
+            if ($cobro->getEnviado()) {
+                //send email
+            $message .= ' Email enviado correctamente';
+            }
+            $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
+                      'cobro' => $cobro,
+              ));
+            $amount = $cuenta->getFormatedDiferencia();
+            if ($cuenta->getDiferencia() < 0) {
+                $positive = true;
+            }
+        } else {
+            $html = $this->renderView('AppBundle:Cuentas:_cobroForm.html.twig', array(
+                    'cuentaId' => $cuentaId,
+                    'form' => $form->createView(),
+            ));
+        }
+        $response = new JsonResponse();
+        $response->setData(array(
+                'result' => $result,
+                'html' => $html,
+                'message' => $message,
+                'amount' => $amount,
+                'positive' => $positive,
+                'cuentaId' => $cuentaId,
+              ));
+
+        return $response;
+        var_dump($facturaId);
+        die;
+    }
     public function addCobroFormAction($cuentaId)
     {
         $cobro = new Cobro();
