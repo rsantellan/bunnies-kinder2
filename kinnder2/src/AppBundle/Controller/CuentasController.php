@@ -116,7 +116,7 @@ class CuentasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:FacturaFinal')->find($facturaId);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cobro entity.');
+            throw $this->createNotFoundException('Unable to find Factura entity.');
         }
         $alumnos = array();
         foreach($entity->getCuenta()->getEstudiantes() as $estudiante)
@@ -130,9 +130,10 @@ class CuentasController extends Controller
         ));
         $form->handleRequest($request);
         $result = false;
-        $message = 'Ocurrion un error al guardar el cobro.';
+        $message = 'Ocurrion un error al guardar el detalle.';
         $amount = 0;
         $positive = false;
+        $cuentaId = 0;
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
@@ -146,34 +147,23 @@ class CuentasController extends Controller
             if (!$estudiante) {
                 throw $this->createNotFoundException('Unable to find Estudiante entity.');
             }
-            $facturaEstudiante = $em->getRepository('AppBundle:FacturaEstudiante')->retrieveFacturaOfEstudiantePerMonthAndYear($estudiante, $month, $year);
-            var_dump($facturaEstudiante->getId());
-            die('aca !');
-            /*
-            $cobro->setCuenta($cuenta);
-            $em->persist($cobro);
-            $cuenta->addPagoAmount($cobro->getMonto());
-            $em->persist($cuenta);
-            */
-            $em->flush();
+            $facturaService = $this->get('facturas');
+            $factura = $facturaService->createDetalleFacturaUsuario($estudiante, $month, $year, $description, $amount);
             $result = true;
-            $message = 'Cobro guardado con exito.';
-            if ($cobro->getEnviado()) {
-                //send email
-            $message .= ' Email enviado correctamente';
-            }
-            $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
-                      'cobro' => $cobro,
+            $message = 'Factura reseteado al estado original.';
+            $html = $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
+                      'factura' => $factura,
               ));
-            $amount = $cuenta->getFormatedDiferencia();
-            if ($cuenta->getDiferencia() < 0) {
+            $cuentaId = $factura->getCuenta()->getId();
+            $amount = $factura->getCuenta()->getFormatedDiferencia();
+            if ($factura->getCuenta()->getDiferencia() < 0) {
                 $positive = true;
             }
         } else {
-            $html = $this->renderView('AppBundle:Cuentas:_cobroForm.html.twig', array(
-                    'cuentaId' => $cuentaId,
-                    'form' => $form->createView(),
-            ));
+            $html = $this->renderView('AppBundle:Cuentas:_detalleFacturaForm.html.twig', array(
+                      'facturaId' => $facturaId,
+                      'form' => $form->createView(),
+          ));
         }
         $response = new JsonResponse();
         $response->setData(array(
@@ -183,12 +173,89 @@ class CuentasController extends Controller
                 'amount' => $amount,
                 'positive' => $positive,
                 'cuentaId' => $cuentaId,
+                'facturaId' => $facturaId,
               ));
 
         return $response;
-        var_dump($facturaId);
-        die;
     }
+
+    public function resetDetalleFacturaFormAction($facturaId)
+    {
+
+        $html = $this->renderView('AppBundle:Cuentas:_resetFacturaForm.html.twig', array(
+                  'facturaId' => $facturaId,
+                  'form' => $this->createResetForm($facturaId)->createView(),
+          ));
+        $response = new JsonResponse();
+        $response->setData(array(
+                'result' => true,
+                'html' => $html,
+              ));
+
+        return $response;
+    }
+
+    public function saveResetDetalleFacturaFormAction(Request $request, $facturaId)
+    {
+        $form = $this->createResetForm($facturaId);
+        $form->handleRequest($request);
+        $response = new JsonResponse();
+        $result = false;
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('AppBundle:FacturaFinal')->find($facturaId);
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Factura entity.');
+            }
+            $facturaService = $this->get('facturas');
+            $factura = $facturaService->resetDetalleFacturaFinal($entity);
+            $result = true;
+            $message = ' Detalle creado correctamente correctamente';
+            $html = $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
+                      'factura' => $factura,
+              ));
+            $cuentaId = $factura->getCuenta()->getId();
+            $amount = $factura->getCuenta()->getFormatedDiferencia();
+            $positive = false;
+            if ($factura->getCuenta()->getDiferencia() < 0) {
+                $positive = true;
+            }
+            $response->setData(array(
+                    'result' => $result,
+                    'html' => $html,
+                    'message' => $message,
+                    'amount' => $amount,
+                    'positive' => $positive,
+                    'cuentaId' => $cuentaId,
+                    'facturaId' => $facturaId,
+                  ));
+
+        }else{
+            $response->setData(array(
+                'result' => $result,
+                'html' => $html,
+                'message' => 'El formulario enviado es invalido.'
+              ));
+        }
+        return $response;
+
+    }
+    /**
+     * Creates a form to reset a Factura Detail entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createResetForm($facturaId)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('save_reset_factura', array('facturaId' => $facturaId)))
+            ->setMethod('PUT')
+            ->getForm()
+        ;
+    }
+
     public function addCobroFormAction($cuentaId)
     {
         $cobro = new Cobro();

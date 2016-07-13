@@ -1,0 +1,9 @@
+{{ form_start(form, {'attr' : {'role' : 'form',  'onsubmit' : 'return resetFacturaForm(this);'}}) }}
+{{ form_errors(form) }}
+
+<div class="form-group">
+    <h3>ADVERTENCIA: Todos los cambios a la factura se perderan</h3>
+  <button type="submit" class="btn btn-warning">{% trans %}account_factura_reset{% endtrans %}</button>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

@@ -23,6 +23,14 @@ function saveFacturaForm(form)
         if(json.result){
             toastr.info(json.message);
             $('#addFacturaDetalleModal').modal('hide');
+            $('#cuenta-dash-amount-circle').removeClass( "bg-danger bg-success");
+            if(json.positive){
+              $('#cuenta-dash-amount-circle').addClass('bg-success');
+            }else{
+              $('#cuenta-dash-amount-circle').addClass('bg-danger');
+            }
+            $('#cuenta-dash-amount').html(json.amount);
+            $('#factura-panel-'+json.facturaId).replaceWith(json.html);
 
         }else{
           toastr.error(json.message);
@@ -36,6 +44,38 @@ function saveFacturaForm(form)
       }
   });
   return false;
+}
+
+function resetFacturaForm(form){
+    $.ajax({
+        url: $(form).attr('action'),
+        data: $(form).serialize(),
+        type: 'post',
+        dataType: 'json',
+        success: function(json){
+          if(json.result){
+              toastr.info(json.message);
+              $('#addFacturaDetalleModal').modal('hide');
+              $('#cuenta-dash-amount-circle').removeClass( "bg-danger bg-success");
+              if(json.positive){
+                $('#cuenta-dash-amount-circle').addClass('bg-success');
+              }else{
+                $('#cuenta-dash-amount-circle').addClass('bg-danger');
+              }
+              $('#cuenta-dash-amount').html(json.amount);
+              $('#factura-panel-'+json.facturaId).replaceWith(json.html);
+
+          }else{
+            toastr.error(json.message);
+            $('#addFacturaDetalleBody').html(data.html);
+          }
+        }
+        ,
+        complete: function()
+        {
+        }
+    });
+    return false;
 }
 
 function sendAddCobroModal(element){

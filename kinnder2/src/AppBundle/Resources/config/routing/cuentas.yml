@@ -47,3 +47,12 @@ save_detalle_factura:
     path:     /{facturaId}/save-factura
     defaults: { _controller: "AppBundle:Cuentas:saveDetalleFacturaForm" }
     methods:  [POST, PUT]
+
+reset_detalle_factura:
+    path:     /{facturaId}/reset-factura
+    defaults: { _controller: "AppBundle:Cuentas:resetDetalleFacturaForm" }
+
+save_reset_factura:
+    path:     /{facturaId}/save-reset-factura
+    defaults: { _controller: "AppBundle:Cuentas:saveResetDetalleFacturaForm" }
+    methods:  [POST, PUT]

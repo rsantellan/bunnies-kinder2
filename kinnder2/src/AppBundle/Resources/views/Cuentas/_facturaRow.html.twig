@@ -43,7 +43,8 @@
               <a class="btn btn-warning pull-right" href="{{ path('enable_factura', {'id' : factura.id }) }}" onclick="return cancelOrActivateFactura({{ factura.id }}, this, '{% trans %}cuentas_facturas_activate_question{% endtrans %}')">{% trans %}cuentas_facturas_activate_link{% endtrans %}</a>
             {% endif %}
 
-            <a href="{{ path('add_detalle_factura', {'facturaId' : factura.id })}}" onclick="return sendAddDetalleFacturaModal(this);">Agregar</a>
+            <a class="btn btn-info" href="{{ path('add_detalle_factura', {'facturaId' : factura.id })}}" onclick="return sendAddDetalleFacturaModal(this);">Agregar</a>
+            <a class="btn btn-danger" href="{{ path('reset_detalle_factura', {'facturaId' : factura.id })}}" onclick="return sendAddDetalleFacturaModal(this);">Reiniciar</a>
           </div>
         </div>
     </div>
