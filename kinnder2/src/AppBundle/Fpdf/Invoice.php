@@ -324,8 +324,6 @@ class Invoice extends \fpdf\FPDF_EXTENDED
 
     public function addCols($tab)
     {
-        global $colonnes;
-
         $r1 = 10;
         $r2 = $this->w - ($r1 * 2);
         $y1 = 60;
@@ -334,7 +332,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $this->Rect($r1, $y1, $r2, $y2, 'D');
         $this->Line($r1, $y1 + 6, $r1 + $r2, $y1 + 6);
         $colX = $r1;
-        $colonnes = $tab;
+        $this->colonnes = $tab;
         while (list($lib, $pos) = each($tab)) {
             $this->SetXY($colX, $y1 + 2);
             $this->Cell($pos, 1, $lib, 0, 0, 'C');
@@ -345,22 +343,18 @@ class Invoice extends \fpdf\FPDF_EXTENDED
 
     public function addLineFormat($tab)
     {
-        global $format, $colonnes;
-
-        while (list($lib, $pos) = each($colonnes)) {
+        while (list($lib, $pos) = each($this->colonnes)) {
             if (isset($tab["$lib"])) {
-                $format[$lib] = $tab["$lib"];
+                $this->format[$lib] = $tab["$lib"];
             }
         }
     }
 
     public function lineVert($tab)
     {
-        global $colonnes;
-
-        reset($colonnes);
+        reset($this->colonnes);
         $maxSize = 0;
-        while (list($lib, $pos) = each($colonnes)) {
+        while (list($lib, $pos) = each($this->colonnes)) {
             $texte = $tab[$lib];
             $longCell = $pos - 2;
             $size = $this->sizeOfText($texte, $longCell);
@@ -382,21 +376,19 @@ class Invoice extends \fpdf\FPDF_EXTENDED
    */
   public function addLine($ligne, $tab)
   {
-      global $colonnes, $format;
-
       $ordonnee = 10;
       $maxSize = $ligne;
 
-      reset($colonnes);
+      reset($this->colonnes);
     //var_dump(count($tab));
     $counter = 0;
-      while (list($lib, $pos) = each($colonnes)) {
+      while (list($lib, $pos) = each($this->colonnes)) {
           ++$counter;
           $longCell = $pos - 2;
           $texte = $tab[$lib];
           $length = $this->GetStringWidth($texte);
           $tailleTexte = $this->sizeOfText($texte, $length);
-          $formText = $format[$lib];
+          $formText = $this->format[$lib];
           if ($counter == count($tab)) {
               $this->SetFont('Arial', 'B', 10);
         //var_dump('estoy aca');

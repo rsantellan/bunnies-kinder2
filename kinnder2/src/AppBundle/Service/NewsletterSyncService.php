@@ -144,7 +144,7 @@ class NewsletterSyncService
                 $newsletterUser->addUserGroup($group);
             }
             $this->em->persist($newsletterUser);
-            $this->em->flush();
+            $this->em->flush($newsletterUser);
         }
         if ($updateBrothers) {
             foreach ($estudiante->getMyBrothers() as $brother) {

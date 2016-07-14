@@ -90,7 +90,7 @@ class CuentasService
                         $factura->setPagadodeltotal(0);
                         $factura->setPago(false);
                         $this->em->persist($factura);
-                        $this->em->flush();
+                        $this->em->flush($factura);
                         $facturasForRefresh[] = $factura;
                     }
                 }
@@ -125,7 +125,7 @@ class CuentasService
                     $factura->setPagadodeltotal(0);
                     $factura->setPago(true);
                     $this->em->persist($factura);
-                    $this->em->flush();
+                    $this->em->flush($factura);
                     $facturasForRefresh[] = $factura;
                 }
             }

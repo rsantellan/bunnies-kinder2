@@ -30,7 +30,7 @@ class FixParentsAccountsCommand extends ContainerAwareCommand
                 $estudiante = $progenitor->getEstudiantes()->first();
                 $progenitor->setCuenta($estudiante->getCuenta());
                 $em->persist($progenitor);
-                $em->flush();
+                $em->flush($progenitor);
             }
         }
     }
