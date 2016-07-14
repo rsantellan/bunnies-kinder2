@@ -89,8 +89,7 @@ class CuentasController extends Controller
             throw $this->createNotFoundException('Unable to find Cobro entity.');
         }
         $alumnos = array();
-        foreach($entity->getCuenta()->getEstudiantes() as $estudiante)
-        {
+        foreach ($entity->getCuenta()->getEstudiantes() as $estudiante) {
             $alumnos[$estudiante->getId()] = $estudiante->getNombre();
         }
         $form = $this->createForm(new AddFacturaDetalleType(), null, array(
@@ -119,8 +118,7 @@ class CuentasController extends Controller
             throw $this->createNotFoundException('Unable to find Factura entity.');
         }
         $alumnos = array();
-        foreach($entity->getCuenta()->getEstudiantes() as $estudiante)
-        {
+        foreach ($entity->getCuenta()->getEstudiantes() as $estudiante) {
             $alumnos[$estudiante->getId()] = $estudiante->getNombre();
         }
         $form = $this->createForm(new AddFacturaDetalleType(), null, array(
@@ -181,7 +179,6 @@ class CuentasController extends Controller
 
     public function resetDetalleFacturaFormAction($facturaId)
     {
-
         $html = $this->renderView('AppBundle:Cuentas:_resetFacturaForm.html.twig', array(
                   'facturaId' => $facturaId,
                   'form' => $this->createResetForm($facturaId)->createView(),
@@ -229,16 +226,15 @@ class CuentasController extends Controller
                     'cuentaId' => $cuentaId,
                     'facturaId' => $facturaId,
                   ));
-
-        }else{
+        } else {
             $response->setData(array(
                 'result' => $result,
                 'html' => $html,
-                'message' => 'El formulario enviado es invalido.'
+                'message' => 'El formulario enviado es invalido.',
               ));
         }
-        return $response;
 
+        return $response;
     }
     /**
      * Creates a form to reset a Factura Detail entity by id.
@@ -347,8 +343,8 @@ class CuentasController extends Controller
                   'cobro' => $cobro,
           ));
         $facturasHtml = array();
-        foreach($cobroResponse['facturas'] as $factura){
-          $facturasHtml[] = array(
+        foreach ($cobroResponse['facturas'] as $factura) {
+            $facturasHtml[] = array(
             'id' => $factura->getId(),
             'html' => $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
                       'factura' => $factura,
@@ -387,8 +383,8 @@ class CuentasController extends Controller
                   'cobro' => $cobro,
           ));
         $facturasHtml = array();
-        foreach($cobroResponse['facturas'] as $factura){
-          $facturasHtml[] = array(
+        foreach ($cobroResponse['facturas'] as $factura) {
+            $facturasHtml[] = array(
             'id' => $factura->getId(),
             'html' => $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
                       'factura' => $factura,

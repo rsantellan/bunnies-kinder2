@@ -162,17 +162,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rsantellan/symfony2-maith-newsletter.git",
-                "reference": "22bc9c7fe84003f120f6aa5186722f37b0989d08"
+                "reference": "52947cffccca506cd275f4795f68a5923b17e935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rsantellan/symfony2-maith-newsletter/zipball/22bc9c7fe84003f120f6aa5186722f37b0989d08",
-                "reference": "22bc9c7fe84003f120f6aa5186722f37b0989d08",
+                "url": "https://api.github.com/repos/rsantellan/symfony2-maith-newsletter/zipball/52947cffccca506cd275f4795f68a5923b17e935",
+                "reference": "52947cffccca506cd275f4795f68a5923b17e935",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3",
-                "stof/doctrine-extensions-bundle": "~1.1@dev"
+                "stof/doctrine-extensions-bundle": "~1.1@dev",
+                "symfony/proxy-manager-bridge": "~2.3"
             },
             "require-dev": {
                 "symfony/framework-bundle": "2.7.*"
@@ -203,7 +204,7 @@
                 "source": "https://github.com/rsantellan/symfony2-maith-newsletter/tree/master",
                 "issues": "https://github.com/rsantellan/symfony2-maith-newsletter/issues"
             },
-            "time": "2016-03-11 17:51:36"
+            "time": "2016-07-13 20:39:54"
         },
         {
             "name": "behat/transliterator",

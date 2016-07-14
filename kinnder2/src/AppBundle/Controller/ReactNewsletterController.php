@@ -3,11 +3,9 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-/** Newsletter includes **/
+/* Newsletter includes **/
 
 use Maith\NewsletterBundle\Entity\User;
 use Maith\NewsletterBundle\Entity\UserGroup;
@@ -25,7 +23,7 @@ class ReactNewsletterController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $quantitySql = "select count(id) as quantity from maith_newsletter_user where active = 1";
+        $quantitySql = 'select count(id) as quantity from maith_newsletter_user where active = 1';
         $stmt = $em->getConnection()->executeQuery($quantitySql);
         $row = $stmt->fetch();
         $quantity = $row['quantity'];
@@ -55,15 +53,14 @@ class ReactNewsletterController extends Controller
         );
         if (count($errors) > 0) {
             $responseData['message'] = (string) $errors;
-        }else{
-            try{
+        } else {
+            try {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
                 $responseData['message'] = 'Datos guardados con exito';
                 $valid = true;
-            }catch(\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $responseData['message'] = 'No se pudo ingresar el email. Revisa que no este ingresado.';
                 $logger = $this->get('logger');
                 $logger->error($e);
@@ -82,12 +79,11 @@ class ReactNewsletterController extends Controller
         $search = $request->get('search');
         $term = '%'.$search.'%';
         $em = $this->getDoctrine()->getManager();
-        $usersSearchSql = "select id, email, active from maith_newsletter_user where email LIKE ? order by email";
-        $results = $em->getConnection()->executeQuery( $usersSearchSql, array($term), array(\PDO::PARAM_STR) );
+        $usersSearchSql = 'select id, email, active from maith_newsletter_user where email LIKE ? order by email';
+        $results = $em->getConnection()->executeQuery($usersSearchSql, array($term), array(\PDO::PARAM_STR));
         // Add the data queried from database
         $list = array();
-        while( $row = $results->fetch() )
-        {
+        while ($row = $results->fetch()) {
             $list[] = array('id' => $row['id'], 'email' => $row['email'], 'active' => $row['active']);
         }
         $response = new JsonResponse();
@@ -96,7 +92,8 @@ class ReactNewsletterController extends Controller
         return $response;
     }
 
-    public function removeListUserAction(Request $request){
+    public function removeListUserAction(Request $request)
+    {
         $userId = $request->request->get('id');
         $responseData = array(
             'message' => 'No existe el usuario.',
@@ -106,12 +103,12 @@ class ReactNewsletterController extends Controller
         $entity = $em->getRepository('MaithNewsletterBundle:User')->find($userId);
 
         if ($entity) {
-            try{
+            try {
                 $em->remove($entity);
                 //$em->flush();
                 $valid = true;
                 $responseData['message'] = 'Usuario borrado correctamente';
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 $responseData['message'] = 'Error al borrar el usuario';
                 $logger = $this->get('logger');
                 $logger->error($e);
@@ -120,6 +117,7 @@ class ReactNewsletterController extends Controller
         $responseData['result'] = $valid;
         $response = new JsonResponse();
         $response->setData($responseData);
+
         return $response;
     }
 
@@ -141,16 +139,15 @@ class ReactNewsletterController extends Controller
         );
         if (count($errors) > 0) {
             $responseData['message'] = (string) $errors;
-        }else{
-            try{
+        } else {
+            try {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($group);
                 $em->flush();
                 $responseData['message'] = 'Datos guardados con exito';
                 $valid = true;
                 $responseData['item'] = array('id' => $group->getId(), 'name' => $group->getName());
-            }catch(\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $responseData['message'] = 'No se pudo ingresar el grupo. Revisa que no este ingresado.';
                 $logger = $this->get('logger');
                 $logger->error($e);
@@ -160,18 +157,17 @@ class ReactNewsletterController extends Controller
         $responseData['result'] = $valid;
         $response = new JsonResponse();
         $response->setData($responseData);
+
         return $response;
     }
-
 
     public function userGroupSearchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $groups = $em->getRepository('MaithNewsletterBundle:UserGroup')->findAll();
         $list = array();
-        foreach($groups as $group)
-        {
-          $list[] = array('id' => $group->getId(), 'name' => $group->getName());
+        foreach ($groups as $group) {
+            $list[] = array('id' => $group->getId(), 'name' => $group->getName());
         }
         $response = new JsonResponse();
         $response->setData($list);
@@ -202,29 +198,30 @@ class ReactNewsletterController extends Controller
             $errors = $validator->validate($entity);
             if (count($errors) > 0) {
                 $responseData['message'] = (string) $entity;
-            }else{
-                try{
+            } else {
+                try {
                     $em->persist($entity);
                     $em->flush();
                     $responseData['message'] = 'Datos guardados con exito';
                     $valid = true;
                     $responseData['item'] = array('id' => $entity->getId(), 'name' => $entity->getName());
                     $valid = true;
-                }catch(\Exception $e){
+                } catch (\Exception $e) {
                     $responseData['message'] = 'No se pudo editar el grupo. Revisa que no este ingresado.';
                     $logger = $this->get('logger');
                     $logger->error($e);
-                 }
+                }
             }
-
         }
         $responseData['result'] = $valid;
         $response = new JsonResponse();
         $response->setData($responseData);
+
         return $response;
     }
 
-    public function userGroupRemoveAction(Request $request){
+    public function userGroupRemoveAction(Request $request)
+    {
         $userId = $request->request->get('id');
         $responseData = array(
             'message' => 'No existe el grupo.',
@@ -234,12 +231,12 @@ class ReactNewsletterController extends Controller
         $entity = $em->getRepository('MaithNewsletterBundle:UserGroup')->find($userId);
 
         if ($entity) {
-            try{
+            try {
                 $em->remove($entity);
                 //$em->flush();
                 $valid = true;
                 $responseData['message'] = 'Grupo borrado correctamente';
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 $responseData['message'] = 'Error al borrar el grupo';
                 $logger = $this->get('logger');
                 $logger->error($e);
@@ -248,7 +245,7 @@ class ReactNewsletterController extends Controller
         $responseData['result'] = $valid;
         $response = new JsonResponse();
         $response->setData($responseData);
+
         return $response;
     }
-
 }

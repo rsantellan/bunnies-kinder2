@@ -5,7 +5,6 @@ namespace AppBundle\Filter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 
 /**
@@ -15,11 +14,9 @@ use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
  */
 class EstudianteExportFilterType extends AbstractType
 {
-
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-
-    $camposUsuario = array(
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $camposUsuario = array(
         'nombre' => 'Nombre',
         'apellido' => 'Apellido',
         'fechaNacimiento' => 'Fecha Nacimiento',
@@ -32,7 +29,7 @@ class EstudianteExportFilterType extends AbstractType
         'clase' => 'Clase',
     );
 
-    $camposPadres = array(
+        $camposPadres = array(
         'progenitor' => 'Nombre',
         'direccion' => 'Dirección',
         'telefono' => 'Teléfono',
@@ -40,64 +37,63 @@ class EstudianteExportFilterType extends AbstractType
         'email' => 'Correo Electronico',
     );
 
-    $exportar = array('0' => 'No', '1' => 'Si');
+        $exportar = array('0' => 'No', '1' => 'Si');
 
-    $builder->add('clase', 'filter_entity',
+        $builder->add('clase', 'filter_entity',
                 array(
                 'required' => false,
                 'class' => 'AppBundle\Entity\Clase',
                 'empty_value' => 'Todos',
                  ));
-    $builder->add('horario', 'filter_entity',
+        $builder->add('horario', 'filter_entity',
                 array(
                 'required' => false,
                 'class' => 'AppBundle\Entity\Horario',
                 'empty_value' => 'Todos',
                  ));
 
-     $builder->add('estudiantes', 'filter_choice',
+        $builder->add('estudiantes', 'filter_choice',
                  array(
                  'required' => false,
                  'choices' => $camposUsuario,
                  'expanded' => true,
                  'multiple' => true,
                  'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
-                        return null;
-                     }
+                        return;
+                     },
                   ));
-     $builder->add('padres', 'filter_choice',
+        $builder->add('padres', 'filter_choice',
                  array(
                  'required' => false,
                  'choices' => $camposPadres,
                  'expanded' => true,
                  'multiple' => true,
                  'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
-                        return null;
-                     }
+                        return;
+                     },
                   ));
-     $builder->add('exportar', 'filter_choice',
+        $builder->add('exportar', 'filter_choice',
                  array(
                  'required' => true,
                  'choices' => $exportar,
                  'expanded' => false,
                  'multiple' => false,
                  'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
-                        return null;
-                     }
+                        return;
+                     },
                   ));
-  }
+    }
 
-  public function getName()
-  {
-      return 'estudiante_export_filter';
-  }
+    public function getName()
+    {
+        return 'estudiante_export_filter';
+    }
 
-  public function configureOptions(OptionsResolver $resolver)
-  {
-      $resolver->setDefaults(array(
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
         'csrf_protection' => false,
         'validation_groups' => array('filtering'), // avoid NotBlank() constraint-related message
     ));
-  }
-
+    }
 }

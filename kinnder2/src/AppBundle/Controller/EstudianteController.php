@@ -258,166 +258,164 @@ class EstudianteController extends Controller
 
     public function exportDatosShowAction(Request $request)
     {
-      $filter = $this->get('form.factory')->create(new EstudianteExportFilterType());
-      $entities = array();
-      $filterMetadata = array();
-      if ($request->query->has($filter->getName())) {
-          $filterData = $request->query->get($filter->getName());
-          $exportar = (boolean) $filterData['exportar'];
-          $useEstudianteRow = true;
-          if(isset($filterData['estudiantes'])){
+        $filter = $this->get('form.factory')->create(new EstudianteExportFilterType());
+        $entities = array();
+        $filterMetadata = array();
+        if ($request->query->has($filter->getName())) {
+            $filterData = $request->query->get($filter->getName());
+            $exportar = (boolean) $filterData['exportar'];
+            $useEstudianteRow = true;
+            if (isset($filterData['estudiantes'])) {
                 $estudiantesRow = array_flip($filterData['estudiantes']);
                 $useEstudianteRow = false;
-          }else{
-              $estudiantesRow = array();
-          }
-          $usePadresRow = true;
-          if(isset($filterData['padres'])){
+            } else {
+                $estudiantesRow = array();
+            }
+            $usePadresRow = true;
+            if (isset($filterData['padres'])) {
                 $padresRow = array_flip($filterData['padres']);
                 $usePadresRow = false;
-          }else{
-              $padresRow = array();
-          }
+            } else {
+                $padresRow = array();
+            }
 
-          $filterMetadata = array(
+            $filterMetadata = array(
               'usePadresRow' => $usePadresRow,
               'useEstudianteRow' => $useEstudianteRow,
               'estudiantesRow' => $estudiantesRow,
               'padresRow' => $padresRow,
           );
 
-          $filter->submit($request->query->get($filter->getName()));
-          $em = $this->getDoctrine()->getManager();
-          $filterBuilder = $em->getRepository('AppBundle:Estudiante')
+            $filter->submit($request->query->get($filter->getName()));
+            $em = $this->getDoctrine()->getManager();
+            $filterBuilder = $em->getRepository('AppBundle:Estudiante')
               ->createQueryBuilder('e')
               ->select('e, p')
               ->leftJoin('e.clase', 'c')
               ->leftJoin('e.horario', 'h')
               ->leftJoin('e.progenitores', 'p');
-          $filterBuilder->andWhere('e.egresado = false');
+            $filterBuilder->andWhere('e.egresado = false');
           // build the query from the given form object
           $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filter, $filterBuilder);
-          $queryData = $filterBuilder->getQuery()->getResult();
-          $headers = array();
-          foreach($queryData as $data){
-              $auxData = array();
-              $auxData['referenciaBancaria'] = $data->getCuenta()->getReferenciabancaria();
-              $auxData['nombre'] = $data->getNombre();
-              $auxData['apellido'] = $data->getApellido();
-              $auxData['fechaNacimiento'] = $data->getFechaNacimiento();
-              $auxData['anioIngreso'] = $data->getAnioIngreso();
-              $auxData['sociedadMedica'] = '';
-              if($data->getSociedadMedica()){
-                $auxData['sociedadMedica'] = $data->getSociedadMedica()->getName();
-              }
-              $auxData['emergenciaMedica'] = '';
-              if($data->getEmergenciaMedica()){
-                $auxData['emergenciaMedica'] = $data->getEmergenciaMedica()->getName();
-              }
-              $auxData['horario'] = '';
-              if($data->getHorario()){
-                $auxData['horario'] = $data->getHorario()->getName();
-              }
-              $auxData['futuroColegio'] = '';
-              if($data->getFuturoColegio()){
-                $auxData['futuroColegio'] = $data->getFuturoColegio()->getName();
-              }
-              $auxData['clase'] = '';
-              if($data->getClase()){
-                $auxData['clase'] = $data->getClase()->getName();
-              }
-              $auxData['progenitor'] = '';
-              $auxData['email'] = '';
-              $auxData['direccion'] = '';
-              $auxData['telefono'] = '';
-              $auxData['celular'] = '';
+            $queryData = $filterBuilder->getQuery()->getResult();
+            $headers = array();
+            foreach ($queryData as $data) {
+                $auxData = array();
+                $auxData['referenciaBancaria'] = $data->getCuenta()->getReferenciabancaria();
+                $auxData['nombre'] = $data->getNombre();
+                $auxData['apellido'] = $data->getApellido();
+                $auxData['fechaNacimiento'] = $data->getFechaNacimiento();
+                $auxData['anioIngreso'] = $data->getAnioIngreso();
+                $auxData['sociedadMedica'] = '';
+                if ($data->getSociedadMedica()) {
+                    $auxData['sociedadMedica'] = $data->getSociedadMedica()->getName();
+                }
+                $auxData['emergenciaMedica'] = '';
+                if ($data->getEmergenciaMedica()) {
+                    $auxData['emergenciaMedica'] = $data->getEmergenciaMedica()->getName();
+                }
+                $auxData['horario'] = '';
+                if ($data->getHorario()) {
+                    $auxData['horario'] = $data->getHorario()->getName();
+                }
+                $auxData['futuroColegio'] = '';
+                if ($data->getFuturoColegio()) {
+                    $auxData['futuroColegio'] = $data->getFuturoColegio()->getName();
+                }
+                $auxData['clase'] = '';
+                if ($data->getClase()) {
+                    $auxData['clase'] = $data->getClase()->getName();
+                }
+                $auxData['progenitor'] = '';
+                $auxData['email'] = '';
+                $auxData['direccion'] = '';
+                $auxData['telefono'] = '';
+                $auxData['celular'] = '';
 
-              foreach($data->getProgenitores() as $progenitor){
-                  if($auxData['email'] != ''){
-                      $auxData['email'] = $auxData['email']. ', '.$progenitor->getEmail();
-                  }else{
-                      $auxData['email'] = $progenitor->getEmail();
-                  }
-                  if($auxData['progenitor'] != '' && $progenitor->getNombre() !== ''){
-                      $auxData['progenitor'] = $auxData['progenitor']. ', '.$progenitor->getNombre();
-                  }else{
-                      $auxData['progenitor'] = $auxData['progenitor'].$progenitor->getNombre();
-                  }
-                  if($auxData['direccion'] != '' && $progenitor->getDireccion() !== ''){
-                      $auxData['direccion'] = $auxData['direccion']. ', '.$progenitor->getDireccion();
-                  }else{
-                      $auxData['direccion'] = $auxData['direccion'].$progenitor->getDireccion();
-                  }
-                  if($auxData['telefono'] != '' && $progenitor->getTelefono() !== ''){
-                      $auxData['telefono'] = $auxData['telefono']. ', '.$progenitor->getTelefono();
-                  }else{
-                      $auxData['telefono'] = $auxData['telefono'].$progenitor->getTelefono();
-                  }
-                  if($auxData['celular'] != '' && $progenitor->getCelular() !== ''){
-                      $auxData['celular'] = $auxData['celular']. ', '.$progenitor->getCelular();
-                  }else{
-                      $auxData['celular'] = $auxData['celular'].$progenitor->getCelular();
-                  }
-              }
-              $headers = array_keys($auxData);
-              $entities[] = $auxData;
-          }
-          $export = (boolean) $filterData['exportar'];
-          if($export){
-              $this->exportExcel($headers, $entities);
-          }
+                foreach ($data->getProgenitores() as $progenitor) {
+                    if ($auxData['email'] != '') {
+                        $auxData['email'] = $auxData['email'].', '.$progenitor->getEmail();
+                    } else {
+                        $auxData['email'] = $progenitor->getEmail();
+                    }
+                    if ($auxData['progenitor'] != '' && $progenitor->getNombre() !== '') {
+                        $auxData['progenitor'] = $auxData['progenitor'].', '.$progenitor->getNombre();
+                    } else {
+                        $auxData['progenitor'] = $auxData['progenitor'].$progenitor->getNombre();
+                    }
+                    if ($auxData['direccion'] != '' && $progenitor->getDireccion() !== '') {
+                        $auxData['direccion'] = $auxData['direccion'].', '.$progenitor->getDireccion();
+                    } else {
+                        $auxData['direccion'] = $auxData['direccion'].$progenitor->getDireccion();
+                    }
+                    if ($auxData['telefono'] != '' && $progenitor->getTelefono() !== '') {
+                        $auxData['telefono'] = $auxData['telefono'].', '.$progenitor->getTelefono();
+                    } else {
+                        $auxData['telefono'] = $auxData['telefono'].$progenitor->getTelefono();
+                    }
+                    if ($auxData['celular'] != '' && $progenitor->getCelular() !== '') {
+                        $auxData['celular'] = $auxData['celular'].', '.$progenitor->getCelular();
+                    } else {
+                        $auxData['celular'] = $auxData['celular'].$progenitor->getCelular();
+                    }
+                }
+                $headers = array_keys($auxData);
+                $entities[] = $auxData;
+            }
+            $export = (boolean) $filterData['exportar'];
+            if ($export) {
+                $this->exportExcel($headers, $entities);
+            }
+        }
 
-      }
-
-      $data = array(
+        $data = array(
         'entities' => $entities,
         'filter' => $filter->createView(),
         'filterMetadata' => $filterMetadata,
       );
-      return $this->render('AppBundle:Estudiante:exportDatos.html.twig', $data);
+
+        return $this->render('AppBundle:Estudiante:exportDatos.html.twig', $data);
     }
 
-    private function exportExcel($headers, $data){
+    private function exportExcel($headers, $data)
+    {
         $objPHPExcel = new \PHPExcel();
         $objPHPExcel->getProperties()
                 ->setCreator("Bunny's Kinder")
-                ->setTitle("Listado de alumnos y padres")
-                ->setSubject("Listado de alumnos y padres");
+                ->setTitle('Listado de alumnos y padres')
+                ->setSubject('Listado de alumnos y padres');
 
-          $styleArray = array(
+        $styleArray = array(
               'borders' => array(
                   'allborders' => array(
-                      'style' => \PHPExcel_Style_Border::BORDER_THIN
-                  )
-              )
+                      'style' => \PHPExcel_Style_Border::BORDER_THIN,
+                  ),
+              ),
           );
         $objPHPExcel->getDefaultStyle()->applyFromArray($styleArray);
         $objPHPExcel->setActiveSheetIndex(0);
         $index = 1;
         $counter = 0;
-        foreach($headers as $header)
-        {
+        foreach ($headers as $header) {
             $letter = \PHPExcel_Cell::stringFromColumnIndex($counter);
             $objPHPExcel->getActiveSheet()
                 ->setCellValue($letter.$index, $header);
             $objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
-            $counter++;
+            ++$counter;
         }
-        $index++;
-        foreach($data as $row)
-        {
+        ++$index;
+        foreach ($data as $row) {
             //var_dump($row);
             $counter = 0;
-            foreach($row as $field)
-            {
+            foreach ($row as $field) {
                 //var_dump($field);
                 $letter = \PHPExcel_Cell::stringFromColumnIndex($counter);
                 $objPHPExcel->getActiveSheet()
                     ->setCellValue($letter.$index, $field);
                 $objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
-                $counter++;
+                ++$counter;
             }
-            $index ++;
+            ++$index;
         }
 
         $fileName = 'alumnos-'.date('d-m-Y').'.xls';

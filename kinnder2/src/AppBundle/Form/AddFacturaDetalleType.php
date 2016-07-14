@@ -12,24 +12,24 @@ class AddFacturaDetalleType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', 'textarea',array(
+            ->add('description', 'textarea', array(
                 'constraints' => array(
                     new NotBlank(),
-                )
+                ),
             ))
-            ->add('amount', 'integer',array(
+            ->add('amount', 'integer', array(
                 'constraints' => array(
                     new NotBlank(),
                     new Regex(array('pattern' => "/\d+/")),
-                )
+                ),
             ))
             ->add('alumnos', 'choice', array(
-                'choices' => $options['alumnos']
+                'choices' => $options['alumnos'],
             ))
             //->add('createdAt')
             //->add('updatedAt')

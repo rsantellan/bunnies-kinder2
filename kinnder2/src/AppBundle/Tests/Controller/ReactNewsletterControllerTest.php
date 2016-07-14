@@ -12,5 +12,4 @@ class ReactNewsletterControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/n/index');
     }
-
 }
