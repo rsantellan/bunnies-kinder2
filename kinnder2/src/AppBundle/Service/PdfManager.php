@@ -128,6 +128,7 @@ class PdfManager
         $meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
         $montoAdeudado = $account->getDiferencia();
         $lineDeuda = null;
+        $montoFacturaMes = 0;
         foreach ($facturas as $factura) {
             if ($factura->getYear() == date('Y') && $factura->getMonth() == date('m')) {
                 foreach ($factura->getFacturaFinalDetalles() as $facturaDetalle) {
@@ -142,20 +143,21 @@ class PdfManager
                     $facturasDetailList[$cantidadFacturasDetalles] = new FacturaFinalDetalle();
                     ++$cantidadFacturasDetalles;
                 }
-
-                if ((((float) $factura->getTotal()) - ((float) $factura->getPagadodeltotal())) < $account->getDiferencia()) {
-                    $montoAdeudado = (float) $montoAdeudado - (((float) $factura->getTotal()) - ((float) $factura->getPagadodeltotal()));
-                    $precion = number_format(1 * (int) ($montoAdeudado), 0, ',', '.');
-                    $texto = sprintf('Monto adeudado al %s', date('m-Y'));
-                    $lineDeuda = array(
+                $montoFacturaMes = ((float) $factura->getTotal()) - ((float) $factura->getPagadodeltotal());
+            }
+        }
+        if($montoFacturaMes < $account->getDiferencia())
+        {
+            $montoAdeudado = (float) $montoAdeudado - $montoFacturaMes;
+            $precion = number_format(1 * (int) ($montoAdeudado), 0, ',', '.');
+            $texto = sprintf('Monto adeudado al %s', date('m-Y'));
+            $lineDeuda = array(
               'Item' => 1,
               'Descripción' => $texto,
               'Precio' => '$'.$precion,
           );
-                }
-            }
         }
-
+        //die;
         $maxPerPage = 30;
         $cantidadPaginas = $cantidadFacturasDetalles / $maxPerPage;
         $showPages = true;
