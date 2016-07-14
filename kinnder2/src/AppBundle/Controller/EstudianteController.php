@@ -364,7 +364,7 @@ class EstudianteController extends Controller
             }
             $export = (boolean) $filterData['exportar'];
             if ($export) {
-                $this->exportExcel($headers, $entities);
+                return $this->exportExcel($headers, $entities);
             }
         }
 
@@ -419,14 +419,30 @@ class EstudianteController extends Controller
         }
 
         $fileName = 'alumnos-'.date('d-m-Y').'.xls';
+        /*
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="'.$fileName.'"');
         header('Cache-Control: max-age=0');
-
+        */
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 
-        $objWriter->save('php://output');
-        die();
+        //$objWriter->save('php://output');
+        $response = new \Symfony\Component\HttpFoundation\StreamedResponse(
+            function() use ($objWriter){
+                $objWriter->save('php://output');
+            }
+        );
+        $dispositionHeader = $response->headers->makeDisposition(
+            'attachment',
+            $fileName
+        );
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+        $response->headers->set('Content-Disposition', $dispositionHeader);
+        //$response->sendHeaders();
+        //var_dump($response->headers);
+        return $response;
     }
 
     public function checkReferenceAction(Request $request)

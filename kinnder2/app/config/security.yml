@@ -1,7 +1,7 @@
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
-        
+
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
@@ -22,11 +22,11 @@ security:
                 target: /
             anonymous: true
             remember_me:
-                key:      kinnder2
+                key:      "%security_firewall_key%"
                 lifetime: 3600
                 path:     /
-                domain:   ~                  
-            
+                domain:   ~
+
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

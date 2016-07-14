@@ -37,7 +37,7 @@ namespace AppBundle\Fpdf;
 class Invoice extends \fpdf\FPDF_EXTENDED
 {
     // private variables
-  public $colonnes;
+    public $colonnes;
     public $format;
     public $angle = 0;
 

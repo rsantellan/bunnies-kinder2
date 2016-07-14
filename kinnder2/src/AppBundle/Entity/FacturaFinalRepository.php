@@ -25,12 +25,10 @@ class FacturaFinalRepository extends EntityRepository
 
     public function retrieveUnpaidFacturasOfAccount($accountId, $orderDesc = true)
     {
-        $orderBy = 'order by f.year desc, f.month desc';
+        $dql = 'select f from AppBundle:FacturaFinal f where f.cuenta = :cuentaId and f.pago = false and f.cancelado = false order by f.year desc, f.month desc';
         if (!$orderDesc) {
-            $orderBy = 'order by f.year asc, f.month asc';
+            $dql = 'select f from AppBundle:FacturaFinal f where f.cuenta = :cuentaId and f.pago = false and f.cancelado = false order by f.year asc, f.month asc';
         }
-        $dql = 'select f from AppBundle:FacturaFinal f where f.cuenta = :cuentaId and f.pago = false and f.cancelado = false '.$orderBy;
-
         return $this->getEntityManager()->createQuery($dql)->setParameters(array(
           'cuentaId' => $accountId,
       ))->getResult();

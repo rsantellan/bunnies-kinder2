@@ -578,8 +578,7 @@ class MigrationService
                 if ((int) $cuentasList[$row['referenciabancaria']]['diferencia'] == (int) $row['diferencia']) {
                 }
             } else {
-                var_dump($row);
-                var_dump('cuenta no exite... errror');
+                $this->logger->error($row);
             }
         }
     //$clients = $query->fetchAll();

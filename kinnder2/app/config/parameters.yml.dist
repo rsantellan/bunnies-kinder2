@@ -22,4 +22,4 @@ parameters:
     old_db_host:       bunnies
     old_db_user:       ~
     old_db_password:   ~
-    
+    security_firewall_key: kinnder2
