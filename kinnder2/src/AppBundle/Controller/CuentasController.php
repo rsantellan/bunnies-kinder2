@@ -5,9 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\CobroType;
 use AppBundle\Form\AddFacturaDetalleType;
-use AppBundle\Entity\Cobro;
 
 class CuentasController extends Controller
 {
@@ -69,17 +67,7 @@ class CuentasController extends Controller
           ));
     }
 
-    public function showCobroPdfAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Cobro')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cobro entity.');
-        }
 
-        $pdfHandler = $this->get('pdfs');
-        $pdfHandler->exportCobroToPdf($entity);
-    }
 
     public function addDetalleFacturaFormAction($facturaId)
     {
@@ -227,6 +215,10 @@ class CuentasController extends Controller
                     'facturaId' => $facturaId,
                   ));
         } else {
+            $html = $this->renderView('AppBundle:Cuentas:_resetFacturaForm.html.twig', array(
+                      'facturaId' => $facturaId,
+                      'form' => $this->createResetForm($facturaId)->createView(),
+              ));
             $response->setData(array(
                 'result' => $result,
                 'html' => $html,
@@ -250,164 +242,6 @@ class CuentasController extends Controller
             ->setMethod('PUT')
             ->getForm()
         ;
-    }
-
-    public function addCobroFormAction($cuentaId)
-    {
-        $cobro = new Cobro();
-        $cobro->setFecha(new \DateTime());
-        $form = $this->createForm(new CobroType(), $cobro, array(
-          'action' => $this->generateUrl('save_cobro', array('cuentaId' => $cuentaId)),
-          'method' => 'POST',
-      ));
-        $html = $this->renderView('AppBundle:Cuentas:_cobroForm.html.twig', array(
-                  'cuentaId' => $cuentaId,
-                  'form' => $form->createView(),
-          ));
-        $response = new JsonResponse();
-        $response->setData(array(
-                'result' => true,
-                'html' => $html,
-              ));
-
-        return $response;
-    }
-
-    public function saveCobroFormAction(Request $request, $cuentaId)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $cuenta = $em->getRepository('AppBundle:Cuenta')->find($cuentaId);
-        if (!$cuenta) {
-            throw $this->createNotFoundException('Unable to find Cuenta entity.');
-        }
-        $cobro = new Cobro();
-        $form = $this->createForm(new CobroType(), $cobro, array(
-          'action' => $this->generateUrl('save_cobro', array('cuentaId' => $cuentaId)),
-          'method' => 'POST',
-      ));
-        $form->handleRequest($request);
-        $result = false;
-        $message = 'Ocurrion un error al guardar el cobro.';
-        $amount = 0;
-        $positive = false;
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $cobro->setCuenta($cuenta);
-            $em->persist($cobro);
-            $cuenta->addPagoAmount($cobro->getMonto());
-            $em->persist($cuenta);
-            $em->flush();
-            $result = true;
-            $message = 'Cobro guardado con exito.';
-            if ($cobro->getEnviado()) {
-                //send email
-            $message .= ' Email enviado correctamente';
-            }
-            $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
-                      'cobro' => $cobro,
-              ));
-            $amount = $cuenta->getFormatedDiferencia();
-            if ($cuenta->getDiferencia() < 0) {
-                $positive = true;
-            }
-        } else {
-            $html = $this->renderView('AppBundle:Cuentas:_cobroForm.html.twig', array(
-                    'cuentaId' => $cuentaId,
-                    'form' => $form->createView(),
-            ));
-        }
-        $response = new JsonResponse();
-        $response->setData(array(
-                'result' => $result,
-                'html' => $html,
-                'message' => $message,
-                'amount' => $amount,
-                'positive' => $positive,
-                'cuentaId' => $cuentaId,
-              ));
-
-        return $response;
-    }
-
-    public function disableCobroAction($id)
-    {
-        $cuentaService = $this->get('cuentas');
-        $cobroResponse = $cuentaService->disableCobro($id);
-
-        if (!$cobroResponse) {
-            throw $this->createNotFoundException('Unable to find Cobro entity.');
-        }
-        $cobro = $cobroResponse['cobro'];
-        $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
-                  'cobro' => $cobro,
-          ));
-        $facturasHtml = array();
-        foreach ($cobroResponse['facturas'] as $factura) {
-            $facturasHtml[] = array(
-            'id' => $factura->getId(),
-            'html' => $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
-                      'factura' => $factura,
-              )),
-          );
-        }
-        $amount = $cobro->getCuenta()->getFormatedDiferencia();
-        $positive = false;
-        if ($cobro->getCuenta()->getDiferencia() < 0) {
-            $positive = true;
-        }
-        $message = 'Cobro cancelado con exito';
-        $response = new JsonResponse();
-        $response->setData(array(
-                'result' => true,
-                'html' => $html,
-                'message' => $message,
-                'amount' => $amount,
-                'positive' => $positive,
-                'facturas' => $facturasHtml,
-              ));
-
-        return $response;
-    }
-
-    public function enableCobroAction($id)
-    {
-        $cuentaService = $this->get('cuentas');
-        $cobroResponse = $cuentaService->enableCobro($id);
-
-        if (!$cobroResponse) {
-            throw $this->createNotFoundException('Unable to find Cobro entity.');
-        }
-        $cobro = $cobroResponse['cobro'];
-        $html = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
-                  'cobro' => $cobro,
-          ));
-        $facturasHtml = array();
-        foreach ($cobroResponse['facturas'] as $factura) {
-            $facturasHtml[] = array(
-            'id' => $factura->getId(),
-            'html' => $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
-                      'factura' => $factura,
-              )),
-          );
-        }
-        $amount = $cobro->getCuenta()->getFormatedDiferencia();
-        $positive = false;
-        if ($cobro->getCuenta()->getDiferencia() < 0) {
-            $positive = true;
-        }
-        $message = 'Cobro activado con exito';
-        $response = new JsonResponse();
-        $response->setData(array(
-                'result' => true,
-                'html' => $html,
-                'message' => $message,
-                'amount' => $amount,
-                'positive' => $positive,
-                'facturas' => $facturasHtml,
-              ));
-
-        return $response;
     }
 
     public function disableFacturaAction($id)

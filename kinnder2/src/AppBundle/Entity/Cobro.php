@@ -73,6 +73,12 @@ class Cobro
      */
     private $updatedAt;
 
+
+    public function __construct()
+    {
+        $this->setFecha(new \DateTime());
+    }
+
     /**
      * Set id.
      *

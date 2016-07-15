@@ -97,10 +97,19 @@ class CuentasService
             }
         }
 
+        $amount = $cobro->getCuenta()->getFormatedDiferencia();
+        $positive = false;
+        if ($cobro->getCuenta()->getDiferencia() < 0) {
+            $positive = true;
+        }
+        $message = 'Cobro cancelado con exito';
         return array(
-        'cobro' => $cobro,
-        'facturas' => $facturasForRefresh,
-      );
+            'cobro' => $cobro,
+            'facturas' => $facturasForRefresh,
+            'message' => $message,
+            'positive' => $positive,
+            'amount' => $amount,
+        );
     }
 
     public function enableCobro($id)
@@ -130,10 +139,18 @@ class CuentasService
                 }
             }
         }
-
+        $amount = $cobro->getCuenta()->getFormatedDiferencia();
+        $positive = false;
+        if ($cobro->getCuenta()->getDiferencia() < 0) {
+            $positive = true;
+        }
+        $message = 'Cobro activado con exito';
         return array(
-        'cobro' => $cobro,
-        'facturas' => $facturasForRefresh,
+            'cobro' => $cobro,
+            'facturas' => $facturasForRefresh,
+            'message' => $message,
+            'positive' => $positive,
+            'amount' => $amount,
       );
     }
 
@@ -179,5 +196,10 @@ class CuentasService
         }
 
         return $factura;
+    }
+
+    public function resetDetalleFactura()
+    {
+
     }
 }

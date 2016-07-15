@@ -8,7 +8,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: es
-
+    maith_newsletter_handler.class: AppBundle\Service\LocalNewsletterHandler
 framework:
     #esi:             ~
     translator:
@@ -41,7 +41,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources:
-            - LexikFormFilterBundle:Form:form_div_layout.html.twig    
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig
 
 # Assetic Configuration
 #assetic:
@@ -86,7 +86,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: secured_area
-    user_class: AppBundle\Entity\Progenitor   
+    user_class: AppBundle\Entity\Progenitor
     registration:
         confirmation:
             enabled:    true
@@ -100,15 +100,15 @@ stof_doctrine_extensions:
             timestampable: true
             sortable: false
             sluggable: false
-            translatable: false      
-            
+            translatable: false
+
 jms_security_extra:
     # Enables expression language
     expressions: true
-    
+
 lexik_form_filter:
-    where_method: ~  # null | and | or    
+    where_method: ~  # null | and | or
 
 services:
     fos_user.doctrine_registry:
-        alias: doctrine    
+        alias: doctrine

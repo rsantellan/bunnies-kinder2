@@ -1,0 +1,22 @@
+view_cobro_pdf:
+    path:     /{id}/pdf-cobro
+    defaults: { _controller: "AppBundle:Cobro:showCobroPdf" }
+
+add_cobro:
+    path:     /{cuentaId}/add-cobro
+    defaults: { _controller: "AppBundle:Cobro:addCobroForm" }
+
+save_cobro:
+    path:     /{cuentaId}/save-cobro
+    defaults: { _controller: "AppBundle:Cobro:saveCobroForm" }
+    methods:  [POST, PUT]
+
+disable_cobro:
+    path:     /{id}/disable-cobro
+    defaults: { _controller: "AppBundle:Cobro:disableCobro" }
+    methods:  [POST, PUT]
+
+enable_cobro:
+    path:     /{id}/enable-cobro
+    defaults: { _controller: "AppBundle:Cobro:enableCobro" }
+    methods:  [POST, PUT]
