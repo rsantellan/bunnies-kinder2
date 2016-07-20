@@ -191,7 +191,6 @@ class ReactNewsletterController extends Controller
         $valid = false;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('MaithNewsletterBundle:UserGroup')->find($id);
-
         if ($entity) {
             $entity->setName($name);
             $validator = $this->get('validator');

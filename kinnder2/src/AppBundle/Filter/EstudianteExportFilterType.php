@@ -43,13 +43,13 @@ class EstudianteExportFilterType extends AbstractType
                 array(
                 'required' => false,
                 'class' => 'AppBundle\Entity\Clase',
-                'empty_value' => 'Todos',
+                'placeholder' => 'Todos',
                  ));
         $builder->add('horario', 'filter_entity',
                 array(
                 'required' => false,
                 'class' => 'AppBundle\Entity\Horario',
-                'empty_value' => 'Todos',
+                'placeholder' => 'Todos',
                  ));
 
         $builder->add('estudiantes', 'filter_choice',

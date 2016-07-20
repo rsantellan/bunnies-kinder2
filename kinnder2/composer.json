@@ -50,10 +50,12 @@
         "Maith/NewsletterBundle": "dev-master",
         "Maith/Common/AdminBundle": "dev-master",
         "Maith/Common/ImageBundle": "dev-master",
-        "Maith/Common/TranslatorBundle": "dev-master"
+        "Maith/Common/TranslatorBundle": "dev-master",
+        "friendsofphp/php-cs-fixer": "*"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "phpro/grumphp": "^0.9.1"
     },
     "scripts": {
         "post-root-package-install": [

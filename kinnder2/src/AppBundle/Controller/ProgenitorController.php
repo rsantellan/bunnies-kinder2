@@ -81,7 +81,7 @@ class ProgenitorController extends Controller
                 $entity->setPlainPassword('kinder2');
                 $entity->setEnabled(true);
                 $token = sha1(uniqid(mt_rand(), true)); // Or whatever you prefer to generate a token
-              $entity->setConfirmationToken($token);
+                $entity->setConfirmationToken($token);
 
                 $em->persist($entity);
                 $em->flush();

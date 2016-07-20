@@ -1,60 +1,59 @@
 migrate_activity:
     path:     /activity/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:migrateActivity }
+    defaults: { _controller: AppBundle:MigrationCodigueras:migrateActivity }
 
 remove_activity:
     path:     /activity-remove/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:removeActivity }
+    defaults: { _controller: AppBundle:MigrationCodigueras:removeActivity }
 
 migrate_discount:
     path:     /discount/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:migrateDiscount }
+    defaults: { _controller: AppBundle:MigrationCodigueras:migrateDiscount }
 
 remove_discounts:
     path:     /discount-remove/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:removeDiscount }
+    defaults: { _controller: AppBundle:MigrationCodigueras:removeDiscount }
 
 update_costos:
     path:     /costos/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:updateCostos }
-    
+    defaults: { _controller: AppBundle:MigrationCodigueras:updateCostos }
+
 update_estudiante:
     path:     /estudiante/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:updateEstudiante }    
+    defaults: { _controller: AppBundle:Migration:updateEstudiante }
 
 disable_estudiante:
     path:     /estudiante-disable/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:disableEstudiante }    
-    
+    defaults: { _controller: AppBundle:Migration:disableEstudiante }
+
 update_parent:
     path:     /parent/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:updateParent }    
+    defaults: { _controller: AppBundle:Migration:updateParent }
 
 remove_parent:
     path:     /parent-remove/{id}/{hash}
-    defaults: { _controller: AppBundle:Migration:removeParent }    
-    
+    defaults: { _controller: AppBundle:Migration:removeParent }
+
 update_user_activity:
     path:     /user-activity/{userId}/{activityId}/{hash}
-    defaults: { _controller: AppBundle:Migration:updateUserActivity }    
+    defaults: { _controller: AppBundle:Migration:updateUserActivity }
 
 remove_user_activity:
     path:     /user-activity-remove/{userId}/{activityId}/{hash}
-    defaults: { _controller: AppBundle:Migration:removeUserActivity }    
-    
+    defaults: { _controller: AppBundle:Migration:removeUserActivity }
+
 update_user_parent:
     path:     /user-parent/{userId}/{parentId}/{hash}
-    defaults: { _controller: AppBundle:Migration:updateUserParent }    
+    defaults: { _controller: AppBundle:Migration:updateUserParent }
 
 remove_user_parent:
     path:     /user-parent-remove/{userId}/{parentId}/{hash}
     defaults: { _controller: AppBundle:Migration:removeUserParent }
-    
+
 update_payment:
     path:     /payment/{paymentId}/{hash}
     defaults: { _controller: AppBundle:Migration:updatePayment }
-    
+
 cancel_billing:
     path:     /billing-cancel/{account}/{month}/{year}/{hash}
-    defaults: { _controller: AppBundle:Migration:cancelBilling }    
-        
+    defaults: { _controller: AppBundle:Migration:cancelBilling }
