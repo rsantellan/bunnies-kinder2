@@ -2,9 +2,6 @@
 
 namespace AppBundle\Fpdf;
 
-//require('fpdf.php');
-//define('EURO', chr(128) );
-//define('EURO_VAL', 6.55957 );
 // Xavier Nicolay 2004
 // Version 1.02
 // http://fpdf.org/en/script/script20.php
@@ -145,10 +142,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
   {
       $x1 = 10;
       $y1 = 8;
-    //sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Tag'));
-    //$imgSrc = image_path('logo.png', array('absolute' => true));
-    //var_dump($imgSrc);die;
-    $this->Image($imageSrc, $x1, $y1, 50);
+      $this->Image($imageSrc, $x1, $y1, 50);
   }
 
 // Label and number of invoice/estimate
@@ -366,22 +360,14 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         return $maxSize;
     }
 
-// add a line to the invoice/estimate
-  /*    $ligne = array( "REFERENCE"    => $prod["ref"],
-    "DESIGNATION"  => $libelle,
-    "QUANTITE"     => sprintf( "%.2F", $prod["qte"]) ,
-    "P.U. HT"      => sprintf( "%.2F", $prod["px_unit"]),
-    "MONTANT H.T." => sprintf ( "%.2F", $prod["qte"] * $prod["px_unit"]) ,
-    "TVA"          => $prod["tva"] );
-   */
+
   public function addLine($ligne, $tab)
   {
       $ordonnee = 10;
       $maxSize = $ligne;
 
       reset($this->colonnes);
-    //var_dump(count($tab));
-    $counter = 0;
+      $counter = 0;
       while (list($lib, $pos) = each($this->colonnes)) {
           ++$counter;
           $longCell = $pos - 2;
@@ -391,7 +377,6 @@ class Invoice extends \fpdf\FPDF_EXTENDED
           $formText = $this->format[$lib];
           if ($counter == count($tab)) {
               $this->SetFont('Arial', 'B', 10);
-        //var_dump('estoy aca');
           }
           $this->SetXY($ordonnee, $ligne - 1);
           $this->MultiCell($longCell, 4, $texte, 0, $formText);
@@ -399,12 +384,9 @@ class Invoice extends \fpdf\FPDF_EXTENDED
               $maxSize = $this->GetY();
           }
           $ordonnee += $pos;
-
-      //var_dump($counter);
       }
       $this->SetFont('');
-    //die;
-    return  $maxSize - $ligne;
+      return  $maxSize - $ligne;
   }
 
     public function addRemarque($remarque)
@@ -429,12 +411,12 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
         $this->Line($r1, $y1 + 4, $r2, $y1 + 4);
         $this->Line($r1 + 5, $y1 + 4, $r1 + 5, $y2); // avant BASES HT
-    $this->Line($r1 + 27, $y1, $r1 + 27, $y2);  // avant REMISE
-    $this->Line($r1 + 43, $y1, $r1 + 43, $y2);  // avant MT TVA
-    $this->Line($r1 + 63, $y1, $r1 + 63, $y2);  // avant % TVA
-    $this->Line($r1 + 75, $y1, $r1 + 75, $y2);  // avant PORT
-    $this->Line($r1 + 91, $y1, $r1 + 91, $y2);  // avant TOTAUX
-    $this->SetXY($r1 + 9, $y1);
+        $this->Line($r1 + 27, $y1, $r1 + 27, $y2);  // avant REMISE
+        $this->Line($r1 + 43, $y1, $r1 + 43, $y2);  // avant MT TVA
+        $this->Line($r1 + 63, $y1, $r1 + 63, $y2);  // avant % TVA
+        $this->Line($r1 + 75, $y1, $r1 + 75, $y2);  // avant PORT
+        $this->Line($r1 + 91, $y1, $r1 + 91, $y2);  // avant TOTAUX
+        $this->SetXY($r1 + 9, $y1);
         $this->Cell(10, 4, 'BASES HT');
         $this->SetX($r1 + 29);
         $this->Cell(10, 4, 'REMISE');
@@ -461,8 +443,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $y2 = $y1 + 10;
         $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
         $this->Line($r1 + 20, $y1, $r1 + 20, $y2); // avant EUROS
-    //$this->Line( $r1+20, $y1+4, $r2, $y1+4); // Sous Euros & Francs
-    $this->SetFont('Arial', 'B', 8);
+        $this->SetFont('Arial', 'B', 8);
         $this->SetXY($r1 + 22, $y1);
         $this->Cell(15, 4, ' ', 0, 0, 'C');
         $this->SetFont('Arial', '', 8);
@@ -477,25 +458,6 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $this->Cell(17, 4, $amountText, '', '', 'R');
     }
 
-// remplit les cadres TVA / Totaux et la remarque
-// params  = array( "RemiseGlobale" => [0|1],
-//                      "remise_tva"     => [1|2...],  // {la remise s'applique sur ce code TVA}
-//                      "remise"         => value,     // {montant de la remise}
-//                      "remise_percent" => percent,   // {pourcentage de remise sur ce montant de TVA}
-//                  "FraisPort"     => [0|1],
-//                      "portTTC"        => value,     // montant des frais de ports TTC
-//                                                     // par defaut la TVA = 19.6 %
-//                      "portHT"         => value,     // montant des frais de ports HT
-//                      "portTVA"        => tva_value, // valeur de la TVA a appliquer sur le montant HT
-//                  "AccompteExige" => [0|1],
-//                      "accompte"         => value    // montant de l'acompte (TTC)
-//                      "accompte_percent" => percent  // pourcentage d'acompte (TTC)
-//                  "Remarque" => "texte"              // texte
-// tab_tva = array( "1"       => 19.6,
-//                  "2"       => 5.5, ... );
-// invoice = array( "px_unit" => value,
-//                  "qte"     => qte,
-//                  "tva"     => code_tva );
   public function addTVAs($params, $tab_tva, $invoice)
   {
       $this->SetFont('Arial', '', 8);

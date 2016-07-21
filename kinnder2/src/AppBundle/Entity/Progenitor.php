@@ -247,8 +247,6 @@ class Progenitor extends BaseUser
         }
 
         return $user_roles;
-
-        return array_merge($user_roles, array(new Role(array(parent::ROLE_DEFAULT))));
     }
 
     /**

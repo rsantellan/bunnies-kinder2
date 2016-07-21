@@ -15,7 +15,7 @@ class LocalNewsletterHandler extends NewsletterHandler
         $result = $this->em->getConnection()->executeQuery( $sql);
         while($row = $result->fetch())
         {
-            if($row['e_id'] == null){
+            if($row['e_id'] === null){
               $groupData['noalumnos'][] = array('identifier' => $row['mnu_id'], 'label' => $row['email']);
             }else{
               if((int)$row['egresado'] == 1){

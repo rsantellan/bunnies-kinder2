@@ -235,7 +235,7 @@ class EstudianteSearchController extends Controller
         $filter = $this->get('form.factory')->create(new EstudianteFilterType());
         $entities = array();
         if ($request->query->has($filter->getName())) {
-            // manually bind values from the request
+          // manually bind values from the request
           $filter->submit($request->query->get($filter->getName()));
 
           // initialize a query builder
@@ -257,8 +257,6 @@ class EstudianteSearchController extends Controller
           } else {
               $filterBuilder->andWhere('e.egresado = true');
           }
-
-          //var_dump($filterBuilder->getDql());
           $entities = $filterBuilder->getQuery()->getResult();
         }
 
@@ -300,8 +298,7 @@ class EstudianteSearchController extends Controller
             $filter->submit($request->query->get($filter->getName()));
             $data = $this->get('kinder.estudiantes')->preparateSearchQueryData($filter, $this->get('lexik_form_filter.query_builder_updater'));
             $entities = $data['entities'];
-            $export = (boolean) $filterData['exportar'];
-            if ($export) {
+            if ((boolean) $filterData['exportar']) {
                 return $this->exportExcel($headers, $entities);
             }
         }

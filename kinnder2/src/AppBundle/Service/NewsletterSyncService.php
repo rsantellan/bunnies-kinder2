@@ -105,7 +105,6 @@ class NewsletterSyncService
                             $newsLetterUserGroup = $this->em->getRepository('MaithNewsletterBundle:UserGroup')->findOneBy(
                 array('name' => $estudiante->getClase()->getName().' ('.$estudiante->getHorario()->getName().')')
               );
-              //$newsletterUser->addUserGroup($newsLetterUserGroup);
               $toAddGroups[$newsLetterUserGroup->getId()] = $newsLetterUserGroup;
                         }
                     }

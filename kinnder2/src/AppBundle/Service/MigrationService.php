@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
@@ -18,7 +12,6 @@ use AppBundle\Entity\Estudiante;
 use AppBundle\Entity\Colegio;
 use AppBundle\Entity\SociedadMedica;
 use AppBundle\Entity\EmergenciaMedica;
-use AppBundle\Entity\Progenitor;
 use FOS\UserBundle\Doctrine\UserManager;
 
 /**
@@ -53,9 +46,9 @@ class MigrationService
 
     private function getConn()
     {
+        // A possible host is 192.168.100.124
         $host = 'localhost';
-    //$host = '192.168.100.124';
-    return new \PDO(sprintf('mysql:host=%s;dbname=%s', $host, $this->oldDb), $this->oldDbUser, $this->oldDbPassword, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+        return new \PDO(sprintf('mysql:host=%s;dbname=%s', $host, $this->oldDb), $this->oldDbUser, $this->oldDbPassword, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
     }
 
     private function retrieveOldActivity($id)
@@ -290,8 +283,7 @@ class MigrationService
         $oldDbActivities = $this->retrieveOldStudentActivities($id);
         $activitiesList = new ArrayCollection();
         foreach ($oldDbActivities as $rowActivity) {
-            //var_dump($rowActivity);
-      $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
+            $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
               array(
                   'oldId' => $rowActivity['actividad_id'],
               )
@@ -581,6 +573,5 @@ class MigrationService
                 $this->logger->error($row);
             }
         }
-    //$clients = $query->fetchAll();
     }
 }

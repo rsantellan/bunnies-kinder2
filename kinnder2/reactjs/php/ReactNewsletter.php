@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Maith\NewsletterBundle\Entity\User;
 use Maith\NewsletterBundle\Entity\UserGroup;
 
-class ReactNewsletterController extends Controller
+class ReactNewsletter //extends Controller
 {
     public function indexAction()
     {

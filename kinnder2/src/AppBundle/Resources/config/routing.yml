@@ -14,9 +14,9 @@ cobros:
     resource: "@AppBundle/Resources/config/routing/cobros.yml"
     prefix:   /admin/cobros
 
-reactnewsletter:
-    resource: "@AppBundle/Resources/config/routing/reactnewsletter.yml"
-    prefix:   /admin/react
+#reactnewsletter:
+#    resource: "@AppBundle/Resources/config/routing/reactnewsletter.yml"
+#    prefix:   /admin/react
 
 admin_alertas:
     path:     /admin

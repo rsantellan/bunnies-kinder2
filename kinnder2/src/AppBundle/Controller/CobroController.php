@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\Cobro;
-use AppBundle\Form\CobroType;
+use AppBundle\Form\Type\CobroType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CobroController extends Controller

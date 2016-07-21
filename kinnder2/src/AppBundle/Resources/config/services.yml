@@ -4,6 +4,7 @@ parameters:
 #    parameter_name: value
     kinder_cobro_service.class: AppBundle\Service\CobroService
     kinder_estudiantes_service.class: AppBundle\Service\EstudiantesService
+    kinder_progenitores_service.class: AppBundle\Service\ProgenitoresService
 
 services:
     facturas:
@@ -34,5 +35,10 @@ services:
 
     kinder.estudiantes:
         class: %kinder_estudiantes_service.class%
+        arguments: ["@doctrine.orm.entity_manager", "@logger"]
+        lazy: true
+
+    kinder.progenitores:
+        class: %kinder_progenitores_service.class%
         arguments: ["@doctrine.orm.entity_manager", "@logger"]
         lazy: true

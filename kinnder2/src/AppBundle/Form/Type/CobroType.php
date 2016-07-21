@@ -1,13 +1,12 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProgenitorEditType extends AbstractType
+class CobroType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,25 +15,27 @@ class ProgenitorEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('direccion')
-            ->add('telefono')
-            ->add('celular')
-            //->add('oldId')
+            //->add('fecha')
+            ->add('fecha', null, array(
+                     'widget' => 'single_text',
+                     'format' => 'dd-MM-yyyy',
+            ))
+            ->add('monto')
+            //->add('cancelado')
+            ->add('enviado')
+            //->add('createdAt')
+            //->add('updatedAt')
             //->add('cuenta')
-            //->add('estudiantes')
-            //->add('user_roles')
-            //->add('newsletterUser', new \Maith\NewsletterBundle\Form\UserType())
         ;
     }
 
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Progenitor',
+            'data_class' => 'AppBundle\Entity\Cobro',
         ));
     }
 
@@ -43,6 +44,6 @@ class ProgenitorEditType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_edit_progenitor';
+        return 'appbundle_cobro';
     }
 }

@@ -35,8 +35,7 @@ class CuentaRepository extends EntityRepository
           'clase' => $row['clase'],
           'egresado' => $row['egresado'],
           );
-      //var_dump($row);
-      $returnList[$row['cuentaId']] = $cuenta;
+          $returnList[$row['cuentaId']] = $cuenta;
         }
 
         return $returnList;

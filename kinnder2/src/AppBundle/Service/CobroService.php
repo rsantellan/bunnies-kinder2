@@ -4,10 +4,10 @@ namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Monolog\Logger;
-use AppBundle\Entity\Cuenta;
+use Symfony\Component\Form\Form;
+
 use AppBundle\Entity\Cobro;
 
-use Symfony\Component\Form\Form;
 
 /**
  * Description of CobroService.

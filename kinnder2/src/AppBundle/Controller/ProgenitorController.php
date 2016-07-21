@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Progenitor;
-use AppBundle\Form\ProgenitorType;
-use AppBundle\Form\ProgenitorEditType;
+use AppBundle\Form\Type\ProgenitorType;
+use AppBundle\Form\Type\ProgenitorEditType;
 use AppBundle\Filter\ProgenitorFilterType;
 
 /**
@@ -51,8 +51,6 @@ class ProgenitorController extends Controller
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filter, $filterBuilder);
 
             // now look at the DQL =)
-            //$filterBuilder->andWhere('e.egresado = false');
-            //var_dump($filterBuilder->getDql());
             $entities = $filterBuilder->getQuery()->getResult();
         }
 
@@ -73,24 +71,14 @@ class ProgenitorController extends Controller
         $errorMessage = null;
         if ($form->isValid()) {
             // Check email.
-            $em = $this->getDoctrine()->getManager();
-            $progenitor = $em->getRepository('AppBundle:Progenitor')->checkEmailExists($entity->getNewsletterUser()->getEmail());
-            if ($progenitor === null) {
-                $entity->setUsername($entity->getNewsletterUser()->getEmail());
-                $entity->setEmail($entity->getNewsletterUser()->getEmail());
-                $entity->setPlainPassword('kinder2');
-                $entity->setEnabled(true);
-                $token = sha1(uniqid(mt_rand(), true)); // Or whatever you prefer to generate a token
-                $entity->setConfirmationToken($token);
+            $service = $this->get('kinder.progenitores');
+            $progenitorId = $service->createProgenitor($entity, $this->get('fos_user.mailer'));
 
-                $em->persist($entity);
-                $em->flush();
-                $mailer = $this->container->get('fos_user.mailer');
-                $mailer->sendConfirmationEmailMessage($entity);
-
-                return $this->redirect($this->generateUrl('admin_progenitor_edit', array('id' => $entity->getId())));
+            if($progenitorId === null){
+                $errorMessage = 'El email ya se encuentra utilizado. Revisa que el padre no este ingresado.';
+            }else{
+                return $this->redirect($this->generateUrl('admin_progenitor_edit', array('id' => $progenitorId)));
             }
-            $errorMessage = 'El email ya se encuentra utilizado. Revisa que el padre no este ingresado.';
         }
 
         return $this->render('AppBundle:Progenitor:new.html.twig', array(
@@ -113,9 +101,6 @@ class ProgenitorController extends Controller
             'action' => $this->generateUrl('admin_progenitor_create'),
             'method' => 'POST',
         ));
-
-        //$form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -126,7 +111,6 @@ class ProgenitorController extends Controller
     {
         $entity = new Progenitor();
         $form = $this->createCreateForm($entity);
-
         return $this->render('AppBundle:Progenitor:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
@@ -190,9 +174,6 @@ class ProgenitorController extends Controller
             'action' => $this->generateUrl('admin_progenitor_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        //$form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
     /**

@@ -6,10 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Estudiante;
-use AppBundle\Form\EstudianteType;
-use AppBundle\Form\EstudianteEditType;
-
-use AppBundle\Entity\Cuenta;
+use AppBundle\Form\Type\EstudianteType;
+use AppBundle\Form\Type\EstudianteEditType;
 
 /**
  * Estudiante controller.
@@ -76,8 +74,6 @@ class EstudianteController extends Controller
             'method' => 'POST',
         ));
 
-        //$form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -106,10 +102,6 @@ class EstudianteController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Estudiante entity.');
         }
-
-        //$facturasHandler = $this->get('facturas');
-        //$facturasHandler->checkAllAccount();
-
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Estudiante:show.html.twig', array(
@@ -166,9 +158,6 @@ class EstudianteController extends Controller
             'action' => $this->generateUrl('estudiante_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        //$form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
     /**
@@ -237,7 +226,6 @@ class EstudianteController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('estudiante_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            //->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

@@ -26,7 +26,6 @@ class PdfManager
         $this->logger = $logger;
         $this->webDirectory = $rootDir.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR;
         $this->logger->addDebug('Starting pdf manager');
-    //var_dump($this->assetPackages->getUrl('thumbnail.png'));
     }
 
     public function exportCobroToPdf(Cobro $cobro, Cuenta $account = null, $location = null)
@@ -157,7 +156,6 @@ class PdfManager
               'Precio' => '$'.$precion,
           );
         }
-        //die;
         $maxPerPage = 30;
         $cantidadPaginas = $cantidadFacturasDetalles / $maxPerPage;
         $showPages = true;
@@ -265,6 +263,5 @@ class PdfManager
         if ($outputOption == 'F') {
             return $location.$outputName;
         }
-    //die(0);
     }
 }

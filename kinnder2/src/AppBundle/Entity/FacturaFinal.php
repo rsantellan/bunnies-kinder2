@@ -513,8 +513,6 @@ class FacturaFinal
      */
     public function calculateDifference()
     {
-        if (!$this->getCancelado()) {
-            //$this->getCuenta()->setDebe($this->getCuenta()->getDebe() + $this->getTotal());
-        }
+
     }
 }

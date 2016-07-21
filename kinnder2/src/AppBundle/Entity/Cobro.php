@@ -227,7 +227,6 @@ class Cobro
      */
     public function calculateDifference()
     {
-        //$this->getCuenta()->setPago($this->getCuenta()->getPago() + $this->getMonto());
     }
 
     /**
