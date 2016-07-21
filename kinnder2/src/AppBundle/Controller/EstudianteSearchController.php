@@ -273,7 +273,6 @@ class EstudianteSearchController extends Controller
         $filterMetadata = array();
         if ($request->query->has($filter->getName())) {
             $filterData = $request->query->get($filter->getName());
-            $exportar = (boolean) $filterData['exportar'];
             $useEstudianteRow = true;
             if (isset($filterData['estudiantes'])) {
                 $estudiantesRow = array_flip($filterData['estudiantes']);

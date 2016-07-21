@@ -94,7 +94,7 @@ class MigrationService
     {
         $activity = $this->em->getRepository('AppBundle:Actividad')->findOneBy(
               array(
-                  'oldId' => $row['id'],
+                  'oldId' => $id,
               )
           );
         if ($activity) {
@@ -551,27 +551,7 @@ class MigrationService
 
     public function compareCuentas()
     {
-        $cuentasList = array();
-        $oldActiveCuentasSql = 'select id, referenciabancaria, debe, pago, diferencia from cuenta where referenciabancaria in (select referencia_bancaria from usuario where egresado = 0) order by referenciabancaria';
-        $newActiveCuentasSql = 'select id, referenciabancaria, debe, pago, diferencia from cuenta where referenciabancaria in (select referencia_bancaria from estudiante where egresado = 0)';
-
-        $sql = 'select c.fecha, c.monto, cu.referenciabancaria from cobro c inner join cuenta cu on c.cuenta_id = cu.id where c.id = ?';
-        $conn = $this->getConn();
-        $stmt = $conn->prepare($oldActiveCuentasSql);
-        $stmt->execute();
-        foreach ($stmt->fetchAll() as $row) {
-            $cuentasList[$row['referenciabancaria']] = $row;
-        }
-
-        $query = $this->em->getConnection()->prepare($newActiveCuentasSql);
-        $query->execute();
-        foreach ($query->fetchAll() as $row) {
-            if (isset($cuentasList[$row['referenciabancaria']])) {
-                if ((int) $cuentasList[$row['referenciabancaria']]['diferencia'] == (int) $row['diferencia']) {
-                }
-            } else {
-                $this->logger->error($row);
-            }
-        }
+        throw new \Exception("Dont call me please!");
+        
     }
 }

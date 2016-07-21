@@ -39,7 +39,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
     public $angle = 0;
 
 // private functions
-  public function RoundedRect($x, $y, $w, $h, $r, $style = '')
+  public function RoundedRect($xPosition, $yPosition, $width, $height, $round, $style = '')
   {
       $k = $this->k;
       $hp = $this->h;
@@ -51,24 +51,24 @@ class Invoice extends \fpdf\FPDF_EXTENDED
           $op = 'S';
       }
       $MyArc = 4 / 3 * (sqrt(2) - 1);
-      $this->_out(sprintf('%.2F %.2F m', ($x + $r) * $k, ($hp - $y) * $k));
-      $xc = $x + $w - $r;
-      $yc = $y + $r;
-      $this->_out(sprintf('%.2F %.2F l', $xc * $k, ($hp - $y) * $k));
+      $this->_out(sprintf('%.2F %.2F m', ($xPosition + $round) * $k, ($hp - $yPosition) * $k));
+      $xc = $xPosition + $width - $round;
+      $yc = $yPosition + $round;
+      $this->_out(sprintf('%.2F %.2F l', $xc * $k, ($hp - $yPosition) * $k));
 
-      $this->_Arc($xc + $r * $MyArc, $yc - $r, $xc + $r, $yc - $r * $MyArc, $xc + $r, $yc);
-      $xc = $x + $w - $r;
-      $yc = $y + $h - $r;
-      $this->_out(sprintf('%.2F %.2F l', ($x + $w) * $k, ($hp - $yc) * $k));
-      $this->_Arc($xc + $r, $yc + $r * $MyArc, $xc + $r * $MyArc, $yc + $r, $xc, $yc + $r);
-      $xc = $x + $r;
-      $yc = $y + $h - $r;
-      $this->_out(sprintf('%.2F %.2F l', $xc * $k, ($hp - ($y + $h)) * $k));
-      $this->_Arc($xc - $r * $MyArc, $yc + $r, $xc - $r, $yc + $r * $MyArc, $xc - $r, $yc);
-      $xc = $x + $r;
-      $yc = $y + $r;
-      $this->_out(sprintf('%.2F %.2F l', ($x) * $k, ($hp - $yc) * $k));
-      $this->_Arc($xc - $r, $yc - $r * $MyArc, $xc - $r * $MyArc, $yc - $r, $xc, $yc - $r);
+      $this->_Arc($xc + $round * $MyArc, $yc - $round, $xc + $round, $yc - $round * $MyArc, $xc + $round, $yc);
+      $xc = $xPosition + $width - $round;
+      $yc = $yPosition + $height - $round;
+      $this->_out(sprintf('%.2F %.2F l', ($xPosition + $width) * $k, ($hp - $yc) * $k));
+      $this->_Arc($xc + $round, $yc + $round * $MyArc, $xc + $round * $MyArc, $yc + $round, $xc, $yc + $round);
+      $xc = $xPosition + $round;
+      $yc = $yPosition + $height - $round;
+      $this->_out(sprintf('%.2F %.2F l', $xc * $k, ($hp - ($yPosition + $height)) * $k));
+      $this->_Arc($xc - $round * $MyArc, $yc + $round, $xc - $round, $yc + $round * $MyArc, $xc - $round, $yc);
+      $xc = $xPosition + $round;
+      $yc = $yPosition + $round;
+      $this->_out(sprintf('%.2F %.2F l', ($xPosition) * $k, ($hp - $yc) * $k));
+      $this->_Arc($xc - $round, $yc - $round * $MyArc, $xc - $round * $MyArc, $yc - $round, $xc, $yc - $round);
       $this->_out($op);
   }
 
@@ -152,7 +152,6 @@ class Invoice extends \fpdf\FPDF_EXTENDED
       $r2 = $r1 + 68;
       $y1 = 6;
       $y2 = $y1 + 2;
-      $mid = ($r1 + $r2) / 2;
 
       $texte = $libelle.' EN '.EURO.' N° : '.$num;
       $szfont = 12;
@@ -244,7 +243,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
   public function addClientAdresse($adresse)
   {
       $r1 = $this->w - 80;
-      $r2 = $r1 + 68;
+
       $y1 = 40;
       $this->SetXY($r1, $y1);
       $this->MultiCell(60, 4, $adresse);
@@ -309,9 +308,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $this->SetFont('Arial', '', 10);
         $length = $this->GetStringWidth('Références : '.$ref);
         $r1 = 10;
-        $r2 = $r1 + $length;
         $y1 = 92;
-        $y2 = $y1 + 5;
         $this->SetXY($r1, $y1);
         $this->Cell($length, 4, 'Références : '.$ref);
     }
@@ -337,7 +334,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
 
     public function addLineFormat($tab)
     {
-        while (list($lib, $pos) = each($this->colonnes)) {
+        while (list($lib) = each($this->colonnes)) {
             if (isset($tab["$lib"])) {
                 $this->format[$lib] = $tab["$lib"];
             }
@@ -373,7 +370,6 @@ class Invoice extends \fpdf\FPDF_EXTENDED
           $longCell = $pos - 2;
           $texte = $tab[$lib];
           $length = $this->GetStringWidth($texte);
-          $tailleTexte = $this->sizeOfText($texte, $length);
           $formText = $this->format[$lib];
           if ($counter == count($tab)) {
               $this->SetFont('Arial', 'B', 10);
@@ -394,9 +390,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $this->SetFont('Arial', '', 10);
         $length = $this->GetStringWidth('Remarque : '.$remarque);
         $r1 = 10;
-        $r2 = $r1 + $length;
         $y1 = $this->h - 45.5;
-        $y2 = $y1 + 5;
         $this->SetXY($r1, $y1);
         $this->Cell($length, 4, 'Remarque : '.$remarque);
     }
@@ -451,7 +445,6 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $this->Cell(20, 4, 'TOTAL', 0, 0, 'C');
 
         $re = $this->w - 50;
-        $rf = $this->w - 29;
         $y1 = $this->h - 40;
         $this->SetFont('Arial', 'B', 10);
         $this->SetXY($re, $y1 + 5);
@@ -464,12 +457,11 @@ class Invoice extends \fpdf\FPDF_EXTENDED
 
       reset($invoice);
       $px = array();
-      while (list($k, $prod) = each($invoice)) {
+      while (list($prod) = each($invoice)) {
           $tva = $prod['tva'];
           @$px[$tva] += $prod['qte'] * $prod['px_unit'];
       }
 
-      $prix = array();
       $totalHT = 0;
       $totalTTC = 0;
       $totalTVA = 0;
@@ -512,7 +504,6 @@ class Invoice extends \fpdf\FPDF_EXTENDED
           $totalHT += $articleHT;
           $totalTTC += $articleHT * (1 + $tva / 100);
           $tmp_tva = $articleHT * $tva / 100;
-          $a_tva[$code_tva] = $tmp_tva;
           $totalTVA += $tmp_tva;
           $this->SetXY(11, $y);
           $this->Cell(5, 4, $code_tva);
@@ -524,48 +515,37 @@ class Invoice extends \fpdf\FPDF_EXTENDED
       }
 
       if ($params['FraisPort'] == 1) {
-          if ($params['portTTC'] > 0) {
+          if($params['portTTC'] > 0 || $params['portHT'] > 0)
+          {
+            $pTTC = 0;
+            $pHT = 0;
+            $pTVA = 0;
+            if ($params['portTTC'] > 0) {
               $pTTC = sprintf('%0.2F', $params['portTTC']);
               $pHT = sprintf('%0.2F', $pTTC / 1.196);
               $pTVA = sprintf('%0.2F', $pHT * 0.196);
-              $this->SetFont('Arial', '', 6);
-              $this->SetXY(85, 261);
-              $this->Cell(6, 4, 'HT : ', '', '', '');
-              $this->SetXY(92, 261);
-              $this->Cell(9, 4, $pHT, '', '', 'R');
-              $this->SetXY(85, 265);
-              $this->Cell(6, 4, 'TVA : ', '', '', '');
-              $this->SetXY(92, 265);
-              $this->Cell(9, 4, $pTVA, '', '', 'R');
-              $this->SetXY(85, 269);
-              $this->Cell(6, 4, 'TTC : ', '', '', '');
-              $this->SetXY(92, 269);
-              $this->Cell(9, 4, $pTTC, '', '', 'R');
-              $this->SetFont('Arial', '', 8);
-              $totalHT += $pHT;
-              $totalTVA += $pTVA;
-              $totalTTC += $pTTC;
-          } elseif ($params['portHT'] > 0) {
+            }else{
               $pHT = sprintf('%0.2F', $params['portHT']);
               $pTVA = sprintf('%0.2F', $params['portTVA'] * $pHT / 100);
               $pTTC = sprintf('%0.2F', $pHT + $pTVA);
-              $this->SetFont('Arial', '', 6);
-              $this->SetXY(85, 261);
-              $this->Cell(6, 4, 'HT : ', '', '', '');
-              $this->SetXY(92, 261);
-              $this->Cell(9, 4, $pHT, '', '', 'R');
-              $this->SetXY(85, 265);
-              $this->Cell(6, 4, 'TVA : ', '', '', '');
-              $this->SetXY(92, 265);
-              $this->Cell(9, 4, $pTVA, '', '', 'R');
-              $this->SetXY(85, 269);
-              $this->Cell(6, 4, 'TTC : ', '', '', '');
-              $this->SetXY(92, 269);
-              $this->Cell(9, 4, $pTTC, '', '', 'R');
-              $this->SetFont('Arial', '', 8);
-              $totalHT += $pHT;
-              $totalTVA += $pTVA;
-              $totalTTC += $pTTC;
+            }
+            $this->SetFont('Arial', '', 6);
+            $this->SetXY(85, 261);
+            $this->Cell(6, 4, 'HT : ', '', '', '');
+            $this->SetXY(92, 261);
+            $this->Cell(9, 4, $pHT, '', '', 'R');
+            $this->SetXY(85, 265);
+            $this->Cell(6, 4, 'TVA : ', '', '', '');
+            $this->SetXY(92, 265);
+            $this->Cell(9, 4, $pTVA, '', '', 'R');
+            $this->SetXY(85, 269);
+            $this->Cell(6, 4, 'TTC : ', '', '', '');
+            $this->SetXY(92, 269);
+            $this->Cell(9, 4, $pTTC, '', '', 'R');
+            $this->SetFont('Arial', '', 8);
+            $totalHT += $pHT;
+            $totalTVA += $pTVA;
+            $totalTTC += $pTTC;
           }
       }
 

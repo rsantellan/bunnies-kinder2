@@ -34,10 +34,8 @@ class PdfManager
             $account = $cobro->getCuenta();
         }
         $alumnos = '';
-        $apellido = '';
         foreach ($account->getEstudiantes() as $estudiante) {
             $alumnos .= $estudiante->getNombre().',';
-            $apellido = $estudiante->getApellido();
         }
         if (strlen($alumnos) > 0) {
             $alumnos = rtrim($alumnos, ',');
@@ -102,10 +100,8 @@ class PdfManager
     public function exportAccountToPdf(Cuenta $account, $location = null)
     {
         $alumnos = '';
-        $apellido = '';
         foreach ($account->getEstudiantes() as $estudiante) {
             $alumnos .= $estudiante->getNombre().',';
-            $apellido = $estudiante->getApellido();
         }
         if (strlen($alumnos) > 0) {
             $alumnos = rtrim($alumnos, ',');

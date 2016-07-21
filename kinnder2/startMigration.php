@@ -173,17 +173,21 @@ class DoMigration{
     $this->doCurl($finalUrl);
   }
 
-  private function doCurl($url, $debug = false)
+  private function doCurl($url)
   {
     $crl = curl_init();
     $timeout = 5;
     curl_setopt ($crl, CURLOPT_URL,$url);
     curl_setopt ($crl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt ($crl, CURLOPT_CONNECTTIMEOUT, $timeout);
-    $ret = curl_exec($crl);
-    if($debug){
-        print_r($ret);
-    }
+    curl_exec($crl);
+    /***
+     * 
+     * In case something bad happend put this lines
+     * $ret = 
+     * print_r($ret);
+     * 
+     */
     curl_close($crl);
   }
 
