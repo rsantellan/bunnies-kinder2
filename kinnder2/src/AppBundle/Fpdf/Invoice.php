@@ -369,7 +369,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
           ++$counter;
           $longCell = $pos - 2;
           $texte = $tab[$lib];
-          $length = $this->GetStringWidth($texte);
+          $this->GetStringWidth($texte);
           $formText = $this->format[$lib];
           if ($counter == count($tab)) {
               $this->SetFont('Arial', 'B', 10);
