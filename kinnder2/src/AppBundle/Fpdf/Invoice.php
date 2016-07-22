@@ -39,7 +39,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
     public $angle = 0;
 
 // private functions
-  public function RoundedRect($xPosition, $yPosition, $width, $height, $round, $style = '')
+  public function roundedRect($xPosition, $yPosition, $width, $height, $round, $style = '')
   {
       $k = $this->k;
       $hp = $this->h;
@@ -56,29 +56,29 @@ class Invoice extends \fpdf\FPDF_EXTENDED
       $yc = $yPosition + $round;
       $this->_out(sprintf('%.2F %.2F l', $xc * $k, ($hp - $yPosition) * $k));
 
-      $this->_Arc($xc + $round * $MyArc, $yc - $round, $xc + $round, $yc - $round * $MyArc, $xc + $round, $yc);
+      $this->arcFunction($xc + $round * $MyArc, $yc - $round, $xc + $round, $yc - $round * $MyArc, $xc + $round, $yc);
       $xc = $xPosition + $width - $round;
       $yc = $yPosition + $height - $round;
       $this->_out(sprintf('%.2F %.2F l', ($xPosition + $width) * $k, ($hp - $yc) * $k));
-      $this->_Arc($xc + $round, $yc + $round * $MyArc, $xc + $round * $MyArc, $yc + $round, $xc, $yc + $round);
+      $this->arcFunction($xc + $round, $yc + $round * $MyArc, $xc + $round * $MyArc, $yc + $round, $xc, $yc + $round);
       $xc = $xPosition + $round;
       $yc = $yPosition + $height - $round;
       $this->_out(sprintf('%.2F %.2F l', $xc * $k, ($hp - ($yPosition + $height)) * $k));
-      $this->_Arc($xc - $round * $MyArc, $yc + $round, $xc - $round, $yc + $round * $MyArc, $xc - $round, $yc);
+      $this->arcFunction($xc - $round * $MyArc, $yc + $round, $xc - $round, $yc + $round * $MyArc, $xc - $round, $yc);
       $xc = $xPosition + $round;
       $yc = $yPosition + $round;
       $this->_out(sprintf('%.2F %.2F l', ($xPosition) * $k, ($hp - $yc) * $k));
-      $this->_Arc($xc - $round, $yc - $round * $MyArc, $xc - $round * $MyArc, $yc - $round, $xc, $yc - $round);
+      $this->arcFunction($xc - $round, $yc - $round * $MyArc, $xc - $round * $MyArc, $yc - $round, $xc, $yc - $round);
       $this->_out($op);
   }
 
-    public function _Arc($x1, $y1, $x2, $y2, $x3, $y3)
+    public function arcFunction($xPositionFirst, $yPostitionFirst, $xPostitionSecond, $yPositionSecond, $xPositionThird, $yPositionThird)
     {
         $h = $this->h;
-        $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c ', $x1 * $this->k, ($h - $y1) * $this->k, $x2 * $this->k, ($h - $y2) * $this->k, $x3 * $this->k, ($h - $y3) * $this->k));
+        $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c ', $xPositionFirst * $this->k, ($h - $yPostitionFirst) * $this->k, $xPostitionSecond * $this->k, ($h - $yPositionSecond) * $this->k, $xPositionThird * $this->k, ($h - $yPositionThird) * $this->k));
     }
 
-    public function Rotate($angle, $x = -1, $y = -1)
+    public function rotate($angle, $x = -1, $y = -1)
     {
         if ($x == -1) {
             $x = $this->x;
@@ -100,7 +100,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         }
     }
 
-    public function _endpage()
+    public function endPage()
     {
         if ($this->angle != 0) {
             $this->angle = 0;
@@ -146,7 +146,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
   }
 
 // Label and number of invoice/estimate
-  public function fact_dev($libelle, $num)
+  public function factDev($libelle, $num)
   {
       $r1 = $this->w - 80;
       $r2 = $r1 + 68;
@@ -169,7 +169,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
 
       $this->SetLineWidth(0.1);
       $this->SetFillColor(192);
-      $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 2.5, 'DF');
+      $this->roundedRect($r1, $y1, ($r2 - $r1), $y2, 2.5, 'DF');
       $this->SetXY($r1 + 1, $y1 + 2);
       $this->Cell($r2 - $r1 - 1, 5, $texte, 0, 0, 'C');
   }
@@ -178,14 +178,14 @@ class Invoice extends \fpdf\FPDF_EXTENDED
   public function addDevis($numdev)
   {
       $string = sprintf('DEV%04d', $numdev);
-      $this->fact_dev('Devis', $string);
+      $this->factDev('Devis', $string);
   }
 
 // Invoice
   public function addFacture($numfact)
   {
       $string = sprintf('FA%04d', $numfact);
-      $this->fact_dev('Facture', $string);
+      $this->factDev('Facture', $string);
   }
 
     public function addDate($date)
@@ -195,7 +195,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $y1 = 17;
         $y2 = $y1;
         $mid = $y1 + ($y2 / 2);
-        $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
+        $this->roundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
         $this->Line($r1, $mid, $r2, $mid);
         $this->SetXY($r1 + ($r2 - $r1) / 2 - 5, $y1 + 3);
         $this->SetFont('Arial', 'B', 10);
@@ -212,7 +212,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $y1 = 17;
         $y2 = $y1;
         $mid = $y1 + ($y2 / 2);
-        $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
+        $this->roundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
         $this->Line($r1, $mid, $r2, $mid);
         $this->SetXY($r1 + ($r2 - $r1) / 2 - 5, $y1 + 3);
         $this->SetFont('Arial', 'B', 10);
@@ -229,7 +229,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $y1 = 17;
         $y2 = $y1;
         $mid = $y1 + ($y2 / 2);
-        $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
+        $this->roundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
         $this->Line($r1, $mid, $r2, $mid);
         $this->SetXY($r1 + ($r2 - $r1) / 2 - 5, $y1 + 3);
         $this->SetFont('Arial', 'B', 10);
@@ -257,7 +257,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
       $y1 = 40;
       $y2 = $y1 + 10;
       $mid = $y1 + (($y2 - $y1) / 2);
-      $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
+      $this->roundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
       $this->Line($r1, $mid, $r2, $mid);
       $this->SetXY($r1 + ($r2 - $r1) / 2 - 5, $y1 + 1);
       $this->SetFont('Arial', 'B', 10);
@@ -275,7 +275,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
       $y1 = 40;
       $y2 = $y1 + 10;
       $mid = $y1 + (($y2 - $y1) / 2);
-      $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
+      $this->roundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
       $this->Line($r1, $mid, $r2, $mid);
       $this->SetXY($r1 + ($r2 - $r1) / 2 - 5, $y1 + 1);
       $this->SetFont('Arial', 'B', 10);
@@ -294,7 +294,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
       $y1 = 80;
       $y2 = $y1 + 10;
       $mid = $y1 + (($y2 - $y1) / 2);
-      $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
+      $this->roundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
       $this->Line($r1, $mid, $r2, $mid);
       $this->SetXY($r1 + 16, $y1 + 1);
       $this->Cell(40, 4, 'TVA Intracommunautaire', '', '', 'C');
@@ -402,7 +402,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $r2 = $r1 + 120;
         $y1 = $this->h - 40;
         $y2 = $y1 + 20;
-        $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
+        $this->roundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
         $this->Line($r1, $y1 + 4, $r2, $y1 + 4);
         $this->Line($r1 + 5, $y1 + 4, $r1 + 5, $y2); // avant BASES HT
         $this->Line($r1 + 27, $y1, $r1 + 27, $y2);  // avant REMISE
@@ -435,7 +435,7 @@ class Invoice extends \fpdf\FPDF_EXTENDED
         $r2 = $r1 + 40;
         $y1 = $this->h - 40;
         $y2 = $y1 + 10;
-        $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
+        $this->roundedRect($r1, $y1, ($r2 - $r1), ($y2 - $y1), 2.5, 'D');
         $this->Line($r1 + 20, $y1, $r1 + 20, $y2); // avant EUROS
         $this->SetFont('Arial', 'B', 8);
         $this->SetXY($r1 + 22, $y1);
@@ -458,10 +458,12 @@ class Invoice extends \fpdf\FPDF_EXTENDED
       reset($invoice);
       $px = array();
       while (list($prod) = each($invoice)) {
-          $tva = $prod['tva'];
-          @$px[$tva] += $prod['qte'] * $prod['px_unit'];
+          if(isset($prod['tva']) && isset($prod['qte']) && isset($prod['px_unit']))
+          {
+            $tva = $prod['tva'];
+            $px[$tva] += $prod['qte'] * $prod['px_unit'];  
+          }
       }
-
       $totalHT = 0;
       $totalTTC = 0;
       $totalTVA = 0;
@@ -609,9 +611,9 @@ class Invoice extends \fpdf\FPDF_EXTENDED
   {
       $this->SetFont('Arial', 'B', 50);
       $this->SetTextColor(203, 203, 203);
-      $this->Rotate(45, 55, 190);
+      $this->rotate(45, 55, 190);
       $this->Text(55, 190, $texte);
-      $this->Rotate(0);
+      $this->rotate(0);
       $this->SetTextColor(0, 0, 0);
   }
 }
