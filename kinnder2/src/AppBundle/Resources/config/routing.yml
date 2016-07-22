@@ -18,13 +18,9 @@ cobros:
 #    resource: "@AppBundle/Resources/config/routing/reactnewsletter.yml"
 #    prefix:   /admin/react
 
-admin_alertas:
-    path:     /admin
-    defaults: { _controller: AppBundle:Cuentas:index }
-
-admin_index:
-    path:     /admin/
-    defaults: { _controller: AppBundle:Cuentas:index }
+admin:
+    resource: "@AppBundle/Resources/config/routing/admin.yml"
+    prefix:   /
 
 homepage:
     path:     /
@@ -33,3 +29,5 @@ homepage:
 migrations:
     resource: "@AppBundle/Resources/config/routing/migrations.yml"
     prefix:   /migrations
+
+

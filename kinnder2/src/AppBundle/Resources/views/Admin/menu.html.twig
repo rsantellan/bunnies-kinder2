@@ -4,7 +4,7 @@
       <a href="{{ path('admin_alertas')}}">{% trans %}menu_alertas{% endtrans %}</a>
     </li>
     <li>
-      <a href="{{ path('admin_alertas')}}">{% trans %}menu_textos{% endtrans %}</a>
+      <a href="{{ path('maith_common_translator_homepage')}}">{% trans %}menu_textos{% endtrans %}</a>
     </li>
     <li class="dropdown show-on-hover">
       <a href="javascript:;" data-toggle="dropdown">
@@ -51,59 +51,11 @@
         <span>{% trans %}app_admin_menu_cuentas{% endtrans %}</span>
       </a>
      </li>
-    <li class="dropdown active show-on-hover">
-      <a href="javascript:;" data-toggle="dropdown">
-        <span>Layouts</span>
-        <b class="caret"></b>
+     <li class="{% if (activemenu is defined) and activemenu == 'galerias' %}active{%endif%}">
+      <a href="{{ path('gallery_list')}}">
+        <span>{% trans %}app_admin_menu_galerias{% endtrans %}</span>
       </a>
-      <ul class="dropdown-menu">
-        <li>
-          <a href="boxed.html">
-            <span>Boxed</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="horizontal.html">
-            <span>Horizontal menu</span>
-          </a>
-        </li>
-        <li>
-          <a href="horizontal_boxed.html">
-            <span>Horizontal Boxed</span>
-          </a>
-        </li>
-        <li>
-          <a href="small-sidebar.html">
-            <span>Small sidebar</span>
-          </a>
-        </li>
-        <li>
-          <a href="right-sidebar.html">
-            <span>Right Sidebar</span>
-          </a>
-        </li>
-        <li>
-          <a href="right-sidebar-collapsible.html">
-            <span>Right Sidebar collapsible</span>
-          </a>
-        </li>
-        <li>
-          <a href="both.html">
-            <span>Mixed menus</span>
-          </a>
-        </li>
-        <li>
-          <a href="collapsible.html">
-            <span>Collapsible Menu</span>
-          </a>
-        </li>
-        <li>
-          <a href="footer.html">
-            <span>With Footer</span>
-          </a>
-        </li>
-      </ul>
-    </li>
+     </li>
 
   </ul>
 </div>

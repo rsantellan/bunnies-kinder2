@@ -9,22 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}Welcome!{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	<meta name="author" content="FREEHTML5.CO" />
-  <!--
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
+	<meta name="keywords" content="html5, css3, mobile first, responsive, jardin infantes" />
 
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -71,12 +56,12 @@
     					<div class="row">
     						<div class="col-md-3">
     							<div class="fh5co-navbar-brand">
-    								<a class="fh5co-logo" href="index.html">Narrow</a>
+                                  <a class="fh5co-logo" href="index.html"><img class="img-responsive" src="{{ asset('images/logo.jpg')}}" alt="{% trans %}layout_logo_alternative{% endtrans %}"/></a>
     							</div>
     						</div>
-    						<div class="col-md-9 main-nav">
+                            <div class="col-md-9 main-nav">
     							<ul class="nav text-right">
-    								<li class="active"><a href="index.html"><span>Home</span></a></li>
+    								<li class="{% if (activemenu is defined) and activemenu == 'homepage' %}active{%endif%}"><a href="{{ path('homepage') }}"><span>{% trans %}menu_index{% endtrans %}</span></a></li>
     								<li><a href="services.html">Services</a></li>
     								<li><a href="product.html">Products</a></li>
     								<li><a href="about.html">About</a></li>

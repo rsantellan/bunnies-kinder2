@@ -10,3 +10,5 @@
 /vendor/
 /web/bundles/
 /reactjs/node_modules/
+/web/upload/*
+!web/upload/.gitkeep

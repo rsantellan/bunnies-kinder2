@@ -1,0 +1,11 @@
+admin_alertas:
+    path:     /admin
+    defaults: { _controller: AppBundle:Cuentas:index }
+
+admin_index:
+    path:     /admin/
+    defaults: { _controller: AppBundle:Cuentas:index }
+    
+gallery_list:
+    path:     /admin/galleries-list.html
+    defaults: { _controller: AppBundle:Gallery:list }    

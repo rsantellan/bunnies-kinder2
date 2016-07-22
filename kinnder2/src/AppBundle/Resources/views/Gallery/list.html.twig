@@ -1,0 +1,17 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+{% block pagestylesheets %}
+  <link rel="stylesheet" type="text/css" href="{{ asset('bundles/maithcommonimage/css/maithalbums.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('bundles/maithcommonadmin/css/colorbox.css') }}" />
+{% endblock %}
+{% block javascripts %}
+  <script type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/jquery.colorbox-min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/maithcommonimage/js/imagesManager.js') }}"></script>    
+{% endblock %}
+{% block body %}
+<!-- content wrapper -->
+<div class="content-wrap">
+  <div class="row">
+      {{ render(controller('MaithCommonAdminBundle:Albums:albumsData', {'id': entity.id, 'objectclass' : entity.fullClassName, 'listmode' : false }))}}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="c9000e3bb08cc8959ce17848b084f9d2" resname="index_page_title">
+        <source>index_page_title</source>
+        <target>Bienvenidos a Bunny's Kinder</target>
+      </trans-unit>
+      <trans-unit id="e474bd2083719c821916d76a56cc67d9" resname="index_page_introduction">
+        <source>index_page_introduction</source>
+        <target><![CDATA[Somos un centro educativo que se caracteriza por ofrecer un ambiente familiar, con una c&aacute;lida atenci&oacute;n humana, brindada por personal altamente calificado y preparado, en una edificaci&oacute;n construida especialmente para ello, en una tranquila zona de pura naturaleza y espacios verdes, que cuenta con todas las medidas de privacidad y seguridad.<br /><br />Consideramos que el medio para lograr una buena educaci&oacute;n es hacerlos sentirse felices; es por esto que nuestra prioridad es brindarles afecto, alegr&iacute;a y ternura, como pilares fundamentales para la obtenci&oacute;n de la mejor formaci&oacute;n y educaci&oacute;n.<br /><br />Estimulamos el aprendizaje de nuestros peque&ntilde;os alumnos a trav&eacute;s del juego y del cari&ntilde;o, ya que de esta manera se producen las adquisiciones cognitivas m&aacute;s importantes, en especial, en cuanto a los valores humanos."]]></target>
+      </trans-unit>
+      <trans-unit id="f3d92afafd65e317143fbdea4b0d7555" resname="layout_logo_alternative">
+        <source>layout_logo_alternative</source>
+        <target>Bunny's Kinder</target>
+      </trans-unit>
+      <trans-unit id="62c80d238eed83a51b345e0648a7f681" resname="menu_index">
+        <source>menu_index</source>
+        <target>Inicio</target>
+      </trans-unit>
+      <trans-unit id="1e8ff76f574a1f1efa870be2a7dfec64" resname="page_title_homepage">
+        <source>page_title_homepage</source>
+        <target>Inicio</target>
+      </trans-unit>
+      <trans-unit id="c3ac3d460297166a027e3b890d8f6ae1" resname="index_page_philosophy_title">
+        <source>index_page_philosophy_title</source>
+        <target><![CDATA[Filosof&iacute;a]]></target>
+      </trans-unit>
+      <trans-unit id="f02ce3cb77e7586be1c8698bcc666a91" resname="index_page_philosophy_body">
+        <source>index_page_philosophy_body</source>
+        <target><![CDATA[Nuestra filosof&iacute;a se constituye a partir de bases s&oacute;lidas, desarrollando un proyecto educativo que se basa en dos pilares fundamentales: la propuesta acad&eacute;mica y los valores humanos.<br /><br />La propuesta formativa se apoya en una concepci&oacute;n metodol&oacute;gica que emplea lo l&uacute;dico, como estrategia did&aacute;ctica especifica. El juego es la base de toda educaci&oacute;n en esta etapa y es por eso que las actividades se planifican en forma de juego. A trav&eacute;s del mismo, buscamos desarrollar en los ni&ntilde;os diferentes competencias y capacidades. <br /><br />Nuestros objetivos abarcan todas las &aacute;reas de aprendizaje y otorgamos a todas nuestras actividades, una profunda intencionalidad pedag&oacute;gica. Para esto, contamos con un equipo docente altamente calificado. <br /><br />Como centro de educaci&oacute;n inicial, proponemos formar a nuestros ni&ntilde;os en el marco de una educaci&oacute;n integral en el mundo de los valores. De la convivencia diaria, surgen en el jard&iacute;n innumerables ocasiones en donde los valores son vivenciados; en ese sentido, nuestra intenci&oacute;n como docentes, es que puedan trasladarlos al mundo en que les toca vivir.<br /><br />La incorporaci&oacute;n del ni&ntilde;o a la vida escolar, es un proceso muy importante, porque debe empezar a desprenderse de sus afectos cotidianos. Por esto, buscamos asegurarle al ni&ntilde;o calidez, cari&ntilde;o y afecto, de manera que pueda sentirse en el Jard&iacute;n como en su propia casa.<br /><br /> La escolarizaci&oacute;n transforma a toda la familia; es por &eacute;sto que desarrollamos variadas experiencias de participaci&oacute;n con las mismas. Consideramos de suma importancia la comunicaci&oacute;n con los padres, porque familia y jard&iacute;n, son copart&iacute;cipes del proceso educativo.<br /><br /> En Bunnys Kinder cada ni&ntilde;o recibir&aacute; una educaci&oacute;n personalizada, basada en pincipios que parten del respeto del ni&ntilde;o en su totalidad.]]></target>
+      </trans-unit>
+      <trans-unit id="308ec2eb63b91003690af65fcf4d17df" resname="index_page_about_us_title">
+        <source>index_page_about_us_title</source>
+        <target>Acerca de nosotros.</target>
+      </trans-unit>
+      <trans-unit id="d14da929ab5ba819467cf6f148192a8f" resname="index_page_history_title">
+        <source>index_page_history_title</source>
+        <target>Historia</target>
+      </trans-unit>
+      <trans-unit id="e3a763094e8ba5ff9e553b1e0e7322a2" resname="index_page_history_body">
+        <source>index_page_history_body</source>
+        <target><![CDATA[Bunny's Kinder es un centro educativo con historia. Se remonta a 1974, cuando Elena del Campo y su amiga Claudia P&eacute;rez del Castillo, ambas,con una gran vocaci&oacute;n por los ni&ntilde;os, iniciaban sus actividades de educaci&oacute;n preescolar, fundando "Pussycat", una de las Jardineras pioneras en Carrasco. A&ntilde;os m&aacute;s tarde, Cecilia e In&eacute;s del Campo, descubrieron que, al igual que su hermana mayor, tambi&eacute;n ten&iacute;an un gran amor por los ni&ntilde;os y una necesidad innata de ense&ntilde;arles y dedicarse a ellos. <br /><br />Fue entonces que comenzaron a acompa&ntilde;ar a su hermana en esa tarea, disfrutando de participar con los chicos en distintas actividades. <br /><br />Luego de unos a&ntilde;os, Cecilia e In&eacute;s decidieron mudarse a una casa que funcion&ograve; exclusivamente como Jardinera debido al gran crecimiento. La casa que les gust&oacute; desde un primer momento, contaba con espacios ideales para realizar las diferentes actividades pedag&oacute;gicas. <br /><br />Desde el 2003 Bunny's Kinder tiene su sede en Altos de Tahona. All&iacute; concurren ni&ntilde;os del lugar y de otros barrios vecinos. Est&aacute; ubicada en un lugar &uacute;nico e inigualable, donde los ni&ntilde;os tienen permanentemente contacto con la naturaleza. <br /><br />Los espacios, colores, objetos, materiales, juegos y juguetes con los que cuenta Bunny`s Kinder, han sido tra&iacute;dos especialmente desde Estados Unidos y est&aacute;n pensados para enriquecer la percepci&oacute;n y producir serenidad y alegr&iacute;a.]]></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
