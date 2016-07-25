@@ -42,6 +42,92 @@
         <source>index_page_history_body</source>
         <target><![CDATA[Bunny's Kinder es un centro educativo con historia. Se remonta a 1974, cuando Elena del Campo y su amiga Claudia P&eacute;rez del Castillo, ambas,con una gran vocaci&oacute;n por los ni&ntilde;os, iniciaban sus actividades de educaci&oacute;n preescolar, fundando "Pussycat", una de las Jardineras pioneras en Carrasco. A&ntilde;os m&aacute;s tarde, Cecilia e In&eacute;s del Campo, descubrieron que, al igual que su hermana mayor, tambi&eacute;n ten&iacute;an un gran amor por los ni&ntilde;os y una necesidad innata de ense&ntilde;arles y dedicarse a ellos. <br /><br />Fue entonces que comenzaron a acompa&ntilde;ar a su hermana en esa tarea, disfrutando de participar con los chicos en distintas actividades. <br /><br />Luego de unos a&ntilde;os, Cecilia e In&eacute;s decidieron mudarse a una casa que funcion&ograve; exclusivamente como Jardinera debido al gran crecimiento. La casa que les gust&oacute; desde un primer momento, contaba con espacios ideales para realizar las diferentes actividades pedag&oacute;gicas. <br /><br />Desde el 2003 Bunny's Kinder tiene su sede en Altos de Tahona. All&iacute; concurren ni&ntilde;os del lugar y de otros barrios vecinos. Est&aacute; ubicada en un lugar &uacute;nico e inigualable, donde los ni&ntilde;os tienen permanentemente contacto con la naturaleza. <br /><br />Los espacios, colores, objetos, materiales, juegos y juguetes con los que cuenta Bunny`s Kinder, han sido tra&iacute;dos especialmente desde Estados Unidos y est&aacute;n pensados para enriquecer la percepci&oacute;n y producir serenidad y alegr&iacute;a.]]></target>
       </trans-unit>
+      <trans-unit id="55e32d8bf53920fbeca6892ae52d0851" resname="page_title_actividades">
+        <source>page_title_actividades</source>
+        <target>Actividades</target>
+      </trans-unit>
+      <trans-unit id="a534373acfd5718e5dfa5c413a986439" resname="activity_page_main_title">
+        <source>activity_page_main_title</source>
+        <target>Actividades</target>
+      </trans-unit>
+      <trans-unit id="6955e5fa1a09eaa2a3c6b819ed5cb3b6" resname="activity_page_title">
+        <source>activity_page_title</source>
+        <target>Actividades</target>
+      </trans-unit>
+      <trans-unit id="c910db0f3f6514516e58e10ec653a4e7" resname="activity_page_body">
+        <source>activity_page_body</source>
+        <target><![CDATA[<ul>
+<li><span style="color: #ffcc00;">Yellow Class</span>: de 1 a 2 a&ntilde;os.</li>
+<li><span style="color: #339966;">Green Class</span>: de 2 a 3 a&ntilde;os.</li>
+<li><span style="color: #ff0000;">Red&nbsp; Class</span>: de 3 a 4 a&ntilde;os.</li>
+<li>Upper Class: de 4 a 5 a&ntilde;os.</li>
+</ul>
+<br />Nuestras actividades&nbsp; se desarrollan en dos horarios<br />Matutino: de 8:30 a 12:00hrs.<br />Vespertino: de 13:00 a 16:30hrs.<br />Contamos para los que lo deseen modalidad de doble horario, de 8:30 a 16:30hrs&nbsp; y extensi&oacute;n horaria de 8 a 8:30 y de 16 a 17:45hrs.<br /><br />Para comodidad de nuestros alumnos ofrecemos tambi&eacute;n servicio de camioneta.<br /><br />
+<h3>Playtime</h3>
+<br />A partir del mes de Setiembre , funciona un playtime, de 15:45hrs a las 17:45hrs, es un espacio donde se realizan todo tipo de actividades l&ugrave;dicas (dramatizaciones, cuentos , t&igrave;teres, manualidades,expresi&ograve;n corporal , etc.).<br /><br />Las &ugrave;nicas consignas son divertirse y hablar &ugrave;nicamente en ingl&egrave;s.<br /><br />
+<h3>Summer Camp</h3>
+<br />Adem&agrave;s de estar abierta en invierno, en Enero y Febrero funciona nuestro "Summer Camp", con distintas&nbsp; actividades recreativas.]]></target>
+      </trans-unit>
+      <trans-unit id="628931d0dea5cf843ec6d4b950969add" resname="activity_page_english_title">
+        <source>activity_page_english_title</source>
+        <target><![CDATA[Ingl&eacute;s]]></target>
+      </trans-unit>
+      <trans-unit id="77855980f6e4755d979634b2ad160223" resname="activity_page_english_body">
+        <source>activity_page_english_body</source>
+        <target><![CDATA[Este idioma se ira incorporando poco a poco de una forma l&uacute;dica tratando de que los ni&ntilde;os se familiaricen con el. El objetivo es que a fin de a&ntilde;o&nbsp; hayan adquirido un vocabulario b&aacute;sico y sean capaces de comprender &oacute;rdenes y formar frases sencillas.]]></target>
+      </trans-unit>
+      <trans-unit id="f2bc6bd08c0c3752a43f939b274860eb" resname="activity_page_plastica_title">
+        <source>activity_page_plastica_title</source>
+        <target><![CDATA[Pl&aacute;stica]]></target>
+      </trans-unit>
+      <trans-unit id="e934956bccb5d5888a71b2819c76992f" resname="activity_page_plastica_body">
+        <source>activity_page_plastica_body</source>
+        <target><![CDATA[La expresi&oacute;n pl&aacute;stica es un medio de auto expresi&oacute;n que conduce a desarrollar la autoestima, potenciando y multiplicando los recursos expresivos del ni&ntilde;o, incrementando as&iacute; su capacidad creativa.]]></target>
+      </trans-unit>
+      <trans-unit id="f709cb44bb81d9f031728d51ca839998" resname="activity_page_musica_title">
+        <source>activity_page_musica_title</source>
+        <target><![CDATA[M&uacute;sica y Expresi&oacute;n corporal]]></target>
+      </trans-unit>
+      <trans-unit id="b5602aef38e54a270d16ca06f7f8326e" resname="activity_page_musica_body">
+        <source>activity_page_musica_body</source>
+        <target><![CDATA[Las clases de m&uacute;sica en&nbsp; nuestro jard&iacute;n tienen como objetivo proporcionar un estado de placer y gusto por la m&uacute;sica. Los ni&ntilde;os podr&aacute;n disfrutar desde excelentes piezas cl&aacute;sicas como de las divertid&iacute;simas canciones infantiles. Con&nbsp; el uso de los diferentes instrumentos musicales lograremos que la&nbsp; m&uacute;sica&nbsp; sea el&nbsp; medio para despertar las valoraciones art&iacute;sticas, est&eacute;ticas y emocionales.]]></target>
+      </trans-unit>
+      <trans-unit id="ffceeb556544aa96f17e6881fa2b9d59" resname="activity_page_yoga_title">
+        <source>activity_page_yoga_title</source>
+        <target>Yoga</target>
+      </trans-unit>
+      <trans-unit id="7c577e3accea93efd48d23f36c1d4fa7" resname="activity_page_yoga_body">
+        <source>activity_page_yoga_body</source>
+        <target>La practica de yoga desde temprana edad como actividad curricular los ayuda a prepararse para el futuro aprendizaje formal y generar un mayor entendimiento frente al mundo que nos rodea.</target>
+      </trans-unit>
+      <trans-unit id="717e12cd6c07fa3aca1c3a09c00826fc" resname="activity_page_psicomotricidad_title">
+        <source>activity_page_psicomotricidad_title</source>
+        <target>Psicomotricidad</target>
+      </trans-unit>
+      <trans-unit id="95e45f423f10cab1198f63d0155b702a" resname="activity_page_psicomotricidad_body">
+        <source>activity_page_psicomotricidad_body</source>
+        <target><![CDATA[Queremos destacar la importancia de esta actividad en la educaci&oacute;n inicial, ya que atiende a la relaci&oacute;n fundamental que existe entre el manejo del cuerpo y los procesos de aprendizaje.]]></target>
+      </trans-unit>
+      <trans-unit id="e498a246dd2c90b78d3d848eded5b7d1" resname="activity_page_natacion_title">
+        <source>activity_page_natacion_title</source>
+        <target><![CDATA[Nataci&oacute;n]]></target>
+      </trans-unit>
+      <trans-unit id="9d50b037490041ebcb5be9735dd5aae8" resname="activity_page_natacion_body">
+        <source>activity_page_natacion_body</source>
+        <target><![CDATA[Nataci&oacute;n.]]></target>
+      </trans-unit>
+      <trans-unit id="3fbe7b27a4b00971472da8aed61e16af" resname="activity_page_paseos_title">
+        <source>activity_page_paseos_title</source>
+        <target>Paseos</target>
+      </trans-unit>
+      <trans-unit id="da06c0a66bbc6521ce20285cbd322aae" resname="activity_page_paseos_body">
+        <source>activity_page_paseos_body</source>
+        <target><![CDATA[Durante el a&ntilde;o se realizaran paseos a distintos lugares considerados de inter&eacute;s para los ni&ntilde;os.]]></target>
+      </trans-unit>
+      <trans-unit id="ba87dd5df205da3dce6fd707300ae6cc" resname="menu_actividades">
+        <source>menu_actividades</source>
+        <target>Actividades</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

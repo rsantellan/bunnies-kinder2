@@ -112,3 +112,6 @@ lexik_form_filter:
 services:
     fos_user.doctrine_registry:
         alias: doctrine
+
+#Captcha
+gregwar_captcha: ~

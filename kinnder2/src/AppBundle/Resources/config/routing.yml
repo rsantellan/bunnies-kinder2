@@ -25,7 +25,15 @@ admin:
 homepage:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
-
+    
+activities:    
+    path:     /actividades.html
+    defaults: { _controller: AppBundle:Default:activities }
+    
+contacto:    
+    path:     /contacto.html
+    defaults: { _controller: AppBundle:Default:contact }
+    
 migrations:
     resource: "@AppBundle/Resources/config/routing/migrations.yml"
     prefix:   /migrations

@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% trans %}page_title_actividades{%endtrans %}{% endblock %}
+{% block body %}
+<!-- END: header -->
+<div id="fh5co-intro-section" class="section-overlay animate-box" data-animate-effect="fadeIn">
+    <div class="fh5co-intro-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({{ asset('images/intro.jpg')}});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 float-overlay">
+                    <h2>{% trans %}activity_page_main_title{% endtrans %}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END fh5co-intro-section -->
+<div id="fh5co-product-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center heading-section animate-box">
+                <h3>{% trans %}activity_page_title{% endtrans %}</h3>
+                <p>{% trans %}activity_page_body{% endtrans %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END fh5co-intro-section -->
+<div id="fh5co-product-section">
+    <div class="container">
+        <div class="row">
+            <div class="product-inner">
+                <div class="col-md-4 animate-box">
+                    <div class="desc">
+                        <h3><a href="javascript:void(0)">{% trans %}activity_page_english_title{% endtrans %}</a></h3>
+                        <p>{% trans %}activity_page_english_body{% endtrans %}</p>
+                    </div>
+                </div>
+                <div class="col-md-8 animate-box">
+                    <figure>
+                        <a href="javascript:void(0)"><img class="img-responsive" src="{{ asset('images/actividades/ingles1.jpg')}}" alt="{% trans %}activity_page_english_title{% endtrans %}"></a>
+                    </figure>
+                </div>
+            </div>
+            <div class="product-inner">
+                <div class="col-md-4 col-md-push-8 animate-box">
+                    <div class="desc">
+                        <h3><a href="javascript:void(0)">{% trans %}activity_page_plastica_title{% endtrans %}</a></h3>
+                        <p>{% trans %}activity_page_plastica_body{% endtrans %}</p>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-pull-4 animate-box">
+                    <figure>
+                        <a href="javascript:void(0)"><img class="img-responsive" src="{{ asset('images/actividades/plastica1.jpg')}}" alt="{% trans %}activity_page_plastica_title{% endtrans %}"></a>
+                    </figure>
+                </div>
+            </div>
+            <div class="product-inner">
+                <div class="col-md-4 animate-box">
+                    <div class="desc">
+                        <h3><a href="javascript:void(0)">{% trans %}activity_page_musica_title{% endtrans %}</a></h3>
+                        <p>{% trans %}activity_page_musica_body{% endtrans %}</p>
+                    </div>
+                </div>
+                <div class="col-md-8 animate-box">
+                    <figure>
+                        <a href="javascript:void(0)"><img class="img-responsive" src="{{ asset('images/actividades/musica1.jpg')}}" alt="{% trans %}activity_page_musica_title{% endtrans %}"></a>
+                    </figure>
+                </div>
+            </div>
+            <div class="product-inner">
+                <div class="col-md-4 col-md-push-8 animate-box">
+                    <div class="desc">
+                        <h3><a href="javascript:void(0)">{% trans %}activity_page_yoga_title{% endtrans %}</a></h3>
+                        <p>{% trans %}activity_page_yoga_body{% endtrans %}</p>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-pull-4 animate-box">
+                    <figure>
+                        <a href="javascript:void(0)"><img class="img-responsive" src="{{ asset('images/actividades/gym1.jpg')}}" alt="{% trans %}activity_page_yoga_title{% endtrans %}"></a>
+                    </figure>
+                </div>
+            </div>
+            <div class="product-inner">
+                <div class="col-md-4 animate-box">
+                    <div class="desc">
+                        <h3><a href="javascript:void(0)">{% trans %}activity_page_psicomotricidad_title{% endtrans %}</a></h3>
+                        <p>{% trans %}activity_page_psicomotricidad_body{% endtrans %}</p>
+                    </div>
+                </div>
+                <div class="col-md-8 animate-box">
+                    <figure>
+                        <a href="javascript:void(0)"><img class="img-responsive" src="{{ asset('images/actividades/psico1.jpg')}}" alt="{% trans %}activity_page_psicomotricidad_title{% endtrans %}"></a>
+                    </figure>
+                </div>
+            </div>
+            <div class="product-inner">
+                <div class="col-md-4 col-md-push-8 animate-box">
+                    <div class="desc">
+                        <h3><a href="javascript:void(0)">{% trans %}activity_page_natacion_title{% endtrans %}</a></h3>
+                        <p>{% trans %}activity_page_natacion_body{% endtrans %}</p>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-pull-4 animate-box">
+                    <figure>
+                        <a href="javascript:void(0)"><img class="img-responsive" src="{{ asset('images/actividades/natacion1.jpg')}}" alt="{% trans %}activity_page_natacion_title{% endtrans %}"></a>
+                    </figure>
+                </div>
+            </div>
+            <div class="product-inner">
+                <div class="col-md-4 animate-box">
+                    <div class="desc">
+                        <h3><a href="javascript:void(0)">{% trans %}activity_page_paseos_title{% endtrans %}</a></h3>
+                        <p>{% trans %}activity_page_paseos_body{% endtrans %}</p>
+                    </div>
+                </div>
+                <div class="col-md-8 animate-box">
+                    <figure>
+                        <a href="javascript:void(0)"><img class="img-responsive" src="{{ asset('images/actividades/paseos1.jpg')}}" alt="{% trans %}activity_page_paseos_title{% endtrans %}"></a>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                
+{% endblock %}  

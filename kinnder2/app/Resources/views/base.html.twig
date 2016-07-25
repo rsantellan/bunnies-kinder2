@@ -62,10 +62,9 @@
                             <div class="col-md-9 main-nav">
     							<ul class="nav text-right">
     								<li class="{% if (activemenu is defined) and activemenu == 'homepage' %}active{%endif%}"><a href="{{ path('homepage') }}"><span>{% trans %}menu_index{% endtrans %}</span></a></li>
-    								<li><a href="services.html">Services</a></li>
-    								<li><a href="product.html">Products</a></li>
-    								<li><a href="about.html">About</a></li>
-    								<li><a href="contact.html">Contact</a></li>
+    								<li class="{% if (activemenu is defined) and activemenu == 'actividades' %}active{%endif%}"><a href="{{ path('activities') }}">{% trans %}menu_actividades{% endtrans %}</a></li>
+                                    <li><a href="contact.html">Inscripciones</a></li>
+    								<li class="{% if (activemenu is defined) and activemenu == 'contacto' %}active{%endif%}"><a href="{{ path('contacto') }}">{% trans %}menu_contacto{% endtrans %}</a></li>
     							</ul>
     						</div>
     					</div>
