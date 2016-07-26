@@ -130,7 +130,7 @@ class EstudianteController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Estudiante')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Estudiante entity.');
         }
@@ -179,8 +179,7 @@ class EstudianteController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            $facturasHandler = $this->get('facturas');
-            $facturasHandler->generateUserAndFinalBill($entity);
+            $this->get('kinder.estudiantes')->updateEstudiante($entity, $this->get('facturas'));
 
             return $this->redirect($this->generateUrl('estudiante_edit', array('id' => $id)));
         }

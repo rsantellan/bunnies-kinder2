@@ -63,7 +63,8 @@
     							<ul class="nav text-right">
     								<li class="{% if (activemenu is defined) and activemenu == 'homepage' %}active{%endif%}"><a href="{{ path('homepage') }}"><span>{% trans %}menu_index{% endtrans %}</span></a></li>
     								<li class="{% if (activemenu is defined) and activemenu == 'actividades' %}active{%endif%}"><a href="{{ path('activities') }}">{% trans %}menu_actividades{% endtrans %}</a></li>
-                                    <li><a href="contact.html">Inscripciones</a></li>
+                                    <li class="{% if (activemenu is defined) and activemenu == 'inscripciones' %}active{%endif%}"><a href="{{ path('inscripciones') }}">{% trans %}menu_inscripciones{% endtrans %}</a></li>
+                                    {#<li class="{% if (activemenu is defined) and activemenu == 'galerias' %}active{%endif%}"><a href="{{ path('inscripciones') }}">{% trans %}menu_galerias{% endtrans %}</a></li>#}
     								<li class="{% if (activemenu is defined) and activemenu == 'contacto' %}active{%endif%}"><a href="{{ path('contacto') }}">{% trans %}menu_contacto{% endtrans %}</a></li>
     							</ul>
     						</div>
@@ -78,12 +79,15 @@
     				<div class="container">
     					<div class="row">
     						<div class="col-md-6 col-md-offset-3 text-center">
-    							<p>Copyright 2016 Free Html5 <a href="#">Narrow</a>. All Rights Reserved. <br>Made with <i class="icon-heart3 love"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+    							<p>Bunny's Kinder | La Tahona - Canelones | 26839057 | info@bunnyskinder.com.uy</p>
     							<p class="fh5co-social-icons">
     								<a href="#"><i class="icon-twitter-with-circle"></i></a>
     								<a href="#"><i class="icon-facebook-with-circle"></i></a>
     								<a href="#"><i class="icon-instagram-with-circle"></i></a>
     							</p>
+                                <p>
+                                  <a href="http://www.rodrigosantellan.com">Desarrollo y Diseño. RSantellan</a>
+                                </p>
     						</div>
     					</div>
     				</div>

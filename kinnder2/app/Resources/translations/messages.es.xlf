@@ -128,6 +128,122 @@
         <source>menu_actividades</source>
         <target>Actividades</target>
       </trans-unit>
+      <trans-unit id="30c9036790cea5dc4e3437f01c2aba4e" resname="page_title_contacto">
+        <source>page_title_contacto</source>
+        <target>Contacto</target>
+      </trans-unit>
+      <trans-unit id="6c180e227dbad842ad5c296eba9bd7cc" resname="contacto_page_title">
+        <source>contacto_page_title</source>
+        <target>Contacto</target>
+      </trans-unit>
+      <trans-unit id="ff8b39da63ec073ad31142b313a40e70" resname="contacto_page_message">
+        <source>contacto_page_message</source>
+        <target>Envianos tus preguntas o sugerencias.</target>
+      </trans-unit>
+      <trans-unit id="f8cd353aef5824bcd6399db3d6882d02" resname="contacto_page_address">
+        <source>contacto_page_address</source>
+        <target>Camino de los Horneros - La Tahona</target>
+      </trans-unit>
+      <trans-unit id="489ae4553bd7afbeb51a6a92bab57f1b" resname="contacto_page_phone">
+        <source>contacto_page_phone</source>
+        <target>(598) 2683 90 57</target>
+      </trans-unit>
+      <trans-unit id="585caa57f8187c222020f7b69dd8adc9" resname="contacto_page_email">
+        <source>contacto_page_email</source>
+        <target>info@bunnyskinder.com</target>
+      </trans-unit>
+      <trans-unit id="41391429296728912f065a9a8225fc96" resname="contacto_form_name">
+        <source>contacto_form_name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="e157916dc7ac4fe33f653335a8d48e72" resname="contacto_form_lastname">
+        <source>contacto_form_lastname</source>
+        <target>Apellido</target>
+      </trans-unit>
+      <trans-unit id="ac82abfa917b8c41f28e6a682dcc97f9" resname="contacto_form_email">
+        <source>contacto_form_email</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="6eea14b8c7fd1cdc3fb117e833ddb49a" resname="contacto_form_phone">
+        <source>contacto_form_phone</source>
+        <target><![CDATA[Tel&eacute;fono]]></target>
+      </trans-unit>
+      <trans-unit id="d58561ff309ae86255b75cf9db66331f" resname="contacto_form_message">
+        <source>contacto_form_message</source>
+        <target>Mensaje</target>
+      </trans-unit>
+      <trans-unit id="6fe501dfbeaaa3121191303c5aae1418" resname="contacto_form_captcha">
+        <source>contacto_form_captcha</source>
+        <target>Captcha</target>
+      </trans-unit>
+      <trans-unit id="0340e94ba248facf6ea44c9369464da3" resname="contacto_form_send">
+        <source>contacto_form_send</source>
+        <target>Enviar</target>
+      </trans-unit>
+      <trans-unit id="1b33d8bb7d92dfc7bc254173b3e02b43" resname="menu_contacto">
+        <source>menu_contacto</source>
+        <target>Contacto</target>
+      </trans-unit>
+      <trans-unit id="fe579b960760f4f6505e9e4bb681afc9" resname="page_title_inscripcion">
+        <source>page_title_inscripcion</source>
+        <target>Inscripciones</target>
+      </trans-unit>
+      <trans-unit id="2bbc0438636f36d1de098cb23440023b" resname="inscripcion_page_title">
+        <source>inscripcion_page_title</source>
+        <target>Formulario de Inscripciones</target>
+      </trans-unit>
+      <trans-unit id="e0bb010e78aae3ddcd8f63be45341d6e" resname="inscripcion_page_message">
+        <source>inscripcion_page_message</source>
+        <target><![CDATA[Complete los siguientes datos y luego el personal de Bunny's Kinder se pondr&aacute; en contacto con usted.]]></target>
+      </trans-unit>
+      <trans-unit id="23d2c97badf63f992442602fef25023e" resname="inscripcion_form_name">
+        <source>inscripcion_form_name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="09928e242445c374240be76c3a1fbbea" resname="inscripcion_form_lastname">
+        <source>inscripcion_form_lastname</source>
+        <target>Apellido</target>
+      </trans-unit>
+      <trans-unit id="758170c6ea51390f5f6ba65f845e3974" resname="inscripcion_form_email">
+        <source>inscripcion_form_email</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="6fdf49f7f2e0e16e4934e38706999eca" resname="inscripcion_form_horario">
+        <source>inscripcion_form_horario</source>
+        <target>Horario</target>
+      </trans-unit>
+      <trans-unit id="ff96dca5b352d956c48bcf7229f89962" resname="inscripcion_form_fechanacimiento">
+        <source>inscripcion_form_fechanacimiento</source>
+        <target>Fecha de Nacimiento</target>
+      </trans-unit>
+      <trans-unit id="0779b662b9240736b4002d38c8959686" resname="inscripcion_form_colegio">
+        <source>inscripcion_form_colegio</source>
+        <target>Futuro Colegio</target>
+      </trans-unit>
+      <trans-unit id="d337ea2788c1cfd63c0eba267a4a07f6" resname="inscripcion_form_address">
+        <source>inscripcion_form_address</source>
+        <target><![CDATA[Direcci&oacute;n]]></target>
+      </trans-unit>
+      <trans-unit id="0ef48bef4b433e19539b4c71a206f3af" resname="inscripcion_form_phone">
+        <source>inscripcion_form_phone</source>
+        <target><![CDATA[Tel&eacute;fono]]></target>
+      </trans-unit>
+      <trans-unit id="847df76d38906c4465f95605492b8ecf" resname="inscripcion_form_message">
+        <source>inscripcion_form_message</source>
+        <target>Mensaje</target>
+      </trans-unit>
+      <trans-unit id="2e8b0bb1e56bfcb1367782548c7f9bc7" resname="inscripcion_form_captcha">
+        <source>inscripcion_form_captcha</source>
+        <target>Captcha</target>
+      </trans-unit>
+      <trans-unit id="7d6530aa62f6a7a795178b092629da60" resname="inscripcion_form_send">
+        <source>inscripcion_form_send</source>
+        <target>Enviar</target>
+      </trans-unit>
+      <trans-unit id="2c7da792b149521ebc592f8578b15c40" resname="menu_inscripciones">
+        <source>menu_inscripciones</source>
+        <target>Inscripciones</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

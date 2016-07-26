@@ -14,9 +14,9 @@ cobros:
     resource: "@AppBundle/Resources/config/routing/cobros.yml"
     prefix:   /admin/cobros
 
-#reactnewsletter:
-#    resource: "@AppBundle/Resources/config/routing/reactnewsletter.yml"
-#    prefix:   /admin/react
+estudiante_progenitor:
+    resource: "@AppBundle/Resources/config/routing/estudianteprogenitor.yml"
+    prefix:   /admin/estudiante-progenitor
 
 admin:
     resource: "@AppBundle/Resources/config/routing/admin.yml"
@@ -33,6 +33,10 @@ activities:
 contacto:    
     path:     /contacto.html
     defaults: { _controller: AppBundle:Default:contact }
+    
+inscripciones:    
+    path:     /inscripciones.html
+    defaults: { _controller: AppBundle:Default:inscripciones }
     
 migrations:
     resource: "@AppBundle/Resources/config/routing/migrations.yml"

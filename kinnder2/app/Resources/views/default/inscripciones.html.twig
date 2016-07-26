@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% trans %}page_title_inscripcion{%endtrans %}{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('js/jquery-ui/jquery-ui.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('js/jquery-ui/jquery-ui.structure.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('js/jquery-ui/jquery-ui.theme.min.css')}}">
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('js/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{ asset('js/jquery-ui/langs/datepicker-es.js')}}"></script>
+<script type="text/javascript">
+$(function() {
+  $('.js-datepicker').datepicker({
+    format: 'yyyy-mm-dd',
+    changeMonth: true,
+    changeYear: true
+  });  
+});
+</script>
+{% endblock %}
+{% block body %}
+<div id="fh5co-intro-section" class="section-overlay animate-box" data-animate-effect="fadeIn">
+    <div class="fh5co-intro-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({{ asset('images/intro.jpg')}});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 float-overlay">
+                    <h2>{% trans %}inscripcion_page_title{% endtrans %}</h2>
+                    <h3>{% trans %}inscripcion_page_message{% endtrans %}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END fh5co-intro-section -->
+<div id="fh5co-contact-section">
+    <div class="container">
+        <div class="col-md-4 animate-box">
+            <h3 class="section-title">{% trans %}inscripcion_page_title{% endtrans %}</h3>
+            <p>{% trans %}inscripcion_page_message{% endtrans %}</p>
+            
+        </div>
+        <div class="col-md-8 animate-box">
+            {% if app.session.flashbag.has('success') %}
+                {% for flashmessage in app.session.flashbag.get('success') %}
+                    {{ flashmessage}}
+                {% endfor %}
+            {% else %}
+            <form action="{{ path('inscripciones')}}" method="POST">
+                
+                <div class="form-group row">
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.name) }}
+                        <label for="{{ form.name.vars.id }}">{% trans %}inscripcion_form_name{% endtrans %}</label>
+                        {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.lastname) }}
+                        <label for="{{ form.lastname.vars.id }}">{% trans %}inscripcion_form_lastname{% endtrans %}</label>
+                        {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.email) }}
+                        <label for="{{ form.email.vars.id }}">{% trans %}inscripcion_form_email{% endtrans %}</label>
+                        {{ form_widget(form.email, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.horario) }}
+                        <label for="{{ form.horario.vars.id }}">{% trans %}inscripcion_form_horario{% endtrans %}</label>
+                        {{ form_widget(form.horario, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.fechanacimiento) }}
+                        <label for="{{ form.fechanacimiento.vars.id }}">{% trans %}inscripcion_form_fechanacimiento{% endtrans %}</label>
+                        {{ form_widget(form.fechanacimiento, {'attr' : {'class' : 'form-control js-datepicker'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.colegio) }}
+                        <label for="{{ form.colegio.vars.id }}">{% trans %}inscripcion_form_colegio{% endtrans %}</label>
+                        {{ form_widget(form.colegio, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.address) }}
+                        <label for="{{ form.address.vars.id }}">{% trans %}inscripcion_form_address{% endtrans %}</label>
+                        {{ form_widget(form.address, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.phone) }}
+                        <label for="{{ form.phone.vars.id }}">{% trans %}inscripcion_form_phone{% endtrans %}</label>
+                        {{ form_widget(form.phone, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12 field">
+                        {{ form_errors(form.message) }}
+                        <label for="{{ form.message.vars.id }}">{% trans %}inscripcion_form_message{% endtrans %}</label>
+                        {{ form_widget(form.message, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.captcha) }}
+                        <label for="{{ form.captcha.vars.id }}">{% trans %}inscripcion_form_captcha{% endtrans %}</label>
+                        {{ form_widget(form.captcha, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12 field">
+                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans %}inscripcion_form_send{% endtrans %}">
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}  

@@ -73,4 +73,43 @@ class DefaultController extends Controller
             'form' => $form->createView(),
         ));      
     }
+    
+    public function inscripcionesAction(Request $request)
+    {
+      $form = $this->createForm(new \AppBundle\Form\Type\InscripcionType());
+      if ($request->isMethod('POST')) {
+          $form->handleRequest($request);
+          if ($form->isValid()) {
+              $parametersService = $this->get('maith_common.parameters');
+              $message = \Swift_Message::newInstance()
+              ->setSubject($parametersService->getParameter('inscripcion-email-subject'))
+              ->setFrom(array($parametersService->getParameter('inscripcion-email-from') => $parametersService->getParameter('inscripcion-email-from-name')))
+              ->setReplyTo($form->get('email')->getData())
+              ->setTo(array($parametersService->getParameter('inscripcion-email-to')))
+              ->setBody(
+                  $this->renderView(
+                      'default/contactEmail.html.twig',
+                      array(
+                          'ip' => $request->getClientIp(),
+                          'name' => $form->get('name')->getData(),
+                          'lastname' => $form->get('lastname')->getData(),
+                          'message' => $form->get('message')->getData(),
+                          'phone' => $form->get('phone')->getData(),
+                          'email' => $form->get('email')->getData(),
+                      )
+                  ), 'text/html'
+              );
+
+              $this->get('mailer')->send($message);
+
+              $request->getSession()->getFlashBag()->add('success', 'Se a enviado tu consulta con exito. Te contestaremos a la brevedad');
+
+              return $this->redirect($this->generateUrl('contacto'));
+          }
+      }
+      return $this->render('default/inscripciones.html.twig', array(
+            'activemenu' => 'inscripciones',
+            'form' => $form->createView(),
+      ));   
+    }
 }

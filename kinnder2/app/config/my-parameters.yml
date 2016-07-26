@@ -3,3 +3,7 @@ parameters:
     contact-email-from-name: 'Bunnys Kinder'
     contact-email-to: info@bunnyskinder.com
     contact-email-subject: '[Kinder] Contacto desde sitio web'
+    inscripcion-email-from: info@bunnyskinder.com
+    inscripcion-email-from-name: 'Bunnys Kinder'
+    inscripcion-email-to: info@bunnyskinder.com
+    inscripcion-email-subject: '[Kinder] Inscripción desde sitio web'

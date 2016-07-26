@@ -1,0 +1,13 @@
+admin_estudiante_progenitor_delete:
+    path:     /{progenitorId}/delete
+    defaults: { _controller: "AppBundle:EstudianteProgenitor:delete" }
+    methods:  [POST, DELETE]
+
+admin_estudiante_progenitor_add:
+    path:     /{progenitorId}/{estudianteId}/add
+    defaults: { _controller: "AppBundle:EstudianteProgenitor:add" }
+    methods:  [POST, DELETE]
+    
+admin_estudiante_progenitor_search:
+    path:     /search.html
+    defaults: { _controller: "AppBundle:EstudianteProgenitor:search" }
