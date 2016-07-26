@@ -1,0 +1,5 @@
+parameters:
+    contact-email-from: info@bunnyskinder.com
+    contact-email-from-name: 'Bunnys Kinder'
+    contact-email-to: info@bunnyskinder.com
+    contact-email-subject: '[Kinder] Contacto desde sitio web'

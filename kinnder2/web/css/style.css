@@ -689,6 +689,10 @@ input[type="text"] {
   height: 50px;
 }
 
+input[type="email"] {
+  height: 50px;
+}
+
 .form-group {
   margin-bottom: 30px;
 }
@@ -807,4 +811,7 @@ input[type="text"] {
   opacity: 0;
 }
 
-/*# sourceMappingURL=style.css.map */
+/** My styles **/
+a.captcha_reload{
+  margin-left: 1em;
+}

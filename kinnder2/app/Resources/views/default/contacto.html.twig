@@ -10,8 +10,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 float-overlay">
-                    <h2>Contact Us</h2>
-                    <h3>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h3>
+                    <h2>{% trans %}contacto_page_title{% endtrans %}</h2>
+                    <h3>{% trans %}contacto_page_message{% endtrans %}</h3>
                 </div>
             </div>
         </div>
@@ -21,50 +21,67 @@
 <div id="fh5co-contact-section">
     <div class="container">
         <div class="col-md-4 animate-box">
-            <h3 class="section-title">Our Address</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <h3 class="section-title">{% trans %}contacto_page_title{% endtrans %}</h3>
+            <p>{% trans %}contacto_page_message{% endtrans %}</p>
             <ul class="contact-info">
-                <li><i class="icon-location-pin"></i>198 West 21th Street, Suite 721 New York NY 10016</li>
-                <li><i class="icon-phone2"></i>+ 1235 2355 98</li>
-                <li><i class="icon-mail"></i><a href="#">info@yoursite.com</a></li>
-                <li><i class="icon-globe2"></i><a href="#">www.yoursite.com</a></li>
+                <li><i class="icon-location-pin"></i>{% trans %}contacto_page_address{% endtrans %}</li>
+                <li><i class="icon-phone2"></i>{% trans %}contacto_page_phone{% endtrans %}</li>
+                <li><i class="icon-mail"></i><a href="mailto:{% trans %}contacto_page_email{% endtrans %}">{% trans %}contacto_page_email{% endtrans %}</a></li>
+                <li><i class="icon-globe2"></i><a href="{{ url('homepage') }}">{{ url('homepage') }}</a></li>
             </ul>
         </div>
         <div class="col-md-8 animate-box">
-            <form action="#">
+            {% if app.session.flashbag.has('success') %}
+                {% for flashmessage in app.session.flashbag.get('success') %}
+                    {{ flashmessage}}
+                {% endfor %}
+            {% else %}
+            <form action="{{ path('contacto')}}" method="POST">
+                
+                <div class="form-group row">
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.name) }}
+                        <label for="{{ form.name.vars.id }}">{% trans %}contacto_form_name{% endtrans %}</label>
+                        {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.lastname) }}
+                        <label for="{{ form.lastname.vars.id }}">{% trans %}contacto_form_lastname{% endtrans %}</label>
+                        {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.email) }}
+                        <label for="{{ form.email.vars.id }}">{% trans %}contacto_form_email{% endtrans %}</label>
+                        {{ form_widget(form.email, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.phone) }}
+                        <label for="{{ form.phone.vars.id }}">{% trans %}contacto_form_phone{% endtrans %}</label>
+                        {{ form_widget(form.phone, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12 field">
+                        {{ form_errors(form.message) }}
+                        <label for="{{ form.message.vars.id }}">{% trans %}contacto_form_message{% endtrans %}</label>
+                        {{ form_widget(form.message, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6 field">
+                        {{ form_errors(form.captcha) }}
+                        <label for="{{ form.captcha.vars.id }}">{% trans %}contacto_form_captcha{% endtrans %}</label>
+                        {{ form_widget(form.captcha, {'attr' : {'class' : 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12 field">
+                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans %}contacto_form_send{% endtrans %}">
+                    </div>
+                </div>
                 {{ form_rest(form) }}
-                <div class="form-group row">
-                    <div class="col-md-6 field">
-                        <label for="firstname">First Name</label>
-                        <input type="text" name="FName" id="firstname" class="form-control">
-                    </div>
-                    <div class="col-md-6 field">
-                        <label for="lastname">Last Name</label>
-                        <input type="text" name="FName" id="lastname" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6 field">
-                        <label for="email">Email</label>
-                        <input type="text" name="FName" id="email" class="form-control">
-                    </div>
-                    <div class="col-md-6 field">
-                        <label for="phone">Phone</label>
-                        <input type="text" name="FName" id="phone" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-12 field">
-                        <label for="message">Message</label>
-                        <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-12 field">
-                        <input type="submit" id="submit" class="btn btn-primary" value="Send Message">
-                    </div>
-                </div>
             </form>
+            {% endif %}
         </div>
     </div>
 </div>

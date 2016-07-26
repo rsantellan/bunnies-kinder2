@@ -29,6 +29,13 @@ class ContactType extends AbstractType
                     'pattern' => '.{2,}', //minlength
                 ),
                 'label' => 'contact.form.name',
+            ))->add('lastname', 'text', array(
+                'attr' => array(
+                    //'placeholder' => 'contact.form.name.placeholder',
+                    'pattern' => '.{2,}', //minlength
+                ),
+                'label' => 'contact.form.lastname',
+                'required' => false,
             ))
             ->add('email', 'email', array(
                 'attr' => array(
@@ -36,11 +43,12 @@ class ContactType extends AbstractType
                 ),
                 'label' => 'contact.form.email',
             ))
-            ->add('subject', 'text', array(
+            ->add('phone', 'text', array(
                 'attr' => array(
                     //'placeholder' => 'contact.form.phone.placeholder',
                 ),
                 'label' => 'contact.form.phone',
+                'required' => false,
             ))
             ->add('message', 'textarea', array(
                 'attr' => array(
@@ -64,13 +72,15 @@ class ContactType extends AbstractType
                 new NotBlank(array('message' => 'El nombre no puede estar vacio')),
                 new Length(array('min' => 2)),
             ),
+            'lastname' => array(
+                new NotBlank(array('message' => 'El apellido no puede estar vacio')),
+                new Length(array('min' => 2)),
+            ),
             'email' => array(
                 new NotBlank(array('message' => 'El E-Mail no puede estar vacio')),
                 new Email(array('message' => 'Invalid email address.')),
             ),
-            'subject' => array(
-
-            ),
+            'phone' => array(),
             'message' => array(
                 new NotBlank(array('message' => 'El mensaje no puede estar vacio')),
                 new Length(array('min' => 5)),

@@ -39,8 +39,7 @@ class DefaultController extends Controller
     {
       $form = $this->createForm(new \AppBundle\Form\Type\ContactType());
       if ($request->isMethod('POST')) {
-          $form->bind($request);
-
+          $form->handleRequest($request);
           if ($form->isValid()) {
               $parametersService = $this->get('maith_common.parameters');
               $message = \Swift_Message::newInstance()
@@ -50,12 +49,13 @@ class DefaultController extends Controller
               ->setTo(array($parametersService->getParameter('contact-email-to')))
               ->setBody(
                   $this->renderView(
-                      'AppBundle:default:contactEmail.html.twig',
+                      'default/contactEmail.html.twig',
                       array(
                           'ip' => $request->getClientIp(),
                           'name' => $form->get('name')->getData(),
+                          'lastname' => $form->get('lastname')->getData(),
                           'message' => $form->get('message')->getData(),
-                          'subject' => $form->get('subject')->getData(),
+                          'phone' => $form->get('phone')->getData(),
                           'email' => $form->get('email')->getData(),
                       )
                   ), 'text/html'

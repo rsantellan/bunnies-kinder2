@@ -55,6 +55,11 @@
       <a href="{{ path('gallery_list')}}">
         <span>{% trans %}app_admin_menu_galerias{% endtrans %}</span>
       </a>
+     </li>     
+     <li class="{% if (activemenu is defined) and activemenu == 'parameters' %}active{%endif%}">
+      <a href="{{ path('maith_admin_parameters_config')}}">
+        <span>{% trans %}app_admin_menu_parameters{% endtrans %}</span>
+      </a>
      </li>
 
   </ul>
