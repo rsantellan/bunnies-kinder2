@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title %}{% trans %}page_title_inscripcion{%endtrans %}{% endblock %}
 {% block stylesheets %}
-  <link rel="stylesheet" href="{{ asset('js/jquery-ui/jquery-ui.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('js/jquery-ui/jquery-ui.structure.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('js/jquery-ui/jquery-ui.theme.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('js/vendor/jquery-ui/jquery-ui.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('js/vendor/jquery-ui/jquery-ui.structure.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('js/vendor/jquery-ui/jquery-ui.theme.min.css')}}">
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset('js/jquery-ui/jquery-ui.min.js')}}"></script>
-<script src="{{ asset('js/jquery-ui/langs/datepicker-es.js')}}"></script>
+<script src="{{ asset('js/vendor/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{ asset('js/vendor/jquery-ui/langs/datepicker-es.js')}}"></script>
 <script type="text/javascript">
 $(function() {
   $('.js-datepicker').datepicker({
