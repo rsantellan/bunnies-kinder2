@@ -13,12 +13,12 @@ class DefaultController extends Controller
         $obj = new \AppBundle\Entity\GalleryEntity();
         $imagenesMainAlbum = $em->getRepository('MaithCommonAdminBundle:mAlbum')->findOneBy(array('object_id' => $obj->getId(), 'object_class' => $obj->getFullClassName(), 'name' => 'inicio'));
         $mainFiles = array();
-        if($imagenesMainAlbum != null){
+        if($imagenesMainAlbum){
           $mainFiles = $imagenesMainAlbum->getFiles();
         }
         $imagenesSecondSliderAlbum = $em->getRepository('MaithCommonAdminBundle:mAlbum')->findOneBy(array('object_id' => $obj->getId(), 'object_class' => $obj->getFullClassName(), 'name' => 'filosofia'));
         $secondSliderfiles = array();
-        if($imagenesSecondSliderAlbum != null){
+        if($imagenesSecondSliderAlbum){
           $secondSliderfiles = $imagenesSecondSliderAlbum->getFiles();
         }
         return $this->render('default/index.html.twig', array(
@@ -88,14 +88,18 @@ class DefaultController extends Controller
               ->setTo(array($parametersService->getParameter('inscripcion-email-to')))
               ->setBody(
                   $this->renderView(
-                      'default/contactEmail.html.twig',
+                      'default/inscripcionEmail.html.twig',
                       array(
                           'ip' => $request->getClientIp(),
                           'name' => $form->get('name')->getData(),
                           'lastname' => $form->get('lastname')->getData(),
-                          'message' => $form->get('message')->getData(),
-                          'phone' => $form->get('phone')->getData(),
                           'email' => $form->get('email')->getData(),
+                          'phone' => $form->get('phone')->getData(),
+                          'colegio' => $form->get('colegio')->getData(),
+                          'horario' => $form->get('horario')->getData(),
+                          'fechanacimiento' => $form->get('fechanacimiento')->getData(),
+                          'address' => $form->get('address')->getData(),
+                          'message' => $form->get('message')->getData(),
                       )
                   ), 'text/html'
               );

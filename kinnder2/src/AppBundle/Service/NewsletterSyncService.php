@@ -35,7 +35,10 @@ class NewsletterSyncService
             $newsLetterUserGroup = new UserGroup();
             $newsLetterUserGroup->setName($name);
             $this->em->persist($newsLetterUserGroup);
-            $this->em->flush();
+            if($flush){
+              $this->em->flush();  
+            }
+            
         }
 
         return $newsLetterUserGroup;

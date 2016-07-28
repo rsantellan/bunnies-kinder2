@@ -10,8 +10,6 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Collection;
 
-use Gregwar\CaptchaBundle\Type\CaptchaType;
-
 /**
  * Description of ContactType
  *

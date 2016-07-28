@@ -8,7 +8,6 @@ use Symfony\Component\Form\Form;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdater;
 
 use AppBundle\Entity\Estudiante;
-use AppBundle\Entity\Progenitor;
 use AppBundle\Entity\Cuenta;
 
 class EstudiantesService
