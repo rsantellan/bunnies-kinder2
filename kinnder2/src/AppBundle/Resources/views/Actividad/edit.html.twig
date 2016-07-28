@@ -1,0 +1,41 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+<div class="row">
+  <div class="col-lg-8">
+	<section class="panel">
+	  <header class="panel-heading">{% trans %}actividad_edit_entry{% endtrans %}</header>
+	  <div class="panel-body">
+
+		<form action="{{ path('admin_actividades_update', { 'id': entity.id }) }}" method="post" role="form">
+		  <input type="hidden" name="_method" value="PUT" />
+		  <div class="form-group">
+			  {{ form_errors(edit_form.nombre) }}
+			  <label for="{{ edit_form.nombre.vars.id }}">{% trans %}actividad_nombre{% endtrans %}</label>
+			  {{ form_widget(edit_form.nombre, {'attr' : {'class' : 'form-control'}}) }}
+			</div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.costo) }}
+              <label for="{{ edit_form.costo.vars.id }}">{% trans %}actividad_costo{% endtrans %}</label>
+			  {{ form_widget(edit_form.costo, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+      	  <div class="form-group">
+			<button type="submit" class="btn btn-default">{% trans %}actividad_save{% endtrans %}</button>
+		  </div>
+			{{ form_rest(edit_form) }}
+		</form>
+	  </div>
+	</section>
+  </div>
+<div class="col-lg-8">
+  <a href="{{ path('admin_actividades') }}" class="btn btn-info">
+	{% trans %}actividad_back_to_list{% endtrans %}
+	</a>
+  <form action="{{ path('admin_actividades_delete', { 'id': entity.id }) }}" method="post" onsubmit="return confirmDeleteDialog();" style="float: right;">
+	<input type="hidden" name="_method" value="DELETE" />
+	  {{ form_widget(delete_form) }}
+	<button class="btn btn-danger" type="submit">{% trans %}actividad_delete{% endtrans %}</button>
+  </form>
+  </div>
+</div>	
+{% endblock %}

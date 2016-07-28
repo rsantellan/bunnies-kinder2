@@ -1,0 +1,37 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+<div class="row">
+  <div class="col-lg-8">
+	<section class="panel">
+	  <header class="panel-heading">{% trans %}actividad_create_entry{% endtrans %}</header>
+	  <div class="panel-body">
+    {% if errorMessage is defined %}
+      <h3>{{ errorMessage }}</h3>
+    {% endif %}
+		<form action="{{ path('admin_actividades_create') }}" method="post" role="form">
+		  <div class="form-group">
+			  {{ form_errors(form.nombre) }}
+			  <label for="{{ form.nombre.vars.id }}">{% trans %}actividad_nombre{% endtrans %}</label>
+			  {{ form_widget(form.nombre, {'attr' : {'class' : 'form-control'}}) }}
+			</div>
+          <div class="form-group">
+			  {{ form_errors(form.costo) }}
+              <label for="{{ form.costo.vars.id }}">{% trans %}actividad_costo{% endtrans %}</label>
+			  {{ form_widget(form.costo, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+		  <div class="form-group">
+			<button type="submit" class="btn btn-default">{% trans %}actividad_save{% endtrans %}</button>
+		  </div>
+			{{ form_rest(form) }}
+		</form>
+	  </div>
+	</section>
+  </div>
+	  <div class="col-lg-8">
+		  <a href="{{ path('admin_actividades') }}" class="btn btn-info">
+			{% trans %}actividad_back_to_list{% endtrans %}
+			</a>
+	  </div>
+</div>	
+{% endblock %}

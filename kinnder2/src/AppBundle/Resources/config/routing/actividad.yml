@@ -1,0 +1,34 @@
+admin_actividades:
+    path:     /
+    defaults: { _controller: "AppBundle:Actividad:index" }
+
+admin_actividades_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Actividad:show" }
+
+admin_actividades_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Actividad:new" }
+
+admin_actividades_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Actividad:create" }
+    methods:  POST
+
+admin_actividades_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Actividad:edit" }
+
+admin_actividades_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Actividad:update" }
+    methods:  [POST, PUT]
+
+admin_actividades_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Actividad:delete" }
+    methods:  [POST, DELETE]
+
+admin_actividades_recalculate:
+    path:     /{id}/recalculate
+    defaults: { _controller: "AppBundle:Actividad:recalculate" }

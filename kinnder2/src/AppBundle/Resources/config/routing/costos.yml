@@ -1,0 +1,16 @@
+admin_costos:
+    path:     /
+    defaults: { _controller: "AppBundle:Costos:index" }
+
+admin_costos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Costos:edit" }
+
+admin_costos_recalculate:
+    path:     /{id}/recalculate
+    defaults: { _controller: "AppBundle:Costos:recalculate" }
+
+admin_costos_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Costos:update" }
+    methods:  [POST, PUT]

@@ -1,0 +1,12 @@
+admin_descuento:
+    path:     /
+    defaults: { _controller: "AppBundle:Descuento:index" }
+
+admin_descuento_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Descuento:edit" }
+
+admin_descuento_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Descuento:update" }
+    methods:  [POST, PUT]

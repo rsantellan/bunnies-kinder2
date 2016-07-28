@@ -50,8 +50,10 @@ class EstudianteController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $id = $this->get('kinder.estudiantes')->createEstudiante($entity, $this->get('facturas'));
-            return $this->redirect($this->generateUrl('estudiante_show', array('id' => $id)));
+            $estudiante = $this->get('kinder.estudiantes')->createEstudiante($entity);
+            $this->get('kinder.facturas')->generateUserAndFinalBill($estudiante);
+            $this->get('kinder.newslettersync')->regenerateEstudianteNewsletter($estudiante);
+            return $this->redirect($this->generateUrl('estudiante_show', array('id' => $estudiante->getId())));
         }
 
         return $this->render('AppBundle:Estudiante:new.html.twig', array(
@@ -118,8 +120,7 @@ class EstudianteController extends Controller
             throw $this->createNotFoundException('Unable to find Estudiante entity.');
         }
 
-        $pdfHandler = $this->get('pdfs');
-        $pdfHandler->exportAccountToPdf($entity->getCuenta());
+        $this->get('kinder.pdfs')->exportAccountToPdf($entity->getCuenta());
     }
 
     /**
@@ -179,7 +180,8 @@ class EstudianteController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            $this->get('kinder.estudiantes')->updateEstudiante($entity, $this->get('facturas'));
+            $this->get('kinder.facturas')->generateUserAndFinalBill($entity);
+            $this->get('kinder.newslettersync')->regenerateEstudianteNewsletter($entity);
 
             return $this->redirect($this->generateUrl('estudiante_edit', array('id' => $id)));
         }

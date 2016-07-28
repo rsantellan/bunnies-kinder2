@@ -52,7 +52,7 @@
       </trans-unit>
       <trans-unit id="056392a455a152a464df0ef3292ef051" resname="students_title">
         <source>students_title</source>
-        <target>Alumnos</target>
+        <target>Almunos</target>
       </trans-unit>
       <trans-unit id="d2c69f87084393dbf35816851024b312" resname="students_name">
         <source>students_name</source>
@@ -426,29 +426,193 @@
         <source>students_export_submit</source>
         <target>Buscar</target>
       </trans-unit>
-      <trans-unit id="a" resname="students_title">
-        <source>students_title</source>
-        <target>Almunos</target>
-      </trans-unit>
-      <trans-unit id="a1" resname="students_title_search">
+      <trans-unit id="d9185d4e1edeb565ecb4ebb7b444684b" resname="students_title_search">
         <source>students_title_search</source>
         <target>Buscar alumnos</target>
       </trans-unit>
-      <trans-unit id="a2" resname="students_future_title">
+      <trans-unit id="5c080272598ee81cd9a7704f89bb4654" resname="students_future_title">
         <source>students_future_title</source>
         <target>Alumnos futuros</target>
       </trans-unit>
-      <trans-unit id="a21" resname="students_future_title_search">
+      <trans-unit id="1872520ee660cb6f9e3e79bf78eb7cbb" resname="students_future_title_search">
         <source>students_future_title_search</source>
         <target>Buscar alumnos futuros</target>
       </trans-unit>
-      <trans-unit id="a3" resname="students_egresados_title">
+      <trans-unit id="a68cb9d28cec8284bed282a28a72357a" resname="students_egresados_title">
         <source>students_egresados_title</source>
         <target>Alumnos egresados</target>
       </trans-unit>
-      <trans-unit id="a4" resname="students_egresados_title_search">
+      <trans-unit id="1d6057da6a40c0d7214ced305d3c43fe" resname="students_egresados_title_search">
         <source>students_egresados_title_search</source>
         <target>Buscar alumnos egresados</target>
+      </trans-unit>
+      <trans-unit id="42f58ec54eca6cfcfd1119d8b4cc5d8d" resname="students_add_progenitor">
+        <source>students_add_progenitor</source>
+        <target>Agregar padre</target>
+      </trans-unit>
+      <trans-unit id="5b89b25ecdc912710ca3fdbd10d78123" resname="students_remove_progenitor_confirmation">
+        <source>students_remove_progenitor_confirmation</source>
+        <target>¿Esta seguro de querer eliminar el padre?</target>
+      </trans-unit>
+      <trans-unit id="745ad6b3bc008511bf86c3b607e39d7f" resname="actividad_edit_entry">
+        <source>actividad_edit_entry</source>
+        <target>Editar actividad</target>
+      </trans-unit>
+      <trans-unit id="74e005e9a3adf4749b27789884e7f583" resname="actividad_nombre">
+        <source>actividad_nombre</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="6b739a24ba29586b7eb6bf3d2dec125c" resname="actividad_costo">
+        <source>actividad_costo</source>
+        <target>Costo</target>
+      </trans-unit>
+      <trans-unit id="879ebe09b1ffc074f45615af54f640a4" resname="actividad_save">
+        <source>actividad_save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="cf4d79f1b2b7b460e9524e117c6fecc6" resname="actividad_back_to_list">
+        <source>actividad_back_to_list</source>
+        <target>Volver al listado</target>
+      </trans-unit>
+      <trans-unit id="b7a3c47eea7acbf5dc4eddefd0078c12" resname="actividad_delete">
+        <source>actividad_delete</source>
+        <target>Borrar</target>
+      </trans-unit>
+      <trans-unit id="700b1e7bb2845a47d35c4b15f0d8be3a" resname="actividad_create_new">
+        <source>actividad_create_new</source>
+        <target>Crear nueva</target>
+      </trans-unit>
+      <trans-unit id="1d5c20142475a5f0b268119c1c914a97" resname="actividad_title">
+        <source>actividad_title</source>
+        <target>Listado de actividades</target>
+      </trans-unit>
+      <trans-unit id="eea572d87521f50d2857dade36572a76" resname="actividad_name">
+        <source>actividad_name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="ab1f59c2bffaacadd126e11328b4e3a6" resname="actividad_cost">
+        <source>actividad_cost</source>
+        <target>Costo</target>
+      </trans-unit>
+      <trans-unit id="409a6c8d0c47d66ec711a9603026c22c" resname="actividad_actions">
+        <source>actividad_actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="06e063996d60ca0f321d70a901ac6d43" resname="actividad_create_entry">
+        <source>actividad_create_entry</source>
+        <target>Crear nueva</target>
+      </trans-unit>
+      <trans-unit id="19993d5ab37856bca520ed1df0ca7d4b" resname="app_admin_menu_configuraciones">
+        <source>app_admin_menu_configuraciones</source>
+        <target>Configuraciones</target>
+      </trans-unit>
+      <trans-unit id="6ea38b13afb4a1955aec9365abcc9ba9" resname="app_admin_menu_actividades">
+        <source>app_admin_menu_actividades</source>
+        <target>Actividades</target>
+      </trans-unit>
+      <trans-unit id="4ea26a226a5e97dfe5e6d500e70a2f31" resname="app_admin_menu_galerias">
+        <source>app_admin_menu_galerias</source>
+        <target>Galerias</target>
+      </trans-unit>
+      <trans-unit id="37f5f4176062151c7414a0d6bf8818e6" resname="app_admin_menu_parameters">
+        <source>app_admin_menu_parameters</source>
+        <target>Parametros</target>
+      </trans-unit>
+      <trans-unit id="58eca01541aa44c84da6189d7fadd90b" resname="account_factura_detalle_alumnos">
+        <source>account_factura_detalle_alumnos</source>
+        <target>Alumno</target>
+      </trans-unit>
+      <trans-unit id="1a12396f82e28d448c2e604ffa4c5fe3" resname="account_factura_detalle_amount">
+        <source>account_factura_detalle_amount</source>
+        <target>Monto</target>
+      </trans-unit>
+      <trans-unit id="f473814a0707f529ee692f3e1d1627e3" resname="account_factura_detalle_description">
+        <source>account_factura_detalle_description</source>
+        <target>Descripción</target>
+      </trans-unit>
+      <trans-unit id="713afab2236e07ec55e8f0b5e080d7ef" resname="account_factura_detalle_save">
+        <source>account_factura_detalle_save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="6732ee31d9a0ad7ff2dea21fbcf4f0c6" resname="account_factura_detalle_add_title">
+        <source>account_factura_detalle_add_title</source>
+        <target>Agregar Detalle</target>
+      </trans-unit>
+      <trans-unit id="16c123088c5c4d44fe745ec44d082593" resname="account_factura_detalle_add_close">
+        <source>account_factura_detalle_add_close</source>
+        <target>Cerrar</target>
+      </trans-unit>
+      <trans-unit id="a9e4829079c73f39c0a7afb5852dc7dc" resname="account_factura_reset">
+        <source>account_factura_reset</source>
+        <target>Reiniciar Factura</target>
+      </trans-unit>
+      <trans-unit id="caf635bb22beb3b0707084c8b12b7774" resname="app_admin_menu_descuentos">
+        <source>app_admin_menu_descuentos</source>
+        <target>Descuentos</target>
+      </trans-unit>
+      <trans-unit id="c470ee977293565727e792b31fc85f6c" resname="descuentos_edit_entry">
+        <source>descuentos_edit_entry</source>
+        <target>Editar descuento</target>
+      </trans-unit>
+      <trans-unit id="ecb38371c2b27a237a5c96a5ff0c7eed" resname="descuentos_hermanos">
+        <source>descuentos_hermanos</source>
+        <target>Hermanos</target>
+      </trans-unit>
+      <trans-unit id="119f4667b2aa1ccc5ccacb5104830822" resname="descuentos_porcentaje">
+        <source>descuentos_porcentaje</source>
+        <target>Porcentaje</target>
+      </trans-unit>
+      <trans-unit id="414f23343638c152688441e61c8813ca" resname="descuentos_actualizar">
+        <source>descuentos_actualizar</source>
+        <target>Actualizar</target>
+      </trans-unit>
+      <trans-unit id="9cf1d75d681a33673db6ac08a135f6f5" resname="descuentos_back_to_list">
+        <source>descuentos_back_to_list</source>
+        <target>Volver al listado</target>
+      </trans-unit>
+      <trans-unit id="d5efa1d3d7c5e2d61e6134c139c2ad7c" resname="descuentos_title">
+        <source>descuentos_title</source>
+        <target>Listado de descuentos</target>
+      </trans-unit>
+      <trans-unit id="4a4f1a7f0af58b9a14fff1f25ff56439" resname="descuentos_actions">
+        <source>descuentos_actions</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="746d3e80df035bc0b2f9433e75ae0d29" resname="costos_edit_entry">
+        <source>costos_edit_entry</source>
+        <target>Editar costo</target>
+      </trans-unit>
+      <trans-unit id="be26ad7677d5a5c452fa2e8fa1c2a24f" resname="costos_matutino">
+        <source>costos_matutino</source>
+        <target>Matutino</target>
+      </trans-unit>
+      <trans-unit id="ec3f278ad908d6ae719ccf60eeffdcd5" resname="costos_vespertino">
+        <source>costos_vespertino</source>
+        <target>Vespertino</target>
+      </trans-unit>
+      <trans-unit id="c6538e2003c56aa003a5c2306c686b2e" resname="costos_doblehorario">
+        <source>costos_doblehorario</source>
+        <target>Doble Horario</target>
+      </trans-unit>
+      <trans-unit id="8e90a1456380708456d8dd277b99ff76" resname="costos_actualizar">
+        <source>costos_actualizar</source>
+        <target>Actualizar</target>
+      </trans-unit>
+      <trans-unit id="c58892f96f898695df2c9ddd9b46635d" resname="costos_back_to_list">
+        <source>costos_back_to_list</source>
+        <target>Volver al listado</target>
+      </trans-unit>
+      <trans-unit id="6a03a28529eb81514ed87652d71267c9" resname="costos_title">
+        <source>costos_title</source>
+        <target>Listado de costos</target>
+      </trans-unit>
+      <trans-unit id="86edaa9b93ad5e33318181a03d57117b" resname="costos_actions">
+        <source>costos_actions</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="665c7f457107b4df994f2cf35c760cd2" resname="app_admin_menu_costos">
+        <source>app_admin_menu_costos</source>
+        <target>Costos</target>
       </trans-unit>
     </body>
   </file>

@@ -60,4 +60,92 @@ class CobroService
             'cobro' => $cobro,
         );
     }
+
+    public function disableCobro($id)
+    {
+        $cobro = $this->em->getRepository('AppBundle:Cobro')->find($id);
+        if (!$cobro) {
+            return;
+        }
+        $facturasForRefresh = array();
+        if (!$cobro->getCancelado()) {
+            $cobro->setCancelado(true);
+            $cuenta = $cobro->getCuenta();
+            $cuenta->removePagoAmount($cobro->getMonto());
+            $this->em->persist($cobro);
+            $this->em->persist($cuenta);
+            $this->em->flush();
+
+            if ($cuenta->getDiferencia() > 0) {
+                $facturas = $this->em->getRepository('AppBundle:FacturaFinal')->retrievePaidFacturasOfAccount($cuenta->getId());
+                $monto = $cobro->getMonto();
+                foreach ($facturas as $factura) {
+                    if ($monto > 0) {
+                        $monto = $monto - $factura->getTotal();
+                        $factura->setPagadodeltotal(0);
+                        $factura->setPago(false);
+                        $this->em->persist($factura);
+                        $this->em->flush($factura);
+                        $facturasForRefresh[] = $factura;
+                    }
+                }
+            }
+        }
+
+        $amount = $cobro->getCuenta()->getFormatedDiferencia();
+        $positive = false;
+        if ($cobro->getCuenta()->getDiferencia() < 0) {
+            $positive = true;
+        }
+        $message = 'Cobro cancelado con exito';
+        return array(
+            'cobro' => $cobro,
+            'facturas' => $facturasForRefresh,
+            'message' => $message,
+            'positive' => $positive,
+            'amount' => $amount,
+        );
+    }
+
+    public function enableCobro($id)
+    {
+        $cobro = $this->em->getRepository('AppBundle:Cobro')->find($id);
+        if (!$cobro) {
+            return;
+        }
+        $facturasForRefresh = array();
+        if ($cobro->getCancelado()) {
+            $cobro->setCancelado(false);
+            $cuenta = $cobro->getCuenta();
+            $cuenta->addPagoAmount($cobro->getMonto());
+            $this->em->persist($cobro);
+            $this->em->persist($cuenta);
+            $this->em->flush();
+            $facturas = $this->em->getRepository('AppBundle:FacturaFinal')->retrieveUnpaidFacturasOfAccount($cuenta->getId(), false);
+            $monto = $cobro->getMonto();
+            foreach ($facturas as $factura) {
+                if ($monto > 0) {
+                    $monto = $monto - $factura->getTotal();
+                    $factura->setPagadodeltotal(0);
+                    $factura->setPago(true);
+                    $this->em->persist($factura);
+                    $this->em->flush($factura);
+                    $facturasForRefresh[] = $factura;
+                }
+            }
+        }
+        $amount = $cobro->getCuenta()->getFormatedDiferencia();
+        $positive = false;
+        if ($cobro->getCuenta()->getDiferencia() < 0) {
+            $positive = true;
+        }
+        $message = 'Cobro activado con exito';
+        return array(
+            'cobro' => $cobro,
+            'facturas' => $facturasForRefresh,
+            'message' => $message,
+            'positive' => $positive,
+            'amount' => $amount,
+      );
+    }
 }

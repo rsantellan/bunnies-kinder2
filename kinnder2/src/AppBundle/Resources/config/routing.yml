@@ -1,3 +1,15 @@
+app_admin_costos:
+    resource: "@AppBundle/Resources/config/routing/costos.yml"
+    prefix:   /admin/costos
+
+app_admin_descuento:
+    resource: "@AppBundle/Resources/config/routing/descuento.yml"
+    prefix:   /admin/descuento
+
+app_admin_actividades:
+    resource: "@AppBundle/Resources/config/routing/actividad.yml"
+    prefix:   /admin/actividades
+
 app_admin_progenitor:
     resource: "@AppBundle/Resources/config/routing/progenitor.yml"
     prefix:   /admin/progenitor

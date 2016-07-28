@@ -18,7 +18,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->updateStudent($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -37,7 +37,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->disableEstudiante($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -56,7 +56,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->updateParent($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -75,7 +75,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->removeParent($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -94,7 +94,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->updateUserActivity($userId, $activityId);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -113,7 +113,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->removeUserActivity($userId, $activityId);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -132,7 +132,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         try {
             $migrationService->updateUserParent($userId, $parentId);
         } catch (\Exception $ex) {
@@ -157,7 +157,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->removeUserParent($userId, $parentId);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -176,7 +176,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->updatePayment($paymentId);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -195,7 +195,7 @@ class MigrationController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->cancelBilling($account, $month, $year);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));

@@ -1,0 +1,36 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+<div class="row">
+  <div class="col-lg-8">
+	<section class="panel">
+	  <header class="panel-heading">{% trans %}descuentos_edit_entry{% endtrans %}</header>
+	  <div class="panel-body">
+
+		<form action="{{ path('admin_descuento_update', { 'id': entity.id }) }}" method="post" role="form">
+		  <input type="hidden" name="_method" value="PUT" />
+		  <div class="form-group">
+			  {{ form_errors(edit_form.cantidadDeHermanos) }}
+			  <label for="{{ edit_form.cantidadDeHermanos.vars.id }}">{% trans %}descuentos_hermanos{% endtrans %}</label>
+			  {{ form_widget(edit_form.cantidadDeHermanos, {'attr' : {'class' : 'form-control'}}) }}
+			</div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.porcentaje) }}
+              <label for="{{ edit_form.porcentaje.vars.id }}">{% trans %}descuentos_porcentaje{% endtrans %}</label>
+			  {{ form_widget(edit_form.porcentaje, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+      	  <div class="form-group">
+			<button type="submit" class="btn btn-default">{% trans %}descuentos_actualizar{% endtrans %}</button>
+		  </div>
+			{{ form_rest(edit_form) }}
+		</form>
+	  </div>
+	</section>
+  </div>	
+	<div class="col-lg-8">
+  		<a href="{{ path('admin_descuento') }}" class="btn btn-info">
+		{% trans %}descuentos_back_to_list{% endtrans %}
+		</a>
+  	</div>
+</div>	
+{% endblock %}

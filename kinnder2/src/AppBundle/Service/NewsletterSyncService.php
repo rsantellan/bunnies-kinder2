@@ -26,7 +26,7 @@ class NewsletterSyncService
         $this->logger->addDebug('Starting newsletter sync service');
     }
 
-    public function updateOrCreateActivityGroup($name)
+    public function updateOrCreateActivityGroup($name, $flush = true)
     {
         $newsLetterUserGroup = $this->em->getRepository('MaithNewsletterBundle:UserGroup')->findOneBy(
                 array('name' => $name)
@@ -40,6 +40,109 @@ class NewsletterSyncService
 
         return $newsLetterUserGroup;
     }
+
+    public function regenerateEstudianteNewsletter(Estudiante $estudiante)
+    {
+      $searchStrings = $this->retrieveEstudianteSearchList($estudiante);
+      foreach($estudiante->getMyBrothers() as $brother){
+        $searchStrings = array_merge($searchStrings, $this->retrieveEstudianteSearchList($brother));
+      }
+      
+      $groupsLists = array();
+      foreach($searchStrings as $searchString){
+        $group = $this->em->getRepository('MaithNewsletterBundle:UserGroup')->findOneBy(array('name' => $searchString));
+        if(!$group){
+          $this->logger->error(sprintf("Group %s SHOULD exits for this user %s.", $searchString, $estudiante->getId()));
+        }else{
+          $groupsLists[$group->getId()] = $group;
+        }
+      }
+      $addGroups = array();
+      $removeGroups = array();
+      $initilizated = false;
+      foreach($estudiante->getProgenitores() as $parent){
+        $newsLetterUser = $parent->getNewsletterUser();
+        if(!$initilizated){
+          foreach($groupsLists as $newGroups){
+            if(!$newsLetterUser->getUserGroups()->contains($newGroups)){
+              $addGroups[] = $newGroups;
+            }
+          }
+          foreach($newsLetterUser->getUserGroups() as $userGroup){
+            if(!isset($groupsLists[$userGroup->getId()])){
+              $removeGroups[] = $userGroup;
+            }
+          }
+          $initilizated = true;
+        }
+        foreach($addGroups as $newGroups){
+          $newsLetterUser->addUserGroup($newGroups);
+        }
+        foreach($removeGroups as $newGroups){
+          $newsLetterUser->removeUserGroup($newGroups);
+        }
+        $this->em->persist($newsLetterUser);
+      }
+      $this->em->flush();
+    }
+
+    public function regenerateProgenitorNewsletter(Progenitor $progenitor){
+      $addGroups = array();
+      $removeGroups = array();
+      $searchStrings = array();
+      foreach($progenitor->getEstudiantes() as $estudiante){
+        $searchStrings = array_merge($searchStrings, $this->retrieveEstudianteSearchList($estudiante));
+      }
+      $groupsLists = array();
+      foreach($searchStrings as $searchString){
+        $group = $this->em->getRepository('MaithNewsletterBundle:UserGroup')->findOneBy(array('name' => $searchString));
+        if(!$group){
+          $this->logger->error(sprintf("Group %s SHOULD exits for this user %s.", $searchString, $estudiante->getId()));
+        }else{
+          $groupsLists[$group->getId()] = $group;
+        }
+      }
+      $newsLetterUser = $progenitor->getNewsletterUser();
+      foreach($groupsLists as $newGroups){
+        if(!$newsLetterUser->getUserGroups()->contains($newGroups)){
+          $addGroups[] = $newGroups;
+        }
+      }
+      foreach($newsLetterUser->getUserGroups() as $userGroup){
+        if(!isset($groupsLists[$userGroup->getId()])){
+          $removeGroups[] = $userGroup;
+        }
+      }
+      foreach($addGroups as $newGroups){
+        $newsLetterUser->addUserGroup($newGroups);
+      }
+      foreach($removeGroups as $newGroups){
+        $newsLetterUser->removeUserGroup($newGroups);
+      }
+      $this->em->persist($newsLetterUser);
+      $this->em->flush();
+    }
+
+    private function retrieveEstudianteSearchList(Estudiante $estudiante){
+      $searchStrings = array();
+      //Generating class and hour string.
+      if($estudiante->getEgresado()){
+        $searchStrings['EGRESADOS'] = 'EGRESADOS';
+      }else{
+        $searchStrings[$estudiante->getClase()->getName(). ' ('.$estudiante->getHorario()->getName().')'] = $estudiante->getClase()->getName(). ' ('.$estudiante->getHorario()->getName().')';  
+        $searchStrings['PADRES'] = 'PADRES';
+        foreach($estudiante->getActividades() as $actividad){
+          $searchStrings[] = $actividad->getNombre();
+        }
+      }
+      return $searchStrings;
+    }
+
+    /****
+    *
+    * Old implementation. See to fix or remove.
+    *
+    *****/
 
     public function updateProgenitorRelations(Progenitor $progenitor)
     {

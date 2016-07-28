@@ -1,0 +1,33 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-6">
+            <section class="panel">
+                <div class="panel-heading">{% trans %}descuentos_title{% endtrans %}</div>
+                <div class="panel-body no-padding">
+                    <table class="table table-striped no-margin">
+                        <thead>
+                            <tr>
+                                <th>{% trans %}descuentos_hermanos{% endtrans %}</th>
+                                <th>{% trans %}descuentos_porcentaje{% endtrans %}</th>
+                                <th>{% trans %}descuentos_actions{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.cantidadDeHermanos }}</td>
+                                <td>{{ entity.porcentaje }}</td>
+                                <td>
+                                    <a href="{{ path('admin_descuento_edit', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

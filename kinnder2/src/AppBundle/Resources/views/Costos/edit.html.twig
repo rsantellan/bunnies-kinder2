@@ -1,0 +1,41 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+<div class="row">
+  <div class="col-lg-8">
+	<section class="panel">
+	  <header class="panel-heading">{% trans %}costos_edit_entry{% endtrans %}</header>
+	  <div class="panel-body">
+
+		<form action="{{ path('admin_costos_update', { 'id': entity.id }) }}" method="post" role="form">
+		  <input type="hidden" name="_method" value="PUT" />
+		  <div class="form-group">
+			  {{ form_errors(edit_form.matutino) }}
+			  <label for="{{ edit_form.matutino.vars.id }}">{% trans %}costos_matutino{% endtrans %}</label>
+			  {{ form_widget(edit_form.matutino, {'attr' : {'class' : 'form-control'}}) }}
+			</div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.vespertino) }}
+              <label for="{{ edit_form.vespertino.vars.id }}">{% trans %}costos_vespertino{% endtrans %}</label>
+			  {{ form_widget(edit_form.vespertino, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+          <div class="form-group">
+			  {{ form_errors(edit_form.dobleHorario) }}
+              <label for="{{ edit_form.dobleHorario.vars.id }}">{% trans %}costos_doblehorario{% endtrans %}</label>
+			  {{ form_widget(edit_form.dobleHorario, {'attr' : {'class' : 'form-control'}}) }}
+          </div>
+      	  <div class="form-group">
+			<button type="submit" class="btn btn-default">{% trans %}costos_actualizar{% endtrans %}</button>
+		  </div>
+			{{ form_rest(edit_form) }}
+		</form>
+	  </div>
+	</section>
+  </div>	
+	<div class="col-lg-8">
+  		<a href="{{ path('admin_costos') }}" class="btn btn-info">
+		{% trans %}costos_back_to_list{% endtrans %}
+		</a>
+  	</div>
+</div>	
+{% endblock %}

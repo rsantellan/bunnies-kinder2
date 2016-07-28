@@ -2,29 +2,36 @@
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
 #    parameter_name: value
+    kinder_facturas_service.class: AppBundle\Service\FacturasManager
+    kinder_cuentas_service.class: AppBundle\Service\CuentasService
+    kinder_newsletter_service.class: AppBundle\Service\NewsletterSyncService
+    kinder_pdfs_service.class: AppBundle\Service\PdfManager
     kinder_cobro_service.class: AppBundle\Service\CobroService
     kinder_estudiantes_service.class: AppBundle\Service\EstudiantesService
     kinder_progenitores_service.class: AppBundle\Service\ProgenitoresService
+    kinder_crons_service.class: AppBundle\Service\CronObjectService
 
 services:
-    facturas:
-        class: AppBundle\Service\FacturasManager
+    kinder.facturas:
+        class: %kinder_facturas_service.class%
         arguments: ["@doctrine.orm.entity_manager", "@logger"]
 
-    cuentas:
-        class: AppBundle\Service\CuentasService
+    kinder.cuentas:
+        class: %kinder_cuentas_service.class%
         arguments: ["@doctrine.orm.entity_manager", "@logger"]
-    newslettersync:
-        class: AppBundle\Service\NewsletterSyncService
+
+    kinder.newslettersync:
+        class: %kinder_newsletter_service.class%
         arguments: ["@doctrine.orm.entity_manager", "@logger"]
         lazy: true
 
-    migrations:
+    kinder.migrations:
         class: AppBundle\Service\MigrationService
-        arguments: ["@doctrine.orm.entity_manager", "@logger", "%old_db_host%", "%old_db_user%", "%old_db_password%", '@cuentas', '@newslettersync', '@fos_user.user_manager', '@facturas']
+        arguments: ["@doctrine.orm.entity_manager", "@logger", "%old_db_host%", "%old_db_user%", "%old_db_password%", '@kinder.cuentas', '@kinder.newslettersync', '@fos_user.user_manager', '@kinder.facturas']
         lazy: true
-    pdfs:
-        class: AppBundle\Service\PdfManager
+        
+    kinder.pdfs:
+        class: %kinder_pdfs_service.class%
         arguments: ["@doctrine.orm.entity_manager", "@logger", "%kernel.root_dir%"]
         lazy: true
 
@@ -41,4 +48,9 @@ services:
     kinder.progenitores:
         class: %kinder_progenitores_service.class%
         arguments: ["@doctrine.orm.entity_manager", "@logger"]
+        lazy: true
+
+    kinder.crons:
+        class: %kinder_crons_service.class%
+        arguments: ["@doctrine.orm.entity_manager", "@logger", '@kinder.facturas']
         lazy: true

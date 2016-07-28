@@ -1,0 +1,36 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-6">
+            <section class="panel">
+                <div class="panel-heading">{% trans %}costos_title{% endtrans %}</div>
+                <div class="panel-body no-padding">
+                    <table class="table table-striped no-margin">
+                        <thead>
+                            <tr>
+                                <th>{% trans %}costos_matutino{% endtrans %}</th>
+                                <th>{% trans %}costos_vespertino{% endtrans %}</th>
+                                <th>{% trans %}costos_doblehorario{% endtrans %}</th>
+                                <th>{% trans %}costos_actions{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.matutino }}</td>
+                                <td>{{ entity.vespertino }}</td>
+                                <td>{{ entity.dobleHorario }}</td>
+                                <td>
+                                    <a href="{{ path('admin_costos_edit', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
+                                    <a href="{{ path('admin_costos_recalculate', { 'id': entity.id }) }}" onclick="return confirm('{% trans %}costos_recalcular_confirmation{% endtrans %}')" class="btn btn-danger"><i class="fa fa-cogs"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

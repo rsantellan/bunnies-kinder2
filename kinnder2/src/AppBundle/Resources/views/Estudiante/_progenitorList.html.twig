@@ -1,0 +1,5 @@
+<li id="progenitor-{{ progenitor.id }}">
+{{ progenitor.nombre }} ({{ progenitor.email }}) 
+<a href="{{ path('admin_estudiante_progenitor_delete', {'progenitorId' : progenitor.id }) }}" onclick="return removeProgenitorFromStudent(this, '{% trans %}students_remove_progenitor_confirmation{% endtrans %}')"><i class="fa fa-times" aria-hidden="true"></i>
+</a>
+</li>

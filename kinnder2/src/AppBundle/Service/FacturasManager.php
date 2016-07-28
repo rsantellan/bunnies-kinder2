@@ -30,7 +30,7 @@ class FacturasManager
         $this->logger->addDebug('Starting facturas manager');
     }
 
-    public function generateUserBill(Estudiante $estudiante, $month = null, $year = null)
+    public function generateUserBill(Estudiante $estudiante, $month = null, $year = null, $ignorePaidAndCancel = false)
     {
         if ($month === null) {
             $month = date('n');
@@ -46,15 +46,17 @@ class FacturasManager
 
         $factura = $this->em->getRepository('AppBundle:FacturaEstudiante')->retrieveFacturaOfEstudiantePerMonthAndYear($estudiante, $month, $year);
         if ($factura) {
-            if ($factura->getPago()) {
-                $this->logger->addInfo(sprintf('The student %s has the bill of %s/%s paid', $estudiante->getId(), $month, $year));
+            if(!$ignorePaidAndCancel){
+                if ($factura->getPago()) {
+                    $this->logger->addInfo(sprintf('The student %s has the bill of %s/%s paid', $estudiante->getId(), $month, $year));
 
-                return;
-            }
-            if ($factura->getCancelado()) {
-                $this->logger->addInfo(sprintf('The student %s has the bill of %s/%s cancelled', $estudiante->getId(), $month, $year));
+                    return;
+                }
+                if ($factura->getCancelado()) {
+                    $this->logger->addInfo(sprintf('The student %s has the bill of %s/%s cancelled', $estudiante->getId(), $month, $year));
 
-                return;
+                    return;
+                }                
             }
         } else {
             $factura = new FacturaEstudiante();
@@ -147,18 +149,18 @@ class FacturasManager
         $costo = $this->em->getRepository('AppBundle:Costos')->getCostoValue();
         $returnCosto = 0;
         switch ($horario->getDbname()) {
-      case 'matutino':
-        $returnCosto = $costo->getMatutino();
-        break;
-      case 'doble_horario':
-        $returnCosto = $costo->getDobleHorario();
-        break;
-      case 'vespertino':
-        $returnCosto = $costo->getVespertino();
-        break;
-      default:
-        break;
-    }
+          case 'matutino':
+            $returnCosto = $costo->getMatutino();
+            break;
+          case 'doble_horario':
+            $returnCosto = $costo->getDobleHorario();
+            break;
+          case 'vespertino':
+            $returnCosto = $costo->getVespertino();
+            break;
+          default:
+            break;
+        }
 
         return $returnCosto;
     }
@@ -221,7 +223,7 @@ class FacturasManager
 
     }
 
-    public function generateFinalBill(Cuenta $cuenta, $month = null, $year = null)
+    public function generateFinalBill(Cuenta $cuenta, $month = null, $year = null, $ignorePaidAndCancel = false)
     {
         if ($month === null) {
             $month = date('n');
@@ -232,16 +234,19 @@ class FacturasManager
         $factura = $this->em->getRepository('AppBundle:FacturaFinal')->retrieveFacturaFinalOfAccountPerMonthAndYear($cuenta, $month, $year);
         $pagoDelTotal = 0;
         if ($factura) {
-            if ($factura->getPago()) {
-                $this->logger->addInfo(sprintf('The account %s has the bill of %s/%s paid', $cuenta->getId(), $month, $year));
+            if(!$ignorePaidAndCancel){
+                if ($factura->getPago()) {
+                    $this->logger->addInfo(sprintf('The account %s has the bill of %s/%s paid', $cuenta->getId(), $month, $year));
 
-                return $factura;
-            }
-            if ($factura->getCancelado()) {
-                $this->logger->addInfo(sprintf('The account %s has the bill of %s/%s cancelled', $cuenta->getId(), $month, $year));
+                    return $factura;
+                }
+                if ($factura->getCancelado()) {
+                    $this->logger->addInfo(sprintf('The account %s has the bill of %s/%s cancelled', $cuenta->getId(), $month, $year));
 
-                return $factura;
+                    return $factura;
+                }
             }
+            
             $pagoDelTotal = $factura->getPagadodeltotal();
             $this->logger->addInfo(sprintf('The account %s has the bill of %s/%s resting to debt. Debt: %s , bill old total: %s. ZZZAAA', $cuenta->getId(), $month, $year, $cuenta->getDebe(), $factura->getTotal()));
             $cuenta->setDebe($cuenta->getDebe() - $factura->getTotal());
@@ -304,10 +309,10 @@ class FacturasManager
         return $factura;
     }
 
-    public function generateUserAndFinalBill(Estudiante $estudiante, $month = null, $year = null)
+    public function generateUserAndFinalBill(Estudiante $estudiante, $month = null, $year = null, $ignorePaidAndCancel = false)
     {
-        $this->generateUserBill($estudiante, $month, $year);
-        $this->generateFinalBill($estudiante->getCuenta(), $month, $year);
+        $this->generateUserBill($estudiante, $month, $year, $ignorePaidAndCancel);
+        $this->generateFinalBill($estudiante->getCuenta(), $month, $year, $ignorePaidAndCancel);
     }
 
     public function cancelFactura(FacturaFinal $factura)

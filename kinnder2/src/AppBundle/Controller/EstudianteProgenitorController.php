@@ -13,22 +13,23 @@ class EstudianteProgenitorController extends Controller
   {
     $em = $this->getDoctrine()->getManager();
 
-    $entity = $em->getRepository('AppBundle:Progenitor')->find($progenitorId);
+    $progenitor = $em->getRepository('AppBundle:Progenitor')->find($progenitorId);
     $result = false;
     $message = 'Error al desasociar al padre.';
     try{
-      if (!$entity) {
+      if (!$progenitor) {
         throw $this->createNotFoundException('No se pudo encontrar al padre seleccionado.');
       }
 
-      $estudiantes = $entity->getEstudiantes();
+      $estudiantes = $progenitor->getEstudiantes();
       foreach($estudiantes as $estudiante){
-        $entity->getEstudiantes()->removeElement($estudiante);
-        $estudiante->removeProgenitore($entity);
+        $progenitor->getEstudiantes()->removeElement($estudiante);
+        $estudiante->removeProgenitore($progenitor);
         $em->persist($estudiante);
       }
-      $em->persist($entity);
+      $em->persist($progenitor);
       $em->flush();
+      $this->get('kinder.newslettersync')->regenerateProgenitorNewsletter($progenitor);
       $result = true;
       $message = 'Padre desasociado correctamente';
     } catch (\Exception $ex) {
@@ -44,14 +45,15 @@ class EstudianteProgenitorController extends Controller
     return $response;
   }
   
-  public function addAction(Request $request, $progenitorId, $estudianteId)
+  public function addAction(Request $request, $estudianteId)
   {
     $em = $this->getDoctrine()->getManager();
-
+    $progenitorId = $request->get('progenitorId');
     $progenitor = $em->getRepository('AppBundle:Progenitor')->find($progenitorId);
     $estudiante = $em->getRepository('AppBundle:Estudiante')->find($estudianteId);
     $result = false;
     $message = 'Error al asociar al padre.';
+    $html = '';
     try{
       if (!$progenitor) {
         throw $this->createNotFoundException('No se pudo encontrar al padre seleccionado.');
@@ -70,17 +72,23 @@ class EstudianteProgenitorController extends Controller
       $em->persist($estudiante);
       $em->persist($progenitor);
       $em->flush();
+      $this->get('kinder.newslettersync')->regenerateProgenitorNewsletter($progenitor);
       $result = true;
       $message = 'Padre asociado correctamente';
+      $html = $this->renderView('AppBundle:Estudiante:_progenitorList.html.twig', array('progenitor' => $progenitor));
+    } catch (\Doctrine\DBAL\DBALException $ex) {
+      $this->get('logger')->error($ex);
+      $message = 'El padre elegido ya se encuentra asociado al alumno';
     } catch (\Exception $ex) {
       $this->get('logger')->error($ex);
-      
+      $message = $ex->getMessage();
     }
     $response = new JsonResponse();
     $response->setData(array(
             'result' => $result,
             'message' => $message,
             'id' => $progenitorId,
+            'html' => $html,
           ));
     return $response;
   }

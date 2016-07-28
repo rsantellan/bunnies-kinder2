@@ -1,0 +1,39 @@
+{% extends "AppBundle::adminlayout.html.twig" %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12 mg-b-lg">
+            <a href="{{ path('admin_actividades_new') }}" class="btn btn-success">
+            {% trans %}actividad_create_new{% endtrans %}
+            </a>
+        </div>
+        <div class="col-md-12">
+            <section class="panel">
+                <div class="panel-heading">{% trans %}actividad_title{% endtrans %}</div>
+                <div class="panel-body no-padding">
+                    <table class="table table-striped no-margin">
+                        <thead>
+                            <tr>
+                                <th>{% trans %}actividad_name{% endtrans %}</th>
+                                <th>{% trans %}actividad_cost{% endtrans %}</th>
+                                <th>{% trans %}actividad_actions{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.nombre }}</td>
+                                <td>{{ entity.costo }}</td>
+                                <td>
+                                    <a href="{{ path('admin_actividades_edit', { 'id': entity.id }) }}" class="btn btn-white"><i class="fa fa-pencil"></i></a>
+                                    <a href="{{ path('admin_actividades_recalculate', { 'id': entity.id }) }}" onclick="return confirm('{% trans %}actividades_recalcular_confirmation{% endtrans %}')" class="btn btn-danger"><i class="fa fa-cogs"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

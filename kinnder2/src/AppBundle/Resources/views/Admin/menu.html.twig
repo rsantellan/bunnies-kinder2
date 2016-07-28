@@ -3,9 +3,6 @@
     <li>
       <a href="{{ path('admin_alertas')}}">{% trans %}menu_alertas{% endtrans %}</a>
     </li>
-    <li>
-      <a href="{{ path('maith_common_translator_homepage')}}">{% trans %}menu_textos{% endtrans %}</a>
-    </li>
     <li class="dropdown show-on-hover">
       <a href="javascript:;" data-toggle="dropdown">
         <span>{% trans %}menu_alumnos{% endtrans %}</span>
@@ -51,16 +48,41 @@
         <span>{% trans %}app_admin_menu_cuentas{% endtrans %}</span>
       </a>
      </li>
-     <li class="{% if (activemenu is defined) and activemenu == 'galerias' %}active{%endif%}">
-      <a href="{{ path('gallery_list')}}">
-        <span>{% trans %}app_admin_menu_galerias{% endtrans %}</span>
+     <li class="dropdown show-on-hover">
+      <a href="javascript:;" data-toggle="dropdown">
+        <span>{% trans %}app_admin_menu_configuraciones{% endtrans %}</span>
+        <b class="caret"></b>
       </a>
-     </li>     
-     <li class="{% if (activemenu is defined) and activemenu == 'parameters' %}active{%endif%}">
-      <a href="{{ path('maith_admin_parameters_config')}}">
-        <span>{% trans %}app_admin_menu_parameters{% endtrans %}</span>
-      </a>
-     </li>
-
+      <ul class="dropdown-menu">
+        <li class="{% if (activemenu is defined) and activemenu == 'actividades' %}active{%endif%}">
+          <a href="{{ path('admin_actividades')}}">
+            <span>{% trans %}app_admin_menu_actividades{% endtrans %}</span>
+          </a>
+        </li>
+        <li class="{% if (activemenu is defined) and activemenu == 'descuentos' %}active{%endif%}">
+          <a href="{{ path('admin_descuento')}}">
+            <span>{% trans %}app_admin_menu_descuentos{% endtrans %}</span>
+          </a>
+        </li> 
+        <li class="{% if (activemenu is defined) and activemenu == 'costos' %}active{%endif%}">
+          <a href="{{ path('admin_costos')}}">
+            <span>{% trans %}app_admin_menu_costos{% endtrans %}</span>
+          </a>
+        </li> 
+        <li>
+          <a href="{{ path('maith_common_translator_homepage')}}">{% trans %}menu_textos{% endtrans %}</a>
+        </li>
+        <li class="{% if (activemenu is defined) and activemenu == 'galerias' %}active{%endif%}">
+          <a href="{{ path('gallery_list')}}">
+            <span>{% trans %}app_admin_menu_galerias{% endtrans %}</span>
+          </a>
+        </li>     
+        <li class="{% if (activemenu is defined) and activemenu == 'parameters' %}active{%endif%}">
+          <a href="{{ path('maith_admin_parameters_config')}}">
+            <span>{% trans %}app_admin_menu_parameters{% endtrans %}</span>
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </div>

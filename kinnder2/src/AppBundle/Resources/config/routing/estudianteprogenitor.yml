@@ -4,7 +4,7 @@ admin_estudiante_progenitor_delete:
     methods:  [POST, DELETE]
 
 admin_estudiante_progenitor_add:
-    path:     /{progenitorId}/{estudianteId}/add
+    path:     /{estudianteId}/add
     defaults: { _controller: "AppBundle:EstudianteProgenitor:add" }
     methods:  [POST, DELETE]
     

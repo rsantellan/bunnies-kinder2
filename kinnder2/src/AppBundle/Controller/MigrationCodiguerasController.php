@@ -17,7 +17,7 @@ class MigrationCodiguerasController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->updateActivity($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -36,7 +36,7 @@ class MigrationCodiguerasController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->removeActivity($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -55,7 +55,7 @@ class MigrationCodiguerasController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->updateDiscount($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -73,7 +73,7 @@ class MigrationCodiguerasController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->removeDiscount($id);
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));
@@ -92,7 +92,7 @@ class MigrationCodiguerasController extends Controller
 
             return $returnJson;
         }
-        $migrationService = $this->get('migrations');
+        $migrationService = $this->get('kinder.migrations');
         $migrationService->updateCostos();
         $returnJson = new JsonResponse();
         $returnJson->setData(array('ok' => true));

@@ -19,8 +19,7 @@ class CobroController extends Controller
             throw $this->createNotFoundException('Unable to find Cobro entity.');
         }
 
-        $pdfHandler = $this->get('pdfs');
-        $pdfHandler->exportCobroToPdf($entity);
+        $this->get('kinder.pdfs')->exportCobroToPdf($entity);
     }
 
     public function addCobroFormAction($cuentaId)
@@ -72,8 +71,7 @@ class CobroController extends Controller
 
     public function disableCobroAction($id)
     {
-        $cuentaService = $this->get('cuentas');
-        $cobroResponse = $cuentaService->disableCobro($id);
+        $cobroResponse = $this->get('kinder.cuentas')->disableCobro($id);
 
         if (!$cobroResponse) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');
@@ -99,8 +97,7 @@ class CobroController extends Controller
 
     public function enableCobroAction($id)
     {
-        $cuentaService = $this->get('cuentas');
-        $cobroResponse = $cuentaService->enableCobro($id);
+        $cobroResponse = $this->get('kinder.cuentas')->enableCobro($id);
 
         if (!$cobroResponse) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');

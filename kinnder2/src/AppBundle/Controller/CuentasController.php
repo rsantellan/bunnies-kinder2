@@ -20,28 +20,8 @@ class CuentasController extends Controller
 
     public function listAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $accounts = $em->getRepository('AppBundle:Cuenta')->retrieveAllWithUsersAndParents();
-
-        $data = array(
-            'negative' => array(),
-            'positive' => array(),
-            'zero' => array(),
-        );
-        foreach ($accounts as $account) {
-            if ($account->getDiferencia() == 0) {
-                $data['zero'][] = $account;
-            } else {
-                if ($account->getDiferencia() > 0) {
-                    $data['positive'][] = $account;
-                } else {
-                    $data['negative'][] = $account;
-                }
-            }
-        }
-
         return $this->render('AppBundle:Cuentas:cuentas.html.twig', array(
-                    'data' => $data,
+                    'data' => $this->get('kinder.cuentas')->listCuentasGrouped(),
                     'activemenu' => 'cuentas',
             ));
     }
@@ -113,8 +93,7 @@ class CuentasController extends Controller
         $cuentaId = 0;
         if ($form->isValid()) {
             try{
-                $facturaService = $this->get('facturas');
-                $factura = $facturaService->createDetalleFacturaUsuario($em->getRepository('AppBundle:Estudiante')->find($form->get('alumnos')->getData()), $entity->getMonth(), $entity->getYear(), $form->get('description')->getData(),  $form->get('amount')->getData());
+                $factura = $this->get('kinder.facturas')->createDetalleFacturaUsuario($em->getRepository('AppBundle:Estudiante')->find($form->get('alumnos')->getData()), $entity->getMonth(), $entity->getYear(), $form->get('description')->getData(),  $form->get('amount')->getData());
                 $result = true;
                 $message = 'Factura reseteado al estado original.';
                 $html = $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
@@ -176,8 +155,7 @@ class CuentasController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Factura entity.');
             }
-            $facturaService = $this->get('facturas');
-            $serviceFullData = $facturaService->resetDetalleFacturaFinal($entity, true);
+            $serviceFullData = $this->get('kinder.facturas')->resetDetalleFacturaFinal($entity, true);
             $html = $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
                       'factura' => $serviceFullData['factura'],
               ));
@@ -222,8 +200,7 @@ class CuentasController extends Controller
 
     public function disableFacturaAction($id)
     {
-        $cuentaService = $this->get('cuentas');
-        $factura = $cuentaService->disableFactura($id);
+        $factura = $this->get('kinder.cuentas')->disableFactura($id);
         if (!$factura) {
             throw $this->createNotFoundException('Unable to find Factura entity.');
         }
@@ -250,8 +227,7 @@ class CuentasController extends Controller
 
     public function enableFacturaAction($id)
     {
-        $cuentaService = $this->get('cuentas');
-        $factura = $cuentaService->enableFactura($id);
+        $factura = $this->get('kinder.cuentas')->enableFactura($id);
         if (!$factura) {
             throw $this->createNotFoundException('Unable to find Factura entity.');
         }
