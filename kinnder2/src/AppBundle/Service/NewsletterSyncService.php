@@ -106,24 +106,32 @@ class NewsletterSyncService
         }
       }
       $newsLetterUser = $progenitor->getNewsletterUser();
-      foreach($groupsLists as $newGroups){
-        if(!$newsLetterUser->getUserGroups()->contains($newGroups)){
-          $addGroups[] = $newGroups;
+      if($newsLetterUser)
+      {
+        foreach($groupsLists as $newGroups){
+          if(!$newsLetterUser->getUserGroups()->contains($newGroups)){
+            $addGroups[] = $newGroups;
+          }
         }
-      }
-      foreach($newsLetterUser->getUserGroups() as $userGroup){
-        if(!isset($groupsLists[$userGroup->getId()])){
-          $removeGroups[] = $userGroup;
+        foreach($newsLetterUser->getUserGroups() as $userGroup){
+          if(!isset($groupsLists[$userGroup->getId()])){
+            $removeGroups[] = $userGroup;
+          }
         }
+        foreach($addGroups as $newGroups){
+          $newsLetterUser->addUserGroup($newGroups);
+        }
+        foreach($removeGroups as $newGroups){
+          $newsLetterUser->removeUserGroup($newGroups);
+        }
+        $this->em->persist($newsLetterUser);
+        $this->em->flush();
       }
-      foreach($addGroups as $newGroups){
-        $newsLetterUser->addUserGroup($newGroups);
+      else
+      {
+        $this->logger->info(sprintf("The parent with id: %s and email :% don't belong to newsletters", $progenitor->getId(), $progenitor->getEmail()));
       }
-      foreach($removeGroups as $newGroups){
-        $newsLetterUser->removeUserGroup($newGroups);
-      }
-      $this->em->persist($newsLetterUser);
-      $this->em->flush();
+      
     }
 
     private function retrieveEstudianteSearchList(Estudiante $estudiante){
@@ -132,7 +140,12 @@ class NewsletterSyncService
       if($estudiante->getEgresado()){
         $searchStrings['EGRESADOS'] = 'EGRESADOS';
       }else{
-        $searchStrings[$estudiante->getClase()->getName(). ' ('.$estudiante->getHorario()->getName().')'] = $estudiante->getClase()->getName(). ' ('.$estudiante->getHorario()->getName().')';  
+        if($estudiante->getClase() && $estudiante->getHorario()){
+          $searchStrings[$estudiante->getClase()->getName(). ' ('.$estudiante->getHorario()->getName().')'] = $estudiante->getClase()->getName(). ' ('.$estudiante->getHorario()->getName().')';  
+        }else{
+          $this->logger->error(sprintf('The student not has class or hourly and is active. Id: %s', $estudiante->getId()));
+        }
+        
         $searchStrings['PADRES'] = 'PADRES';
         foreach($estudiante->getActividades() as $actividad){
           $searchStrings[] = $actividad->getNombre();
