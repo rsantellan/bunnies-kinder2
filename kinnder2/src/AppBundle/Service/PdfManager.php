@@ -28,7 +28,7 @@ class PdfManager
         $this->logger->addDebug('Starting pdf manager');
     }
 
-    public function exportCobroToPdf(Cobro $cobro, Cuenta $account = null, $location = null)
+    public function exportCobroToPdf(Cobro $cobro, Cuenta $account = null, $location = null, $returnBuffer = false)
     {
         if ($account === null) {
             $account = $cobro->getCuenta();
@@ -81,23 +81,32 @@ class PdfManager
         ++$counterItems;
         $pdf->addCadreEurosFrancs('$ '.number_format($cobro->getMonto(), 0, ',', '.'));
         $outputOption = 'I';
-        if ($location !== null) {
+        var_dump($returnBuffer);
+        if($returnBuffer){
+          $outputOption = 'S';
+        }else{
+          if ($location !== null) {
             if (!is_dir($location)) {
                 $location = sys_get_temp_dir();
             }
             $outputOption = 'F';
             $location .= DIRECTORY_SEPARATOR;
-        } else {
-            $location = '';
+          } else {
+              $location = '';
+          }
         }
+        
         $outputName = sprintf('Cobro-%s-%s.pdf', $account->getReferenciabancaria(), date('m-Y'));
-        $pdf->Output($location.$outputName, $outputOption);
+        $returnPdf = $pdf->Output($location.$outputName, $outputOption);
         if ($outputOption == 'F') {
             return $location.$outputName;
         }
+        if ($outputOption == 'S') {
+            return array('name' => $outputName, 'buffer' => $returnPdf);
+        }
     }
 
-    public function exportAccountToPdf(Cuenta $account, $location = null)
+    public function exportAccountToPdf(Cuenta $account, $location = null, $returnBuffer = false)
     {
         $alumnos = '';
         foreach ($account->getEstudiantes() as $estudiante) {
@@ -245,19 +254,27 @@ class PdfManager
         }
         $pdf->addCadreEurosFrancs('$ '.$account->getFormatedDiferencia());
         $outputOption = 'I';
-        if ($location !== null) {
+        if($returnBuffer){
+          $outputOption = 'S';
+        }else{
+          if ($location !== null) {
             if (!is_dir($location)) {
                 $location = sys_get_temp_dir();
             }
             $outputOption = 'F';
             $location .= DIRECTORY_SEPARATOR;
-        } else {
-            $location = '';
+          } else {
+              $location = '';
+          }
         }
+        
         $outputName = sprintf('Cuenta-%s-%s.pdf', $account->getReferenciabancaria(), date('m-Y'));
-        $pdf->Output($location.$outputName, $outputOption);
+        $returnPdf = $pdf->Output($location.$outputName, $outputOption);
         if ($outputOption == 'F') {
             return $location.$outputName;
+        }
+        if ($outputOption == 'S') {
+            return array('name' => $outputName, 'buffer' => $returnPdf);
         }
     }
 }

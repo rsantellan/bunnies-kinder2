@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Estudiante;
@@ -120,8 +121,18 @@ class EstudianteController extends Controller
             throw $this->createNotFoundException('Unable to find Estudiante entity.');
         }
 
-        $this->get('kinder.pdfs')->exportAccountToPdf($entity->getCuenta());
-        return;
+        $pdfData = $this->get('kinder.pdfs')->exportAccountToPdf($entity->getCuenta(), null, true);
+        $response = new Response();
+        $response->setContent($pdfData['buffer']);
+        $dispositionHeader = $response->headers->makeDisposition(
+            'inline',
+            $pdfData['name']
+        );
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'private, maxage=0, must-revalidate');
+        $response->headers->set('Content-Disposition', $dispositionHeader);
+        return $response;
     }
 
     /**

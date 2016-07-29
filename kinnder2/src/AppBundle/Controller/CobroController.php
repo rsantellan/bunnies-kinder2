@@ -4,10 +4,11 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Cobro;
 use AppBundle\Form\Type\CobroType;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class CobroController extends Controller
 {
@@ -19,7 +20,18 @@ class CobroController extends Controller
             throw $this->createNotFoundException('Unable to find Cobro entity.');
         }
 
-        $this->get('kinder.pdfs')->exportCobroToPdf($entity);
+        $pdfData = $this->get('kinder.pdfs')->exportCobroToPdf($entity, null, null, true);
+        $response = new Response();
+        $response->setContent($pdfData['buffer']);
+        $dispositionHeader = $response->headers->makeDisposition(
+            'inline',
+            $pdfData['name']
+        );
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'private, maxage=0, must-revalidate');
+        $response->headers->set('Content-Disposition', $dispositionHeader);
+        return $response;
     }
 
     public function addCobroFormAction($cuentaId)
