@@ -97,7 +97,7 @@ class CuentasController extends Controller
                 $entity = $em->getRepository('AppBundle:FacturaFinal')->find($facturaId);
                 $factura = $this->get('kinder.facturas')->createDetalleFacturaUsuario($em->getRepository('AppBundle:Estudiante')->find($form->get('alumnos')->getData()), $entity->getMonth(), $entity->getYear(), $form->get('description')->getData(),  $form->get('amount')->getData());
                 $result = true;
-                $message = 'Factura reseteado al estado original.';
+                $message = 'Detalle de la factura agregado.';
                 $html = $this->renderView('AppBundle:Cuentas:_facturaRow.html.twig', array(
                           'factura' => $factura,
                   ));

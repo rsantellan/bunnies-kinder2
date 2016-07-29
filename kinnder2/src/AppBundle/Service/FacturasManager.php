@@ -202,7 +202,7 @@ class FacturasManager
             return $returnData;
         }else{
             $result = true;
-            $message = ' Detalle creado correctamente correctamente';
+            $message = 'Factura reseteado al estado original';
             $cuentaId = $factura->getCuenta()->getId();
             $amount = $factura->getCuenta()->getFormatedDiferencia();
             $positive = false;
