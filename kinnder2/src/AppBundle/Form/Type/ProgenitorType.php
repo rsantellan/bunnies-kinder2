@@ -16,10 +16,14 @@ class ProgenitorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
+            ->add('nombre', null, array(
+                'required' => true,
+            ))
             ->add('direccion')
             ->add('telefono')
-            ->add('celular')
+            ->add('celular', null, array(
+                'required' => true,
+            ))
             //->add('oldId')
             //->add('cuenta')
             //->add('estudiantes')

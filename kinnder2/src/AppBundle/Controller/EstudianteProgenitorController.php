@@ -27,6 +27,7 @@ class EstudianteProgenitorController extends Controller
         $estudiante->removeProgenitore($progenitor);
         $em->persist($estudiante);
       }
+      $progenitor->removeCuenta();
       $em->persist($progenitor);
       $em->flush();
       $this->get('kinder.newslettersync')->regenerateProgenitorNewsletter($progenitor);
@@ -69,6 +70,7 @@ class EstudianteProgenitorController extends Controller
       }
       $progenitor->addEstudiante($estudiante);
       $estudiante->addProgenitore($progenitor);
+      $progenitor->setCuenta($estudiante->getCuenta());
       $em->persist($estudiante);
       $em->persist($progenitor);
       $em->flush();

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Progenitor.
@@ -24,7 +25,8 @@ class Progenitor extends BaseUser
 
     /**
      * @var string
-     *
+     * 
+     * @Assert\NotBlank()
      * @ORM\Column(name="nombre", type="string", length=64, nullable=true)
      */
     private $nombre;
@@ -46,6 +48,7 @@ class Progenitor extends BaseUser
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="celular", type="string", length=64, nullable=true)
      */
     private $celular;
@@ -437,6 +440,11 @@ class Progenitor extends BaseUser
         return $this->cuenta;
     }
 
+    public function removeCuenta()
+    {
+        $this->cuenta = null;
+        return $this;
+    }
     /**
      * Set oldId.
      *

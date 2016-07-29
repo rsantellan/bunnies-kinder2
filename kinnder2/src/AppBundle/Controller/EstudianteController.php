@@ -121,6 +121,7 @@ class EstudianteController extends Controller
         }
 
         $this->get('kinder.pdfs')->exportAccountToPdf($entity->getCuenta());
+        return;
     }
 
     /**

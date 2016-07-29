@@ -16,7 +16,7 @@ class CuentaRepository extends EntityRepository
     {
         $sql = 'select c.id as cuentaId, c.diferencia, c.referenciabancaria, e.id as estudianteId, e.nombre, e.apellido, h.name as horario, cl.name as clase, e.egresado from cuenta c  inner join estudiante e on e.cuenta_id = c.id left outer join horario h on h.id = e.horario_id left outer join clase cl on cl.id = e.clase_id where c.diferencia > 0 order by e.apellido';
         $data = $this->getEntityManager()->getConnection()->executeQuery($sql);//->fetchAll();
-    $returnList = array();
+        $returnList = array();
         while ($row = $data->fetch()) {
             $cuenta = new \stdClass();
             if (isset($returnList[$row['cuentaId']])) {
