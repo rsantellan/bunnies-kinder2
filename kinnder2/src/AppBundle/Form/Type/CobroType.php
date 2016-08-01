@@ -20,7 +20,7 @@ class CobroType extends AbstractType
                      'widget' => 'single_text',
                      'format' => 'dd-MM-yyyy',
             ))
-            ->add('monto')
+            ->add('monto', 'integer')
             //->add('cancelado')
             ->add('enviado')
             //->add('createdAt')
