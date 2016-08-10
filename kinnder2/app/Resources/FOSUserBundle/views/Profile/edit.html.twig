@@ -1,5 +1,14 @@
-{#% extends "FOSUserBundle::layout.html.twig" %#}
+{% extends "AppBundle::adminlayout.html.twig" %}
 
-{% block fos_user_content %}
-{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block body %}
+<div class="row">
+  <div class="col-lg-8">
+	<section class="panel">
+	  <header class="panel-heading">Editar usuario</header>
+	  <div class="panel-body">
+		{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+	  </div>
+	</section>
+  </div>
+</div>
+{% endblock %}

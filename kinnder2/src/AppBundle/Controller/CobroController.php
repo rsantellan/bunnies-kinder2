@@ -64,8 +64,7 @@ class CobroController extends Controller
         $cobro = new Cobro();
         $form = $this->createCobroForm($cobro, $cuentaId);
         $form->handleRequest($request);
-        $cobroService = $this->get('kinder.cobro');
-        $responseData = $cobroService->saveCobroForm($form, $cobro, $cuentaId);
+        $responseData = $this->get('kinder.cobro')->saveCobroForm($form, $cobro, $cuentaId);
         if($responseData['result']){
             $responseData['html'] = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
                       'cobro' => $cobro,
@@ -83,7 +82,7 @@ class CobroController extends Controller
 
     public function disableCobroAction($id)
     {
-        $cobroResponse = $this->get('kinder.cuentas')->disableCobro($id);
+        $cobroResponse = $this->get('kinder.Cobro')->disableCobro($id);
 
         if (!$cobroResponse) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');
@@ -109,7 +108,7 @@ class CobroController extends Controller
 
     public function enableCobroAction($id)
     {
-        $cobroResponse = $this->get('kinder.cuentas')->enableCobro($id);
+        $cobroResponse = $this->get('kinder.cobro')->enableCobro($id);
 
         if (!$cobroResponse) {
             throw $this->createNotFoundException('Unable to find Cobro entity.');

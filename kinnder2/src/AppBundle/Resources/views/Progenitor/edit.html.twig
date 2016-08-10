@@ -1,5 +1,11 @@
 {% extends "AppBundle::adminlayout.html.twig" %}
-
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/i18n/es.js') }}"></script>
+{% endblock %}
+{% block pagestylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.css') }}">
+{% endblock %}
 {% block body -%}
 <div class="row">
   <div class="col-lg-8">
@@ -7,7 +13,7 @@
 	  <header class="panel-heading">{% trans %}progenitor_edit_entry{% endtrans %}</header>
 	  <div class="panel-body">
 
-		<form action="{{ path('admin_progenitor_update', { 'id': entity.id }) }}" method="post" role="form">
+		<form action="{{ path('admin_progenitor_update', { 'id': entity.id }) }}" method="post" role="form" data-parsley-validate>
 		  <input type="hidden" name="_method" value="PUT" />
 		  <div class="form-group">
 			  {{ form_errors(edit_form.nombre) }}
@@ -30,7 +36,7 @@
 			  {{ form_widget(edit_form.celular, {'attr' : {'class' : 'form-control'}}) }}
           </div>
 			  <div class="form-group">
-				<button type="submit" class="btn btn-default">{% trans %}progenitor_save{% endtrans %}</button>
+				<button type="submit" class="btn btn-default ">{% trans %}progenitor_save{% endtrans %}</button>
 			  </div>
 				{{ form_rest(edit_form) }}
 			</form>

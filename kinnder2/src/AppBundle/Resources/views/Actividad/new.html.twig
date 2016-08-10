@@ -1,5 +1,11 @@
 {% extends "AppBundle::adminlayout.html.twig" %}
-
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/i18n/es.js') }}"></script>
+{% endblock %}
+{% block pagestylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.css') }}">
+{% endblock %}
 {% block body -%}
 <div class="row">
   <div class="col-lg-8">
@@ -9,7 +15,7 @@
     {% if errorMessage is defined %}
       <h3>{{ errorMessage }}</h3>
     {% endif %}
-		<form action="{{ path('admin_actividades_create') }}" method="post" role="form">
+		<form action="{{ path('admin_actividades_create') }}" method="post" role="form" data-parsley-validate>
 		  <div class="form-group">
 			  {{ form_errors(form.nombre) }}
 			  <label for="{{ form.nombre.vars.id }}">{% trans %}actividad_nombre{% endtrans %}</label>

@@ -614,6 +614,34 @@
         <source>app_admin_menu_costos</source>
         <target>Costos</target>
       </trans-unit>
+      <trans-unit id="a590be016e7634f4aeefc06f72dd351b" resname="costos_recalcular_confirmation">
+        <source>costos_recalcular_confirmation</source>
+        <target>¿Esta seguro que quiere recalcular?</target>
+      </trans-unit>
+      <trans-unit id="9fee6531e56f965709a3f683d3a9b79f" resname="actividades_recalcular_confirmation">
+        <source>actividades_recalcular_confirmation</source>
+        <target>¿Esta seguro que quiere recalcular?</target>
+      </trans-unit>
+      <trans-unit id="a" resname="actividades_recalcular_confirmation">
+        <source>profile_edit_usuario_title</source>
+        <target>Editar usuario</target>
+      </trans-unit>
+      <trans-unit id="b" resname="actividades_recalcular_confirmation">
+        <source>profile_edit_usuario</source>
+        <target>Usuario</target>
+      </trans-unit>
+      <trans-unit id="c" resname="actividades_recalcular_confirmation">
+        <source>profile_edit_email</source>
+        <target>Correo electronico</target>
+      </trans-unit>
+      <trans-unit id="d" resname="actividades_recalcular_confirmation">
+        <source>profile_edit_current_password</source>
+        <target>Contraseña actual</target>
+      </trans-unit>
+      <trans-unit id="e" resname="actividades_recalcular_confirmation">
+        <source>actividades_recalcular_confirmation</source>
+        <target>__actividades_recalcular_confirmation</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

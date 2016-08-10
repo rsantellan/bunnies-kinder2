@@ -30,6 +30,10 @@ estudiante_progenitor:
     resource: "@AppBundle/Resources/config/routing/estudianteprogenitor.yml"
     prefix:   /admin/estudiante-progenitor
 
+adminuser:
+    resource: "@AppBundle/Resources/config/routing/adminuser.yml"
+    prefix:   /
+
 admin:
     resource: "@AppBundle/Resources/config/routing/admin.yml"
     prefix:   /
@@ -53,5 +57,3 @@ inscripciones:
 migrations:
     resource: "@AppBundle/Resources/config/routing/migrations.yml"
     prefix:   /migrations
-
-

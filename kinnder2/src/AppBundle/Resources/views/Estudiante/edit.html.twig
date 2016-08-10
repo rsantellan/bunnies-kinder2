@@ -4,11 +4,13 @@
 <script src="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/app/admin/vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('bundles/app/js/addStudent.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/i18n/es.js') }}"></script>
 {% endblock %}
 {% block pagestylesheets %}
   <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/toastr/toastr.css') }}">
   <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/datepicker.css') }}" >
+  <link rel="stylesheet" href="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.css') }}">
 {% endblock %}
 {% block body -%}
 <div class="row">
@@ -16,7 +18,7 @@
     <section class="panel">
       <header class="panel-heading">{% trans %}students_update_title{% endtrans %}</header>
       <div class="panel-body">
-        <form action="{{ path('estudiante_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }} role="form">
+        <form action="{{ path('estudiante_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }} role="form" data-parsley-validate>
           <input type="hidden" name="_method" value="PUT" />
           <div class="form-group col-lg-6">
 			  {{ form_errors(form.nombre) }}

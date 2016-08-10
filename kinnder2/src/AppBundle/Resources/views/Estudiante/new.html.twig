@@ -3,11 +3,14 @@
 {% block javascripts %}
 <script src="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/app/admin/vendor/toastr/toastr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/i18n/es.js') }}"></script>
 <script src="{{ asset('bundles/app/js/addStudent.js') }}"></script>
 
 {% endblock %}
 {% block pagestylesheets %}
   <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/toastr/toastr.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.css') }}">
   <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/bootstrap-datepicker/datepicker.css') }}" >
 {% endblock %}
 {% block body -%}
@@ -16,7 +19,7 @@
     <section class="panel">
       <header class="panel-heading">{% trans %}students_create_title{% endtrans %}</header>
       <div class="panel-body">
-        <form action="{{ path('estudiante_create') }}" method="post" {{ form_enctype(form) }} role="form">
+        <form action="{{ path('estudiante_create') }}" method="post" {{ form_enctype(form) }} role="form" data-parsley-validate>
           <div class="form-group col-lg-6">
 			  {{ form_errors(form.nombre) }}
               <label for="{{ form.nombre.vars.id }}">{% trans %}students_name{% endtrans %}</label>

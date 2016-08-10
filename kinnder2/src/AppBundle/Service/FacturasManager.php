@@ -98,7 +98,7 @@ class FacturasManager
         }
         $descuento = $this->em->getRepository('AppBundle:Descuento')->findOneBy(array('cantidadDeHermanos' => $activeBrother));
         if ($descuento && $descuento->getPorcentaje() > 0) {
-            $amount = (($total * $descuento->getPorcentaje()) / 100) * -1;
+            $amount = ceil((($total * $descuento->getPorcentaje()) / 100) * -1);
             $detalleDescuentoHermano = new FacturaEstudianteDetalle();
             $detalleDescuentoHermano->setAmount($amount);
             $detalleDescuentoHermano->setDescription('Descuento hermano');
@@ -108,7 +108,7 @@ class FacturasManager
             $total += $amount;
         }
         if ($estudiante->getDescuento() && $estudiante->getDescuento() > 0) {
-            $amount = (($total * $estudiante->getDescuento()) / 100) * -1;
+            $amount = ceil((($total * $estudiante->getDescuento()) / 100) * -1);
             $detalleDescuento = new FacturaEstudianteDetalle();
             $detalleDescuento->setAmount($amount);
             $detalleDescuento->setDescription('Descuento usuario');
