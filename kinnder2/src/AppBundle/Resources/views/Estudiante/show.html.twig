@@ -3,9 +3,12 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('bundles/app/admin/vendor/toastr/toastr.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/app/admin/vendor/jquery-ui.custom.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/js/vendor/parsleyjs/i18n/es.js') }}"></script>
 <script src="{{ asset('bundles/app/js/showStudent.js') }}"></script>
 {% endblock %}
 {% block pagestylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/app/js/vendor/parsleyjs/parsley.css') }}">
   <link rel="stylesheet" href="{{ asset('bundles/app/admin/vendor/toastr/toastr.css') }}">
 {% endblock %}
 
@@ -120,6 +123,7 @@
                     </div>
                   </form>
                   {#<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>#}
+                  <a href="{{ path('admin_progenitor_new', {'estudianteId': entity.id}) }}" onclick="return createProgenitorAndAddToStudent(this)" class="btn btn-info pull-right">{% trans %}students_parent_create_new{% endtrans %}</a>
                 </div>
                 
               </div>
@@ -150,4 +154,22 @@
       </section>
     </div>
   </div>
+
+  <!-- Modal -->
+<div class="modal" id="addParentModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">{% trans %}students_parent_create_new_title{% endtrans %}</h4>
+        </div>
+        <div class="modal-body" id="addParentModalBody">
+          hello
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}students_parent_create_close{% endtrans %}</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock %}

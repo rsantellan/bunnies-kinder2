@@ -1,0 +1,32 @@
+<form action="{{ formUrl }}" method="post" role="form" data-parsley-validate {{ onsubmit | raw }} id="newProgenitorForm">
+	<div class="form-group">
+	  {{ form_errors(form.nombre) }}
+	  <label for="{{ form.nombre.vars.id }}">{% trans %}progenitor_nombre{% endtrans %}</label>
+	  {{ form_widget(form.nombre, {'attr' : {'class' : 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+	  {{ form_errors(form.direccion) }}
+	  <label for="{{ form.direccion.vars.id }}">{% trans %}progenitor_direccion{% endtrans %}</label>
+	  {{ form_widget(form.direccion, {'attr' : {'class' : 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+	  {{ form_errors(form.telefono) }}
+	  <label for="{{ form.telefono.vars.id }}">{% trans %}progenitor_telefono{% endtrans %}</label>
+	  {{ form_widget(form.telefono, {'attr' : {'class' : 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+	  {{ form_errors(form.celular) }}
+	  <label for="{{ form.celular.vars.id }}">{% trans %}progenitor_celular{% endtrans %}</label>
+	  {{ form_widget(form.celular, {'attr' : {'class' : 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+	  {{ form_errors(form.newsletterUser.email) }}
+	  <label for="{{ form.newsletterUser.email.vars.id }}">{% trans %}progenitor_email{% endtrans %}</label>
+	  {{ form_widget(form.newsletterUser.email, {'attr' : {'class' : 'form-control'}}) }}
+	</div>
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-default">{% trans %}progenitor_save{% endtrans %}</button>
+	</div>
+	{{ form_rest(form) }}
+</form>

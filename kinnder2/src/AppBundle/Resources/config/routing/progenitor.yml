@@ -19,6 +19,11 @@ admin_progenitor_create:
     defaults: { _controller: "AppBundle:Progenitor:create" }
     methods:  POST
 
+admin_progenitor_create_ajax:
+    path:     /create-student/{studentId}
+    defaults: { _controller: "AppBundle:Progenitor:createWithStudent" }
+    methods:  POST
+
 admin_progenitor_edit:
     path:     /{id}/edit
     defaults: { _controller: "AppBundle:Progenitor:edit" }

@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use AppBundle\Entity\Progenitor;
 use AppBundle\Form\Type\ProgenitorType;
 use AppBundle\Form\Type\ProgenitorEditType;
@@ -85,7 +87,49 @@ class ProgenitorController extends Controller
             'entity' => $entity,
             'form' => $form->createView(),
             'errorMessage' => $errorMessage,
+            'formUrl' => $this->generateUrl('admin_progenitor_create'),
+            'onsubmit' => '',
+        ));    
+    }
+
+    public function createWithStudentAction(Request $request, $studentId)
+    {
+        $entity = new Progenitor();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+        $message = null;
+        $result = false;
+        $html = '';
+        if ($form->isValid()) {
+            // Check email.
+            $service = $this->get('kinder.progenitores');
+            $progenitorId = $service->createProgenitor($entity, $this->get('fos_user.mailer'));
+            if($progenitorId === null){
+                $message = 'El email ya se encuentra utilizado. Revisa que el padre no este ingresado.';
+            }else{
+                $result = true;
+                try{
+                  $progenitor = $this->get('kinder.progenitores')->addStudentToProgenitor($progenitorId, $studentId);
+                  $this->get('kinder.newslettersync')->regenerateProgenitorNewsletter($progenitor);
+                  $result = true;
+                  $message = 'Padre asociado correctamente';
+                  $html = $this->renderView('AppBundle:Estudiante:_progenitorList.html.twig', array('progenitor' => $progenitor));
+                } catch (\Doctrine\DBAL\DBALException $ex) {
+                  $this->get('logger')->error($ex);
+                  $message = 'El padre elegido ya se encuentra asociado al alumno';
+                } catch (\Exception $ex) {
+                  $this->get('logger')->error($ex);
+                  $message = $ex->getMessage();
+                }
+            }
+        }
+        $jsonReponse = new JsonResponse();
+        $jsonReponse->setData(array(
+            'result' => $result,
+            'message' => $message,
+            'html' => $html,
         ));
+        return $jsonReponse;
     }
 
     /**
@@ -107,14 +151,31 @@ class ProgenitorController extends Controller
     /**
      * Displays a form to create a new Progenitor entity.
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
+        $isAjax =  $request->isXmlHttpRequest();
         $entity = new Progenitor();
         $form = $this->createCreateForm($entity);
-        return $this->render('AppBundle:Progenitor:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        if($isAjax){
+            $estudianteId = $request->get('estudianteId');
+            $jsonReponse = new JsonResponse();
+            $jsonReponse->setData(array(
+                'html' =>  $this->renderView('AppBundle:Progenitor:_newForm.html.twig', array(
+                    'form' => $form->createView(),
+                    'formUrl' => $this->generateUrl('admin_progenitor_create_ajax', array('studentId' => $estudianteId)),
+                    'onsubmit' => 'onsubmit="return doCreateProgenitorAndAddToStudent(this);"',
+                ))
+            ));
+            return $jsonReponse;
+            
+        }else{
+            return $this->render('AppBundle:Progenitor:new.html.twig', array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+                'formUrl' => $this->generateUrl('admin_progenitor_create'),
+                'onsubmit' => '',
+            ));
+        }
     }
 
     /**

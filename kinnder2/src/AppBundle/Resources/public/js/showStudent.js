@@ -66,3 +66,47 @@ function addProgenitorToStudent(form){
   
   return false;
 }
+
+function createProgenitorAndAddToStudent(element){
+    $.ajax({
+        url: $(element).attr('href'),
+        success: function(data){
+          $('#addParentModalBody').html(data.html);
+          $('#addParentModal').modal('show');
+          $('#newProgenitorForm').parsley();
+        },
+        complete: function()
+        {
+        }
+    });
+    return false;  
+}
+
+function doCreateProgenitorAndAddToStudent(form){
+  if ( !$(form).parsley().isValid() ) {
+    return false;
+  }
+  $.ajax({
+      url: $(form).attr('action'),
+      data: $(form).serialize(),
+      type: 'post',
+      dataType: 'json',
+      success: function(json){
+        if(json.result){
+            toastr.info(json.message);
+            $('#progenitorList').append(json.html);
+            $('#addParentModal').modal('hide');
+        }else{
+          toastr.error(json.message);
+        }
+
+      }
+      ,
+      complete: function()
+      {
+
+      }
+  });
+  
+  return false;
+}
