@@ -81,7 +81,6 @@ class PdfManager
         ++$counterItems;
         $pdf->addCadreEurosFrancs('$ '.number_format($cobro->getMonto(), 0, ',', '.'));
         $outputOption = 'I';
-        var_dump($returnBuffer);
         if($returnBuffer){
           $outputOption = 'S';
         }else{
