@@ -215,7 +215,7 @@ class EstudianteSearchController extends Controller
     private function getDataForList($page = 0, $limit = 10, $orderBy = 'apellido', $order = 'ASC', $egresado = false, $future = false)
     {
         $em = $this->getDoctrine()->getManager();
-        $filter = $this->get('form.factory')->create(new EstudianteFilterType());
+        $filter = $this->get('form.factory')->create('AppBundle\Filter\EstudianteFilterType');
 
         $entities = $em->getRepository('AppBundle:Estudiante')->getDataForList($page, $limit, $orderBy, $order, $egresado, $future);
 
@@ -232,7 +232,7 @@ class EstudianteSearchController extends Controller
     private function doSearch(Request $request, $egresado = false, $future = false)
     {
         $em = $this->getDoctrine()->getManager();
-        $filter = $this->get('form.factory')->create(new EstudianteFilterType());
+        $filter = $this->get('form.factory')->create('AppBundle\Filter\EstudianteFilterType');
         $entities = array();
         if ($request->query->has($filter->getName())) {
           // manually bind values from the request
@@ -268,7 +268,7 @@ class EstudianteSearchController extends Controller
 
     public function exportDatosShowAction(Request $request)
     {
-        $filter = $this->get('form.factory')->create(new EstudianteExportFilterType());
+        $filter = $this->get('form.factory')->create('AppBundle\Filter\EstudianteExportFilterType');
         $entities = array();
         $filterMetadata = array();
         if ($request->query->has($filter->getName())) {

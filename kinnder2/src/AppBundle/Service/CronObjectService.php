@@ -68,13 +68,16 @@ class CronObjectService
         $cronObject = $this->em->createQuery($dql)
                         ->setMaxResults(1)
                         ->getOneOrNullResult();
+        $message = 'No se pudo ejecutar el proceso';
         if($cronObject){
             switch($cronObject->getType()){
                 case CronObject::RECREATECOSTOS:
                     $this->processRecreacionCostosCron($cronObject);
+                    $message = 'Proceso de recreacion de costos fue ejecutado correctamente';
                 break;
                 case CronObject::RECREATEACTIVIDAD:
                     $this->processRecreacionActividadCron($cronObject);
+                    $message = 'Proceso de recreacion de actividad fue ejecutado correctamente';
                 break;
                 default:
                     $this->logger->error('no type was defined for cron: %s', $cronObject->getId());

@@ -39,20 +39,20 @@ class EstudianteExportFilterType extends AbstractType
 
         $exportar = array('0' => 'No', '1' => 'Si');
 
-        $builder->add('clase', 'filter_entity',
+        $builder->add('clase', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType',
                 array(
                 'required' => false,
                 'class' => 'AppBundle\Entity\Clase',
                 'placeholder' => 'Todos',
                  ));
-        $builder->add('horario', 'filter_entity',
+        $builder->add('horario', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType',
                 array(
                 'required' => false,
                 'class' => 'AppBundle\Entity\Horario',
                 'placeholder' => 'Todos',
                  ));
 
-        $builder->add('estudiantes', 'filter_choice',
+        $builder->add('estudiantes', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\ChoiceFilterType',
                  array(
                  'required' => false,
                  'choices' => $camposUsuario,
@@ -62,7 +62,7 @@ class EstudianteExportFilterType extends AbstractType
                         return;
                      },
                   ));
-        $builder->add('padres', 'filter_choice',
+        $builder->add('padres', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\ChoiceFilterType',
                  array(
                  'required' => false,
                  'choices' => $camposPadres,
@@ -72,7 +72,7 @@ class EstudianteExportFilterType extends AbstractType
                         return;
                      },
                   ));
-        $builder->add('exportar', 'filter_choice',
+        $builder->add('exportar', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\ChoiceFilterType',
                  array(
                  'required' => true,
                  'choices' => $exportar,
@@ -84,7 +84,7 @@ class EstudianteExportFilterType extends AbstractType
                   ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'estudiante_export_filter';
     }

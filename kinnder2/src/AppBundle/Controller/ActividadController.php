@@ -64,7 +64,7 @@ class ActividadController extends Controller
      */
     private function createCreateForm(Actividad $entity)
     {
-        $form = $this->createForm(new ActividadType(), $entity, array(
+        $form = $this->createForm('AppBundle\Form\Type\ActividadType', $entity, array(
             'method' => 'POST',
         ));
         return $form;
@@ -140,7 +140,7 @@ class ActividadController extends Controller
     */
     private function createEditForm(Actividad $entity)
     {
-        $form = $this->createForm(new ActividadType(), $entity, array(
+        $form = $this->createForm('AppBundle\Form\Type\ActividadType', $entity, array(
             'action' => $this->generateUrl('admin_actividades_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -221,10 +221,10 @@ class ActividadController extends Controller
 
     public function recalculateAction(Request $request, $id)
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         try{
-        $this->get('kinder.crons')->addCronOfType(\AppBundle\Entity\CronObject::RECREATEACTIVIDAD, $user->getUsername(), $id);
-        $this->get('session')->getFlashBag()->add('notif-success', 'Tarea programada con exito. Correra proximamente enviando un email de confirmación.');
+            $this->get('kinder.crons')->addCronOfType(\AppBundle\Entity\CronObject::RECREATEACTIVIDAD, $user->getUsername(), $id);
+            $this->get('session')->getFlashBag()->add('notif-success', 'Tarea programada con exito. Correra proximamente enviando un email de confirmación.');
         }catch(\Exception $e){
             $this->get('session')->getFlashBag()->add('notif-error', $e->getMessage());
         }

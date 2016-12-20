@@ -53,7 +53,7 @@ class CobroController extends Controller
 
     private function createCobroForm(Cobro $cobro, $cuentaId)
     {
-        return $this->createForm(new CobroType(), $cobro, array(
+        return $this->createForm('AppBundle\Form\Type\CobroType', $cobro, array(
           'action' => $this->generateUrl('save_cobro', array('cuentaId' => $cuentaId)),
           'method' => 'POST',
         ));

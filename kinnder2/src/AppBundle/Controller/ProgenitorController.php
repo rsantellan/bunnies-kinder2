@@ -22,7 +22,7 @@ class ProgenitorController extends Controller
     public function indexAction(Request $request, $page, $orderBy, $order, $limit)
     {
         $em = $this->getDoctrine()->getManager();
-        $filter = $this->get('form.factory')->create(new ProgenitorFilterType());
+        $filter = $this->get('form.factory')->create('AppBundle\Filter\ProgenitorFilterType');
 
         $entities = $em->getRepository('AppBundle:Progenitor')->getActiveForList($page, $limit, $orderBy, $order);
 
@@ -39,7 +39,7 @@ class ProgenitorController extends Controller
     public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $filter = $this->get('form.factory')->create(new ProgenitorFilterType());
+        $filter = $this->get('form.factory')->create('AppBundle\Filter\ProgenitorFilterType');
         $entities = array();
         if ($request->query->has($filter->getName())) {
             // manually bind values from the request
@@ -141,7 +141,7 @@ class ProgenitorController extends Controller
      */
     private function createCreateForm(Progenitor $entity)
     {
-        $form = $this->createForm(new ProgenitorType(), $entity, array(
+        $form = $this->createForm('AppBundle\Form\Type\ProgenitorType', $entity, array(
             'action' => $this->generateUrl('admin_progenitor_create'),
             'method' => 'POST',
         ));
@@ -231,7 +231,7 @@ class ProgenitorController extends Controller
      */
     private function createEditForm(Progenitor $entity)
     {
-        $form = $this->createForm(new ProgenitorEditType(), $entity, array(
+        $form = $this->createForm('AppBundle\Form\Type\ProgenitorEditType', $entity, array(
             'action' => $this->generateUrl('admin_progenitor_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

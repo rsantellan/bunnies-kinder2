@@ -45,8 +45,8 @@
         "hwi/oauth-bundle": "0.5.*",
         "doctrine/doctrine-fixtures-bundle": "2.*",
 
-        "jms/security-extra-bundle": "1.5.1",
-        "lexik/form-filter-bundle": "4.*",
+        "jms/security-extra-bundle": "1.6.1",
+        "lexik/form-filter-bundle": "5.*",
         "itbz/fpdf": "1.7.2",
         "imagine/Imagine": "dev-master",
         "phpoffice/phpexcel": "1.8.*",

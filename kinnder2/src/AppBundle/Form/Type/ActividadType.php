@@ -33,7 +33,7 @@ class ActividadType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_actividad';
     }

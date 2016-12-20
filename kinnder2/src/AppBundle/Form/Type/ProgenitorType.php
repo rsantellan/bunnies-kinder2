@@ -28,7 +28,7 @@ class ProgenitorType extends AbstractType
             //->add('cuenta')
             //->add('estudiantes')
             //->add('user_roles')
-            ->add('newsletterUser', new \Maith\NewsletterBundle\Form\UserType())
+            ->add('newsletterUser', 'Maith\NewsletterBundle\Form\UserType')
         ;
     }
 
@@ -45,7 +45,7 @@ class ProgenitorType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_progenitor';
     }

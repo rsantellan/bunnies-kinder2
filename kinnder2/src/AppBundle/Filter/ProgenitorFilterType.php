@@ -16,17 +16,17 @@ class ProgenitorFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nombre', 'filter_text',
+        $builder->add('nombre', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',
               array(
                   'condition_pattern' => FilterOperands::STRING_BOTH,
               ));
-        $builder->add('email', 'filter_text',
+        $builder->add('email', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',
               array(
                   'condition_pattern' => FilterOperands::STRING_BOTH,
               ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'progenitor_filter';
     }

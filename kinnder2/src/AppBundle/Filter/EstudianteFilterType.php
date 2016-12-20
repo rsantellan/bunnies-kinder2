@@ -16,37 +16,37 @@ class EstudianteFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('referenciaBancaria', 'filter_text');
-        $builder->add('apellido', 'filter_text',
+        $builder->add('referenciaBancaria', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType');
+        $builder->add('apellido', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',
               array(
                   'condition_pattern' => FilterOperands::STRING_BOTH,
               ));
-        $builder->add('nombre', 'filter_text',
+        $builder->add('nombre', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',
               array(
                   'condition_pattern' => FilterOperands::STRING_BOTH,
               ));
-        $builder->add('clase', 'filter_entity',
+        $builder->add('clase', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType',
                     array(
                     'required' => false,
                     'class' => 'AppBundle\Entity\Clase',
-                    'empty_value' => 'Todos',
+                    'placeholder' => 'Todos',
                      ));
-        $builder->add('horario', 'filter_entity',
+        $builder->add('horario', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType',
                     array(
                     'required' => false,
                     'class' => 'AppBundle\Entity\Horario',
-                    'empty_value' => 'Todos',
+                    'placeholder' => 'Todos',
                      ));
-        $builder->add('actividades', 'filter_entity',
+        $builder->add('actividades', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType',
                     array(
                     'required' => false,
                     'class' => 'AppBundle\Entity\Actividad',
-                    'empty_value' => 'Todos',
+                    'placeholder' => 'Todos',
                      )
                    );
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'estudiante_filter';
     }
