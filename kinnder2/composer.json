@@ -50,7 +50,7 @@
         "itbz/fpdf": "1.7.2",
         "imagine/Imagine": "dev-master",
         "phpoffice/phpexcel": "1.8.*",
-        "gregwar/captcha-bundle": "1.*",
+        "gregwar/captcha-bundle": "2.*",
 
         "Maith/Common/AdminBundle": "dev-master",
         "Maith/Common/ImageBundle": "dev-master",

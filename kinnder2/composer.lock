@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9550e8099877212868ead1629481bd35",
-    "content-hash": "573ee7f6916caa11a4f57461b736ea95",
+    "hash": "75eacf048e85cf9364cef71f623a8b65",
+    "content-hash": "e31223eb0d06283783b04869fc17ffeb",
     "packages": [
         {
             "name": "Maith/Common/AdminBundle",
@@ -162,12 +162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rsantellan/symfony2-maith-newsletter.git",
-                "reference": "ae9057b9f1e9b6d3b64190eadfa01f78baf7a150"
+                "reference": "0d9bf1f73c051773fe1bca146f6c823206cc7202"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rsantellan/symfony2-maith-newsletter/zipball/ae9057b9f1e9b6d3b64190eadfa01f78baf7a150",
-                "reference": "ae9057b9f1e9b6d3b64190eadfa01f78baf7a150",
+                "url": "https://api.github.com/repos/rsantellan/symfony2-maith-newsletter/zipball/0d9bf1f73c051773fe1bca146f6c823206cc7202",
+                "reference": "0d9bf1f73c051773fe1bca146f6c823206cc7202",
                 "shasum": ""
             },
             "require": {
@@ -204,7 +204,7 @@
                 "source": "https://github.com/rsantellan/symfony2-maith-newsletter/tree/master",
                 "issues": "https://github.com/rsantellan/symfony2-maith-newsletter/issues"
             },
-            "time": "2016-12-19 19:15:10"
+            "time": "2016-12-21 13:10:57"
         },
         {
             "name": "behat/transliterator",
@@ -1332,23 +1332,23 @@
         },
         {
             "name": "gregwar/captcha-bundle",
-            "version": "v1.1",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/CaptchaBundle.git",
-                "reference": "c221d9cb4216562a486b966491199e1ed462ab2f"
+                "reference": "f6c45045f020e2be45b325bced6c36ce51d8075f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/c221d9cb4216562a486b966491199e1ed462ab2f",
-                "reference": "c221d9cb4216562a486b966491199e1ed462ab2f",
+                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/f6c45045f020e2be45b325bced6c36ce51d8075f",
+                "reference": "f6c45045f020e2be45b325bced6c36ce51d8075f",
                 "shasum": ""
             },
             "require": {
                 "gregwar/captcha": "~1.1",
-                "php": ">=5.3.0",
-                "symfony/form": "~2.1",
-                "symfony/framework-bundle": "~2.1"
+                "php": ">=5.3.9",
+                "symfony/form": "~2.1|~3.0",
+                "symfony/framework-bundle": "~2.1|~3.0"
             },
             "type": "captcha-bundle",
             "autoload": {
@@ -1382,7 +1382,7 @@
                 "spam",
                 "visual"
             ],
-            "time": "2015-05-13 06:42:05"
+            "time": "2016-09-21 08:36:55"
         },
         {
             "name": "hwi/oauth-bundle",

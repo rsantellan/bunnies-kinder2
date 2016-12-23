@@ -2,9 +2,9 @@
 
 namespace AppBundle\Service;
 
-use Maith\NewsletterBundle\Service\NewsletterHandler;
+use Maith\NewsletterBundle\Service\NewsletterService;
 
-class LocalNewsletterHandler extends NewsletterHandler
+class LocalNewsletterService extends NewsletterService
 {
 
     public function retrieveUsersToSendList($groupUsersLimit = 50)

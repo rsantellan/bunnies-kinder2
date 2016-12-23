@@ -8,7 +8,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: es
-    maith_newsletter_handler.class: AppBundle\Service\LocalNewsletterHandler
+    maith_newsletter_handler.class: AppBundle\Service\LocalNewsletterService
 framework:
     #esi:             ~
     translator:
