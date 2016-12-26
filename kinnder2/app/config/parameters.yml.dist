@@ -23,3 +23,7 @@ parameters:
     old_db_user:       ~
     old_db_password:   ~
     security_firewall_key: kinnder2
+
+    #mailers names
+    mailers_names: [first_mailer,second_mailer,third_mailer]
+

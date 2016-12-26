@@ -33,3 +33,7 @@ save_reset_factura:
     path:     /{facturaId}/save-reset-factura
     defaults: { _controller: "AppBundle:Cuentas:saveResetDetalleFacturaForm" }
     methods:  [POST, PUT]
+
+send_emails_cuenta:
+    path:     /{id}/send-email
+    defaults: { _controller: "AppBundle:Cuentas:sendEmailToCuenta" }

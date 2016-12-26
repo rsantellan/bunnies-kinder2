@@ -240,8 +240,9 @@ class PdfManager
         if ($account->getDiferencia() - $paymentQuantity < 0) {
             $cobro = $this->em->getRepository('AppBundle:Cobro')->retrieveLastFromAccount($account->getId());
             $precion = number_format(-1 * (int) ($account->getDiferencia() - $paymentQuantity), 0, ',', '.');
-            $fechaAux = explode('-', $cobro->getFecha());
-            $texto = sprintf('Monto pagado (%s-%s-%s)', $fechaAux[2], $fechaAux[1], $fechaAux[0]);
+            //var_dump($cobro->getFecha()->format('d-m-Y'));
+            //$fechaAux = explode('-', $cobro->getFecha());
+            $texto = sprintf('Monto pagado (%s)', $cobro->getFecha()->format('d-m-Y'));
             $line = array(
               'Item' => $counterItems,
               'Descripción' => $texto,

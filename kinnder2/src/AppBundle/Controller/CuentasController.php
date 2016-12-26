@@ -45,7 +45,47 @@ class CuentasController extends Controller
           ));
     }
 
+    public function sendEmailToCuentaAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
 
+        $entity = $em->getRepository('AppBundle:Cuenta')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('La cuenta no existe');
+        }
+        $pdfDataLocation = $this->get('kinder.pdfs')->exportAccountToPdf($entity, sys_get_temp_dir(), false);
+        $title = sprintf('Talon de pago (%s/%s)', date('n'), date('Y'));
+        $parametersService = $this->get('maith_common.parameters');
+        $from = [$parametersService->getParameter('contact-email-from') => $parametersService->getParameter('contact-email-from-name')];
+        $emails = [];
+        foreach ($entity->getProgenitores() as $progenitor) {
+            if($progenitor->getEmail() != ""){
+                $emails[] = $progenitor->getEmail();    
+            }
+        }
+        $message = "Hubo un error al enviar el mail, intente nuevamente mas tarde.";
+        if(count($emails) > 0){
+            $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+            $htmlBody = $this->renderView('AppBundle:Cuentas:cuentaMailProgenitores.html.twig', [
+                    'mes' => $meses[date('n')-1],
+                    'year' => date('Y'),
+                    'referencia' => $entity->getReferenciabancaria(),
+                ]);            
+            $quantity = $this->get('maith_common.email')->sendWithAttachment($from, $emails, $title, $htmlBody, [$pdfDataLocation]);
+            if($quantity > 0){
+                $message = "Email enviado con exito";
+            }
+        }else{
+            $message = "No hay ningun padre con email registrado para enviarle el email";
+        }
+        $response = new JsonResponse();
+        $response->setData(array(
+                'result' => true,
+                'message' => $message,
+              ));
+
+        return $response;
+    }
 
     public function addDetalleFacturaFormAction($facturaId)
     {

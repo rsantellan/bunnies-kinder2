@@ -67,7 +67,7 @@
                         </li>
                         {% endfor %}
                       </ul>
-                      <a href="" class="btn btn-success">
+                      <a href="javascript:void(0);" onclick="return sendEmailToAccount('{{ path('send_emails_cuenta', { 'id': debt.cuentaId }) }}');" class="btn btn-success">
                         <i class="fa fa-envelope"></i>{% trans %}alertas_action_send_email{% endtrans %}
                       </a>
                       <a href="{{ path('show_cuenta', { 'id': debt.cuentaId }) }}" class="btn btn-primary">

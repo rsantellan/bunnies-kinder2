@@ -42,3 +42,16 @@ function saveCobroForm(form)
   });
   return false;
 }
+
+function sendEmailToAccount(myUrl){
+      $.ajax({
+          url: myUrl,
+          success: function(data){
+            toastr.info(data.message);
+          },
+          complete: function()
+          {
+          }
+      });
+      return false;  
+}
