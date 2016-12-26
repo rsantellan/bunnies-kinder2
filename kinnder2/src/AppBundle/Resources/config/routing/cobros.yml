@@ -20,3 +20,7 @@ enable_cobro:
     path:     /{id}/enable-cobro
     defaults: { _controller: "AppBundle:Cobro:enableCobro" }
     methods:  [POST, PUT]
+
+send_cobro_email:
+    path:     /{id}/send-cobro-email
+    defaults: { _controller: "AppBundle:Cobro:sendCobroEmail" }

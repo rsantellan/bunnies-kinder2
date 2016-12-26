@@ -13,9 +13,9 @@
               {% trans %}account_cobro_generate_pdf{% endtrans %}
             </a>
             {% if not cobro.enviado %}
-              <button class="btn btn-info"><i class="fa fa-envelope"></i>{% trans %}account_cobro_send_email{% endtrans %}</button>
+              <a class="btn btn-info" href="javascript:void(0)" onclick="return sendEmailToAccount('{{ path('send_cobro_email', {'id' : cobro.id }) }}')"><i class="fa fa-envelope"></i>{% trans %}account_cobro_send_email{% endtrans %}</a>
             {% else %}
-              <button class="btn btn-info"><i class="fa fa-envelope"></i>{% trans %}account_cobro_re_send_email{% endtrans %}</button>
+              <a class="btn btn-info" href="javascript:void(0)" onclick="return sendEmailToAccount('{{ path('send_cobro_email', {'id' : cobro.id }) }}')"><i class="fa fa-envelope"></i>{% trans %}account_cobro_re_send_email{% endtrans %}</a>
             {% endif %}
             {% if not cobro.cancelado %}
               <a class="btn btn-warning pull-right" href="{{ path('disable_cobro', {'id' : cobro.id }) }}" onclick="return cancelOrActivateCobro({{ cobro.id }}, this, '{% trans %}account_cobro_cancel_question{% endtrans %}')">{% trans %}account_cobro_cancel{% endtrans %}</a>

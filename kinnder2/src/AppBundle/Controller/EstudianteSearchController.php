@@ -298,7 +298,7 @@ class EstudianteSearchController extends Controller
             $data = $this->get('kinder.estudiantes')->preparateSearchQueryData($filter, $this->get('lexik_form_filter.query_builder_updater'));
             $entities = $data['entities'];
             if ((boolean) $filterData['exportar']) {
-                return $this->exportExcel($headers, $entities);
+                return $this->exportExcel($data['headers'], $entities);
             }
         }
 
