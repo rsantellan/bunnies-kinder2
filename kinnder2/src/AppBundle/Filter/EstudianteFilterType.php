@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 
+use Doctrine\ORM\QueryBuilder;
+use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
+
 /**
  * Description of EstudianteFilterType.
  *
@@ -42,6 +45,18 @@ class EstudianteFilterType extends AbstractType
                     'required' => false,
                     'class' => 'AppBundle\Entity\Actividad',
                     'placeholder' => 'Todos',
+                    'apply_filter'  => function (QueryInterface $filterQuery, $field, $values)
+                      {
+                          $query = $filterQuery->getQueryBuilder();
+                          $query->innerJoin($field, 't');
+                          $value = $values['value'];
+                          if (isset($value)){
+                              $paramName = sprintf('p_%t', str_replace('.', '_', $field));
+                              $expression = $filterQuery->getExpr()->eq("t.id", ':'.$paramName);
+                              $parameters = array($paramName => $values['value']->getId()); 
+                              return $filterQuery->createCondition($expression, $parameters);
+                          }
+                      },
                      )
                    );
     }

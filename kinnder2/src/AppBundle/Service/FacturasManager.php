@@ -211,12 +211,12 @@ class FacturasManager
             }
             return array(
                 'result' => $result,
-                'html' => $html,
+                //'html' => $html,
                 'message' => $message,
                 'amount' => $amount,
                 'positive' => $positive,
                 'cuentaId' => $cuentaId,
-                'facturaId' => $facturaId,
+                'facturaId' => $factura->getId(),
                 'factura' => $factura,
             );
         }
