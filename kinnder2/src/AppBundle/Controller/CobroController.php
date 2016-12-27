@@ -66,8 +66,12 @@ class CobroController extends Controller
         $form->handleRequest($request);
         $responseData = $this->get('kinder.cobro')->saveCobroForm($form, $cobro, $cuentaId);
         if($responseData['result']){
+            $cobroSaved = $responseData['cobro'];
+            if ($cobroSaved->getEnviado()) {
+                $responseData['message'] = $responseData['message'].$this->doSendCobroEmail($cobroSaved);
+            }
             $responseData['html'] = $this->renderView('AppBundle:Cuentas:_cobroRow.html.twig', array(
-                      'cobro' => $cobro,
+                      'cobro' => $cobroSaved,
               ));
         }else{
             $responseData['html'] = $this->renderView('AppBundle:Cuentas:_cobroForm.html.twig', array(
@@ -130,6 +134,49 @@ class CobroController extends Controller
         return $response;
     }
 
+    private function doSendCobroEmail(Cobro $cobro){
+        $em = $this->getDoctrine()->getManager();
+        $pdfDataLocation = $this->get('kinder.pdfs')->exportCobroToPdf($cobro, null, sys_get_temp_dir(), false);
+        $title = sprintf('Talon de cobro (%s/%s)', date('n'), date('Y'));
+        $parametersService = $this->get('maith_common.parameters');
+        $from = [$parametersService->getParameter('contact-email-from') => $parametersService->getParameter('contact-email-from-name')];
+        $emails = [];
+        foreach ($cobro->getCuenta()->getProgenitores() as $progenitor) {
+            if($progenitor->getEmail() != ""){
+                $emails[] = $progenitor->getEmail();    
+            }
+        }
+        $message = "Hubo un error al enviar el mail, intente nuevamente mas tarde.";
+        if(count($emails) > 0){
+            $message_account = 'La cuenta está saldada';
+            if($cobro->getCuenta()->getDiferencia() > 0){
+                $message_account = sprintf('Usted debe $%s para dejar la cuenta saldada', $cobro->getCuenta()->getDiferencia());
+            }else{
+              if($cuenta->getDiferencia() < 0)
+              {
+                $message_account = sprintf('Usted tiene el siguiente saldo a favor $%s', abs($cobro->getCuenta()->getDiferencia()));
+              }
+            }
+            $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+            $htmlBody = $this->renderView('AppBundle:Cuentas:cobroMailProgenitores.html.twig', [
+                    'mes' => $meses[date('n')-1],
+                    'year' => date('Y'),
+                    'referencia' => $cobro->getCuenta()->getReferenciabancaria(),
+                    'message_account' => $message_account,
+                ]);            
+            $quantity = $this->get('maith_common.email')->sendWithAttachment($from, $emails, $title, $htmlBody, [$pdfDataLocation]);
+            if($quantity > 0){
+                $message = "Email enviado con exito";
+                $cobro->setEnviado(true);
+                $em->persist($cobro);
+                $em->flush();
+            }
+        }else{
+            $message = "No hay ningun padre con email registrado para enviarle el email";
+        }
+        return $message;
+    }
+
     public function sendCobroEmailAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -138,48 +185,11 @@ class CobroController extends Controller
             throw $this->createNotFoundException('Unable to find Cobro entity.');
         }
 
-        $pdfDataLocation = $this->get('kinder.pdfs')->exportCobroToPdf($entity, null, sys_get_temp_dir(), false);
-        $title = sprintf('Talon de cobro (%s/%s)', date('n'), date('Y'));
-        $parametersService = $this->get('maith_common.parameters');
-        $from = [$parametersService->getParameter('contact-email-from') => $parametersService->getParameter('contact-email-from-name')];
-        $emails = [];
-        foreach ($entity->getCuenta()->getProgenitores() as $progenitor) {
-            if($progenitor->getEmail() != ""){
-                $emails[] = $progenitor->getEmail();    
-            }
-        }
-        $message = "Hubo un error al enviar el mail, intente nuevamente mas tarde.";
-        if(count($emails) > 0){
-            $message_account = 'La cuenta está saldada';
-            if($entity->getCuenta()->getDiferencia() > 0){
-                $message_account = sprintf('Usted debe $%s para dejar la cuenta saldada', $entity->getCuenta()->getDiferencia());
-            }else{
-              if($cuenta->getDiferencia() < 0)
-              {
-                $message_account = sprintf('Usted tiene el siguiente saldo a favor $%s', abs($entity->getCuenta()->getDiferencia()));
-              }
-            }
-            $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-            $htmlBody = $this->renderView('AppBundle:Cuentas:cobroMailProgenitores.html.twig', [
-                    'mes' => $meses[date('n')-1],
-                    'year' => date('Y'),
-                    'referencia' => $entity->getCuenta()->getReferenciabancaria(),
-                    'message_account' => $message_account,
-                ]);            
-            $quantity = $this->get('maith_common.email')->sendWithAttachment($from, $emails, $title, $htmlBody, [$pdfDataLocation]);
-            if($quantity > 0){
-                $message = "Email enviado con exito";
-                $entity->setEnviado(true);
-                $em->persist($entity);
-                $em->flush();
-            }
-        }else{
-            $message = "No hay ningun padre con email registrado para enviarle el email";
-        }
+        
         $response = new JsonResponse();
         $response->setData(array(
                 'result' => true,
-                'message' => $message,
+                'message' => $this->doSendCobroEmail($entity),
               ));
 
         return $response;        

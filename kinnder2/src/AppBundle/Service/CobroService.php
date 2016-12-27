@@ -43,8 +43,8 @@ class CobroService
             $result = true;
             $message = 'Cobro guardado con exito.';
             if ($cobro->getEnviado()) {
-                //send email
-                $message .= ' Email enviado correctamente';
+                //send email is done in controller.
+                //$message .= ' Email enviado correctamente';
             }
             $amount = $cuenta->getFormatedDiferencia();
             if ($cuenta->getDiferencia() < 0) {
