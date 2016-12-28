@@ -78,7 +78,7 @@ class FacturasManager
         $this->em->persist($factura);
         $total = 0;
         $listadoDetalles = array();
-        if ($estudiante->getHorario() !== null) {
+        if ($estudiante->getHorario() !== null && $month > 2) {
             $costoHorario = $this->getCostoOfHorario($estudiante->getHorario());
             $total = $costoHorario;
             $detalleMensualidad = new FacturaEstudianteDetalle();
